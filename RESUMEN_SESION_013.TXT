@@ -1,0 +1,42 @@
+git init
+
+git config user.name DATASAGASTEGUI
+git config user.email datasagamadrid@gmail.com
+git config user.password fasdfasdfasdfasdf
+
+git status
+git add .
+git status
+
+git commit -m "Foto 1"
+
+git log --oneline
+
+git checkout 434234
+git checkout master
+
+git remote add origin https://github.com/DATASAGASTEGUI/PROYECTOGITHUB.git
+git push -u -f origin master
+
+git remote -v
+
+CAMBIAR A UN NUEVO REPOSITORIO
+git remote set-url origin https://github.com/DATASAGASTEGUI/PROYECTOGITHUB_OTRO.git
+SUBIR EL PROYECTO LOCAL A OTRO REMOTO
+git push -u -f origin master
+
+CUAL ES EL COMANDO QUE ME PERMITE SACAR UN ARCHIVO DEL AREA DE PREPARACION AL AREA DE TRABAJO
+git rm --cached archivo.txt
+
+RECUPERAR UN ARCHIVO ELIMINADO DEL AREA DE TRABAJO DESDE EL ULTIMO COMMIT
+rm Ejemplo2.java
+git checkout HEAD -- Ejemplo2.java
+
+CLONAR UN PROYECTO
+git clone https://github.com/DATASAGASTEGUI/MIPROYECTO1.git
+
+
+
+
+
+

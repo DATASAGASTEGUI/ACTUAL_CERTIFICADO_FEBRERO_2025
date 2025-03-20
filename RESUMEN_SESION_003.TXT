@@ -1,0 +1,150 @@
+************************************************
+***   INTERFAZ ENTORNO DE DESARROLLO (IDE)   ***
+************************************************
+
+LENGUAJE C, PYTHON, JAVASCRIPT, HTML, BAT, C#, PHP
+--------------------------------------------------
+VISUAL STUDIO CODE
+
+JAVA
+----
+APACHE NETBEANS
+ECLIPSE
+INTELLIJ IDEA
+
+******************
+***   BUCLES   ***
+******************
+
+for
+while
+do ... while
+
+#include <stdio.h>
+
+int main() {
+    int n = 5;
+    {
+        printf("\nEJEMPLO FOR\n");
+        for(int i=0; i<n; i++) {//Inicio, Fin, Incremento
+            printf("%d  ", i);
+        }
+    }
+    {
+        printf("\nEJEMPLO WHILE\n");
+        int i = 0; //Inicio
+        while(i<n) { //Fin
+            printf("%d  ", i);
+            i++; //Incremento
+        }
+    }
+    {
+        printf("\nEJEMPLO DO...WHILE\n");
+        int i = 0; //Inicio
+        do { //Fin
+            printf("%d  ", i);
+            i++; //Incremento
+        }while(i<n);
+    }
+    return 0;
+}
+
+******************************
+***   VALIDAR LA ENTRADA   ***
+******************************
+
+#include <stdio.h>
+#include <string.h>
+int main() {
+    char p1[10], p2[10], p3[10];
+    do {
+        printf("Cómo esta el cielo soleado/lluvioso/nublado? ");
+        scanf("%s", p1);
+    }while(!(strcmp(p1,"soleado")==0 || strcmp(p1,"lluvioso")==0) || strcmp(p1,"nublado")==0);
+    if(strcmp(p1,"soleado")==0) {
+       do {
+        printf("La humedad es alta/normal? ");
+        scanf("%s", p2);
+       }while(!(strcmp(p2,"alta")==0 || strcmp(p2,"normal")==0));
+
+       if(strcmp(p2,"alta")==0) {
+          printf("No Deporte");
+       }else {
+          printf("Si Deporte");
+       }
+    }else if(strcmp(p1,"nublado")==0) {
+       printf("Si Deporte");
+    }else if(strcmp(p1,"lluvioso")==0) {
+       do {
+        printf("Cómo esta el viento: debil/fuerte? ");
+        scanf("%s", p3);
+       }while(!(strcmp(p3,"debil")==0 || strcmp(p3,"fuerte")==0));
+       if(strcmp(p3,"debil")==0) {
+          printf("Si Deporte");
+       }else {
+          printf("No Deporte");
+       }
+    }
+
+    return 0;
+
+}
+
+******************************
+***   NUMEROS ALEATORIOS   ***
+******************************
+
+/*
+Número aleatorio de un dado. Generar 10 números
+*/
+#include <stdio.h>
+#include <stdlib.h> // srand, rand
+#include <time.h>   // time
+
+int main() {
+    int aleatorio;
+    int c1,c2,c3,c4,c5,c6;
+    c1 = c2 = c3 = c4 = c5 = c6 = 0;
+    srand(time(NULL));
+    for(int i=0; i<10; i=i+1) {
+        aleatorio = rand() % 6 + 1;   //[1, 6]
+        printf("%d  ", aleatorio);
+        if(aleatorio == 1) c1++;
+        if(aleatorio == 2) c2++;
+        if(aleatorio == 3) c3++;
+        if(aleatorio == 4) c4++;
+        if(aleatorio == 5) c5++;
+        if(aleatorio == 6) c6++;
+    }
+
+    printf("Lado 1: %d\n", c1);
+    printf("Lado 2: %d\n", c2);
+    printf("Lado 3: %d\n", c3);
+    printf("Lado 4: %d\n", c4);
+    printf("Lado 5: %d\n", c5);
+    printf("Lado 6: %d\n", c6);
+
+    int mayor = c1;
+    int lado = 1;
+    if(c2 > mayor) {mayor = c2; lado=2;}
+    if(c3 > mayor) {mayor = c3; lado=3;}
+    if(c4 > mayor) {mayor = c4; lado=4;}
+    if(c5 > mayor) {mayor = c5; lado=5;}
+    if(c6 > mayor) {mayor = c6; lado=6;}
+
+    printf("\nLado Mayor    : %d\n", lado);
+    printf("Cantidad veces: %d\n", mayor);
+
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+	

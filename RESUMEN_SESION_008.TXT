@@ -1,0 +1,78 @@
+CLIENTE (NAVEGADOR)
+-------
+HTML       : LENGUAJE DE MARCA (ESTRUCTURA PAGINA)
+CSS        : ESTILO (PRESENTACION PAGINA)
+JAVASCRIPT : LENGUAJE PROGRAMACION (DINAMICA PAGINA)
+
+SERVIDOR (APACHE TOMCAT)
+--------
+JSP
+
+PAGINA
+------
+<html>
+  <head>
+    <title>PAGINA JSP</title>
+	<script>
+	   
+	
+	</script>
+	
+  </head>
+  
+  <body>
+    <h1>TITULO</h1>
+  
+  </body>
+</html>
+
+TIPOS DE DATOS DE JAVA
+----------------------
+ENTEROS
+  byte
+  short
+  int
+  long
+PUNTO FLOTANTE
+  float
+  double
+CARACTER
+  char    : '5', '?', 'A', ' '
+CADENA
+  string  : "Hola", "Hola Mundo", "1", "???df11"
+LOGICO
+  boolean : true, false
+  
+CONVERSION DE TIPOS
+-------------------
+- STRING A DOUBLE
+
+  "1.72" A 1.72
+  
+  double x = Double.parseDouble("1.72"); //1.72
+  
+- STRING A INT
+  
+  int x = Integer.parseInt("1"); //1
+  
+- INT A STRING
+
+  String d = String.valueOf(1);
+ 
+  
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+

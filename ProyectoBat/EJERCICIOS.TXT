@@ -1,0 +1,272 @@
+****************
+***   0001   ***
+****************
+--------------------------------------------------------------------------------
+Crea un archivo por lotes (.bat) que realice lo siguiente:
+
+Solicite al usuario un número entre 1 y 10 usando set /p.
+
+Verifique  si  el número ingresado está dentro del rango permitido usando if. Si 
+no lo está, muestre un mensaje de error y termine la ejecución.
+
+Si el número es válido, use un for para imprimir la tabla de  multiplicar de ese
+número del 1 al 10.
+
+Al  finalizar  la  tabla, pregunte  al  usuario  si desea ingresar otro número o 
+salir. Si elige repetir, use goto para reiniciar el proceso.
+--------------------------------------------------------------------------------
+@echo off
+:inicio
+cls
+echo ===================================
+echo  Programa de Tablas de Multiplicar
+echo ===================================
+set /p num=Ingrese un numero entre 1 y 10: 
+
+:: Verifica si la entrada es un número válido
+if %num% LSS 1 goto error
+if %num% GTR 10 goto error
+
+echo.
+echo Tabla de multiplicar del %num%
+echo ------------------------------
+for /L %%i in (1,1,10) do echo %num% x %%i = %%i * %num%
+
+echo.
+echo ==============================
+echo ¿Desea ingresar otro numero? (S/N)
+set /p opcion=Ingrese su opción: 
+if /I "%opcion%"=="S" goto inicio
+if /I "%opcion%"=="s" goto inicio
+
+echo Saliendo del programa...
+exit
+
+:error
+echo Error: Debe ingresar un número entre 1 y 10.
+pause
+goto inicio
+
+OTRA VERSION
+------------
+@ECHO OFF
+TITLE SCRIPT BAT MUESTRE EL NOMBRE DE MI COMPUTADORA
+SETLOCAL ENABLEDELAYEDEXPANSION
+:INICIO
+CLS
+SET /P NUMERO=INGRESE UN NUMERO NATURAL 1 AL 10:
+IF %NUMERO% LSS 1 GOTO ERROR
+IF %NUMERO% GTR 10 GOTO ERROR
+GOTO DESPUESERROR
+
+:ERROR
+ECHO ERROR EN LA ENTRADA
+PAUSE
+GOTO INICIO
+
+:DESPUESERROR
+ECHO ENTRADA CORRECTA
+
+FOR /L %%I IN (1,1,10) DO (
+    SET /A X=!NUMERO! * %%I
+    ECHO  %NUMERO% * %%I = !X!
+)
+
+SET /P OPCION=DESEA CONTINUAR S/N:
+IF "%OPCION%"=="S" GOTO INICIO
+--------------------------------------------------------------------------------
+****************
+***   0002   ***
+****************
+--------------------------------------------------------------------------------
+Crea un archivo por lotes (.bat) que haga lo siguiente:
+
+Solicite al usuario una dirección IP y la almacene en una variable usando set /p.
+
+Verifique  si  la  dirección  IP  ingresada  es la del propio equipo (127.0.0.1) 
+usando if. Si es así, muestre un mensaje indicando que es la IP de loopback.
+
+Si la dirección IP es diferente, haga un ping a la IP  ingresada usando for para 
+capturar el resultado.
+
+Dependiendo del resultado del ping, muestre un mensaje indicando si el host está 
+disponible o no.
+
+Pregunte al usuario si desea realizar  otra  consulta y, en caso afirmativo, use 
+goto para repetir el proceso.
+--------------------------------------------------------------------------------
+@echo off
+:inicio
+cls
+echo ==============================
+echo     Comprobador de IP
+echo ==============================
+set /p ip=Ingrese una dirección IP: 
+
+:: Verifica si la IP ingresada es 127.0.0.1
+if "%ip%"=="127.0.0.1" (
+    echo Esta es la IP de loopback (localhost).
+    goto continuar
+)
+
+:: Hace ping a la IP ingresada y analiza el resultado
+for /f "tokens=*" %%i in ('ping -n 1 %ip% ^| find "TTL="') do set resultado=%%i
+
+if defined resultado (
+    echo La IP %ip% esta disponible.
+) else (
+    echo La IP %ip% no responde o no existe.
+)
+
+:continuar
+echo.
+echo ==============================
+echo ¿Desea comprobar otra IP? (S/N)
+set /p opcion=Ingrese su opción: 
+if /I "%opcion%"=="S" goto inicio
+if /I "%opcion%"=="s" goto inicio
+
+echo Saliendo del programa...
+exit
+--------------------------------------------------------------------------------
+****************
+***   0003   ***
+****************
+--------------------------------------------------------------------------------
+Mejoras incluidas:
+
+✅ Corrección de la variable RUTA para evitar problemas de formato.
+✅ Uso de SET /P para permitir que el usuario ingrese la ruta de origen.
+✅ Validación de existencia de archivos antes de copiarlos.
+✅ Creación automática del directorio de destino (C:\SALVAR) si no existe.
+✅ Uso de COPY /Y para evitar confirmaciones innecesarias.
+✅ Mensajes más claros para el usuario.
+--------------------------------------------------------------------------------
+@ECHO OFF
+TITLE SCRIPT BAT - Copiar Archivos
+CLS
+SETLOCAL ENABLEDELAYEDEXPANSION
+
+REM Pedir la ruta de origen al usuario
+SET /P "RUTA=Ingrese la ruta de origen (Ejemplo: H:\): "
+IF NOT EXIST "%RUTA%" (
+    ECHO ERROR: La ruta especificada no existe.
+    PAUSE
+    EXIT /B
+)
+
+REM Definir la ruta de destino
+SET "DESTINO=C:\SALVAR"
+IF NOT EXIST "%DESTINO%" (
+    MKDIR "%DESTINO%"
+)
+
+REM Contador de archivos copiados
+SET C=0
+
+REM Recorrer y copiar archivos .BAT
+FOR /R "%RUTA%" %%I IN (*.BAT) DO (
+    SET /A C+=1
+    SET "NOMBREARCHIVO=!C!_%%~nxI"
+    SET "ARCHIVO_DESTINO=%DESTINO%\!NOMBREARCHIVO!"
+
+    COPY /Y "%%I" "!ARCHIVO_DESTINO!" >NUL
+    ECHO [+] Copiado: %%~nxI → "!ARCHIVO_DESTINO!"
+)
+
+REM Mostrar mensaje final
+IF %C% GTR 0 (
+    ECHO ==============================
+    ECHO Se copiaron %C% archivos .BAT a "%DESTINO%"
+) ELSE (
+    ECHO No se encontraron archivos .BAT en la ruta especificada.
+)
+
+PAUSE
+--------------------------------------------------------------------------------
+****************
+***   0004   ***
+****************
+--------------------------------------------------------------------------------
+1. Recorrer un rango de números
+
+@echo off
+for /L %%i in (1,1,5) do echo Iteración %%i
+
+Explicación:
+
+for /L %%i in (1,1,5) significa que i comienza en 1, incrementa de 1 en 1, hasta 5.
+
+Muestra:
+
+Copiar
+Editar
+Iteración 1
+Iteración 2
+Iteración 3
+Iteración 4
+Iteración 5
+--------------------------------------------------------------------------------
+2. Recorrer archivos en un directorio
+
+@echo off
+for %%f in (*.txt) do echo Archivo encontrado: %%f
+
+Explicación:
+
+Recorre todos los archivos .txt en el directorio actual y los muestra.
+--------------------------------------------------------------------------------
+3. Recorrer archivos en subdirectorios
+
+@echo off
+for /R "C:\MiCarpeta" %%f in (*.txt) do echo Archivo: %%f
+
+Explicación:
+
+Busca archivos .txt en C:\MiCarpeta y en todos sus subdirectorios.
+--------------------------------------------------------------------------------
+4. Leer líneas de un archivo de texto
+
+@echo off
+for /F "tokens=*" %%i in (datos.txt) do echo Línea: %%i
+
+Explicación:
+
+tokens=* toma toda la línea del archivo datos.txt.
+
+Útil para leer listas de nombres, configuraciones, etc.
+--------------------------------------------------------------------------------
+5. Recorrer variables separadas por comas
+
+@echo off
+set lista=rojo,verde,azul,amarillo
+for /F "delims=," %%i in ("%lista%") do echo Color: %%i
+
+Explicación:
+
+Divide la variable lista en partes usando la coma, como delimitador.
+--------------------------------------------------------------------------------
+6. Generar una tabla de multiplicar
+
+@echo off
+set /p num=Ingrese un número: 
+for /L %%i in (1,1,10) do echo %num% x %%i = %%i * %num%
+
+Explicación:
+
+Solicita un número y genera su tabla de multiplicar.
+--------------------------------------------------------------------------------
+7. Hacer un temporizador regresivo
+
+@echo off
+for /L %%i in (10,-1,1) do (
+    echo %%i
+    timeout /t 1 >nul
+)
+echo ¡Tiempo agotado!
+
+Explicación:
+
+Cuenta regresivamente de 10 a 1 con una pausa de 1 segundo entre cada número.
+--------------------------------------------------------------------------------
+
