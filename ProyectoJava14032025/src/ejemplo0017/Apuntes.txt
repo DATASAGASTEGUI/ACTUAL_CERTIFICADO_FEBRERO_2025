@@ -1,0 +1,23 @@
+Realizar operaciones aritmeticas
+
+Entrada                     Salida
+----------> Proceso ---------->
+n1
+n2
+
+operación
+(+,-,*,/,^)
+
+char operacion = sc.next().charAt(0);
+                0
+sc.next()   // "+" ---> '+'
+
+                 0123
+String cadena = "Hola";
+char letra = cadena.charAt(3); //'a'
+
+
+
+Modifier and Type	Method and Description
+char	                charAt(int index)
+                        Returns the char value at the specified index.

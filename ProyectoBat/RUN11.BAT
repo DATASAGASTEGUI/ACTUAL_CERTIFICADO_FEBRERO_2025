@@ -1,0 +1,8 @@
+@ECHO OFF
+TITLE SCRIPT BAT
+CLS
+SET "RUTA=H:\"
+FOR /R %RUTA% %%I IN (*.BAT) DO (
+    ECHO "%%~nxI" >> RESUMEN.TXT
+)
+PAUSE

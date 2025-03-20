@@ -1,0 +1,269 @@
+****************
+***   0001   ***
+****************
+SCRIPT
+--------------------------------------------------------------------------------
+@ECHO OFF
+SCHTASKS /create ^
+         /sc minute ^
+         /mo 1 ^
+         /tn "RESPALDO" ^
+         /tr "F:\BORJA80GB\PROJECTS\PROJECTS___CMD\CMD___PROGRAMA.TAREA.RESPALDO.CADA.MINUTO\RESPALDO_HORA.CMD" ^
+         /st 00:26 ^
+         /rl highest ^
+         /f
+PAUSE > NUL
+--------------------------------------------------------------------------------
+RESUMEN
+
+En resumen, este conjunto de comandos programa una tarea que se ejecutará  cada
+minuto. La tarea ejecutará un archivo por lotes (RESPALDO_HORA.CMD) ubicado  en
+el escritorio (C:\Users\RYZEN\Desktop\PROBANDO\). Después de  la  programación,
+el script se pausará hasta que el usuario presione una tecla, pero debido  a la
+redirección a la nulidad, no se mostrará ningún mensaje de pausa en la consola.
+
+EXPLICACION
+
+@ECHO OFF
+Este comando se utiliza para desactivar la retroalimentación en la pantalla  de
+comandos, lo que significa que no se mostrarán los comandos en la ventana de la
+consola mientras se ejecutan.
+
+SCHTASKS /create 
+         /sc minute 
+         /mo 1
+         /tn "Ejecutar programa 6" 
+         /tr C:\Users\RYZEN\Desktop\PROBANDO\RESPALDO_HORA.CMD 
+         /f
+SCHTASKS es un comando que permite la creación, configuración y programación de
+tareas en el Programador de tareas de Windows.
+
+/create
+Indica que se creará una nueva tarea programada.
+
+/sc minute
+/sc se utiliza para especificar la frecuencia de ejecución de la tarea. En este
+caso, se establece en minute, lo que significa que  la  tarea se ejecutará cada
+minuto.
+
+/mo 1
+/mo se  utiliza  para  especificar la cantidad de  unidades  de tiempo (en este
+caso, minutos) entre ejecuciones  de  la  tarea. Donde 1 indica que la tarea se 
+ejecutará cada 1 minuto.
+
+/tn "Ejecutar programa 5"   
+/tn se utiliza para especificar el nombre de la tarea. En  este  caso, la tarea
+se llama "Ejecutar programa 6".
+
+/tr C:\Users\RYZEN\Desktop\PROBANDO\RESPALDO_HORA.CMD 
+/tr se utiliza para  especificar la ruta del programa o script que se ejecutará
+como  parte  de  la  tarea. En  este  caso,  la  tarea  ejecutará  el   archivo
+RESPALDO_HORA.CMD ubicado en C:\Users\RYZEN\Desktop\PROBANDO\.
+
+/st 22:32
+Establece la hora de inicio de  la  tarea programada a las 22:32 (10:32 PM).
+
+/f 
+/f se utiliza  para  forzar  la  creación  de la tarea incluso si ya existe una
+tarea con el mismo nombre. Esto sobrescribirá la tarea existente si la hay.
+
+PAUSE > NUL                     
+PAUSE  se  utiliza  para  pausar  la  ejecución del script hasta que el usuario
+presione una tecla. Donde > NUL  redirige  la  salida  del  comando  PAUSE a la
+nulidad, lo que significa que no se  mostrará  ningún  mensaje  de  pausa en la
+consola.
+-------------------------------------------------------------------------------
+Se mantienen los modificadores /E (copiar subdirectorios), /F (mostrar archivos
+copiados) y /Y (evitar confirmación).
+
+****************
+***   0002   ***
+****************
+-------------------------------------------------------------------------------
+Comprender %TIME%
+El comando %TIME% devuelve la hora actual del sistema en un formato como este:
+
+HH:MM:SS,CC
+
+Donde:
+
+HH → Hora (puede ser de 1 o 2 dígitos, por ejemplo, 9 o 10).
+MM → Minutos.
+SS → Segundos.
+CC → Centésimas de segundo.
+
+Ejemplo:
+
+Si son las 09:45:30, %TIME% = 9:45:30,00 (nota el espacio antes del 9).
+Si son las 14:20:10, %TIME% = 14:20:10,00.
+Extraer los primeros 2 caracteres con %TIME:~0,2%
+La sintaxis %VARIABLE:~inicio,longitud% permite extraer una parte de la cadena de texto.
+
+%TIME:~0,2% significa:
+0 → Inicia en el primer carácter de %TIME% (la hora).
+2 → Extrae 2 caracteres.
+
+Ejemplo de extracción:
+
+Hora del sistema	%TIME:~0,2%
+9:45:30,00	9 (con espacio)
+10:45:30,00	10
+
+Problema: Cuando la hora es menor a 10, el valor extraído contiene un espacio (" 9" en vez de "09").
+
+Usar SET /A para eliminar el espacio
+El comando SET /A se usa para operaciones aritméticas en variables numéricas.
+
+Si intentamos hacer:
+
+SET /A HORA=" 9"
+Windows lo interpreta como 9 (descarta el espacio automáticamente).
+Esto soluciona el problema de los espacios cuando la hora es de un solo dígito.
+
+Código en acción
+
+SET /A HORA=%TIME:~0,2%
+Si la hora es 9, SET /A la convierte en 9.
+Si la hora es 10, se mantiene 10.
+
+Luego, con:
+
+IF %HORA% LSS 10 SET HORA=0%HORA%
+se agrega un 0 delante si la hora es menor a 10, asegurando siempre dos dígitos (09, 08, etc.).
+
+Resumen
+
+%TIME:~0,2% obtiene los dos primeros caracteres de la hora (puede incluir espacio).
+SET /A convierte la hora en número y elimina espacios.
+Se agrega un 0 si la hora es menor a 10.
+Así garantizamos que la hora siempre tenga dos dígitos correctos.
+
+****************
+***   0003   ***
+****************
+--------------------------------------------------------------------------------
+El comando SCHTASKS /create se utiliza en Windows para programar  tareas  que se 
+ejecutarán en momentos específicos.
+--------------------------------------------------------------------------------
+Distintas formas de usar /sc:
+
+El parámetro /sc es muy flexible y te permite programar tareas de muchas maneras
+diferentes, dependiendo  de  tus  necesidades. Puedes  elegir  entre ejecutar la
+tarea  una  sola vez, diariamente,  semanalmente,  mensualmente, al  inicio  del 
+sistema, al iniciar sesión, o cuando el sistema esté inactivo.
+
+El parámetro /sc puede tomar varios valores dependiendo de cómo quieras programar
+la tarea. Aquí te explico las opciones más comunes:
+
+/sc once:
+
+La tarea se ejecuta una sola vez en la fecha y hora especificadas.
+
+Ejemplo: SCHTASKS /create /sc once /tn "Tarea Única" /tr "script.cmd" /st 14:00
+
+Poniendo fecha
+
+SCHTASKS /create /sc once /tn "Tarea Única" /tr "C:\ruta\script.cmd" /st 14:00 /sd 21/03/2025
+
+/sc daily:
+
+La tarea se ejecuta diariamente a la hora especificada.
+
+Ejemplo: SCHTASKS /create /sc daily /tn "Tarea Diaria" /tr "script.cmd" /st 08:00
+
+/sc weekly:
+
+La tarea se ejecuta semanalmente en los días especificados.
+
+Ejemplo: SCHTASKS /create /sc weekly /d MON,WED,FRI /tn "Tarea Semanal" /tr "script.cmd" /st 09:00
+
+/sc monthly:
+
+La tarea se ejecuta mensualmente en el día especificado.
+
+Ejemplo: SCHTASKS /create /sc monthly /d 15 /tn "Tarea Mensual" /tr "script.cmd" /st 10:00
+
+/sc onstart:
+
+La tarea se ejecuta cada vez que el sistema operativo se inicia.
+
+Ejemplo: SCHTASKS /create /sc onstart /tn "Tarea al Iniciar" /tr "script.cmd"
+
+/sc onlogon:
+
+La tarea se ejecuta cada vez que un usuario inicia sesión.
+
+Ejemplo: SCHTASKS /create /sc onlogon /tn "Tarea al Logon" /tr "script.cmd"
+
+/sc onidle:
+
+La tarea se ejecuta cuando el sistema está inactivo durante un tiempo especificado.
+
+Ejemplo: SCHTASKS /create /sc onidle /i 10 /tn "Tarea en Inactividad" /tr "script.cmd"
+--------------------------------------------------------------------------------
+****************
+***   0004   ***
+****************
+
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+EJEMPLO 1
+
+SCHTASKS /create ^
+         /sc once ^
+         /tn "EJECUTAR PROGRAMA JAVA" ^
+         /tr "C:\CURSOS\OTROS\PROJECTSCMD\COMANDOS_0011.CMD\EJECUTAR.CMD" ^
+         /st 16:33 ^
+         /f
+
+En tu ejemplo, estás creando una tarea programada que se ejecutará una  sola vez 
+a las 16:33. Vamos a desglosar cada parte del comando y explicar  las  distintas 
+formas en que  puedes usar   /sc   (que  significa  "schedule type"  o  tipo  de 
+programación).
+
+Explicación de los parámetros:
+/sc once:
+
+/sc especifica el tipo de programación.
+
+once  indica  que  la  tarea  se  ejecutará   una   sola  vez en la fecha y hora 
+especificadas.
+
+/tn "EJECUTAR PROGRAMA JAVA":
+
+/tn  (Task Name)  es  el  nombre  de  la  tarea. En este caso, la tarea se llama 
+"EJECUTAR PROGRAMA JAVA".
+
+/tr "C:\CURSOS\OTROS\PROJECTSCMD\COMANDOS_0011.CMD\EJECUTAR.CMD":
+
+/tr  (Task Run)  especifica  la ruta del programa o script que se  ejecutará. En 
+este caso, es un archivo de comandos (EJECUTAR.CMD).
+
+/st 16:33:
+
+/st (Start Time)  define  la hora  a la que se ejecutará la tarea. En este caso, 
+la tarea se ejecutará a las 16:33.
+
+/f:
+
+/f (Force) fuerza la creación de la tarea, incluso si ya existe una tarea con el
+mismo nombre.
+--------------------------------------------------------------------------------
+EJEMPLO 2
+
+SCHTASKS /create ^
+         /sc daily ^
+         /tn "EJECUTAR PROGRAMA JAVA DIARIO" ^
+         /tr "C:\CURSOS\OTROS\PROJECTSCMD\COMANDOS_0011.CMD\EJECUTAR.CMD" ^
+         /st 08:00 ^
+         /fEJEMPLO 2
+
+Este comando crearía una tarea que se ejecuta todos los días a las 8:00 AM.
+--------------------------------------------------------------------------------
