@@ -1,0 +1,113 @@
+*******************************************
+***   ARRAY DE UNA DIMENSION (VECTOR)   ***
+*******************************************
+/*
+Hacer un programa para llenar un vector
+tanto el tamaño como sus elementos
+serán ingresados desde el teclado
+*/
+
+// (1)
+
+#include <stdio.h>
+
+int sumar_vector(int vector[], int n) {
+    int s = 0;
+	for(int i=0; i<n; i++) {
+	    s = s + vector[i];
+	}
+    return s;
+}
+
+int main() {
+    int n;
+	printf("Ingrese tamaño del vector? ");
+	scanf("%d", &n);
+	
+	//Declarar un vector justo del tamaño deseado
+	int vector[n];
+	
+	//Llenar el vector con valores pedidos desde el tecaldo
+	for(int i=0; i<n; i++) {
+	    printf("Ingresa el valor para la posición %d : ",i);
+		scanf("%d", &vector[i]);
+	}
+	
+	//Llamar a una función a la que le paso el vector y me retorna la suma
+	int suma = sumar_vector(vector, n);
+	
+	printf("Suma: %d\n", suma);
+
+    return 0;
+}
+/*
+int v[] = {5,8,8,2,1,9,3,2,1,2};
+int n = sizeof(v) / sizeof(v[0]);
+*/
+
+// (2)
+
+#include <stdio.h>
+
+void mostrar_vector(char *vector, int n) {
+	for(int i=0; i<n; i++) {
+	    printf("%c",vector[i]);
+	}
+}
+
+int main() {
+    int n;
+	printf("Ingrese tamaño del vector? ");
+	scanf("%d", &n);
+	
+	//Declarar un vector justo del tamaño deseado
+	char vector[n];
+	
+	//Llenar el vector con valores pedidos desde el tecaldo
+	for(int i=0; i<n; i++) {
+	    printf("Ingresa el valor para la posición %d : ",i);
+		scanf(" %c", &vector[i]);
+	}
+	
+	mostrar_vector(vector, n);
+	
+    return 0;
+}
+
+**************************************
+***   PARADIGMAS DE PROGRAMACION   ***
+**************************************
+
+ESTRUCTURADO
+------------
+LENGUAJE C (COMPILADO)
+
+-------------> Compilador -------->
+aleatorio.c               aleatorio.exe
+
+PROGRAMACION ORIENTADA OBJETOS (POO)
+------------------------------------
+LENGUAJE JAVA   (COMPILADO + INTERPRETADO)
+
+PARA JAVA NECESITAMOS PRIMERO INSTALAR EL COMPILADOR Y EL INTERPRET Y LUEGO IDE:
+
+JDK ORACLE
+
+-------------> Compilador --------------> Interprete ------------>
+Probando.java             Probando.class             Resultado
+                          (bytecode)
+						  
+						  MULTIPLATAFORMA (CUALQUIER SISTEMA OPERATIVO)
+						  
+IDE RECOMENDADOS PARA JAVA
+--------------------------
+						  
+APACHE NETBEANS   GRATIS
+ECLIPSE           GRATIS
+INTELLIJ IDE      GRATIS + PAGO
+
+
+
+
+
+

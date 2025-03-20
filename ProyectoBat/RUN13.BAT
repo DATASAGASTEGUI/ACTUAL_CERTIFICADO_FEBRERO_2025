@@ -1,0 +1,12 @@
+@ECHO OFF
+TITLE SCRIPT BAT
+CLS
+SET "RUTA=H:\"
+SET /P ARCHIVOBUSCAR=INGRESAR ARCHIVO A BUSCAR:
+FOR /R %RUTA% %%I IN (*.BAT) DO (
+	IF "%%~nxI"=="%ARCHIVOBUSCAR%" (
+       ECHO "%%I" >> RESUMEN.TXT
+	   ECHO Archivo encontrado: %%I
+	)
+)
+PAUSE
