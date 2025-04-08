@@ -1,0 +1,5 @@
+1. Como declarar un struct
+2. Guardar un conjunto de datos en un array de struct
+3. Pasar un struct a una función
+4. Simplicar la declaración struct
+5. Estructuras anidadas
