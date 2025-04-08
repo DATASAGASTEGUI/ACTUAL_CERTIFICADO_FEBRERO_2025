@@ -1,0 +1,25 @@
+--------------------------------------------------------------------------------
+- FORMA 1
+
+Ejecutar DOS.BAT haciendo doble clic en dicho archivo con el mouse.
+Luego escribir en el prompt de la ventana dos que se levanta el comando MIMYSQL.
+Lo que hace el script es configurar la variable de entorno path para que incluya
+la ruta donde esta el archivo mysql.exe.
+Lo que hace el script mimysql.bat luego ver la versión de mysql que tengo
+instalado.
+Luego crear la base de datos con sus tabla y datos que esta en el script sql
+bd_biblioteca.sql
+Luego loguearnos desde un cliente que es la consola dos con el servidor.
+--------------------------------------------------------------------------------
+- FORMA 2
+
+Ejecutar MYSQL.BAT haciendo doble clic en dicho archivo con el mouse.
+Luego hace lo mismo como se indica en la forma 1.
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+

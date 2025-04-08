@@ -1,0 +1,69 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 08{% endblock %}
+
+{% block content %} 
+<h2>[08] Llenar un combobox y luego seleccionar un médico y mostrará sus consultas</h2>
+<h2>Consultas por Médico</h2>
+
+<form method="post" id="medicoForm">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="medico">Seleccione un médico:</label>
+        <select class="form-control" id="medico" name="medico" onchange="this.form.submit()">
+            <option value="">-- Seleccione un médico --</option>
+            {% for medico in medicos %}
+                <option value="{{ medico }}" {% if medico == medico_seleccionado %}selected{% endif %}>
+                    {{ medico }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+</form>
+
+{% if medico_seleccionado %}
+    <h3>Consultas del médico: {{ medico_seleccionado }}</h3>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Número Consulta</th>
+                <th>Fecha</th>
+                <th>Médico</th>
+                <th>DEINPR</th>
+                <th>Procedencia</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for consulta in consultas %}
+            <tr>
+                <td>{{ consulta.numeroConsulta }}</td>
+                <td>{{ consulta.fecha }}</td>
+                <td>{{ consulta.nombreMedico }}</td>
+                <td>{{ consulta.deinpr }}</td>
+                <td>{{ consulta.procedencia }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No hay consultas para este médico</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
+<!-- Versión alternativa con AJAX (opcional) -->
+<script>
+document.getElementById('medico').addEventListener('change', function() {
+    if(this.value) {
+        fetch('/get_consultas_medico/?medico=' + encodeURIComponent(this.value))
+            .then(response => response.json())
+            .then(data => {
+                // Actualizar la tabla con los datos recibidos
+                console.log(data.consultas);
+                // Implementar la actualización de la tabla aquí
+            });
+    }
+});
+</script>
+{% endblock %}

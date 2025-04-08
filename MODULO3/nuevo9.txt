@@ -1,0 +1,138 @@
+1. CUALES SON LOS TIPOS DE RELACIONES QUE EXISTEN ENTRE CLASES
+
+Asociacion: Composición y Agregación
+Herencia
+Dependencia
+
+2. CUALES SON LOS 4 PILARES DE LA PROGRAMACIION ORIENTADA A OBJETOS
+
+Encampuslamiento
+Polimorfismo
+Abstracción
+Herencia
+
+3. CUALES SON LAS CARDINALIDADES QUE SE PUEDEN DAR EN CADA UNA DE LAS RELACIONES ENTRE CLASES
+
+Asociación:    1:1, 1:M, N:M ---> Curso:Estudiante, Curso:Profesor "usa" o "se relaciona"
+
+Composición:   1:1, 1:M      ---> Universiad:Departamentos "Compuesto por"
+
+Agregación:    1:1, 1:M  N:M Raramente --> Universidad:Estudiante "tiene"
+
+Dependencia    Ninguna
+
+Herencia       Niguna ---> FiguraGeometrica: Cuadrado, Rectangulo, Circulo "formas distintas"
+                           Empleado        : Secretaira, Conserje, Gerente
+						   Persona         : Profesor, Estudiante
+	
+(1)
+	
+Alumno:Pasaporte
+Asociación  1:1 Si se destruye el alumno el número se asigna a otro alumno
+Composicion 1:1 Si se destruye el alumno el número ya no se vuleve a usar para otra persona
+
+(2)
+
+Pedido:Cliente
+Agregación  1:M "tiene"
+
+//AGREGACION
+class Cliente {
+    private List<Pedido> pedidos;
+}
+
+//DEPENDENCIA
+class MetodosCliente {
+    public void imprimirPedido(Pedido pedido) {
+	
+	}
+}
+
+(3)
+
+Grupos de ingenieria industrial, ingenieria conectada, ingenieria mecánica
+
+GISA, GISB
+GMA, GMB
+GC
+
+Ingenieria: Industrial, Conectada, Mecánica (tipos)
+Herencia
+
+            Asignatura1 Asignatura1 Asignatura1
+			Asignatura2 Asignatura2 Asignatura2
+			
+			Asignatura3 Asignatura4 Asignatura5
+			Asignatura6 Asignatura7 Asignatura8
+			
+class Ingenieria {
+      private List<Asignatura> asignaturascomunes;
+}
+
+class Industrial {
+      private List<Asignatura> asignaturaspropias;
+}
+
+class Conectada {
+      private List<Asignatura> asignaturaspropias;
+}
+
+HERENCIA MULTIPLE
+-----------------
+            FiguraGeometrica
+			
+	 FG2                    FG3
+	 
+  Circulo Rectangulo      Cono Cilindro
+  
+En el siguiente código Java se implementa que tipo de relacion
+public class Curso {
+    private List<Inscripcion> inscripciones;  //new Inscripcion(new Estudiante("E1"), new Curso("C1"))
+	                                            new Inscripcion(new Estudiante("E2"), new Curso("C1"))
+												new Inscripcion(new Estudiante("E3"), new Curso("C2"))
+a) Relación uno a uno entre Curso - Inscripción
+b) Relación uno a muchos Inscripción - Curso
+c) Relacion uno a muchos Curso - Incripcion
+d) Ninguna de las anteriores
+
+
+public class Inscripcion {
+    private List<Curso> inscripciones
+	
+Para lograr el encapusulamiento para los atributos de la clase Estudiante
+como se indica el tipo de acceso a los atributos.
+
+a) private
+b) public
+c) void
+d) Ninguna a las ateriores
+
+Dado el siguiente codigo java:
+    public Estudiante(String idEstudiante, String nombre, List<Inscripcion> inscripciones) {
+        this.idEstudiante = idEstudiante;
+        this.nombre = nombre;
+        inscripciones = inscripciones;
+    }
+	
+Diga si cumple con la relacion de muchos a muchos:
+
+a) Verdadero
+b) Falso
+
+
+a) _nombre
+b) nombre
+c) self.nombre
+
+
+
+	
+	
+
+
+
+
+
+
+
+

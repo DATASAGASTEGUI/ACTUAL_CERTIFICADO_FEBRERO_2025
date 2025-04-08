@@ -1,0 +1,785 @@
+****************
+***   0001   ***   INTRODUCCION A PYTHON (2)
+****************
+
+--------------------------------------------------------------------------------
+- CARACTERISTICAS DE PYTHON
+
+* Maneja la Programación Orientada Objetos (POO).
+* Sintaxis amigable y legible.
+* Mas facíl el mantenimiento del código. 
+* Incrementa la productividad al reducir la cantidad de líneas de código.
+* Un proyecto puede tener muchos archivos .py
+* Cada archivo .py se le llama también script y cada script puede ser ejecutado independientemente.
+--------------------------------------------------------------------------------
+- QUIEN USA PYTHON
+
+* Google, Youtube, DropBox, Universidad, Gobierno etc.
+--------------------------------------------------------------------------------
+- QUE TIPO DE APLICACIONES PODEMOS DESARROLLAR CON PYTHON
+
+* Aplicaciones de escritorio.
+* Aplicaciones web.
+* Automatización de tareas.
+* Inteligencia Artificial.
+* Data Science (Ciencia de Datas)
+* Machine Learning
+* Juegos
+
+etc.
+--------------------------------------------------------------------------------
+
+****************
+***   0002   ***   INSTALACION DE PYTHON (3)
+****************
+
+* Necesitamos de un interprete que es el que entiende y ejecuta las instrucciones python.
+
+* Buscamos en el navegador "Download Python" para descargar el interprete de python.
+  https://www.python.org/downloads/
+  
+* Buscamos en el navegador "Download Pycharm Community" es la versión gratuida de este IDE.
+  PyCharm Professional The Python IDE for Professional Developers
+  https://www.jetbrains.com/pycharm/download/?section=windows
+  
+* La descarga del IDE Visual Studio Code para trabajar con python, se hace de la siguiente url https://code.visualstudio.com/   
+
+****************
+***   0003   ***   WHILE  (PYTHON_0005)
+****************
+
+import os
+
+def ejemplo1():
+    n = int(input('Ingrese n? '))
+    i = 1
+    while i <= n:
+       print(i)
+       i += 1
+
+def ejemplo2():
+    n = int(input('Ingrese n? '))
+    i = 1
+    while i <= n:
+       print(i, end=" ")
+       i += 1
+
+def main():
+    os.system("cls")
+    ejemplo1()
+    ejemplo2()
+
+if __name__ == "__main__":
+   main()
+   
+SALIDA
+
+Ingrese n? 5
+1
+2
+3
+4
+5
+Ingrese n? 5
+1 2 3 4 5
+
+****************
+***   0004   ***   MODULO
+****************
+
+(1) PASO 1
+
+# mimodulo.py
+
+def saludar(nombre):
+    return f"Hola, {nombre}!"
+
+def suma(a, b):
+    return a + b
+
+mi_variable = "¡Hola desde mi módulo!"
+
+class MiClase:
+    def __init__(self, valor_inicial):
+        self.valor = valor_inicial
+
+    def obtener_valor(self):
+        return self.valor
+
+    def set_valor(self, nuevo_valor):
+        self.valor = nuevo_valor
+		
+(2) PASO 2
+
+# principal.py
+
+# Importa el módulo que creaste
+import mimodulo
+
+# Usa las funciones y variables del módulo
+print(mimodulo.saludar("Juan"))
+print(mimodulo.suma(5, 3))
+print(mimodulo.mi_variable)
+
+# Crea una instancia de la clase MiClase
+mi_instancia = mimodulo.MiClase(valor_inicial=10)
+
+# Utiliza métodos de la clase
+print("Valor inicial:", mi_instancia.obtener_valor())
+
+# Modifica el valor usando el método set_valor
+mi_instancia.set_valor(20)
+
+# Imprime el nuevo valor
+print("Nuevo valor:", mi_instancia.obtener_valor())
+
+****************
+***   0005   ***   COMENTARIOS   
+****************
+
+# Este es un comentario de una sola línea.
+
+'''
+Este es un comentario
+de varias líneas en Python.
+Puedes escribir tantas líneas como desees.
+'''
+
+"""
+Este es otro comentario
+de varias líneas en Python.
+Puedes utilizar comillas simples o dobles.
+"""
+
+****************
+***   0006   ***   TIPOS DE DATOS (PYTHON_0002)
+****************
+
+# main.py
+
+import os
+
+os.system('cls')
+
+print("TIPO ENTERO")
+print("-----------")
+
+entero_decimal     = 10
+entero_binario     = 0b1010 
+entero_octal       = 0o12
+entero_hexadecimal = 0xA
+
+print('Tipo Dato: ', type(entero_decimal))
+print('Tipo Dato: ', type(entero_binario))
+print('Tipo Dato: ', type(entero_octal))
+print('Tipo Dato: ', type(entero_hexadecimal))
+
+print("Entero Decimal    : ",entero_decimal)
+print("Entero Binario    : ",entero_binario)
+print("Entero Octal      : ",entero_octal)
+print("Entero Hexadecimal: ",entero_hexadecimal)
+
+print("TIPO REAL")
+print("---------")
+
+real1 = 0.0000012345 # Notación Normal
+real2 = 1.2345e-6    # Notación Científica
+
+print('Tipo Dato 1: ', type(real1))
+print('Tipo Dato 2: ', type(real2))
+
+print("Punto Flotante: ", real1)
+print("Punto Flotante: ", real2)
+
+print("TIPO CADENA")
+print("-----------")
+
+cadena1 = "Hola Mundo"
+cadena2 = 'Hola Mundo'    
+
+print('Tipo Dato: ', type(cadena1))
+print('Tipo Dato: ', type(cadena2))
+
+print("Cadena 1: ", cadena1)
+print("Cadena 2: ", cadena2)
+
+print("TIPO LOGICO")
+print("-----------")
+
+logico1 = True
+logico2 = False    
+
+print('Tipo Dato: ', type(logico1))
+print('Tipo Dato: ', type(logico2))
+
+print("Logico 1: ", logico1)
+print("Logico 2: ", logico2)
+
+print("TIPO CARACTER")
+print("-------------")
+
+print("NO EXISTE EL TIPO CARACTER COMO EN JAVA CON CHAR\n\
+EN PYTHON SERIA UNA CADENA  DE  UN SOLO CARACTER")
+
+
+'''
+TIPOS DE DATOS
+--------------
+Entero		                (int)
+Real(Punto Flotante)		(float)
+Cadena		                (str)
+Lógico(False,True)          (bool)
+'''
+
+****************
+***   0007   ***   HOLA MUNDO  (PYTHON_0001)
+****************
+
+(1) EXTENSION .PY
+
+# main.py
+
+import os
+
+os.system('cls')
+
+print("Hola Mundo")
+print("Hola Mundo", end="")
+
+(2) EXTENSION .TXT
+
+# main.txt
+# Ejecutar en una consola: C:\python main.txt
+
+import os
+
+os.system('cls')
+
+print("Hola Mundo")
+print("Hola Mundo", end="")
+
+****************
+***   0008   ***   CALCULO (PYTHON_0003)
+****************
+
+(1)
+
+# calculo_suma.py
+
+import os
+
+os.system('cls')
+
+# ENTRADA
+n1 = float(input('Ingrese n1? '))
+n2 = float(input('Ingrese n2? '))
+# PROCESO
+suma = n1 + n2
+# SALIDA
+print("Suma: ", suma)
+
+(2) 
+
+# calculo_area_perimetro_circulo.py
+
+import os, math
+
+os.system('cls')
+
+# ENTRADA
+radio = float(input('Ingrese Radio? '))
+# PROCESO
+area = math.pi * math.pow(radio,2)
+perimetro = 2 * math.pi * radio
+# SALIDA
+print('Radio    : ', radio)
+print('Area     : ', round(area,2))
+print('Perimetro: ', round(perimetro,2))
+
+
+****************
+***   0009   ***   IF...THEN...ELSE
+****************
+
+(1)
+
+import os
+
+os.system('cls')
+
+# ENTRADA
+nota = int(input('Ingrese Nota? '))
+# PROCESO
+clasificacion = "Aprobado"
+if nota < 5:
+   clasificacion = "Desaprobado"
+# SALIDA
+print(clasificacion)
+
+(2)
+
+import os
+
+os.system('cls')
+
+# ENTRADA
+nota = int(input('Ingrese Nota? '))
+# PROCESO
+if nota < 5:
+   clasificacion = "Desaprobado"
+else:
+    clasificacion = "Aprobado" 
+# SALIDA
+print(clasificacion)
+
+(3)
+
+import os
+
+os.system('cls')
+
+edad = 18
+
+cadena1 = "Mayor Edad" if edad >= 18 else "Menor Edad"
+print("Cadena 1: ", cadena1)
+
+numero1 = 1 if edad >= 18 else 0
+print("Numero 1: ", numero1)
+
+cadena2 = "Evaluar: " + "Mayor Edad" if edad >= 18 else "Menor Edad"
+print("Cadema 2: ", cadena2)
+
+cadena3 = "Evaluar: " + "1" if edad >= 18 else "0"
+print("Cadema 3: ", cadena3)
+
+cadena4 = "Evaluar: " + str(1 if edad >= 18 else 0)
+print("Cadema 4: ", cadena4)
+
+print("Numero 2: ", 1 if edad >= 18 else 0)
+print("Cadena 5: ", "1" if edad >= 18 else "0")
+
+****************
+***   0010   ***   PRINT CON CONCATENAR
+****************
+
+import os
+
+os.system('cls')
+
+print("Suma 1: ", (5 + 2))
+print("Suma 2: ", 5 + 2)
+print("Suma 3: " + str(5 + 2))
+print("Suma 3: " + "5" + "2")
+print("Suma 4: ", ("5" + "2"))
+print("Suma 5: " + str(5)+ str(2))
+print("Suma 6: " + str("5" + str(2)))
+print("Suma 7: ", (5 + 2), "Suma 8: ", 5+2)
+
+SALIDA
+
+Suma 1:  7
+Suma 2:  7
+Suma 3: 7
+Suma 3: 52
+Suma 4:  52
+Suma 5: 52
+Suma 6: 52
+Suma 7:  7 Suma 8:  7
+
+****************
+***   0011   ***   VALIDAR CON ISINSTANCE  (PYTHON_0020)
+****************
+
+import os
+
+os.system('cls')
+
+# ENTRADA
+a = 5
+b = '6'
+# PROCESO - SALIDA
+if isinstance(a,int) and isinstance(b,int):
+   suma = a + b
+   print('Suma: ', suma)
+else:
+   print("NO SE PUEDEN SUMAR")
+
+print("Tipo a: ", type(a))
+print("Tipo b: ", type(b))
+
+SALIDA
+
+NO SE PUEDEN SUMAR
+Tipo a:  <class 'int'>
+Tipo b:  <class 'str'>
+
+****************
+***   0012   ***   FOR (PYTHON_0021)
+****************
+
+import os
+
+def ejemplo1():
+    print("ITERAR SOBRE UNA LISTA")
+    print("----------------------")
+    frutas = ["manzana", "banana", "cereza"]
+    for fruta in frutas:
+        print(fruta)
+
+def ejemplo2():
+    print("ITERAR SOBRE UNA CADENA")
+    print("-----------------------")
+    mensaje = "Hola Mundo"
+    for caracter in mensaje:
+        print(caracter, end="  ")
+    print()
+    for caracter in mensaje:
+        print(caracter, end=",")
+    print()
+
+def ejemplo3():
+    print("ITERAR SOBRE UN SERIE DE NUMEROS")
+    print("--------------------------------")
+    for i in range(5):
+        print(i, end=",")
+    print()
+    for i in range(5):
+        print((i+1), end=",")
+    print()
+
+def ejemplo4():
+    print("ITERAR SOBRE ELEMENTOS E INDICES DE UNA LISTA")
+    print("---------------------------------------------")
+    frutas = ["manzana", "banana", "cereza"]
+    for i, fruta in enumerate(frutas): #Regresa un conjunto de tuplas (0,manzana)(1,banana),(2,cereza)
+        print(f"Indice {i}: {fruta}")
+
+def ejemplo5():
+    print("ITERAR SOBRE UN DICCIONARIO")
+    print("---------------------------")
+    persona = {"nombre": "Juan", "edad": 25, "ciudad": "Ejemploville"}
+    for clave, valor in persona.items():
+        print(f"{clave}: {valor}")
+
+def ejemplo6():
+    print("ITERAR SOBRE UN RANGO DE NUMEROS")
+    print("--------------------------------")
+    for i in range(65,91): #[65,90]
+        print(i, end=",")
+    print()
+    for i in range(65,91): #[65,90]
+        print(chr(i), end=",")
+
+def main():
+    os.system("cls")
+    ejemplo1()
+    ejemplo2()
+    ejemplo3()
+    ejemplo4()
+    ejemplo5()
+    ejemplo6()
+          
+if __name__ == "__main__":
+   main()
+   
+SALIDA
+
+ITERAR SOBRE UNA LISTA
+----------------------
+manzana
+banana
+cereza
+ITERAR SOBRE UNA CADENA
+-----------------------
+H  o  l  a     M  u  n  d  o
+H,o,l,a, ,M,u,n,d,o,
+ITERAR SOBRE UN SERIE DE NUMEROS
+--------------------------------
+0,1,2,3,4,
+1,2,3,4,5,
+ITERAR SOBRE ELEMENTOS E INDICES DE UNA LISTA
+---------------------------------------------
+Indice 0: manzana
+Indice 1: banana
+Indice 2: cereza
+ITERAR SOBRE UN DICCIONARIO
+---------------------------
+nombre: Juan
+edad: 25
+ciudad: Ejemploville
+ITERAR SOBRE UN RANGO DE NUMEROS
+--------------------------------
+65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,
+A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,
+
+
+****************
+***   0013   ***   TABULAR UNA TABLA (PYTHON_0006)
+****************
+
+import os
+
+os.system('cls')
+
+idPersona = ['P06','P12','P23','P14','P55']
+nombre = ["Walter", "Arturo", "Jose", "María", "Delly"]
+edad = [12, 13, 20, 28, 40]
+estatura = [1.43, 1.51, 1.70, 1.85, 1.82]
+salario = [245.78924, 2348.31454, 23.15444, 4444.1345156, 24.13541545]
+casado = [True, False, True, False, False]
+print("%1s  %10s  %-10s  %5s  %10s  %8s  %-10s" % ('N', 'IDPERSONA', 'NOMBRE', 'EDAD', 'ESTATURA', 'SALARIO', 'CASADO'))
+print("%1s  %10s  %-10s  %5s  %10s  %8s  %-10s" % ('-', '---------', '------', '----', '--------', '-------', '------'))
+for i in range(len(nombre)):
+    print("%1d  %10s  %-10s  %5d  %10.2f  %8.2f  %-10s" % ((i+1), idPersona[i], nombre[i], edad[i], estatura[i], salario[i], casado[i]))
+
+SALIDA
+
+N   IDPERSONA  NOMBRE       EDAD    ESTATURA   SALARIO  CASADO    
+-   ---------  ------       ----    --------   -------  ------    
+1         P06  Walter         12        1.43    245.79  True      
+2         P12  Arturo         13        1.51   2348.31  False     
+3         P23  Jose           20        1.70     23.15  True      
+4         P14  María          28        1.85   4444.13  False     
+5         P55  Delly          40        1.82     24.14  False 
+
+****************
+***   0014   ***   OPERADORES ARITMETICOS (PYTHON_0022)
+****************
+
++	Suma
+-	Resta
+*	Multiplicación
+/	División normal (Punto Flotante)
+//	División con redondeo hacia abajo (cociente entero de una división entre enteros)
+%	Módulo(Residuo de una división)
+**	Exponensial
+
+# EJEMPLO 1
+
+import os
+
+def ejemplo1():
+    print('DIVISION ENTERA')
+    print('---------------')
+    x = 5 // 3
+    print("División Entera: ", x)
+    print("Tipos Dato     : ", type(x))
+
+def ejemplo2():
+    print('DIVISION REAL')
+    print('-------------')
+    x = 5 / 3
+    print("División Real: ", x)
+    print("Tipos Dato   : ", type(x))
+
+def ejemplo3():
+    print('POTENCIA')
+    print('--------')
+    x1 = 2 ** 3
+    print("Pontencia 1: ", x1)
+    x2 = 2 ** 0.5
+    print("Pontencia 2: ", x2)
+
+def ejemplo4():
+    print('DIVISION MODULAR')
+    print('----------------')
+    x1 = 5 % 3
+    print("Resto: ", x1)
+    x2 = 4 % 2
+    print("Resto: ", x2)
+
+def main():
+    os.system("cls")
+    ejemplo1()
+    ejemplo2()
+    ejemplo3()
+    ejemplo4()
+          
+if __name__ == "__main__":
+   main()
+   
+SALIDA
+
+DIVISION ENTERA
+---------------
+División Entera:  1
+Tipos Dato     :  <class 'int'>   
+DIVISION REAL
+-------------
+DIVISION ENTERA
+---------------
+División Entera:  1
+Tipos Dato     :  <class 'int'>   
+DIVISION REAL
+-------------
+División Real:  1.6666666666666667
+Tipos Dato   :  <class 'float'>   
+POTENCIA
+--------
+Pontencia 1:  8
+Pontencia 2:  1.4142135623730951
+DIVISION MODULAR
+----------------
+Resto:  2
+Resto:  0
+
+****************
+***   0015   ***   OPERADORES LOGICOS
+****************
+
+Conjución            : and  (Es verdadero cuando ambos son verdaderos)
+Disyunción inclusivo : or   (Es falso cuando ambos son falsos)  
+Disyunción exclusivo : ^    (Es verdadero cuando uno de los dos es verdadero pero no ambos)
+Negación             : not  (Si es verdadero al negarse cambia a falso y si es falso al negarse cambia a verdadero)
+
+****************
+***   0016   ***   OPERADOR ASIGNACION
+****************
+
+=	Asignación
++=	Suma y asignación (a = a + t)
+-=	Resta y asignación (a = a - t)
+*=	Multiplicación y asignación (a = a * t)
+/=	División y asignación (a = a / t)
+%=	Módulo(Residuo de una división) y asignación (a = a % t)
+//=	División y asignación (a = a // t)
+**=	Exponencial y asignación (a = a ** t)
+
+•	Asignar un valor a una variable. 
+
+a = 1
+
+•	Asignar un valor a múltiples variables.
+
+a = b = c = 1  # Inicializa a, b y c con el valor 1
+
+•	Asignar múltiples valores a múltiples variables
+
+a, b, c = 1, 2, 3
+
+****************
+***   0017   ***   OPERADORES DE COMPARACION
+****************
+
+==       Igual que
+!= ó <>  Distinto que
+<        Menor que
+<=       Menor o igual que
+>        Mayor que
+>=       Mayor o igual que
+
+****************
+***   0018   ***   OPERADORES ESPECIALES
+****************
+
+*********************************
+***   OPERADORES ESPECIALES   ***
+*********************************
+
+(1)
+
+is       Es True si los operadores son idénticos
+is not   Es True si los operadores no son idénticos
+in       Es True si el valor o variable se encuentra en la secuencia
+not in   Es True si el valor o variable no se encuentra en la secuencia
+
+(2)
+
+a = 4
+b = 1
+c = 10
+d = [1, 2, 3, 4, 5]
+
+valor_logico = c is c     --> True
+valor_logico = a is b     --> False
+valor_logico = c is not c --> False
+valor_logico = a is not b --> True
+valor_logico = a in d     --> True
+valor_logico = c in d     --> False
+valor_logico = a not in d --> False
+valor_logico = c not in d --> True
+
+****************
+***   0019   ***   ENTRADA POR TECLADO
+****************
+
+SALIDA DEL MENSAJE Y ENTRADA DEL DATO JUNTOS EN LA MISMA LINEA
+
+(1*) 2.7
+a = int(input("Ingrese a? "))
+b = int(input("Ingrese b? "))
+(2) 3.1
+print("Ingrese a = ", end=""); a = int(input())
+print("Ingrese b = ", end=""); b = int(input())
+(3) 2.7
+print("Ingrese a? "),
+a = int(input())
+print("Ingrese b? "),
+b = int(input())
+
+TIPO ENTERO
+
+edad = int(input("Ingrese su edad? "))
+print(str(edad) + " es tipo " + str(type(edad)))         # 48 es tipo <class 'int'>
+
+TIPO REAL
+
+estatura = float(input("Ingrese su estatura? "))         # 1.72
+print(str(estatura) + " es tipo " + str(type(estatura))) # 1.72 es tipo <class 'float'>
+
+TIPO LOGICO
+
+casado = bool(input("Ingrese su estado civil? "))        # True ó 1
+print(str(casado) + " es tipo " + str(type(casado)))     # True es tipo <class 'bool'>
+
+TIPO CARACTER (NOTA 2)
+
+(1) 3.1
+sexo = input("Ingrese su sexo? ")                        # M 
+print(sexo + " es tipo " + str(type(sexo)))              # M es tipo <class 'str'>
+(2*) 2.7
+sexo = raw_input("Ingrese su sexo? ")                    # M
+print(sexo + " es tipo " + str(type(sexo)))              # M es tipo <class 'str'>
+(3) 2.7
+import sys
+sys.stdout.write("Ingrese su sexo? ")
+sys.stdout.flush()
+sexo = sys.stdin.read(1)                                 # M
+print(sexo + " es tipo " + str(type(sexo)))              # M es tipo <class 'str'>
+(4) 3.1
+import msvcrt
+print("Ingrese su sexo? ", end="", flush=True)
+sexo = msvcrt.getche() # Con eco
+sexo = msvcrt.getch()  # Sin eco
+print("")                                                                 # M
+print(str(sexo.decode("windows-1252")) + " es tipo " + str(type(sexo)))   # M es tipo <class 'bytes'>
+
+TIPO CADENA
+
+(1) 3.1
+nombre = input("Ingrese su nombre? ")                    # Walter
+print(nombre + " es tipo " + str(type(nombre)))          # Walter es tipo <class 'str'>
+(2*) 2.7
+nombre = raw_input("Ingrese su nombre? ")                # Walter
+print(nombre + " es tipo " + str(type(nombre)))          # Walter es tipo <class 'str'>
+
+NOTAS
+
+(1) Todo lo que ingresemos por teclado(input) es de tipo cadena.
+(2) El valor de tipo caracter es un tipo cadena de un solo caracter.
+(3) x = b'Z'
+    print(str(x) + " es tipo " + str(type(x))) # b'Z' es tipo <class 'bytes'>
+
+    x = b'Z'.decode("windows-1252")
+    print(x + " es tipo " + str(type(x))) # Z es tipo <class 'str'>
+
+    x = 'Z'
+    print(x + " es tipo " + str(type(x))) # Z es tipo <class 'str'>
+
+    x = chr(90)
+    print(x + " es tipo " + str(type(x))) # Z es tipo <class 'str'>
+
+
+****************
+***   0020   ***
+****************

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+          {% load static %}
+          <link rel="stylesheet" href="{% static 'css/estilo.css' %}" />
+
+
+
+    </head>
+    <body>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="decimal">Número Decimal:</label>
+        <input type="number" name="decimal" value="{{ decimal }}" required><br><br>
+
+        <button type="submit">Convertir</button><br><br>
+
+        <label for="binario">Número Binario:</label>
+        <input type="text" name="binario" value="{{ resultado }}" readonly><br>
+
+        {% if error %}
+            <p style="color: red;"><strong>{{ error }}</strong></p>
+        {% endif %}
+    </form>
+    </body>
+</html>
