@@ -1,0 +1,92 @@
+ Ejemplo 1: División entre cero
+
+try:
+    resultado = 10 / 0
+except ZeroDivisionError:
+    print("¡No se puede dividir entre cero!")
+✅ Ejemplo 2: Conversión de tipo
+
+try:
+    numero = int("abc")
+except ValueError:
+    print("Error: no se puede convertir a entero.")
+✅ Ejemplo 3: Acceder a un índice fuera de rango
+
+lista = [1, 2, 3]
+
+try:
+    print(lista[5])
+except IndexError:
+    print("Error: índice fuera del rango.")
+✅ Ejemplo 4: Manejo genérico de errores
+
+try:
+    x = int(input("Ingresa un número: "))
+    y = 10 / x
+    print("Resultado:", y)
+except Exception as e:
+    print("Ocurrió un error:", e)
+✅ Ejemplo 5: Varios bloques except
+
+try:
+    valor = int("10.5")
+except ValueError:
+    print("Error de valor.")
+except TypeError:
+    print("Error de tipo.")
+
+✅ Ejemplo con listas
+
+mi_lista = [10, 20, 30]
+
+try:
+    print(mi_lista[5])  # Índice fuera de rango
+except IndexError:
+    print("Error: el índice no existe en la lista.")
+✅ Ejemplo con archivos
+
+try:
+    with open("archivo_que_no_existe.txt", "r") as f:
+        contenido = f.read()
+except FileNotFoundError:
+    print("Error: el archivo no fue encontrado.")
+✅ Ejemplo con archivos y escritura
+
+try:
+    with open("salida.txt", "w") as f:
+        f.write("Hola mundo")
+    print("Archivo escrito correctamente.")
+except IOError:
+    print("Error al escribir el archivo.")
+✅ Ejemplo con SQLite (base de datos)
+
+import sqlite3
+
+try:
+    conexion = sqlite3.connect("mi_base.db")
+    cursor = conexion.cursor()
+    cursor.execute("SELECT * FROM tabla_que_no_existe")
+except sqlite3.Error as e:
+    print("Error en la base de datos:", e)
+finally:
+    conexion.close()
+	
+import sqlite3  # 1. Importamos el módulo para trabajar con SQLite
+
+try:
+    # 2. Conectamos a una base de datos (si no existe, se crea)
+    conexion = sqlite3.connect("mi_base.db")
+
+    # 3. Creamos un cursor, que permite ejecutar comandos SQL
+    cursor = conexion.cursor()
+
+    # 4. Ejecutamos una consulta a una tabla que no existe
+    cursor.execute("SELECT * FROM tabla_que_no_existe")
+
+except sqlite3.Error as e:  # 5. Capturamos cualquier error de SQLite
+    print("❌ Error en la base de datos:", e)
+
+finally:
+    # 6. Cerramos la conexión siempre, ocurra error o no
+    conexion.close()
+    print("✅ Conexión cerrada.")
