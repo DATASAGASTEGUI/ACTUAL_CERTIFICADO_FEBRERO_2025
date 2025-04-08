@@ -1,0 +1,25 @@
+- 1. CREAR PROYECTO DJANGO
+python -m django startproject miwebsite .
+django-admin starproject miwebsite .
+
+- 2. LEVANTAR PROYECTO
+python manage.py runserver 8090
+
+- 3. CREAR LAS CARPETAS
+static     --> estilo.css
+templates  --> home.html
+
+- MODELO VISTA CONTROLADOR = MODELO VISTA TEMPLATE
+
+urls.py     (Ruta Navegador)
+views.py    (Parte Lógica)
+-----------------------------------------------------------
+# views.py
+from django.http import HttpResponse
+from django.shortcuts import render
+
+def home(request):
+    return render(request, 'home.html')
+-----------------------------------------------------------
+
+

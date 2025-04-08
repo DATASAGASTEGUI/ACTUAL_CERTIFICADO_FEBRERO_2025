@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %} | Mi Web Personal</title>
+    <style>
+      body {
+        font-family: "Courier New", Courier, monospace;
+      }
+    </style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}" />
+  </head>
+  <body style="background-image: url('{% static 'img/imagen.jpg' %}'); background-size: cover;background-repeat: no-repeat;background-position: center center;font-family: "Courier New", Courier, monospace;">
+    <!-- Cabecera y Menú -->
+    <div class="container">
+      <h1>SQLITE</h1>
+      <ul>
+        <li><a href="{% url 'ejemplo01' %}">[01] Mostrar todos los registros de la tabla consulta</a></li>
+        <li><a href="{% url 'ejemplo02' %}">[02] Mostrar todos los registros de la tabla consulta ordenado por fecha</a></li>
+        <li><a href="{% url 'ejemplo03' %}">[03] Mostrar todas las constultas de un medico</a></li>
+        <li><a href="{% url 'ejemplo04' %}">[04] Mostrar todos los clientes de una base de datos mysql (factoria)</a></li>
+        <li><a href="{% url 'ejemplo05' %}">[05] Mostrar todos los clientes de una base de datos mysql (factoria). SQL BRUTO</a></li>
+        <li><a href="{% url 'ejemplo06' %}">[06] Usar un formulario para buscar un cliente (Factoria Mysql)</a></li>
+        <li><a href="{% url 'ejemplo07' %}">[07] Usar un formulario para buscar un cliente (Factoria Sqlite)</a></li>
+        <li><a href="{% url 'ejemplo08' %}">[08] Obtener el nombre del vendedor con un join</a></li>
+        <li><a href="{% url 'ejemplo09' %}">Ejemplo09</a></li>
+        <li><a href="{% url 'ejemplo10' %}">Ejemplo10</a></li>
+      </ul>
+      <!-- Contenido -->
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>

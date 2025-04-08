@@ -1,0 +1,51 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 07{% endblock %}
+
+{% block content %} 
+<h2>[07] Distintos filtros</h2>
+<hr>
+Formateo de fechas
+<p>Fecha: {{ fecha_nacimiento|date:"d-m-Y" }}</p>
+<hr>
+Longitud de listas
+<p>Hay {{ nombres|length }} nombres.</p>
+<hr>
+Valor por defecto None
+<p>Nombre: {{ usuario.nombre|default:"Desconocido" }}</p>
+<hr>
+upper, lower, title
+<p>Mayúsculas: {{ nombre|upper }}</p>
+<p>Título: {{ nombre|title }}</p>
+<p>Minúsculas: {{ nombre|lower }}</p>
+<hr>
+truncatechars
+<p>{{ descripcion|truncatechars:20 }}</p>
+<hr>
+join con listas
+<p>{{ colores|join:", " }}</p>
+<hr>
+floatformat
+{% if precio %}
+   <p>{{ precio|floatformat:2 }}</p>
+{% else %}
+   <p> (Valor no disponible) </p>
+{% endif %}
+<hr>
+yesno - para booleanos
+<p>{{ valor|yesno:"SI, NO" }}</p>
+<p>¿Activo? {{ activo|yesno:"Sí,No" }}</p>
+<hr>
+slice — recorte de listas
+<ul>
+{% for n in nombres1|slice:":2" %}
+    <li>{{ n }}</li>
+{% endfor %}
+</ul>
+<hr>
+dictsort — ordenar una lista de diccionarios
+{% for persona in personas|dictsort:"nombre" %}
+    <p>{{ persona.nombre }} - {{ persona.edad }}</p>
+{% endfor %}
+<hr>
+{% endblock %}

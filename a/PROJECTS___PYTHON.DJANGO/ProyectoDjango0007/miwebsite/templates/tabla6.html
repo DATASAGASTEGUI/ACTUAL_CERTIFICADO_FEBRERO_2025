@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabla del 6</title>
+</head>
+<body>
+    <h1>Tabla de multiplicar del 6</h1>
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>Operación</th>
+                <th>Resultado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for num, i, resultado in resultados %}
+                <tr>
+                    <td>{{ num }} x {{ i }}</td>
+                    <td>{{ resultado }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

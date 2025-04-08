@@ -1,0 +1,7 @@
+--------------------------------------------------------------------------------
+ProyectoDjango0007:
+ProyectoDjango0008: Menú con muchas opciones (Sirve de Plantilla)
+ProyectoDjango0009: Tag Templates
+ProyectoDjango0010: Filtros
+ProyectoDjango0011: SQLite
+--------------------------------------------------------------------------------

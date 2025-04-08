@@ -1,0 +1,35 @@
+{% if alumnos %}
+    <table border="1">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Direccion</th>
+            <th>Estatura</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+        <tbody>
+            {% for alumno in alumnos %}
+            <tr>
+                <td>{{ alumno.id }}</td>
+                <td>{{ alumno.nombre }}</td>
+                <td>{{ alumno.direccion }}</td>
+                <td>{{ alumno.estatura }}</td>
+                <td>
+                    <a href="{% url 'actualizar_alumno' alumno.id %}">Actualizar</a>
+                    <a href="{% url 'eliminar_alumno' alumno.id %}">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No hay alumnos</p>
+{% endif %} 
+
+{% if mensaje %}
+    <p>{{ mensaje }}</p>
+{% endif %}
+
+<a href="{% url 'index' %}">Volver al index</a>

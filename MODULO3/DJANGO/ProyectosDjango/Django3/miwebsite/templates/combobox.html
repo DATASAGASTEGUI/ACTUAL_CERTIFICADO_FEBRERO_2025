@@ -1,0 +1,28 @@
+
+<form method="post">
+    {% csrf_token %}
+    <!-- ENTRADA -->
+    <p>
+    <label for="temperatura">Temperatura:</label>
+    <input type="number" id="temperatura" name="txt_temperatura" step='0.01' required
+    value="{{ temperatura }}">
+    </p>
+
+    <!-- COMBO BOX -->
+     <p>
+    <label for="opcion">Seleccione una opción:</label>
+    <select id="opcion" name="cmb_opcion" required>
+        <option value="" disabled {% if not opcion %} selected {% endif %}>--Seleccione--</option>
+        <option value="c_to_f" {% if opcion == 'c_to_f' %} selected {% endif %}>Convertir a Celsius a Farenheit</option>
+        <option value="f_to_c" {% if opcion == 'f_to_c' %} selected {% endif %}>Convertir a Farenheit a Celsius</option>
+    </select>
+    </p>
+
+
+    <input type="submit" name='btn_convertir' value="Convertir">
+    <input type="submit" name="btn_limpiar" value="Limpiar">
+</form> 
+
+{% if resultado %}
+    <h2>Resultado: {{ resultado }}</h2>
+{% endif %}

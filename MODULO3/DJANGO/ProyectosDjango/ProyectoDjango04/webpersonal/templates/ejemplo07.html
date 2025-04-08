@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 07{% endblock %}
+
+{% block content %} 
+<h2>[07] Usar un formulario para buscar un cliente (Factoria Sqlite)</h2>
+<form action="" method="post">
+    {% csrf_token %}
+    <!-- ENTRADA -->
+     <p>
+      <label for="idcliente">Ingresar id del cliente?</label>
+      <input type="text" name="txtIdCliente" id="idcliente" value="{{ id_cliente }}" required />
+     </p>
+    <!-- SALIDA -->
+     <p>
+      <label for="empresa">Nombre de la empresa:</label>
+      <input type="text" name="txtEmpresa" id="empresa" value="{{ nombre_empresa }}"  readonly />
+     </p>
+     <p>{{ mensaje }}</p>
+    <!-- EVENTO -->
+     <p>
+    <input type="submit" value="Buscar Empresa" name = 'cmdEmpresa'/>
+    <input type="submit" value="Reiniciar" name = 'cmdNuevo'/>
+     </p>
+</form>
+{% endblock %}

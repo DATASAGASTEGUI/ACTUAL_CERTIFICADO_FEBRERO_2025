@@ -1,0 +1,13 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 01{% endblock %}
+
+{% block content %} 
+   <h2>[01] Formatear nombres completos</h2>
+   {% load filtros %}  {# Asegúrate de cargar tu archivo de filtros personalizados #}
+   <ul>
+      {% for persona in personas %}
+         <li>{{ persona|nombre_completo }}</li>
+      {% endfor %}
+   </ul>
+{% endblock %}

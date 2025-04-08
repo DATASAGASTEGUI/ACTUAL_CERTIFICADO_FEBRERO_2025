@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 04{% endblock %}
+
+{% block content %} 
+    <h2>[04] Mostrar todos los clientes de una base de datos mysql (factoria)</h2>
+    <h3>{{ titulo }}</h3>
+    {% if clientes %}
+        {% for cliente in clientes %}
+        <p>{{ cliente }}</p>
+        {% endfor %}
+    {% else %}
+        <p>No hay clientes</p>
+    {% endif %}
+{% endblock %}

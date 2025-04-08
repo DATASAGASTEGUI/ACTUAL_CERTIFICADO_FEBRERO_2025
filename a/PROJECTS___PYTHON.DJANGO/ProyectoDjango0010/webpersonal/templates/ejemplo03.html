@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 03{% endblock %}
+
+{% block content %} 
+<h2>[03] Aplicar un iva del 21%</h2>
+{% load filtros %}
+<ul>
+  {% for persona in personas %}
+    <li>
+      {{ persona.nombre }} - Precio original: {{ persona.precio }} - 
+      Precio con IVA: {{ persona.precio|aplicar_iva|floatformat:2 }}
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

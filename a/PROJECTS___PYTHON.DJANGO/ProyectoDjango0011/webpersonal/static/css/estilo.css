@@ -1,0 +1,82 @@
+body {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.8rem; /* 80% del tamaño base del documento */
+}
+
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+
+/* Estilos generales para el contenido */
+.content-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.content-container h2 {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.content-container h1 {
+    color: #2980b9;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Estilos para la tabla */
+.consultas-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.consultas-table thead tr {
+    background-color: #3498db;
+    color: #ffffff;
+    text-align: left;
+}
+
+.consultas-table th,
+.consultas-table td {
+    padding: 12px 15px;
+}
+
+.consultas-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.consultas-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.consultas-table tbody tr:last-of-type {
+    border-bottom: 2px solid #3498db;
+}
+
+.consultas-table tbody tr:hover {
+    background-color: #e1f5fe;
+    cursor: pointer;
+}
+
+/* Estilo para cuando no hay consultas */
+.no-consultas {
+    text-align: center;
+    color: #7f8c8d;
+    font-style: italic;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}

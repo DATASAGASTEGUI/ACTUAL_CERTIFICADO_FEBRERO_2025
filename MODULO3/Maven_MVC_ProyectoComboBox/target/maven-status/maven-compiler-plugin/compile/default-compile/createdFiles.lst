@@ -1,0 +1,7 @@
+modelo\AlumnoDAO.class
+modelo\AlumnoDAOImpl.class
+controlador\AlumnoServlet.class
+modelo\Conexion.class
+wisl\maven_mvc_proyectocombobox\resources\JakartaEE8Resource.class
+wisl\maven_mvc_proyectocombobox\JakartaRestConfiguration.class
+modelo\Alumno.class
