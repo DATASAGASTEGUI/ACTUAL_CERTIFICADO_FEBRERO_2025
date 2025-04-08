@@ -1,0 +1,82 @@
+**************************************
+***   CREAR UN PERFIL DE USUARIO   ***
+**************************************
+
+-- CREAR UN PERFIL DE USUARIO 1
+
+CREATE PROFILE PERFILWALTER1
+  LIMIT
+    PASSWORD_LIFE_TIME UNLIMITED,  -- No tiene caducidad la contraseña 
+    PASSWORD_REUSE_TIME UNLIMITED, -- Puedes volver a reutilizar una contraseña en cualquier momento sin restricciones
+    FAILED_LOGIN_ATTEMPTS 3,       -- Número máximo de intentos de inicio de sesión fallidos antes de bloquear la cuenta
+    PASSWORD_LOCK_TIME 1;          -- Tiempo de bloqueo de la cuenta después de superar los intentos fallidos (en días)
+
+-- CREAR UN PERFIL DE USUARIO 2
+
+CREATE PROFILE PERFILWALTER2
+  LIMIT
+    PASSWORD_LIFE_TIME 2,         -- Define el tiempo máximo de vida de la contraseña (en días)  PASSWORD_LIFE_TIME UNLIMITED
+    PASSWORD_GRACE_TIME 1,        -- Define el período de gracia después de la expiración (en días)
+    PASSWORD_REUSE_TIME 365,      -- Define cuánto tiempo debe pasar antes de que se pueda reutilizar una contraseña (en días) PASSWORD_REUSE_TIME UNLIMITED;
+    PASSWORD_REUSE_MAX UNLIMITED, -- Define cuántas veces se puede reutilizar una contraseña
+    FAILED_LOGIN_ATTEMPTS 3,      -- Número máximo de intentos de inicio de sesión fallidos antes de bloquear la cuenta
+    PASSWORD_LOCK_TIME 1,         -- Tiempo de bloqueo de la cuenta después de superar los intentos fallidos (en días)
+    PASSWORD_VERIFY_FUNCTION 'ORA12C_STRONG_VERIFY_FUNCTION'; -- Función que verifica la fortaleza de la contraseña
+
+-- CREAR UN PERFIL DE USUARIO 3
+
+CREATE PROFILE PERFILWALTER3
+  LIMIT
+    PASSWORD_LIFE_TIME 30,   	-- Contraseñas válidas por 30 días
+    PASSWORD_REUSE_TIME 365, 	-- Reutilización de contraseñas permitida después de 365 días
+    FAILED_LOGIN_ATTEMPTS 10; 	-- 10 intentos de inicio de sesión fallidos antes de bloquear la cuenta
+	
+-- CREAR UN PERFIL DE USUARIO 4
+
+CREATE PROFILE PERFILWALTER4
+  LIMIT
+    PASSWORD_LIFE_TIME 2,         -- Define el tiempo máximo de vida de la contraseña (en días)  PASSWORD_LIFE_TIME UNLIMITED
+    PASSWORD_GRACE_TIME 1,        -- Define el período de gracia después de la expiración (en días)
+    PASSWORD_REUSE_TIME 365,      -- Define cuánto tiempo debe pasar antes de que se pueda reutilizar una contraseña (en días) PASSWORD_REUSE_TIME UNLIMITED;
+    PASSWORD_REUSE_MAX UNLIMITED, -- Define cuántas veces se puede reutilizar una contraseña
+    FAILED_LOGIN_ATTEMPTS 3,      -- Número máximo de intentos de inicio de sesión fallidos antes de bloquear la cuenta
+    PASSWORD_LOCK_TIME 1;         -- Tiempo de bloqueo de la cuenta después de superar los intentos fallidos (en días)
+	
+**************************************************
+***   CUENTA BLOQUEDA POR EXCEDER 3 INTENTOS   ***
+**************************************************
+
+SQL> CONNECT PERFIL1/1234567@LOCALHOST:1521/XEPDB1
+ERROR:
+ORA-01017: nombre de usuario/contrasea no vlidos; conexin denegada
+
+SQL> CONNECT PERFIL1/1234567@LOCALHOST:1521/XEPDB1
+ERROR:
+ORA-01017: nombre de usuario/contrasea no vlidos; conexin denegada
+
+SQL> CONNECT PERFIL1/1234567@LOCALHOST:1521/XEPDB1
+ERROR:
+ORA-01017: nombre de usuario/contrasea no vlidos; conexin denegada
+
+SQL> CONNECT PERFIL1/1234567@LOCALHOST:1521/XEPDB1
+ERROR:
+ORA-28000: La cuenta est bloqueada.
+
+**********************************
+***   DESBLOQUEAR UNA CUENTA   ***
+**********************************
+
+SQL> CONNECT PERFIL1/12345678@LOCALHOST:1521/XEPDB1
+ERROR:
+ORA-28000: La cuenta est bloqueada.
+
+SQL> CONNECT SYSTEM/12345678@LOCALHOST:1521/XEPDB1
+SQL> ALTER USER PERFIL1 ACCOUNT UNLOCK;
+Usuario modificado.
+
+SQL> CONNECT PERFIL1/12345678@LOCALHOST:1521/XEPDB1
+Conectado.
+
+SQL> SHOW USER;
+USER es "PERFIL1"
+

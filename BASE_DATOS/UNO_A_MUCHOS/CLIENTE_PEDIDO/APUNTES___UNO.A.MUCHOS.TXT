@@ -1,0 +1,7 @@
+RELACION DE UNO A MUCHOS
+------------------------
+
+CLIENTE		PEDIDO
+1               1..N
+1               1
+
