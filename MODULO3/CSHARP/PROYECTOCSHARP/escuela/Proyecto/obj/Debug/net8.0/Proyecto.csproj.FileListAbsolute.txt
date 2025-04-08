@@ -1,0 +1,5 @@
+C:\CERTIFICADO_27022025_MODULO1\MODULO3\CSHARP\PROYECTOCSHARP\escuela\Proyecto\obj\Debug\net8.0\Proyecto.GeneratedMSBuildEditorConfig.editorconfig
+C:\CERTIFICADO_27022025_MODULO1\MODULO3\CSHARP\PROYECTOCSHARP\escuela\Proyecto\obj\Debug\net8.0\Proyecto.AssemblyInfoInputs.cache
+C:\CERTIFICADO_27022025_MODULO1\MODULO3\CSHARP\PROYECTOCSHARP\escuela\Proyecto\obj\Debug\net8.0\Proyecto.AssemblyInfo.cs
+C:\CERTIFICADO_27022025_MODULO1\MODULO3\CSHARP\PROYECTOCSHARP\escuela\Proyecto\obj\Debug\net8.0\Proyecto.csproj.CoreCompileInputs.cache
+C:\CERTIFICADO_27022025_MODULO1\MODULO3\CSHARP\PROYECTOCSHARP\escuela\Proyecto\obj\Debug\net8.0\Proyecto.sourcelink.json

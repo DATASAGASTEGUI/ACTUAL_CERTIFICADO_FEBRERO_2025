@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 07{% endblock %}
+
+{% block content %} 
+<h2>[07] Mostrar todas los alumnos de la base de datos mysql (sql bruto) Previa verificación de la conexión. Página Error</h2>
+    <h1>{{ titulo }}</h1>
+    {% if alumnos %}
+    <table class="consultas-table">
+        <thead>
+            <tr>
+                <th>ID Alumno</th>
+                <th>Nombre</th>
+                <th>Curso</th>
+                <th>Fecha Matrícula</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for alumno in alumnos %}
+            <tr>
+                <td>{{ alumno.id_alumno }}</td>
+                <td>{{ alumno.nombre_alumno }}</td>
+                <td>{{ alumno.curso }}</td>
+                <td>{{ alumno.fecha_matricula|date:"d/m/Y" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No hay alumnos registrados</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="no-consultas">No hay alumno registrados.</p>
+    {% endif %}
+{% endblock %}

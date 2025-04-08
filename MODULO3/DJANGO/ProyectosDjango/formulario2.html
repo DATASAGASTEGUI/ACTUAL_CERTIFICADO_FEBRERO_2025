@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Componentes de Formularios Avanzados</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+
+    form {
+      max-width: 800px;
+      margin: auto;
+      background: #f4f4f4;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .inline {
+      display: inline-block;
+      width: auto;
+      margin-right: 15px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      padding: 10px;
+      background: #fff;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    .form-group h3 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .datalist-example {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .output-example {
+      background: #fff;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      min-height: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Componentes de Formularios Avanzados en HTML</h2>
+
+  <form id="miFormulario">
+    <!-- Grupo: Entradas básicas -->
+    <div class="form-group">
+      <h3>Entradas Básicas</h3>
+      
+      <!-- INPUT TYPE TEXT con atributos adicionales -->
+      <label for="nombre">Texto (text):</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required maxlength="50">
+      
+      <!-- INPUT TYPE PASSWORD con patrón -->
+      <label for="password">Contraseña (password):</label>
+      <input type="password" id="password" name="password" placeholder="Mínimo 8 caracteres" 
+             pattern=".{8,}" title="Debe contener al menos 8 caracteres" required>
+      
+      <!-- INPUT TYPE EMAIL con múltiple -->
+      <label for="email">Correo electrónico (email):</label>
+      <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" multiple>
+    </div>
+
+    <!-- Grupo: Entradas numéricas -->
+    <div class="form-group">
+      <h3>Entradas Numéricas</h3>
+      
+      <!-- INPUT TYPE NUMBER con pasos -->
+      <label for="edad">Edad (number):</label>
+      <input type="number" id="edad" name="edad" min="0" max="120" step="1">
+      
+      <!-- INPUT TYPE RANGE con output -->
+      <label for="nivel">Nivel de satisfacción (range):</label>
+      <input type="range" id="nivel" name="nivel" min="0" max="10" step="1" value="5">
+      <output for="nivel" id="nivel-value">5</output>
+      
+      <!-- Entrada de estatura -->
+      <label for="estatura">Estatura (cm):</label>
+      <input type="number" id="estatura" name="estatura" min="50" max="250" step="0.1" placeholder="170.5">
+      
+      <!-- Entrada de peso -->
+      <label for="peso">Peso (kg):</label>
+      <input type="number" id="peso" name="peso" min="2" max="300" step="0.1" placeholder="65.2">
+    </div>
+
+    <!-- Grupo: Fechas y tiempos -->
+    <div class="form-group">
+      <h3>Fechas y Tiempos</h3>
+      
+      <!-- INPUT TYPE DATE con min/max -->
+      <label for="fecha">Fecha (date):</label>
+      <input type="date" id="fecha" name="fecha" min="2000-01-01" max="2030-12-31">
+      
+      <!-- INPUT TYPE TIME con pasos -->
+      <label for="hora">Hora (time):</label>
+      <input type="time" id="hora" name="hora" step="900" placeholder="HH:MM">
+      
+      <!-- INPUT TYPE DATETIME-LOCAL -->
+      <label for="fecha-hora">Fecha y hora local (datetime-local):</label>
+      <input type="datetime-local" id="fecha-hora" name="fecha-hora">
+      
+      <!-- INPUT TYPE WEEK -->
+      <label for="semana">Semana del año (week):</label>
+      <input type="week" id="semana" name="semana">
+      
+      <!-- INPUT TYPE MONTH -->
+      <label for="mes">Mes (month):</label>
+      <input type="month" id="mes" name="mes">
+    </div>
+
+    <!-- Grupo: Selecciones -->
+    <div class="form-group">
+      <h3>Selecciones</h3>
+      
+      <!-- SELECT con grupos de opciones -->
+      <label for="pais">País (select con optgroup):</label>
+      <select id="pais" name="pais">
+        <option value="">-- Selecciona tu país --</option>
+        <optgroup label="América">
+          <option value="mx">México</option>
+          <option value="ar">Argentina</option>
+          <option value="co">Colombia</option>
+          <option value="us">Estados Unidos</option>
+        </optgroup>
+        <optgroup label="Europa">
+          <option value="es">España</option>
+          <option value="fr">Francia</option>
+          <option value="de">Alemania</option>
+        </optgroup>
+      </select>
+      
+      <!-- SELECT múltiple -->
+      <label for="idiomas">Idiomas que hablas (select múltiple):</label>
+      <select id="idiomas" name="idiomas" multiple size="4">
+        <option value="es">Español</option>
+        <option value="en">Inglés</option>
+        <option value="fr">Francés</option>
+        <option value="de">Alemán</option>
+        <option value="it">Italiano</option>
+      </select>
+      
+      <!-- DATALIST (autocompletado) -->
+      <div class="datalist-example">
+        <div>
+          <label for="ciudad">Ciudad (datalist):</label>
+          <input type="text" id="ciudad" name="ciudad" list="ciudades">
+          <datalist id="ciudades">
+            <option value="Ciudad de México">
+            <option value="Buenos Aires">
+            <option value="Bogotá">
+            <option value="Madrid">
+            <option value="Santiago">
+            <option value="Lima">
+          </datalist>
+        </div>
+        
+        <div>
+          <label for="frutas">Fruta favorita (datalist):</label>
+          <input type="text" id="frutas" name="frutas" list="lista-frutas">
+          <datalist id="lista-frutas">
+            <option value="Manzana">
+            <option value="Plátano">
+            <option value="Naranja">
+            <option value="Uva">
+            <option value="Mango">
+          </datalist>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grupo: Opciones múltiples -->
+    <div class="form-group">
+      <h3>Opciones Múltiples</h3>
+      
+      <!-- INPUT TYPE CHECKBOX con estilo diferente -->
+      <label>Intereses (checkbox):</label>
+      <div class="inline"><input type="checkbox" id="musica" name="intereses" value="musica"> <label for="musica">Música</label></div>
+      <div class="inline"><input type="checkbox" id="deporte" name="intereses" value="deporte"> <label for="deporte">Deporte</label></div>
+      <div class="inline"><input type="checkbox" id="arte" name="intereses" value="arte"> <label for="arte">Arte</label></div>
+      <div class="inline"><input type="checkbox" id="tecnologia" name="intereses" value="tecnologia"> <label for="tecnologia">Tecnología</label></div>
+      <div class="inline"><input type="checkbox" id="viajes" name="intereses" value="viajes"> <label for="viajes">Viajes</label></div>
+      
+      <!-- INPUT TYPE RADIO con opción "Otro" personalizable -->
+      <label>Género (radio):</label>
+      <div class="inline"><input type="radio" name="genero" id="masculino" value="masculino"> <label for="masculino">Masculino</label></div>
+      <div class="inline"><input type="radio" name="genero" id="femenino" value="femenino"> <label for="femenino">Femenino</label></div>
+      <div class="inline"><input type="radio" name="genero" id="otro" value="otro"> <label for="otro">Otro</label></div>
+      <div id="otro-genero-container" style="display: none; margin-top: 10px;">
+        <label for="otro-genero">Especificar:</label>
+        <input type="text" id="otro-genero" name="otro_genero">
+      </div>
+    </div>
+
+    <!-- Grupo: Archivos y multimedia -->
+    <div class="form-group">
+      <h3>Archivos y Multimedia</h3>
+      
+      <!-- INPUT TYPE FILE con múltiples archivos y tipos específicos -->
+      <label for="archivo">Subir archivo (file):</label>
+      <input type="file" id="archivo" name="archivo" accept=".pdf,.doc,.docx">
+      
+      <!-- INPUT TYPE FILE para imágenes -->
+      <label for="foto-perfil">Foto de perfil (imagen):</label>
+      <input type="file" id="foto-perfil" name="foto-perfil" accept="image/*" capture="user">
+      
+      <!-- INPUT TYPE FILE múltiple -->
+      <label for="archivos-multiples">Subir múltiples archivos:</label>
+      <input type="file" id="archivos-multiples" name="archivos-multiples" multiple>
+      
+      <!-- INPUT TYPE IMAGE -->
+      <label>Botón de imagen (image):</label>
+      <input type="image" src="https://via.placeholder.com/150x50?text=Enviar" alt="Enviar" width="150" height="50">
+    </div>
+
+    <!-- Grupo: Entradas especiales -->
+    <div class="form-group">
+      <h3>Entradas Especiales</h3>
+      
+      <!-- INPUT TYPE COLOR -->
+      <label for="color">Color favorito (color):</label>
+      <input type="color" id="color" name="color" value="#ff0000">
+      
+      <!-- INPUT TYPE TEL -->
+      <label for="telefono">Teléfono (tel):</label>
+      <input type="tel" id="telefono" name="telefono" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890">
+      
+      <!-- INPUT TYPE URL -->
+      <label for="sitio-web">Sitio web (url):</label>
+      <input type="url" id="sitio-web" name="sitio-web" placeholder="https://ejemplo.com">
+      
+      <!-- INPUT TYPE SEARCH -->
+      <label for="busqueda">Búsqueda (search):</label>
+      <input type="search" id="busqueda" name="busqueda" placeholder="Buscar...">
+      
+      <!-- INPUT TYPE HIDDEN -->
+      <input type="hidden" id="id-sesion" name="id-sesion" value="abc123xyz">
+    </div>
+
+    <!-- Grupo: Texto largo y salida -->
+    <div class="form-group">
+      <h3>Texto Largo y Salida</h3>
+      
+      <!-- TEXTAREA con atributos adicionales -->
+      <label for="comentarios">Comentarios (textarea):</label>
+      <textarea id="comentarios" name="comentarios" rows="4" maxlength="500" placeholder="Escribe tus comentarios (máx. 500 caracteres)"></textarea>
+      
+      <!-- OUTPUT -->
+      <label>Resultado cálculo (output):</label>
+      <div class="output-example" id="resultado">0</div>
+      
+      <!-- Ejemplo de visualización de datos -->
+      <label>Lista de datos (ejemplo):</label>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Edad</th>
+            <th>Ciudad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Juan Pérez</td>
+            <td>28</td>
+            <td>Ciudad de México</td>
+          </tr>
+          <tr>
+            <td>María García</td>
+            <td>34</td>
+            <td>Buenos Aires</td>
+          </tr>
+          <tr>
+            <td>Carlos López</td>
+            <td>22</td>
+            <td>Madrid</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Grupo: Botones -->
+    <div class="form-group">
+      <h3>Botones</h3>
+      
+      <!-- BUTTONS con diferentes tipos -->
+      <button type="submit">Enviar</button>
+      <button type="reset">Limpiar</button>
+      <button type="button" onclick="alert('¡Este es un botón personalizado!')">Botón personalizado</button>
+      
+      <!-- BUTTON con imagen -->
+      <button type="button">
+        <img src="https://via.placeholder.com/20x20" alt="icono" style="vertical-align: middle;">
+        Botón con icono
+      </button>
+    </div>
+
+    <!-- Grupo: Elementos de progreso -->
+    <div class="form-group">
+      <h3>Progreso y Medidores</h3>
+      
+      <!-- PROGRESS -->
+      <label for="progreso">Progreso (progress):</label>
+      <progress id="progreso" value="65" max="100">65%</progress>
+      
+      <!-- METER -->
+      <label for="medidor">Nivel de almacenamiento (meter):</label>
+      <meter id="medidor" value="7" min="0" max="10" low="3" high="8" optimum="10">7 de 10</meter>
+    </div>
+  </form>
+
+  <script>
+    // Script para manejar la opción "Otro" en género
+    document.getElementById('otro').addEventListener('change', function() {
+      const container = document.getElementById('otro-genero-container');
+      container.style.display = this.checked ? 'block' : 'none';
+    });
+
+    // Actualizar el valor del range
+    document.getElementById('nivel').addEventListener('input', function() {
+      document.getElementById('nivel-value').value = this.value;
+    });
+
+    // Ejemplo de cálculo con output
+    document.getElementById('estatura').addEventListener('input', updateResult);
+    document.getElementById('peso').addEventListener('input', updateResult);
+
+    function updateResult() {
+      const estatura = parseFloat(document.getElementById('estatura').value) || 0;
+      const peso = parseFloat(document.getElementById('peso').value) || 0;
+      
+      if (estatura > 0 && peso > 0) {
+        const imc = (peso / Math.pow(estatura/100, 2)).toFixed(1);
+        document.getElementById('resultado').textContent = `IMC: ${imc}`;
+      }
+    }
+  </script>
+
+</body>
+</html>

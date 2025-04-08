@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 04{% endblock %}
+
+{% block content %} 
+<h2>[04] Mostrar la tabla de multiplicar del 6</h2>
+{% load filtros %}
+<table border="1">
+{% for i in rango %}
+   <tr>
+       <td>6</td>
+       <td>*</td>
+       <td>{{ i }}</td>
+       <td>=</td>
+       <td>{{ 6|producto:i }}</td>
+   </tr>
+{% endfor %}
+</table>
+
+{% endblock %}

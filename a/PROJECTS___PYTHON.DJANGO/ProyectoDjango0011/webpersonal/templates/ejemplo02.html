@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 02{% endblock %}
+
+{% block content %} 
+<div class="content-container">
+<h2>[02] Mostrar todas los clientes de la base de datos sqlite</h2>
+{% if clientes %}
+    <table class="consultas-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Empresa</th>
+                <th>ID Vendedor</th>
+                <th>Límite Crédito</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+            <tr>
+                <td>{{ cliente.idCliente }}</td>
+                <td>{{ cliente.empresa }}</td>
+                <td>{{ cliente.idVendedor }}</td>
+                <td>${{ cliente.limite_credito }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="no-consultas">No hay clientes registrados.</p>
+    {% endif %}
+</div>
+{% endblock %}

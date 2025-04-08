@@ -1,0 +1,26 @@
+@startuml
+
+class Estudiante {
+  + id: int
+  + nombre: String
+}
+
+class Curso {
+  + codigo: String
+  + nombre: String
+}
+
+class Inscripcion {
+  + fecha: Date
+  + activa: boolean
+}
+
+Estudiante "1" --> "*" Inscripcion
+Curso "1" --> "*" Inscripcion
+
+note top of Inscripcion 
+  Esta clase representa la relación N a M
+  entre Estudiante y Curso.
+end note
+
+@enduml

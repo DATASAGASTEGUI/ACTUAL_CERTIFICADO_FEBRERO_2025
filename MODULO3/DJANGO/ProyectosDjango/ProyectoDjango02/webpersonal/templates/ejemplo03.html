@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+
+{% block title %}Ejemplo03{% endblock %}
+
+{% block contenido %}
+   <h2>[03] Evaluar una alumno de una lista</h2>
+   {% if alumnos %}  
+      {% for alumno in alumnos %}
+         {% if alumno.aprobado %}
+            <b>{{ alumno.nombre }} {{ alumno.edad }}</b>
+             <span style="color: green;">Aprobado</span><br>
+         {% else %}
+            <b>{{ alumno.nombre }} {{ alumno.edad }}</b>
+            <span style="color: red;">Reprobado</span><br>
+         {% endif %}
+      {% endfor %}
+   {% else %}
+      <p>No hay alumnos</p>
+   {% endif %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 03{% endblock %}
+
+{% block content %} 
+<h2>[03] Mostrar una lista</h2>
+<ul>
+{% for producto in productos %}
+    <li>{{ producto.nombre }} - ${{ producto.precio }}</li>
+{% empty %}
+    <li>No hay productos disponibles.</li>
+{% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,7 @@
+misrc\modelo\ConexionSqlite.class
+misrc\modelo\ConsultaDAOImpl.class
+misrc\resources\JakartaEE8Resource.class
+misrc\modelo\ConsultaDAO.class
+misrc\controlador\OpcionesServlet.class
+misrc\modelo\Consulta.class
+misrc\JakartaRestConfiguration.class

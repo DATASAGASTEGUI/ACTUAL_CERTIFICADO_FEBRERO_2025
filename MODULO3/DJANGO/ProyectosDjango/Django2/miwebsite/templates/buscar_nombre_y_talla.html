@@ -1,0 +1,41 @@
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label for="txt_nombre">Nombre:</label>
+    <input type="text" id="txt_nombre" name="txt_nombre" required><br>
+
+
+    <label for="txt_estatura">Estatura:</label>
+    <input type="text" id="txt_estatura" name="txt_estatura" required><br>
+
+    <input type="submit" value="Buscar Alumno"> 
+</form>
+
+{% if alumnos %}
+
+    <table border="1">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Direccion</th>
+            <th>Estatura</th>
+        </tr>
+    </thead>
+        <tbody>
+            {% for alumno in alumnos %}
+            <tr>
+                <td>{{ alumno.id }}</td>
+                <td>{{ alumno.nombre }}</td>
+                <td>{{ alumno.direccion }}</td>
+                <td>{{ alumno.estatura }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No hay alumnos</p>
+{% endif %}
+
+<a href="{% url 'index' %}">Volver al index</a>
