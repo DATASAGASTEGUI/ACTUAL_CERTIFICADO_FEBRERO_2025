@@ -1,0 +1,31 @@
+Conexion.java   Conexion con mongodb
+Crud.java       Operaciones básicas sobre una base de datos
+                Create, Read, Update, Delete
+Principal.java  
+
+Nombre Base Datos: mibiblioteca
+Nombre Colección : libros
+
+Estructura Json:
+  {
+    "titulo": "El Principito",
+    "autor": "Antoine de Saint-Exupéry",
+    "añoPublicacion": 1943,
+    "generos": ["Fábula", "Literatura infantil"],
+    "precio": 15.99
+  }
+Estructura POO: Java
+Gson convertir el Json a un objeto Java y viceversa
+
+Migrar BaseDatos Mongodb(no sql) ------> BaseDatos MySql(sql)
+								  Java
+								  (Objeto)
+								  
+BJSON = JSON BINARIO (101010101010101) ESTO ES MAS RAPIDO	
+
+					
+	
+
+
+
+

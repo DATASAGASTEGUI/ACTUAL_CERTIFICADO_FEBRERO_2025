@@ -1,0 +1,96 @@
+@startuml
+package "asociacion_tipo_muchos_a_muchos_estudiante_curso" {
+    class Estudiante {
+        - idEstudiante: String
+        - nombre: String
+        - inscripciones: List<Inscripcion>
+        --
+        + Estudiante()
+        + Estudiante(idEstudiante: String, nombre: String)
+        + getIdEstudiante(): String
+        + setIdEstudiante(idEstudiante: String): void
+        + getNombre(): String
+        + setNombre(nombre: String): void
+        + inscribirCurso(curso: Curso, fechaInscripcion: String): void
+        + toString(): String
+    }
+
+    class Curso {
+        - idCurso: String
+        - nombre: String
+        - inscripciones: List<Inscripcion>
+        --
+        + Curso()
+        + Curso(idCurso: String, nombre: String)
+        + getIdCurso(): String
+        + setIdCurso(idCurso: String): void
+        + getNombre(): String
+        + setNombre(nombre: String): void
+        + agregarInscripcion(inscripcion: Inscripcion): void
+        + toString(): String
+    }
+
+    class Inscripcion {
+        - estudiante: Estudiante
+        - curso: Curso
+        - fechaInscripcion: String
+        --
+        + Inscripcion()
+        + Inscripcion(estudiante: Estudiante, curso: Curso, fechaInscripcion: String)
+        + getEstudiante(): Estudiante
+        + setEstudiante(estudiante: Estudiante): void
+        + getCurso(): Curso
+        + setCurso(curso: Curso): void
+        + getFechaInscripcion(): String
+        + setFechaInscripcion(fechaInscripcion: String): void
+        + toString(): String
+    }
+
+    class GestionMatricula {
+        - estudiantes: List<Estudiante>
+        - cursos: List<Curso>
+        - inscripciones: List<Inscripcion>
+        --
+        + GestionMatricula()
+        + GestionMatricula(estudiantes: List<Estudiante>, cursos: List<Curso>, inscripciones: List<Inscripcion>)
+        + getEstudiantes(): List<Estudiante>
+        + setEstudiantes(estudiantes: List<Estudiante>): void
+        + getCursos(): List<Curso>
+        + setCursos(cursos: List<Curso>): void
+        + getInscripciones(): List<Inscripcion>
+        + setInscripciones(inscripciones: List<Inscripcion>): void
+        + mostrarTodosEstudiantes(): void
+        + mostrarTodosCursos(): void
+        + obtenerAsignaturasDeUnEstudiante(idEstudiante: String): List<String>
+        + toString(): String
+    }
+
+    class Data {
+        + getEstudiantesCursosInscripciones(estudiantes: List<Estudiante>, cursos: List<Curso>, inscripciones: List<Inscripcion>): void
+    }
+
+    class Principal {
+        - sc: Scanner {static}
+        - estudiantes: List<Estudiante> {static}
+        - cursos: List<Curso> {static}
+        - inscripciones: List<Inscripcion> {static}
+        - gm: GestionMatricula {static}
+        --
+        + main(args: String[]): void {static}
+        - mostrarMenu(): void {static}
+        - opcion1(): void {static}
+        - opcion2(): void {static}
+        - opcion3(): void {static}
+        - pause(): void {static}
+        - cls(): void {static}
+    }
+}
+
+Estudiante "1" -- "*" Inscripcion
+Curso "1" -- "*" Inscripcion
+GestionMatricula "1" --> "*" Estudiante
+GestionMatricula "1" --> "*" Curso
+GestionMatricula "1" --> "*" Inscripcion
+Principal --> GestionMatricula
+Principal --> Data
+@enduml

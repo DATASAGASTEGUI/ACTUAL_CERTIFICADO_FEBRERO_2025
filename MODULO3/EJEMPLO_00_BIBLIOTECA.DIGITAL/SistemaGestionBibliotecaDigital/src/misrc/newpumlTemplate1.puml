@@ -1,0 +1,19 @@
+@startuml
+
+class Persona {
+  - id: String
+  - nombre: String
+  - direccion: Direccion
+  + setDireccion(Direccion)
+}
+
+class Direccion {
+  - calle: String
+  - ciudad: String
+  - persona: Persona
+  + setPersona(Persona)
+}
+
+Persona "1" -- "1" Direccion : "vive en"
+
+@enduml

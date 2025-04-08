@@ -1,0 +1,22 @@
+@startuml
+class Estudiante {
+    - nombre: String
+    + getNombre(): String
+}
+
+class Curso {
+    - nombre: String
+    + getNombre(): String
+}
+
+class Inscripcion {
+    - estudiante: Estudiante
+    - curso: Curso
+    - fecha: String
+    + getResumen(): String
+}
+
+Estudiante "1" --> "0..*" Inscripcion
+Curso "1" --> "0..*" Inscripcion
+@enduml
+
