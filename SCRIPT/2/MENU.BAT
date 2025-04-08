@@ -1,19 +1,15 @@
 @ECHO OFF
 
-:INICIO
+:MENU
 CLS
-ECHO MENU
-ECHO ----
-ECHO [1] CREAR UN CONTROL DE VERSION 
-ECHO [2] CONFIGURAR USUARIO: NOMBRE-EMAIL-PASSWORD
-ECHO [3] REALIZAR PRIMER COMMIT
-ECHO [4] REALIZAR EL COMMIT SOBRE EL ULTIMO
-ECHO [5] CONFIGURAR REPOSITORIO REMOTO
-ECHO [6] CAMBIAR NOMBRE DE LA RAMA PRINCIPAL DE MASTER A MAIN
-ECHO [7] SUBIR EL REPOSITORIO LOCAL AL REMOTO
-ECHO [8] SALIR"
-
-ECHO.
+echo [1] CREAR UN CONTROL DE VERSION 
+echo [2] CONFIGURAR USUARIO: NOMBRE-EMAIL-PASSWORD
+echo [3] REALIZAR PRIMER COMMIT
+echo [4] REALIZAR EL COMMIT SOBRE EL ULTIMO
+echo [5] CONFIGURAR REPOSITORIO REMOTO
+echo [6] CAMBIAR NOMBRE DE LA RAMA PRINCIPAL DE MASTER A MAIN
+echo [7] SUBIR EL REPOSITORIO LOCAL AL REMOTO
+echo [8] SALIR"
 
 SET /P OPCION="INGRESAR OPCION: "
 
@@ -23,7 +19,7 @@ IF "1"=="%OPCION%" (
    ECHO -------------------------------
    git init
    PAUSE
-   GOTO INICIO
+   GOTO MENU
 )
 
 IF "2"=="%OPCION%" ( 
@@ -32,19 +28,19 @@ IF "2"=="%OPCION%" (
    ECHO ---------------------------------------------
    git config user.name DATASAGASTEGUI
    git config user.email datasagamadrid@gmail.com
-   git config user.password ghp_
+   git config user.password xxxxxxx
    PAUSE
-   GOTO INICIO
+   GOTO MENU
 )
 
 IF "3"=="%OPCION%" ( 
    CLS
-   ECHO [3] REALIZAR PRIMER COMMIT
-   ECHO --------------------------
+   echo [3] REALIZAR PRIMER COMMIT
+   echo --------------------------
    git add .
    git commit -m "SNAPSHOT 1"
    PAUSE
-   GOTO INICIO
+   GOTO MENU
 )
 
 IF "4"=="%OPCION%" ( 
@@ -54,7 +50,7 @@ IF "4"=="%OPCION%" (
    git add .
    git commit --amend -m "SNAPSHOT 1"   
    PAUSE
-   GOTO INICIO
+   GOTO MENU
 )
 
 IF "5"=="%OPCION%" ( 
@@ -63,7 +59,7 @@ IF "5"=="%OPCION%" (
    ECHO ---------------------------------
    git remote add origin "https://github.com/DATASAGASTEGUI/ACTUAL_CERTIFICADO_FEBRERO_2025.git"
    PAUSE
-   GOTO INICIO
+   GOTO MENU
 )
 
 IF "6"=="%OPCION%" ( 
@@ -72,7 +68,7 @@ IF "6"=="%OPCION%" (
    ECHO --------------------------------------------------------
    git branch -M main 
    PAUSE
-   GOTO INICIO
+   GOTO MENU
 )
 
 IF "7"=="%OPCION%" ( 
@@ -81,7 +77,7 @@ IF "7"=="%OPCION%" (
    ECHO ----------------------------------------
    git push -u -f origin main
    PAUSE
-   GOTO INICIO
+   GOTO MENU
 )
 
 IF "8"=="%OPCION%" ( 
@@ -91,4 +87,6 @@ IF "8"=="%OPCION%" (
    EXIT
 )
 
-GOTO INICIO
+GOTO MENU
+
+   
