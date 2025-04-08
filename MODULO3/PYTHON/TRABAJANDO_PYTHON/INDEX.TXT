@@ -1,0 +1,67 @@
+--------------------------------------------------------------------------------
+EJEMPLO 7
+
+Desarrollar un programa que permita:
+  - Calcular el área y perimetro de diferentes figuras geometricas 
+    (Circulo, Rectangulo, Cuadrado)
+  - Mostrar la información de cada figura 
+  - Almacenar varias figuras y mostrar un resumen de todas ellas
+  
+DESVENTAJAS DEL ESTRUCTURADO
+----------------------------
+Código repetitivo.
+Dificil de escalar. (Agregar nuevas figuras)
+Datos y lógica juntos.
+
+VENTAJAS DE LA VERSION POO
+--------------------------
+Código mas organizado.
+Reutilizar código.
+Mas escalable o extensible.
+
+TEMAS DEL EJEMPLO
+-----------------
+Clase abstracta: Define los metodos que los hijos implementaran mas no se implementa en el padre
+Clase: Plantilla a partir del cual podemos crear objetos
+Objeto: Instancia de una clase
+Herencia: Reutilizar código
+Polimorfismo: Define en el padre un método y cada hijo lo implementa a su manera
+Encapsulamiento: private, set y get
+Sobrecarga de métodos: Utilizar el mismo nombre para distintos métodos
+-------------------------------------------------------------------------- 
+EJEMPLO 8
+
+Un sistema de empleados donde cada tipo de empleado tiene metodos distintos
+y atributos comunes como distintos entre ellos.
+
+Empleado:                     Secretaria, Conserje, Gerente
+		 
+Clase Abstracta: ABC(METACLASE)  decorar metodos abstractos
+
+
+
+
+-------------------------------------------------------------------------- 
+IDE = INTERFACE ENTORNO DESARROLLO
+
+IDE ESPECIALIZADOS EN JAVA: Intellij (pago)
+                            Eclipse (Necesitas muchos plugins)
+							Apache Netbeans (Mas pesado incluye mucha configuracion para trabajar con java)
+--------------------------------------------------------------------------
+EJMPLO 9
+LISTAS POR COMPRENSION:
+1. Crear una lista con los números del 1 al 10
+2. Crear una lista con los números pares del 1 al 10
+3. Crear una lista por comprension mostrando el cuadrado del 1 al 10
+4. Crear una lista por comprension formado por letras de un texto
+5. Crear una lista por comprension con las letras del alfabeto en mayuscula
+6. Crear una lista por comprension formada solamente por las vocales de un texto
+7. Crear una lista por comprension formada solamente por las consonantes de un texto
+8. Crear una lista por comprension formada por letras que que no esten en en un conjuntopor las consonantes de un texto
+--------------------------------------------------------------------------
+
+
+
+
+
+  

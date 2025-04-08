@@ -1,0 +1,23 @@
+Ventana
+   pnlPrincipal(QWidget)
+      layoutPrincipal(QVBoxLayout)
+	  
+	  
+		  hlayoutSeleccion(QHBoxLayout)
+			 lblSeleccion
+			 cbProductos
+
+		  formLayout(QFormLayout)
+			 label id
+			 label nombre
+			 
+		  hlayoutBotones(QHBoxLayout)
+		     btnInsertar
+			 btnActualizar
+			 btnLimpiar
+			 btnEliminar
+			 
+		  
+Qt C++
+
+PyQt5

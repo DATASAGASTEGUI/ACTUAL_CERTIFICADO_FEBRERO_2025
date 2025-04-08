@@ -1,0 +1,41 @@
+@startuml
+
+abstract class FiguraGeometrica {
+  -nombre: String
+  --
+  FiguraGeometrica(nombre: String)
+  +getNombre(): String
+  +setNombre(nombre: String): void
+  --
+  {abstract} +area(): double
+  {abstract} +perimetro(): double
+
+}
+
+class Triangulo {
+  -base: double
+  -altura: double
+  --
+  +area(): double
+  +perimetro(): double
+}
+
+class Rectangulo {
+  -ancho: double
+  -alto: double
+  --
+  +area(): double
+  +perimetro(): double
+}
+
+class Circulo {
+  -radio: double
+  --
+  +area(): double
+  +perimetro(): double
+}
+
+FiguraGeometrica <|-- Triangulo
+FiguraGeometrica <|-- Rectangulo
+FiguraGeometrica <|-- Circulo
+@enduml

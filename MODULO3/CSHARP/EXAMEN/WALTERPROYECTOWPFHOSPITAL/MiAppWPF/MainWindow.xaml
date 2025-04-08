@@ -1,0 +1,81 @@
+﻿<Window x:Class="MiAppWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MiAppWPF"
+        mc:Ignorable="d"
+        Title="GESTION CONSULTAS MEDICAS"
+        Height="400"
+        Width="600"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+        Background="LightGray"
+        Icon="C:\CERTIFICADO_27022025_MODULO1\MODULO3\CSHARP\EXAMEN\WALTERPROYECTOWPFHOSPITAL\MiAppWPF\favicon.ico"
+        
+        >
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- ComboBox de Números de Consultas -->
+        <StackPanel Orientation="Horizontal"
+                Margin="0 0 0 10">
+            <TextBlock Text="Selecciona Número Consulta: "
+                    VerticalAlignment="Center"/>
+            <ComboBox x:Name="cbConsultas"
+                    Width="100"
+                      SelectionChanged="cbConsultas_SelectionChanged"/>
+        </StackPanel>
+
+        <!-- Detalles de la consulta -->
+        <ScrollViewer Grid.Row="1"
+                VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="10">
+                <TextBlock Text="NC:"/>
+                <TextBox x:Name="txtNC"
+                        IsReadOnly="True"/>
+
+                <TextBlock Text="Fecha:"/>
+                <TextBox x:Name="txtFecha"/>
+
+                <TextBlock Text="Médico:"/>
+                <TextBox x:Name="txtMedico"/>
+
+                <TextBlock Text="Deinpr:"/>
+                <TextBox x:Name="txtDeinpr"/>
+
+                <TextBlock Text="Procedencia:"/>
+                <TextBox x:Name="txtProcedencia"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Botones de CRUD -->
+        <StackPanel Grid.Row="2"
+                Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                Margin="0,10,0,0">
+            <Button Content="Insertar"
+                    Width="100"
+                    Margin="5"
+                    Click="btnInsertar_Click"/>
+            <Button Content="Actualizar"
+                    Width="100"
+                    Margin="5"
+                    Click="btnActualizar_Click"/>
+            <Button Content="Eliminar"
+                    Width="100"
+                    Margin="5"
+                    Click="btnEliminar_Click"/>
+            <Button Content="Limpiar"
+                    Width="100"
+                    Margin="5"
+                    Click="btnLimpiar_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

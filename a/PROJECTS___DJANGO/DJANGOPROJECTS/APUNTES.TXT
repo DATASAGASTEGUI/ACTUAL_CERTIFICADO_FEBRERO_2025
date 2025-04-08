@@ -1,0 +1,183 @@
+--------------------------------------------------------------------------------
+- RUTA DE MI PROYECTO
+
+RYZEN@DESKTOP-PT59ORD MINGW64 /f/BORJA80GB/PROJECTS/PROJECTS___DJANGO/DJANGOPROJECTS
+--------------------------------------------------------------------------------
+- INSTALAR ENTORNO VIRTUAL
+
+$ pip install virtualenv
+--------------------------------------------------------------------------------
+- CREAR UN ENTORNO VIRTUAL
+
+$ python -m venv env
+--------------------------------------------------------------------------------
+- ACTIVAR EL ENTORNO VIRTUAL
+
+$ source env/Scripts/activate
+
+- DESACTIVAR EL ENTORNO VIRTUAL
+
+$ deactivate
+--------------------------------------------------------------------------------
+- INSTALAR EL FRAMEWORK DJANGO
+
+$ pip install Django==5.0.4
+--------------------------------------------------------------------------------
+- MOSTRAR LOS PAQUETES INSTALADOS
+
+$ pip freeze 
+
+SALIDA
+
+asgiref==3.8.1
+Django==5.0.4
+sqlparse==0.5.3
+tzdata==2024.2
+--------------------------------------------------------------------------------
+- CREAR UN PROYECTO DJANGO
+
+$ django-admin startproject miwebsite .
+--------------------------------------------------------------------------------
+- ABRIR VISUAL STUDIO CODE
+
+$ code .
+--------------------------------------------------------------------------------
+- EJECUTAR EL PROYECTO WEB DJANGO CREADO
+
+$ python manage.py runserver
+
+SALIDA
+
+http://127.0.0.1:8000/home
+--------------------------------------------------------------------------------
+- DETENER EL SERVIDOR
+
+Ctrl + C
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+https://materializecss.com/
+
+CSS/Grid ---> Container
+CSS/Table ---> Table
+
+
+
+
+
+
+
+****************
+***   0002   ***
+****************
+
+- ACTIVAR EL ENTORNO VIRTUAL
+
+source env/Scripts/activate
+
+- LEVANTAR EL SERVIDOR DJANGO
+
+python manage.py runserver
+
+- CREAR UNA APP
+
+python manage.py startapp trabajadores
+
+- MIGRAR TODOS LOS MODULOS QUE SE CREAR AL CREAR LA APP TRABAJADORES
+
+python manage.py migrate
+
+- VERIFICAR LA MIGRACION
+
+http://127.0.0.1:8000/admin
+Vemos que este modulo admin ya funciona pero no podemos ingresar
+nos falta el superusuario crear para ingresar
+
+- CREAR UN SUPERUSUARIO PARA EL ADMINISTRADOR PARA PODER INGRESAR 
+
+python manage.py createsuperuser
+
+- ARCHIVOS QUE CONTIENE UNA APP CREADA
+
+_init_.py
+Permite poder compartir la app con otras estructuras del proyecto
+admin.py
+Registros los modelos que a futuro se van a convertir en tablas en una base de datos
+models.py
+Aca se ponen las clases que modelan nuestra base de datos
+views.py
+Aquí van las reglas del negocio
+
+- MIGRAR
+
+Tengo que hacerlo para poder usar todos los modulos
+que se han creado al moento de crear la app
+
+****************
+***   0002   ***   CREAR UN MODELO PARA MI TABLA TRABAJADOR
+****************
+ 
+Creo la clase Trabajador en models.py
+Agrego la app trabajadores en el archivo settings.py en el apartado INSTALLED_APPS
+Crear los archivos de migración pero que a uno no se ejecutan:
+   python manage.py makemigrations
+Crea la tabla en la base de datos para lo cual ejecuta el archivo anteriormente creado que es 0001_initial.py
+   python manage.py migrate
+
+
+
+
+****************
+***   0003   ***
+****************
+
+- REFRESCAR VISUAL STUDIO PARA QUE LAS EXTENSIONES
+  NUEVAS QUE SE INSTALEN SE VEAN REFLEJADAS PARA
+  SU USO AL INSTANTE.
+
+Ctrl + Shift + P
+>Developer.Reload Window
+
+- ABRIR LA EXTENSION QUE HEMOS INSTALADO
+
+Ctrl + Shift + P
+>sqlite
+Seleccionar: SQLite: Open Database
+
+****************
+***   0004   ***
+****************
+
+views.py
+   from empleados.models import Empleado
+
+   def empleado(request):
+       empleados = Empleado.objects.all()
+       contexto = {
+         'empleados' : empleados
+       }
+       return render(request, 'empleado.html', contexto)
+
+empleado.html
+{% for empleado in empleados %}
+<tr>
+   <td>{{ empleado.nombre }}</td>
+   <td>{{ empleado.apellido }}</td>
+   <td>${{ empleado.salario }}</td>
+</tr>
+{% endfor %}
+
+models.py
+   from django.db import models
+
+   class Empleado(models.Model):
+         nombre = models.CharField(max_length=100)
+         apellido = models.CharField(max_length=100)
+         salario = models.DecimalField(max_digits=19,decimal_places=2)
+         created_at = models.DateTimeField(auto_now_and=True)
+         updated_at = models.DateTimeField(auto_now=True)
+
+- LEVANTAR EL SERVIDOR DJANGO
+python manage.py runserver
+

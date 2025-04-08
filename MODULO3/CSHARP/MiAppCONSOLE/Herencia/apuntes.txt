@@ -1,0 +1,16 @@
+Clase     Clase Hijos
+Base
+Vehiculo: Automovil
+          Camion
+          Motocicleta
+
+Vehiculo.cs
+Automovil.cs
+Camion.cs
+Motocicleta.cs
+
+Principal.cs
+
+
+Trabajador: Portero
+            Secretaria

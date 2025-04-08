@@ -1,0 +1,32 @@
+@startuml
+
+class FiguraGeometrica {
+   -nombre:String
+   +area()
+   +perimetro()
+}
+
+class Triangulo {
+   -base:double
+   -altura:double
+}
+
+class Rectangulo {
+   -ancho:double
+   -alto:double
+}
+
+class Circulo {
+   -radio:double
+}
+
+class Cuadrado {
+   -lado:double
+}
+
+FiguraGeometrica <|-- Triangulo : es
+FiguraGeometrica <|-- Rectangulo : es
+FiguraGeometrica <|-- Circulo : es
+FiguraGeometrica <|-- Cuadrado : es
+
+@enduml

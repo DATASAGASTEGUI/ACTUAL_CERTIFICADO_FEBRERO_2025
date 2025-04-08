@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 05{% endblock %}
+
+{% block content %} 
+    <h2>[05] Calcular la edad a partir de el año de nacimiento</h2>
+    {% load filtros %}
+    <ul>
+        {% for persona in personas %}
+            <li>
+                {{ persona.nombre }} - Edad: {{ persona.anio_nacimiento|calcular_edad }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

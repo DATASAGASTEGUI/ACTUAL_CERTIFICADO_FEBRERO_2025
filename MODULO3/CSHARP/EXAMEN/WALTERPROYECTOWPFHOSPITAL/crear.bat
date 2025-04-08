@@ -1,0 +1,4 @@
+@ECHO OFF
+REM CREAR EL PROYECTO WPF
+dotnet new wpf -n MiAppWPF
+cd MiAppWPF

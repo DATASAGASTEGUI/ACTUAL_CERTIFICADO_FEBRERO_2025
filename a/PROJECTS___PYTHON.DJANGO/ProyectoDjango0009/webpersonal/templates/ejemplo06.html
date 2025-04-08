@@ -1,0 +1,35 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 06{% endblock %}
+
+{% block content %} 
+<h2>Ejemplo 06</h2>
+    <h1>{{ titulo }}</h1>
+    
+    {% if consultas %}
+        <table>
+            <thead>
+                <tr>
+                    <th>N° Consulta</th>
+                    <th>Fecha</th>
+                    <th>Médico</th>
+                    <th>DEINPR</th>
+                    <th>Procedencia</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for consulta in consultas %}
+                <tr>
+                    <td>{{ consulta.numeroConsulta }}</td>
+                    <td>{{ consulta.fecha }}</td>
+                    <td>{{ consulta.nombreMedico }}</td>
+                    <td>{{ consulta.deinpr }}</td>
+                    <td>{{ consulta.procedencia }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hay consultas registradas.</p>
+    {% endif %}
+{% endblock %}

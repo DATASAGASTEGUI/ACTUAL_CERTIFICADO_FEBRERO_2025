@@ -1,0 +1,66 @@
+<%    if (request.getParameter("accion") != null) {
+        String nombre = request.getParameter("cboAlumno");
+        if (!nombre.equalsIgnoreCase("Seleccionar")) {
+            nombre_gui = nombre;
+            ruta_gui = request.getContextPath() + "/imagen/imagenes/" + nombre + ".png";
+            salida1 = 1;
+            request.setAttribute("nombre_a",nombre_gui);
+        } else {
+            mensaje_gui = "DEBE SELECCIONAR UN ALUMNO";
+            salida2 = 1;
+        }
+    }
+%>
+
+<%
+    String nombre = (String) request.getAttribute("nombre_a");
+
+    String[] nombres_as = {"Arturo", "Carlos", "Javier", "Jose", "Luis", "Mario", "Mar�a", "Melissa", "Miguel", "Vanessa"};
+
+    out.println("<center>");
+    out.println("<form>");
+    out.println("<p>");
+    out.println("Seleccione un alumno:");
+    out.println("<select name='cboAlumno' size='1'>");
+    out.println("<option selected>Seleccionar</option>");
+
+    for (int i = 0; i < nombres_as.length; i++) {
+        if (nombres_as[i].equalsIgnoreCase(nombre)) {
+            out.print("<option value='" + nombres_as[i] + "' selected>" + nombres_as[i] + "</option>");
+        } else {
+            out.print("<option value='" + nombres_as[i] + "'>" + nombres_as[i] + "</option>");
+        }
+    }
+
+    out.println("</select>");
+    out.println("<input type='submit' name='accion' value='Enviar' />");
+    out.println("</p>");
+    out.println("</form>");
+    out.println("</center>");
+%>
+
+
+<!--
+<center>
+    <form>
+        <p>
+            Seleccione un alumno:
+            <select name="cboAlumno" size="1">
+                <option selected>Seleccionar</option>
+                <option value="9" selected="">Arturo</option>
+                <option value="5">Carlos</option>
+                <option value="3">Javier</option>
+                <option value="10">Jose</option>
+                <option value="6">Luis</option>
+                <option value="1">Mario</option>
+                <option value="8">Mar�a</option>
+                <option value="7">Melissa</option>
+                <option value="4">Miguel</option>
+                <option value="2">Vanessa</option>
+            </select>
+            <input type="submit" name="accion" value="Enviar" />
+        </p>
+    </form>
+</center>
+-->
+

@@ -1,0 +1,687 @@
+*****************
+***   INDEX   ***
+*****************
+
+--------------------------------------------------------------------------------
+0001 : Hola Mundo
+
+MainWindow.xaml : 
+
+    <Grid>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20">Hola Mundo</TextBlock>
+    </Grid>
+	
+App.xaml        : StartupUri="MainWindow.xaml"
+--------------------------------------------------------------------------------
+0002
+
+XAML - Xaml_0001 - Ventana1.xaml
+                 - Ventana2.xaml
+
+     - Xaml_0002 - Ventana1.xaml
+                 - Ventana2.xaml     
+
+App.xaml : StartupUri="XAML/Xaml_0001/Ventana1.xaml"
+           StartupUri="XAML/Xaml_0001/Ventana2.xaml"
+		   StartupUri="XAML/Xaml_0002/Ventana1.xaml"
+		   StartupUri="XAML/Xaml_0002/Ventana2.xaml"
+		   StartupUri="MainWindow.xaml"
+--------------------------------------------------------------------------------
+0003
+
+XAML - Xaml_0001 - Ventana1.xaml
+                 - Ventana2.xaml
+  
+App.xaml : StartupUri="MainWindow.xaml"
+
+MainWindow.xaml :
+
+    <StackPanel>
+        <Button Content="Abrir Ventana 1" Click="AbrirVentana1_Click" />
+        <Button Content="Abrir Ventana 2" Click="AbrirVentana2_Click" />
+    </StackPanel>
+	
+MainWindow.xaml.cs :
+
+        private void AbrirVentana1_Click(object sender, RoutedEventArgs e)
+        {
+            Ventana1 ventana1 = new Ventana1();
+            ventana1.Show();
+        }
+
+        private void AbrirVentana2_Click(object sender, RoutedEventArgs e)
+        {
+            Ventana2 ventana2 = new Ventana2();
+            ventana2.Show();
+        }
+--------------------------------------------------------------------------------
+0004
+
+XAML - Xaml_0001 - Ventana1.xaml
+                 - Ventana2.xaml
+  
+App.xaml : StartupUri="MainWindow.xaml"
+
+MainWindow.xaml :
+
+        <Grid>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20">Ventana</TextBlock>
+        </Grid>
+		
+MainWindow.xaml.cs :
+
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            // Opcional: Llama directamente a otra ventana al iniciar la aplicación.
+            AbrirVentana1(); // Descomenta para probar.
+            AbrirVentana2(); // Descomenta para probar.
+        }
+
+        private void AbrirVentana1()
+        {
+            XAML.Xaml_0001.Ventana1 ventana1 = new XAML.Xaml_0001.Ventana1(); // Instancia la ventana Ventana2
+            ventana1.Show(); // Muestra la ventana de forma independiente
+        }
+
+        // Método para abrir Ventana3
+        private void AbrirVentana2()
+        {
+            XAML.Xaml_0001.Ventana2 ventana2 = new XAML.Xaml_0001.Ventana2();
+            ventana2.Show();
+        } 
+--------------------------------------------------------------------------------
+0005
+
+XAML - Xaml_0001 - Ventana1.xaml
+                 - Ventana2.xaml
+
+MainWindow.xaml y MainWindow.xaml.cs se borraron
+
+App.xml borre StartupUri="MainWindow.xaml"
+
+        // Este método se ejecuta cuando se inicia la aplicación
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            // Aquí puedes abrir la ventana que desees, por ejemplo Ventana1
+            XAML.Xaml_0001.Ventana1 ventana1 = new XAML.Xaml_0001.Ventana1();  // Instancia de Ventana2
+            ventana1.Show();  // Muestra Ventana2
+
+            // Aquí puedes abrir la ventana que desees, por ejemplo Ventana2
+            XAML.Xaml_0001.Ventana2 ventana2 = new XAML.Xaml_0001.Ventana2();  // Instancia de Ventana2
+            ventana2.Show();  // Muestra Ventana2
+        }
+--------------------------------------------------------------------------------
+0006
+
+XAML - Xaml_0001 - Ventana.xaml <--- SUMAR DOS NUMEROS
+     - Xaml_0002 - Ventana.xaml <--- SUMAR DOS NUMEROS
+	 - Xaml_0003 - Ventana.xaml <--- SUMAR DOS NUMEROS
+	 - Xaml_0004 - Ventana.xaml <--- SUMAR DOS NUMEROS
+
+App.xaml : StartupUri="XAML/Xaml_0001/Ventana.xaml"
+           StartupUri="XAML/Xaml_0001/Ventana.xaml"
+		   StartupUri="XAML/Xaml_0002/Ventana.xaml"
+		   StartupUri="XAML/Xaml_0002/Ventana.xaml"
+		   StartupUri="MainWindow.xaml"
+
+MainWindow.xaml y MainWindow.xaml.cs los elimine
+--------------------------------------------------------------------------------
+0007
+
+MainWindow.xaml y MainWindow.xaml.cs los elimine
+
+XAML - Xaml_0001 - Ventana.xaml <--- OPERACIONES ARITMETICAS  (SUMAR,RESTAR,MULTIPLICAR,DIVIDIR EN BOTONES)
+     - Xaml_0002 - Ventana.xaml <--- OPERACIONES ARITMETICAS  (SUMAR,RESTAR,MULTIPLICAR,DIVIDIR EN UN COMBOBOX)
+	 - Xaml_0003 - Ventana.xaml <--- OPERACIONES ARITMETICAS  (SUMAR,RESTAR,MULTIPLICAR,DIVIDIR EN UN RADIOBOTON)
+	 - Xaml_0004 - Ventana.xaml <--- OPERACIONES ARITMETICAS  (SUMAR,RESTAR,MULTIPLICAR,DIVIDIR EN UN RADIOBOTON) - CALCULADORA
+
+App.xaml : StartupUri="XAML/Xaml_0001/Ventana.xaml"
+           StartupUri="XAML/Xaml_0002/Ventana.xaml"
+		   StartupUri="XAML/Xaml_0003/Ventana.xaml"
+		   StartupUri="XAML/Xaml_0004/Ventana.xaml"
+--------------------------------------------------------------------------------
+0008
+
+XAML - Xaml_0001 - Ventana.xaml <--- OPERACIONES ARITMETICAS  (SUMAR,RESTAR,MULTIPLICAR,DIVIDIR EN BOTONES)
+     - Xaml_0002 - Ventana.xaml <--- OPERACIONES ARITMETICAS  (SUMAR,RESTAR,MULTIPLICAR,DIVIDIR EN UN COMBOBOX)
+	 - Xaml_0003 - Ventana.xaml <--- OPERACIONES ARITMETICAS  (SUMAR,RESTAR,MULTIPLICAR,DIVIDIR EN UN RADIOBOTON)
+
+	 - OPERACIONESARITMETICAS (CLASE)
+	 
+App.xaml :  StartupUri="MainWindow.xaml"
+
+MainWindow.xaml :
+
+        <Grid>
+
+            <StackPanel>
+                <Button Content="Abrir Ventana Botón" Click="AbrirVentanaBoton_Click" />
+                <Button Content="Abrir Ventana ComboBox" Click="AbrirVentanaComboBox_Click" />
+                <Button Content="Abrir Ventana BotonRadio" Click="AbrirVentanaBotonRadio_Click" />
+            </StackPanel>
+
+        </Grid>
+		
+MainWindow.xaml.cs :
+
+        private void AbrirVentanaBoton_Click(object sender, RoutedEventArgs e)
+        {
+            CSharpProjects8.XAML.Xaml_0001.Ventana ventana1 = new CSharpProjects8.XAML.Xaml_0001.Ventana();
+            ventana1.Show();
+        }
+
+        private void AbrirVentanaComboBox_Click(object sender, RoutedEventArgs e)
+        {
+            CSharpProjects8.XAML.Xaml_0002.Ventana ventana2 = new CSharpProjects8.XAML.Xaml_0002.Ventana();
+            ventana2.Show();
+        }
+
+        private void AbrirVentanaBotonRadio_Click(object sender, RoutedEventArgs e)
+        {
+            CSharpProjects8.XAML.Xaml_0003.Ventana ventana3 = new CSharpProjects8.XAML.Xaml_0003.Ventana();
+            ventana3.Show();
+        }
+--------------------------------------------------------------------------------
+0009
+
+App.xaml :  StartupUri="MainWindow.xaml"
+
+
+
+
+--------------------------------------------------------------------------------
+
+********************************
+***   PERSONALIZAR VENTANA   ***
+********************************
+
+--------------------------------------------------------------------------------
+        Title="Ventana WPF"                   
+        Height="325" 
+        Width="400"			
+        Icon="F:/BORJA80GB/TRABAJANDO/PROJECTS___C#/C#_TEXTO/cross1.png"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+        Background="LightGray"
+--------------------------------------------------------------------------------
+
+*****************************
+***   CUADRO DE DIALOGO   ***
+*****************************
+
+-----------------------------------------------
+---   TIPOS DE CUADROS DE DIALOGO BASICOS   ---
+-----------------------------------------------
+
+--------------------------------------------------------------------------------
+Cuadro de Error:
+
+MessageBox.Show("Ha ocurrido un error.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+--------------------------------------------------------------------------------
+Cuadro de Información:
+
+MessageBox.Show("Operación completada exitosamente.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+--------------------------------------------------------------------------------
+Cuadro de Advertencia (Warning):
+
+MessageBox.Show("Estás a punto de eliminar un archivo importante.", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+--------------------------------------------------------------------------------
+Cuadro de Pregunta (Question):
+
+MessageBoxResult result = MessageBox.Show(
+    "¿Deseas guardar los cambios?", 
+    "Confirmación", 
+    MessageBoxButton.YesNo, 
+    MessageBoxImage.Question);
+
+if (result == MessageBoxResult.Yes)
+{
+    MessageBox.Show("Cambios guardados.");
+}
+else
+{
+    MessageBox.Show("Cambios descartados.");
+}
+--------------------------------------------------------------------------------
+
+------------------------------------------
+---   PERSONALIZACION DE LOS BOTONES   ---
+------------------------------------------
+
+--------------------------------------------------------------------------------
+Botón Sí y No (Yes/No):
+
+MessageBoxResult result = MessageBox.Show(
+    "¿Quieres continuar?", 
+    "Confirmación", 
+    MessageBoxButton.YesNo, 
+    MessageBoxImage.Question);
+
+if (result == MessageBoxResult.Yes)
+{
+    MessageBox.Show("Continuando...");
+}
+else
+{
+    MessageBox.Show("Cancelado.");
+}
+--------------------------------------------------------------------------------
+Botones Sí, No y Cancelar (Yes/No/Cancel):
+
+MessageBoxResult result = MessageBox.Show(
+    "¿Quieres guardar antes de salir?", 
+    "Guardar cambios", 
+    MessageBoxButton.YesNoCancel, 
+    MessageBoxImage.Question);
+
+switch (result)
+{
+    case MessageBoxResult.Yes:
+        MessageBox.Show("Cambios guardados.");
+        break;
+    case MessageBoxResult.No:
+        MessageBox.Show("Cambios descartados.");
+        break;
+    case MessageBoxResult.Cancel:
+        MessageBox.Show("Operación cancelada.");
+        break;
+}
+--------------------------------------------------------------------------------
+
+----------------------------------------------------------
+---   EJEMPLO DE TODOS LOS ICONOS Y SUS SIGNIFICADOS   ---
+----------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Tipos de íconos disponibles en WPF:
+
+MessageBoxImage.Error
+MessageBoxImage.Information
+MessageBoxImage.Warning
+MessageBoxImage.Question
+MessageBoxImage.None (Sin ícono)
+
+Ejemplo de cada uno:
+
+MessageBox.Show("Este es un cuadro sin ícono.", "Sin Ícono", MessageBoxButton.OK, MessageBoxImage.None);
+MessageBox.Show("Este es un cuadro de error.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+MessageBox.Show("Este es un cuadro de información.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+MessageBox.Show("Este es un cuadro de advertencia.", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+MessageBox.Show("Este es un cuadro de pregunta.", "Pregunta", MessageBoxButton.OK, MessageBoxImage.Question);
+--------------------------------------------------------------------------------
+
+------------------------------------
+---   PERSONALIZACION AVANZADA   ---
+------------------------------------
+
+--------------------------------------------------------------------------------
+Cuadro con múltiples botones y lectura del resultado:
+
+MessageBoxResult resultado = MessageBox.Show(
+    "Elige una opción para continuar.", 
+    "Opciones", 
+    MessageBoxButton.YesNoCancel, 
+    MessageBoxImage.Question);
+
+switch (resultado)
+{
+    case MessageBoxResult.Yes:
+        MessageBox.Show("Has seleccionado Sí.");
+        break;
+    case MessageBoxResult.No:
+        MessageBox.Show("Has seleccionado No.");
+        break;
+    case MessageBoxResult.Cancel:
+        MessageBox.Show("Has seleccionado Cancelar.");
+        break;
+}
+
+Mostrar un cuadro con un texto largo:
+
+MessageBox.Show(
+    "Esta es una descripción más larga para explicar una advertencia o un error. " +
+    "Puedes usar múltiples líneas si es necesario para que sea más claro.",
+    "Descripción larga",
+    MessageBoxButton.OK,
+    MessageBoxImage.Warning);
+--------------------------------------------------------------------------------	
+
+-------------------------------	
+---   RESUMEN DE OPCIONES   ---
+-------------------------------
+	
+Opción					Valores Disponibles
+
+MessageBoxButton		OK, OKCancel, YesNo, YesNoCancel
+MessageBoxImage			None, Error, Information, Warning, Question
+MessageBoxResult		None, OK, Cancel, Yes, No
+
+-----------------------------	
+---   NOTAS IMPORTANTES   ---
+-----------------------------
+
+Los cuadros de diálogo en WPF son modales por defecto (bloquean la interacción con la ventana principal hasta que se cierra el cuadro).
+Puedes usar MessageBox.Show directamente en tu código detrás, pero evita abusar de ellos para no saturar al usuario con mensajes.
+Si necesitas una mayor personalización (como botones personalizados o estilos avanzados), puedes crear ventanas propias (Window).
+¿Quieres un ejemplo de cuadro de diálogo personalizado o más funcionalidades avanzadas? 😊
+
+
+*******************************
+***   ADMINISTRADOR: GRID   ***
+*******************************
+
+Height = "20"
+Width = "100"
+Content = "ACEPTAR 1"
+FontSize = "9"
+Background = "Black"
+Foreground = "White"
+Margin = "5,5,5,5"
+FontFamily = "Courier New"
+Background="LightGray"
+Click="Button_Click"
+
+(1)
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button Content = "Botón 1" Grid.Row="0" Grid.Column="0" FontFamily = "Courier New" FontSize = "20" />
+        <Button Content = "Botón 2" Grid.Row="0" Grid.Column="1" FontFamily = "Courier New" FontSize = "20" />
+    </Grid>
+	
+(2)
+
+
+
+***********************************
+***   ADMINISTRADOR: WRAPPANEL  ***
+***********************************
+
+(1)
+
+<WrapPanel Orientation="Horizontal">
+   <Button Content="Botón 1" Width="100" Height="30" />
+   <Button Content="Botón 2" Width="100" Height="30" />
+   <Button Content="Botón 3" Width="100" Height="30" />
+   <Button Content="Botón 4" Width="100" Height="30" />
+   <Button Content="Botón 5" Width="100" Height="30" />
+</WrapPanel>
+
+(2)
+
+<WrapPanel Orientation="Vertical">
+   <Button Content="Botón A" Width="100" Height="30" />
+   <Button Content="Botón B" Width="100" Height="30" />
+   <Button Content="Botón C" Width="100" Height="30" />
+   <Button Content="Botón D" Width="100" Height="30" />
+   <Button Content="Botón E" Width="100" Height="30" />
+</WrapPanel>
+
+(3)
+
+<WrapPanel VerticalAlignment = "Center" HorizontalAlignment = "Center">
+   <Button Content = "Botón 1" FontFamily = "Courier New" FontSize = "20" Click="Button_Click_1" Margin = "5,5,20,5" />
+   <Button Content = "Botón 2" FontFamily = "Courier New" FontSize = "20" Click="Button_Click_2" Margin = "5,5,20,5" />
+   <Button Content = "Botón 3" FontFamily = "Courier New" FontSize = "20" Click="Button_Click_1" Margin = "5,5,20,5" />
+   <Button Content = "Botón 4" FontFamily = "Courier New" FontSize = "20" Click="Button_Click_2" Margin = "5,5,20,5" />
+</WrapPanel>
+
+(4)
+
+<WrapPanel>
+   <Image Source="F:/BORJA80GB/TRABAJANDO/PROJECTS___C#/C#_TEXTO/CSHARP___PROJECTS/CSharpProjects11/cruz1.jpg" Width="100" Height="100" Margin="5"/>
+   <Image Source="F:/BORJA80GB/TRABAJANDO/PROJECTS___C#/C#_TEXTO/CSHARP___PROJECTS/CSharpProjects11/cruz2.jpg" Width="100" Height="100" Margin="5"/>
+   <Image Source="F:/BORJA80GB/TRABAJANDO/PROJECTS___C#/C#_TEXTO/CSHARP___PROJECTS/CSharpProjects11/cruz3.jpg" Width="100" Height="100" Margin="5"/>
+</WrapPanel>
+	
+(5)
+
+<WrapPanel>
+   <Button Content="Botón Largo" Width="150" Height="50" Margin="5"/>
+   <Button Content="Botón Pequeño" Width="80" Height="30" Margin="5"/>
+   <Button Content="Otro Botón" Width="120" Height="40" Margin="5"/>
+   <Button Content="Botón Ajustable" Width="100" Height="50" Margin="5"/>
+   <Button Content="Último Botón" Width="140" Height="60" Margin="5"/>
+</WrapPanel>
+
+(6)
+
+<WrapPanel Orientation="Horizontal" Background="Beige">
+   <TextBlock Text="Etiqueta 1" Background="LightCoral" Padding="5" Margin="5"/>
+   <TextBlock Text="Etiqueta 2" Background="LightSkyBlue" Padding="5" Margin="5"/>
+   <TextBlock Text="Etiqueta 3" Background="LightPink" Padding="5" Margin="5"/>
+   <TextBlock Text="Etiqueta 4" Background="LightGoldenrodYellow" Padding="5" Margin="5"/>
+   <TextBlock Text="Etiqueta 5" Background="LightGreen" Padding="5" Margin="5"/>
+</WrapPanel>
+
+(7)
+
+<WrapPanel Orientation="Horizontal" Background="White">
+   <Button Content="Inicio" Width="100" Margin="5"/>
+   <Button Content="Productos" Width="100" Margin="5"/>
+   <Button Content="Servicios" Width="100" Margin="5"/>
+   <Button Content="Contacto" Width="100" Margin="5"/>
+   <Button Content="Acerca de" Width="100" Margin="5"/>
+</WrapPanel>
+
+(8)
+
+<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+    <WrapPanel Background="LightGray">
+        <Button Content="Elemento 1" Width="100" Height="30" Margin="5"/>
+        <Button Content="Elemento 2" Width="100" Height="30" Margin="5"/>
+        <Button Content="Elemento 3" Width="100" Height="30" Margin="5"/>
+        <Button Content="Elemento 4" Width="100" Height="30" Margin="5"/>
+        <Button Content="Elemento 5" Width="100" Height="30" Margin="5"/>
+        <Button Content="Elemento 6" Width="100" Height="30" Margin="5"/>
+        <Button Content="Elemento 7" Width="100" Height="30" Margin="5"/>
+    </WrapPanel>
+</ScrollViewer>
+
+
+--------------------------------------------------------------------------------
+TIPO IMPLICITO
+
+var productos = new List<dynamic>();
+
+TIPO EXPLICITO
+
+List<dynamic> productos = new List<dynamic>();
+--------------------------------------------------------------------------------
+En C#, el tipo dynamic se refiere a una variable de tipo dinámico, lo que 
+significa que el tipo de la variable se resuelve en tiempo de ejecución en lugar 
+de en tiempo de compilación.
+
+Esto permite trabajar con tipos que no se conocen hasta el momento de ejecución, lo que puede ser útil cuando se interactúa con objetos de tipos variables o dinámicos, como objetos de COM, reflexión o lenguajes de scripting.
+
+Puedes asignar cualquier tipo de objeto a una variable dynamic sin obtener errores de compilación. El compilador no sabe qué tipo de objeto será, pero confía en que será válido cuando se ejecute el código.
+
+dynamic variable = 10;
+Console.WriteLine(variable);  // Imprime 10
+
+variable = "Hello, World!";
+Console.WriteLine(variable);  // Imprime Hello, World!
+
+variable = new { Name = "John", Age = 30 };
+Console.WriteLine(variable.Name);  // Imprime John
+Console.WriteLine(variable.Age);   // Imprime 30
+En resumen, dynamic en C# es una característica que proporciona flexibilidad al permitir trabajar con tipos que se determinan en tiempo de ejecución, pero debes usarlo con cuidado debido a la falta de comprobación de tipos en tiempo de compilación.
+--------------------------------------------------------------------------------
+        private void CargarDatosCategoriaComboBox()
+        {
+            CmbCategoria.ItemsSource = Crud.ObtenerListaCategorias();
+        }
+		
+        public static List<String?> ObtenerListaCategorias()
+        {
+            List<String?> categorias_ls = new List<String?>();
+            using (MySqlConnection conexion = Conexion.ObtenerConexion())
+            {
+                if (conexion != null)
+                {
+                    try
+                    {
+                        string query = "SELECT DISTINCT categoria FROM Producto ORDER BY categoria";
+                        MySqlCommand cmd = new MySqlCommand(query, conexion);
+                        MySqlDataReader reader = cmd.ExecuteReader();
+                        categorias_ls.Add("");
+                        while (reader.Read())
+                        {
+                            string? categoria = reader["categoria"].ToString();
+                            categorias_ls.Add(categoria);
+                        }
+                        reader.Close();
+                    }
+                    catch (MySqlException ex)
+                    {
+                        MessageBox.Show($"Query Select {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Conexion", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                return categorias_ls;
+            }
+        }		
+
+
+
+--------------------------------------------------------------------------------
+                <TextBox x:Name="TxtResultado" IsReadOnly="True" 
+                         HorizontalAlignment="Left" 
+                         VerticalAlignment="Center" 
+                         Width="250" Height="23"
+                         TextAlignment="Center" 
+                         VerticalContentAlignment="Center" />
+						 
+--------------------------------------------------------------------------------
+
+       /*
+       private List<Venta1> ConsultarVentas(DateTime fechaHora)
+       {
+           List<Venta1> ventas = new List<Venta1>();
+
+           // Verifica el valor de la fecha
+           MessageBox.Show($"y{fechaHora.Date:yyyy-MM-dd}", "Información", MessageBoxButton.OK, MessageBoxImage.Information);//2024-12-16
+
+           using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+           {
+               connection.Open();
+
+               // Consulta SQL actualizada
+               string query = "SELECT id_venta, fecha, total FROM Venta WHERE DATE(fecha) = @Fecha";
+
+               using (MySqlCommand command = new MySqlCommand(query, connection))
+               {
+                   // Formatea la fecha como cadena en formato 'YYYY-MM-DD'
+                   command.Parameters.AddWithValue("@Fecha", fechaHora.Date.ToString("yyyy-MM-dd"));
+
+                   using (MySqlDataReader reader = command.ExecuteReader())
+                   {
+                       while (reader.Read())
+                       {
+                           ventas.Add(new Venta1
+                           {
+                               IdVenta = reader.GetInt32(0),
+                               Fecha = reader.GetDateTime(1),
+                               Total = reader.GetDecimal(2)
+                           });
+                       }
+                   }
+               }
+           }
+
+           return ventas;
+       }
+       */
+
+       private List<Venta2> BuscarVentasPorFecha(DateTime fechaSeleccionada)
+       {
+           List<Venta2> ventas_lo = new List<Venta2>();
+
+           // Muestra información de la fecha y hora seleccionada
+           //MessageBox.Show($"Fecha y Hora: {fecha:yyyy-MM-dd}", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+
+           using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+           {
+               connection.Open();
+
+               // Consulta SQL actualizada para incluir fecha y hora
+               string query = "SELECT id_venta, fecha, total FROM Venta WHERE DATE(fecha) = @fecha_p";
+
+               using (MySqlCommand command = new MySqlCommand(query, connection))
+               {
+                   // Asigna el parámetro con el formato completo de fecha y hora 'YYYY-MM-DD HH:MM:SS'
+                   command.Parameters.AddWithValue("@fecha_p", fechaSeleccionada.Date.ToString("yyyy-MM-dd"));
+
+
+                   using (MySqlDataReader reader = command.ExecuteReader())
+                   {
+                       while (reader.Read())
+                       {
+                           ventas_lo.Add(new Venta2
+                           {
+                               IdVenta = reader.GetInt32(0),
+                               Fecha = reader.GetDateTime(1),
+                               Total = reader.GetDouble(2)
+                           });
+                       }
+                   }
+               }
+           }
+
+           return ventas_lo;
+       }
+
+       private List<Venta2> ConsultarVentas(DateTime fechaHora)
+       {
+           List<Venta2> ventas = new List<Venta2>();
+
+              using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+           {
+               connection.Open();
+
+               // Consulta SQL actualizada para incluir fecha y hora
+               string query = "SELECT id_venta, fecha, total FROM Venta WHERE fecha = @fecha_p";
+
+               using (MySqlCommand command = new MySqlCommand(query, connection))
+               {
+                   // Asigna el parámetro con el formato completo de fecha y hora 'YYYY-MM-DD HH:MM:SS'
+                   command.Parameters.AddWithValue("@fecha_p", fechaHora.ToString("yyyy-MM-dd HH:mm:ss"));
+
+
+                   using (MySqlDataReader reader = command.ExecuteReader())
+                   {
+                       while (reader.Read())
+                       {
+                           ventas.Add(new Venta2
+                           {
+                               IdVenta = reader.GetInt32(0),
+                               Fecha = reader.GetDateTime(1),
+                               Total = reader.GetDouble(2)
+                           });
+                       }
+                   }
+               }
+           }
+
+           return ventas;
+       }
+
+
+

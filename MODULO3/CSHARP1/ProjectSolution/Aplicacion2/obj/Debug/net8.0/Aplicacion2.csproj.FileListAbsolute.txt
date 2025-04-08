@@ -1,0 +1,12 @@
+C:\CERTIFICADO_27022025_MODULO1\MODULO3\CSHARP\ProjectSolution\Aplicacion2\bin\Debug\net8.0\Aplicacion2.deps.json
+C:\CERTIFICADO_27022025_MODULO1\MODULO3\CSHARP\ProjectSolution\Aplicacion2\bin\Debug\net8.0\Aplicacion2.dll
+C:\CERTIFICADO_27022025_MODULO1\MODULO3\CSHARP\ProjectSolution\Aplicacion2\bin\Debug\net8.0\Aplicacion2.pdb
+C:\CERTIFICADO_27022025_MODULO1\MODULO3\CSHARP\ProjectSolution\Aplicacion2\obj\Debug\net8.0\Aplicacion2.GeneratedMSBuildEditorConfig.editorconfig
+C:\CERTIFICADO_27022025_MODULO1\MODULO3\CSHARP\ProjectSolution\Aplicacion2\obj\Debug\net8.0\Aplicacion2.AssemblyInfoInputs.cache
+C:\CERTIFICADO_27022025_MODULO1\MODULO3\CSHARP\ProjectSolution\Aplicacion2\obj\Debug\net8.0\Aplicacion2.AssemblyInfo.cs
+C:\CERTIFICADO_27022025_MODULO1\MODULO3\CSHARP\ProjectSolution\Aplicacion2\obj\Debug\net8.0\Aplicacion2.csproj.CoreCompileInputs.cache
+C:\CERTIFICADO_27022025_MODULO1\MODULO3\CSHARP\ProjectSolution\Aplicacion2\obj\Debug\net8.0\Aplicacion2.sourcelink.json
+C:\CERTIFICADO_27022025_MODULO1\MODULO3\CSHARP\ProjectSolution\Aplicacion2\obj\Debug\net8.0\Aplicacion2.dll
+C:\CERTIFICADO_27022025_MODULO1\MODULO3\CSHARP\ProjectSolution\Aplicacion2\obj\Debug\net8.0\refint\Aplicacion2.dll
+C:\CERTIFICADO_27022025_MODULO1\MODULO3\CSHARP\ProjectSolution\Aplicacion2\obj\Debug\net8.0\Aplicacion2.pdb
+C:\CERTIFICADO_27022025_MODULO1\MODULO3\CSHARP\ProjectSolution\Aplicacion2\obj\Debug\net8.0\ref\Aplicacion2.dll
