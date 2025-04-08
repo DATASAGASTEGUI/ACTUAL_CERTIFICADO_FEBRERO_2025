@@ -1,0 +1,33 @@
+F:\BORJA80GB\TRABAJANDO\PROJECTS___PYTHON.DJANGO\ProyectoDjango0003>C:\EntornoVirtualPython\midjango\entorno\Scripts\activate
+
+---   GENERA LA ESTRUCTURA DE CARPETAS BASE PARA UN PROYECTO DJANGO   ---
+(entorno) F:\BORJA80GB\TRABAJANDO\PROJECTS___PYTHON.DJANGO\ProyectoDjango0003>django-admin startproject miwebsite . 
+
+---   EJECTURA EL PROYECTO LOCALMENTE   ---
+(entorno) F:\BORJA80GB\TRABAJANDO\PROJECTS___PYTHON.DJANGO\ProyectoDjango0003>python manage.py runserver 8090
+
+http://127.0.0.1:8090/
+
+---   DETEMER EL SERVIDOR DE DESARROLLO   ---
+Presiona CTRL + C
+
+Actualizar varias aplicaciones de nuestro proyecto
+(entorno) F:\BORJA80GB\TRABAJANDO\PROJECTS___PYTHON.DJANGO\ProyectoDjango0003>python manage.py migrate
+
+Crear un superusuario para nuestro proyecto
+(entorno) F:\BORJA80GB\TRABAJANDO\PROJECTS___PYTHON.DJANGO\ProyectoDjango0003>python manage.py createsuperuser
+
+---   CREAR UN ADMINISTRADOR DE USUARIOS   ---
+Username (leave blank to use 'ryzen'):
+Email address: datasagamadrid@gmail.com
+Password: 12345678
+Password (again): 12345678
+This password is too common.
+This password is entirely numeric.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+
+---   INGRESAR COMO ADMINISTRADOR DE USUARIOS   ---
+http://127.0.0.1:8090/admin/
+Usuario: ryzen
+Contraseña: 12345678

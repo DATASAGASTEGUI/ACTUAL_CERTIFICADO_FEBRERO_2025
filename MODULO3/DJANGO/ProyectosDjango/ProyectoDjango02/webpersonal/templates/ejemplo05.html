@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+
+{% block title %}Ejemplo05{% endblock %}
+
+{% block contenido %}
+   <h2>[05] Evaluar la nota de un alumno (Condicional Multiple)</h2>
+   {% if alumnos %}
+      {% for alumno in alumnos %}
+         {% if alumno.nota >= 9 %}
+            <p>El alumno {{ alumno.nombre }} con nota {{ alumno.nota }}.</p>
+            Sobresaliente
+         {% elif alumno.nota >= 7 %}
+            <p>El alumno {{ alumno.nombre }} con nota {{ alumno.nota }}.</p>
+            Notable
+         {% elif alumno.nota >= 6 %}
+            <p>El alumno {{ alumno.nombre }} con nota {{ alumno.nota }}.</p>
+            Bien
+         {% elif alumno.nota >= 5 %}
+            <p>El alumno {{ alumno.nombre }} con nota {{ alumno.nota }}.</p>
+            Suficiente
+         {% else %}
+            <p>El alumno {{ alumno.nombre }} con nota {{ alumno.nota }}.</p>
+            Insuficiente
+         {% endif %}
+      {% endfor %}
+   {% else %}
+      <p>No hay alumnos registrados</p>
+   {% endif %}
+
+
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 06{% endblock %}
+
+{% block content %} 
+<h2>[06] Calcular el precio total en función del precio e impuesto</h2>
+{% load filtros %} {# Aquí cargamos el filtro personalizado #}
+{% if lista_productos %}
+    {% for producto in lista_productos %}
+      {% with total=producto|total_con_impuesto %}
+        <div style="margin-bottom: 15px; border-bottom: 1px solid #ccc;">
+          <p><strong>Producto:</strong> {{ producto.nombre|title }}</p>
+          <p><strong>Precio:</strong> {{ producto.precio }} €</p>
+          <p><strong>Impuesto:</strong> {{ producto.impuesto|floatformat:2 }}</p>
+          <p><strong>Total a pagar:</strong> {{ total|floatformat:2 }} €</p>
+        </div>
+      {% endwith %}
+    {% endfor %}
+  {% else %}
+    <p>No hay productos disponibles.</p>
+  {% endif %}
+
+{% endblock %}

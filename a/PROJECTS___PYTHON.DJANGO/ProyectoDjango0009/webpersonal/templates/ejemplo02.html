@@ -1,0 +1,30 @@
+{% extends 'index.html' %} 
+
+{% block title %}Ejemplo 02{% endblock %} 
+
+{% block content %}
+<h2>[02] Mostrar un diccionario</h2>
+
+<h3>Datos personales:</h3>
+<ul>
+    <li>Nombre: {{ nombre }} {{ apellido }}</li>
+    <li>Edad: {{ edad }}</li>
+    <li>Estatura: {{ estatura }} m</li>
+    <li>Hobbies:
+        <ul>
+        {% for hobby in hobbies %}
+            <li>{{ hobby }}</li>
+        {% endfor %}
+        </ul>
+    </li>
+</ul>
+
+<h3>Productos:</h3>
+<ul>
+{% for producto in productos %}
+    <li>{{ producto.nombre }} - ${{ producto.precio }}</li>
+{% empty %}
+    <li>No hay productos disponibles.</li>
+{% endfor %}
+</ul>
+{% endblock %}

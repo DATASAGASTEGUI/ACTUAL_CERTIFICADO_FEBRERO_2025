@@ -1,0 +1,21 @@
+
+<form method="post">
+    {% csrf_token %}
+    <label for="txt_nombre">Nombre:</label>
+    <input type="text" id="txt_nombre" name="txt_nombre" value="{{ alumno.nombre }}"><br>
+    
+    <label for="txt_direccion">Direccion:</label>
+    <input type="text" id="txt_direccion" name="txt_direccion" value="{{ alumno.direccion }}"><br>
+
+    <label for="txt_estatura">Estatura:</label>
+    <input type="text" id="txt_estatura" name="txt_estatura" value="{{ alumno.estatura }}"><br>
+
+    <input type="submit" value="Actualizar Alumno">
+
+</form>
+
+{% if mensaje %}
+    <p>{{ mensaje }}</p>
+{% endif %}
+
+<a href="{% url 'mostrar_alumnos' %}">Volver a la lista de alumnos</a>

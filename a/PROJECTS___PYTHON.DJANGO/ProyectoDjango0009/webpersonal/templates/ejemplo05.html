@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 05{% endblock %}
+
+{% block content %} 
+<h2>[05] Mostrar una variable temporal</h2>
+{% with total=producto.precio|add:producto.impuesto %}
+    <!-- Aquí "total" es una variable temporal -->
+    <p>Precio: {{ producto.precio }}</p>
+    <p>Impuesto: {{ producto.impuesto }}</p>
+    <p>Total a pagar: {{ total }}</p>  <!-- Usando la variable temporal -->
+    <p>{{ producto.nombre }} - Precio total: ${{ total }}</p>
+{% endwith %}
+{% endblock %}

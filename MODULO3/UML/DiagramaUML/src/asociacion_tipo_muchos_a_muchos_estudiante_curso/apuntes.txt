@@ -1,0 +1,415 @@
+Te doy todas mis clases
+de mi proyecto Generame el diagrama uml usando plantuml
+
+
+
+package asociacion_tipo_muchos_a_muchos_estudiante_curso;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Estudiante {
+
+    // VARIABLES DE INSTANCIA
+    private String idEstudiante;
+    private String nombre;
+    private List<Inscripcion> inscripciones; //Relación con inscripción
+
+    // CONSTRUCTORES
+    public Estudiante() {
+        this.idEstudiante = "";
+        this.nombre = "";
+        this.inscripciones = null;
+    }
+
+    public Estudiante(String idEstudiante, String nombre) {
+        this.idEstudiante = idEstudiante;
+        this.nombre = nombre;
+        inscripciones = new ArrayList<>();
+    }
+    
+    // METODOS SET Y GET
+    public String getIdEstudiante() {
+        return idEstudiante;
+    }
+
+    public void setIdEstudiante(String idEstudiante) {
+        this.idEstudiante = idEstudiante;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    // METODO TOSTRING
+    @Override
+    public String toString() {
+        return "Estudiante{" + "idEstudiante=" + idEstudiante + ", nombre=" + nombre + '}';
+    }
+    
+    // METODO RELACION INSCRIPCION
+    public void inscribirCurso(Curso curso, String fechaInscripcion) {
+        Inscripcion inscripcion = new Inscripcion(this,curso,fechaInscripcion);
+        this.inscripciones.add(inscripcion);
+    }
+}
+
+package asociacion_tipo_muchos_a_muchos_estudiante_curso;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Curso {
+
+    // VARIABLES DE INSTANCIA
+    private String idCurso;
+    private String nombre;
+    private List<Inscripcion> inscripciones;
+
+    // CONSTRUCTORES
+    public Curso() {
+        this.idCurso = "";
+        this.nombre = "";
+        this.inscripciones = null;
+    }
+
+    public Curso(String idCurso, String nombre) {
+        this.idCurso = idCurso;
+        this.nombre = nombre;
+        this.inscripciones = new ArrayList<>();
+    }
+
+    // METODOS SET Y GET
+    public String getIdCurso() {
+        return idCurso;
+    }
+
+    public void setIdCurso(String idCurso) {
+        this.idCurso = idCurso;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    // METODO TOSTRING
+    @Override
+    public String toString() {
+        return "Curso{" + "idCurso=" + idCurso + ", nombre=" + nombre + '}';
+    }
+
+    // METODO RELACION INSCRIPCION
+    public void agregarInscripcion(Inscripcion inscripcion) {
+        this.inscripciones.add(inscripcion);
+    }
+}
+
+package asociacion_tipo_muchos_a_muchos_estudiante_curso;
+
+public class Inscripcion {
+
+    // VARIABLES DE INSTANCIA
+    private Estudiante estudiante;
+    private Curso curso;
+    private String fechaInscripcion;
+
+    // CONSTRUCTORES
+    public Inscripcion() {
+        this.estudiante = null;
+        this.curso = null;
+        this.fechaInscripcion = "";
+    }
+
+    public Inscripcion(Estudiante estudiante, Curso curso, String fechaInscripcion) {
+        this.estudiante = estudiante;
+        this.curso = curso;
+        this.fechaInscripcion = fechaInscripcion;
+    }
+    
+    // METODOS SET Y GET
+    public Estudiante getEstudiante() {
+        return estudiante;
+    }
+
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
+    public String getFechaInscripcion() {
+        return fechaInscripcion;
+    }
+
+    public void setFechaInscripcion(String fechaInscripcion) {
+        this.fechaInscripcion = fechaInscripcion;
+    }
+    
+    // METODO TOSTRING
+
+    @Override
+    public String toString() {
+        return "Inscripcion{" + "estudiante=" + estudiante + ", curso=" + curso + ", fechaInscripcion=" + fechaInscripcion + '}';
+    }
+}
+
+package asociacion_tipo_muchos_a_muchos_estudiante_curso;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class GestionMatricula {
+
+    // VARIABLES DE INSTANCIA
+    private List<Estudiante> estudiantes;
+    private List<Curso> cursos;
+    private List<Inscripcion> inscripciones;
+
+    // CONSTRUCTORES
+    public GestionMatricula() {
+        this.estudiantes = null;
+        this.cursos = null;
+        this.inscripciones = null;
+    }
+
+    public GestionMatricula(List<Estudiante> estudiantes, List<Curso> cursos, List<Inscripcion> inscripciones) {
+        this.estudiantes = estudiantes;
+        this.cursos = cursos;
+        this.inscripciones = inscripciones;
+    }
+
+    // METODOS SET Y GET
+    public List<Estudiante> getEstudiantes() {
+        return estudiantes;
+    }
+
+    public void setEstudiantes(List<Estudiante> estudiantes) {
+        this.estudiantes = estudiantes;
+    }
+
+    public List<Curso> getCursos() {
+        return cursos;
+    }
+
+    public void setCursos(List<Curso> cursos) {
+        this.cursos = cursos;
+    }
+
+    public List<Inscripcion> getInscripciones() {
+        return inscripciones;
+    }
+
+    public void setInscripciones(List<Inscripcion> inscripciones) {
+        this.inscripciones = inscripciones;
+    }
+    
+    // METODO TOSTRING
+    @Override
+    public String toString() {
+        return "GestionMatricula{" + "estudiantes=" + estudiantes + ", cursos=" + cursos + ", inscripciones=" + inscripciones + '}';
+    }
+    
+    // METODOS CRUD
+    // READ
+    public void mostrarTodosEstudiantes() {
+       for(Estudiante e: this.estudiantes) {
+           System.out.println(e);
+       }
+    }
+    
+    // READ
+    public void mostrarTodosCursos() {
+       for(Curso c: this.cursos) {
+           System.out.println(c);
+       }
+    } 
+    
+    // READ
+    public List<String> obtenerAsignaturasDeUnEstudiante(String idEstudiante) {
+        List<String> nombresCursos = new ArrayList<>();
+        for(Inscripcion inscripcion: this.inscripciones) {
+            Curso curso = inscripcion.getCurso();
+            Estudiante estudiante = inscripcion.getEstudiante();
+            if(estudiante.getIdEstudiante().equalsIgnoreCase(idEstudiante)) {
+               nombresCursos.add(curso.getNombre());
+            }
+        }
+        return nombresCursos;
+    }
+}
+
+package asociacion_tipo_muchos_a_muchos_estudiante_curso;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Data {
+    
+    public static void getEstudiantesCursosInscripciones(List<Estudiante> estudiantes,List<Curso> cursos,List<Inscripcion> inscripciones) {
+        //List<Estudiante> estudiantes = new ArrayList<>();
+        
+        Estudiante luis = new Estudiante("E1","Luis");
+        Estudiante miguel = new Estudiante("E2","Miguel");
+        Estudiante carlos = new Estudiante("E3","Carlos");
+        Estudiante maria = new Estudiante("E4","María");
+        Estudiante silvia = new Estudiante("E5","Silvia");
+        
+        estudiantes.add(luis);
+        estudiantes.add(miguel);
+        estudiantes.add(carlos);
+        estudiantes.add(maria);
+        estudiantes.add(silvia);
+
+        //List<Curso> cursos = new ArrayList<>();
+        
+        Curso mat = new Curso("Mat","Matemática");
+        Curso qui = new Curso("Qui","Química");
+        Curso fis = new Curso("Fis","Física");
+
+        cursos.add(mat);
+        cursos.add(qui);
+        cursos.add(fis);
+
+        //List<Inscripcion> inscripciones = new ArrayList<>();
+        
+        inscripciones.add(new Inscripcion(luis,mat,"2025-01-01"));
+        inscripciones.add(new Inscripcion(luis,qui,"2025-01-01"));
+        inscripciones.add(new Inscripcion(luis,fis,"2025-01-01"));
+
+        inscripciones.add(new Inscripcion(miguel,mat,"2025-01-02"));
+        inscripciones.add(new Inscripcion(miguel,qui,"2025-01-02"));
+        
+        inscripciones.add(new Inscripcion(carlos,mat,"2025-01-01"));
+        inscripciones.add(new Inscripcion(carlos,fis,"2025-01-01"));
+        
+        inscripciones.add(new Inscripcion(maria,mat,"2025-01-01"));
+        
+        inscripciones.add(new Inscripcion(silvia,qui,"2025-01-01"));
+    }
+ 
+}
+
+package asociacion_tipo_muchos_a_muchos_estudiante_curso;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Principal {
+
+    static Scanner sc = new Scanner(System.in);
+
+    static List<Estudiante> estudiantes = null;
+    static List<Curso> cursos = null;
+    static List<Inscripcion> inscripciones = null;
+
+    static GestionMatricula gm = null;
+
+    public static void main(String[] args) {
+        estudiantes = new ArrayList<>();
+        cursos = new ArrayList<>();
+        inscripciones = new ArrayList<>();
+        Data.getEstudiantesCursosInscripciones(estudiantes, cursos, inscripciones);
+        gm = new GestionMatricula(estudiantes, cursos, inscripciones);
+        String opcion = "";
+        do {
+            cls();
+            mostrarMenu();
+            opcion = sc.next();
+
+            switch (opcion) {
+                case "1":
+                    cls();
+                    opcion1();
+                    pause();
+                    break;
+                case "2":
+                    cls();
+                    opcion2();
+                    pause();
+                    break;
+                case "3":
+                    cls();
+                    opcion3();
+                    pause();
+                    break;
+                case "0":
+                    cls();
+                    System.out.println("Gracia por su visita");
+                    pause();
+                    System.exit(0);
+                    break;
+                default:
+                    cls();
+                    System.out.println("Opción no existe");
+                    pause();
+            }
+        } while (true);
+    }
+
+    private static void mostrarMenu() {
+        System.out.println("SISTEMA GESTION DE MATRICULAS");
+        System.out.println("-----------------------------");
+        System.out.println("[1] Mostrar todos los estudiantes");
+        System.out.println("[2] Mostrar todos los cursos");
+        System.out.println("[3] Mostrar las asignaturas de un alumno dado su id");
+        System.out.println("[0] Salir");
+
+        System.out.println("Ingrese su opción? ");
+    }
+
+    private static void opcion1() {
+        System.out.println("[1] Mostrar todos los estudiantes");
+        System.out.println("---------------------------------");
+        gm.mostrarTodosEstudiantes();
+    }
+    
+    private static void opcion2() {
+        System.out.println("[2] Mostrar todos los cursos");
+        System.out.println("----------------------------");
+        gm.mostrarTodosCursos();
+    } 
+    
+    private static void opcion3() {
+         System.out.println("[3] Mostrar las asignaturas de un alumno dado su id");
+         System.out.println("---------------------------------------------------");
+         System.out.println("Ingrese el id del estudiante? ");
+         String idEstudiante = sc.next();
+         List<String> nombresCursos = gm.obtenerAsignaturasDeUnEstudiante(idEstudiante);
+         if(nombresCursos.size() > 0) {
+            for(String nombre: nombresCursos) {
+                System.out.println(nombre);
+            }
+         }else {
+            System.out.println("Estudiante no matriculado o no existe dicho idEstudiante");
+         }
+    }
+
+    private static void pause() {
+        try {
+            System.out.print("\nPresiona una tecla para continuar...");
+            System.in.read();
+        } catch (IOException e) {
+        }
+    }
+
+    private static void cls() {
+        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    }
+
+}

@@ -1,0 +1,136 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\ProjectoVentanaWPF\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{ED643624-2817-DD3C-7470-A2C406E4DB42}|MiAppWPF\\MiAppWPF.csproj|C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\ProjectoVentanaWPF\\miappwpf\\ventanamysql.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED643624-2817-DD3C-7470-A2C406E4DB42}|MiAppWPF\\MiAppWPF.csproj|solutionrelative:miappwpf\\ventanamysql.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED643624-2817-DD3C-7470-A2C406E4DB42}|MiAppWPF\\MiAppWPF.csproj|c:\\certificado_27022025_modulo1\\modulo3\\csharp\\projectoventanawpf\\miappwpf\\ventanacsv.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED643624-2817-DD3C-7470-A2C406E4DB42}|MiAppWPF\\MiAppWPF.csproj|solutionrelative:miappwpf\\ventanacsv.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED643624-2817-DD3C-7470-A2C406E4DB42}|MiAppWPF\\MiAppWPF.csproj|C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\ProjectoVentanaWPF\\miappwpf\\ventanamysql.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{ED643624-2817-DD3C-7470-A2C406E4DB42}|MiAppWPF\\MiAppWPF.csproj|solutionrelative:miappwpf\\ventanamysql.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED643624-2817-DD3C-7470-A2C406E4DB42}|MiAppWPF\\MiAppWPF.csproj|c:\\certificado_27022025_modulo1\\modulo3\\csharp\\projectoventanawpf\\miappwpf\\transaccion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED643624-2817-DD3C-7470-A2C406E4DB42}|MiAppWPF\\MiAppWPF.csproj|solutionrelative:miappwpf\\transaccion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED643624-2817-DD3C-7470-A2C406E4DB42}|MiAppWPF\\MiAppWPF.csproj|c:\\certificado_27022025_modulo1\\modulo3\\csharp\\projectoventanawpf\\miappwpf\\cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED643624-2817-DD3C-7470-A2C406E4DB42}|MiAppWPF\\MiAppWPF.csproj|solutionrelative:miappwpf\\cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED643624-2817-DD3C-7470-A2C406E4DB42}|MiAppWPF\\MiAppWPF.csproj|C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\ProjectoVentanaWPF\\miappwpf\\archivocsv.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED643624-2817-DD3C-7470-A2C406E4DB42}|MiAppWPF\\MiAppWPF.csproj|solutionrelative:miappwpf\\archivocsv.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED643624-2817-DD3C-7470-A2C406E4DB42}|MiAppWPF\\MiAppWPF.csproj|C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\ProjectoVentanaWPF\\miappwpf\\ventanacsv.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{ED643624-2817-DD3C-7470-A2C406E4DB42}|MiAppWPF\\MiAppWPF.csproj|solutionrelative:miappwpf\\ventanacsv.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Cliente.cs",
+              "DocumentMoniker": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\ProjectoVentanaWPF\\MiAppWPF\\Cliente.cs",
+              "RelativeDocumentMoniker": "MiAppWPF\\Cliente.cs",
+              "ToolTip": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\ProjectoVentanaWPF\\MiAppWPF\\Cliente.cs",
+              "RelativeToolTip": "MiAppWPF\\Cliente.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T18:08:57.412Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Transaccion.cs",
+              "DocumentMoniker": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\ProjectoVentanaWPF\\MiAppWPF\\Transaccion.cs",
+              "RelativeDocumentMoniker": "MiAppWPF\\Transaccion.cs",
+              "ToolTip": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\ProjectoVentanaWPF\\MiAppWPF\\Transaccion.cs",
+              "RelativeToolTip": "MiAppWPF\\Transaccion.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAAACYAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T18:07:52.398Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "VentanaMysql.xaml.cs",
+              "DocumentMoniker": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\ProjectoVentanaWPF\\MiAppWPF\\VentanaMysql.xaml.cs",
+              "RelativeDocumentMoniker": "MiAppWPF\\VentanaMysql.xaml.cs",
+              "ToolTip": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\ProjectoVentanaWPF\\MiAppWPF\\VentanaMysql.xaml.cs",
+              "RelativeToolTip": "MiAppWPF\\VentanaMysql.xaml.cs",
+              "ViewState": "AQIAACcAAAAAAAAAAAAowC0AAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T17:07:52.264Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "VentanaCsv.xaml.cs",
+              "DocumentMoniker": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\ProjectoVentanaWPF\\MiAppWPF\\VentanaCsv.xaml.cs",
+              "RelativeDocumentMoniker": "MiAppWPF\\VentanaCsv.xaml.cs",
+              "ToolTip": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\ProjectoVentanaWPF\\MiAppWPF\\VentanaCsv.xaml.cs",
+              "RelativeToolTip": "MiAppWPF\\VentanaCsv.xaml.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAswB8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T17:05:58.454Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "VentanaMysql.xaml",
+              "DocumentMoniker": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\ProjectoVentanaWPF\\MiAppWPF\\VentanaMysql.xaml",
+              "RelativeDocumentMoniker": "MiAppWPF\\VentanaMysql.xaml",
+              "ToolTip": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\ProjectoVentanaWPF\\MiAppWPF\\VentanaMysql.xaml",
+              "RelativeToolTip": "MiAppWPF\\VentanaMysql.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-09-18T17:05:37.424Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "VentanaCsv.xaml",
+              "DocumentMoniker": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\ProjectoVentanaWPF\\MiAppWPF\\VentanaCsv.xaml",
+              "RelativeDocumentMoniker": "MiAppWPF\\VentanaCsv.xaml",
+              "ToolTip": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\ProjectoVentanaWPF\\MiAppWPF\\VentanaCsv.xaml",
+              "RelativeToolTip": "MiAppWPF\\VentanaCsv.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-09-18T17:05:08.192Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ArchivoCSV.cs",
+              "DocumentMoniker": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\ProjectoVentanaWPF\\MiAppWPF\\ArchivoCSV.cs",
+              "RelativeDocumentMoniker": "MiAppWPF\\ArchivoCSV.cs",
+              "ToolTip": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\ProjectoVentanaWPF\\MiAppWPF\\ArchivoCSV.cs",
+              "RelativeToolTip": "MiAppWPF\\ArchivoCSV.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAywBgAAABFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T17:04:07.054Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+<Window x:Class="MiAppWPF.Ventana7"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MiAppWPF"
+        mc:Ignorable="d"
+        Title="VENTANA CSHARP"
+        Height="325"
+        Width="400"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+        Background="LightGray">
+    <Grid>
+
+        <StackPanel>
+            <!--  1;Luis;1.76;32;true  csv -->
+            <TextBlock Text="Ingresar su texto?"
+                       Margin="5"
+                       FontSize="10"/>
+            <TextBox Name="TxtMiTexto"
+                     Margin="10"
+                     FontSize="10"
+                     TextAlignment="center"
+                     Foreground="blue"/>
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="5">
+
+                <TextBox Name="TxtCodigo"
+                         Width="30"
+                         Margin="10"
+                         FontSize="10"
+                         TextAlignment="center"
+                         Foreground="blue"/>
+                <TextBox Name="TxtNombre"
+                         Width="30"
+                         Margin="10"
+                         FontSize="10"
+                         TextAlignment="center"
+                         Foreground="blue"/>
+
+                <TextBox Name="TxtEstatura"
+                         Width="30"
+                         Margin="10"
+                         FontSize="10"
+                         TextAlignment="center"
+                         Foreground="blue"/>
+
+                <TextBox Name="TxtEdad"
+                         Width="30"
+                         Margin="10"
+                         FontSize="10"
+                         TextAlignment="center"
+                         Foreground="blue"/>
+
+                <TextBox Name="TxtCasado"
+                         Width="30"
+                         Margin="10"
+                         FontSize="10"
+                         TextAlignment="center"
+                         Foreground="blue"/>
+            </StackPanel>
+
+
+            <Button Content="Separar"
+                    Margin="5"
+                    FontSize="9"
+                    Click="BtnSeparar_Click"/>
+
+        </StackPanel>
+
+
+    </Grid>
+</Window>

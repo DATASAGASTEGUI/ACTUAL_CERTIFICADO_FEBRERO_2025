@@ -1,0 +1,40 @@
+--------------------------------------------------------------------------------
+1. CONDICIONAL BINARIO
+
+Hacer un programa que determine si un número entero ingresado por teclado es
+par o impar.
+--------------------------------------------------------------------------------
+2. CONDICIONAL MULTIPLE
+
+Hacer un programa para evaluar una nota: desaprobado, aprobado, notable, sobresaliente
+
+--------------------------------------------------------------------------------
+3. BUCLE FOR
+
+Hacer un programa para recorrer un array de enteros.
+
+--------------------------------------------------------------------------------
+4. BUCLE WHILE
+
+Hacer un programa para ingresar números enteros hasta que ingrese 0 deteniendo
+el ingreso. Mostrará la suma de los números ingresados.
+--------------------------------------------------------------------------------
+5. BUCLE DO...WHILE
+
+Hacer un programa para pedir una nota mientras no sea valida el programa seguirá
+pidiendo la nota, cuando la nota es valida termina el programa.
+
+[0,10] Nota valida
+
+La 
+--------------------------------------------------------------------------------
+
+Crear por cada ejercicio un commit
+Subir el repositorio local a un remote: waltersagastegui11042025
+--------------------------------------------------------------------------------
+
+
+
+
+
+

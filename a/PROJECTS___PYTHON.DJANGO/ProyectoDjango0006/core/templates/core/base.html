@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %} | Mi Web Personal</title>
+    <style>
+      .container1 {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+      }
+    </style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'core/css/estilo.css' %}" />
+  </head>
+  <body style="background-image: url('{% static 'core/img/imagen.jpg' %}'); background-size: cover;background-repeat: no-repeat;background-position: center center;">
+    <!-- Cabecera y Menú -->
+    <div class="container">
+      <h1>Mi Web Personal</h1>
+      <ul>
+        <li><a href="{% url 'home' %}">Portada</a></li>
+        <li><a href="{% url 'about' %}">Acerca de mí</a></li>
+        <li><a href="{% url 'portafolio' %}">Portafolio</a></li>
+        <li><a href="{% url 'contact' %}">Contacto</a></li>
+      </ul>
+      <!-- Contenido -->
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>

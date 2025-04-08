@@ -1,0 +1,93 @@
+--------------------------------------------------------------------------------
+- Este proyecto usa un entorno virtual de python llamado entorno, el  cual  esta
+  en la ruta siguiente:
+
+C:\EntornoVirtualPython\midjango\entorno
+
+- Nuestro "entorno" lo cree con el siguiente comando:
+
+C:\EntornoVirtualPython\midjango\python -m venv entorno
+
+- Activar el "entorno" para nuestro proyecto:
+
+C:\proyecto\C:\EntornoVirtualPython\midjango\entorno\Scripts\activate.bat
+
+El resultado es el siguiente:
+
+(entorno) C:\proyecto
+
+- Desactivar el "entorno" para nuestro proyecto:
+
+(entorno) C:\proyecto\C:\EntornoVirtualPython\midjango\entorno\Scripts\deactivate.bat
+--------------------------------------------------------------------------------
+- Abrir el archivo settings.py:
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': ['miwebsite/templates'],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+- Modificar esto, pones la carpeta donde estarán los archivos html:
+
+'DIRS': ['templates'],
+'APP_DIRS': True,
+--------------------------------------------------------------------------------
+F:\BORJA80GB\TRABAJANDO\PROJECTS___PYTHON.DJANGO\ProyectoDjango0001>tree /F 
+Listado de rutas de carpetas para el volumen BORJA80GB
+El número de serie del volumen es E4C6-EC2C
+F:.
+│   apuntes.txt
+│   db.sqlite3
+│   manage.py
+│   vsc.bat
+│
+└───miwebsite
+    │   asgi.py
+    │   settings.py
+    │   urls.py
+    │   views.py
+    │   wsgi.py
+    │   __init__.py
+    │
+    ├───static
+    │   ├───css
+    │   │       style.css
+    │   │
+    │   └───images
+    │           image.png
+    │
+    ├───templates
+    │       inicio.html
+    │       publicidad.html
+    │       trabajador.html
+    │
+    └───__pycache__
+            settings.cpython-313.pyc
+            urls.cpython-313.pyc
+            views.cpython-313.pyc
+            wsgi.cpython-313.pyc
+            __init__.cpython-313.pyc
+--------------------------------------------------------------------------------
+F:\BORJA80GB\TRABAJANDO\PROJECTS___PYTHON.DJANGO\ProyectoDjango0001>python manage.py runserver 8089
+--------------------------------------------------------------------------------
+C:\Users\RYZEN>python
+>>> import django  
+>>> django.get_version()
+>>> django.VERSION
+>>> exit()
+--------------------------------------------------------------------------------
+
+
+
+
+

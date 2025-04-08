@@ -1,0 +1,13 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 04{% endblock %}
+
+{% block content %} 
+    <h2>[04] Capitalizar la primera letra de cada palabra</h2>
+    {% load filtros %}
+    <ul>
+        {% for persona in personas %}
+            <li>{{ persona|capitalizar }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

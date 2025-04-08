@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <h1>SUMAR DOS NUMEROS</h1>
+  <form method="post">
+    {% csrf_token %}
+    <!-- ENTRADA -->
+    <label for="numero1">Número 1:</label>
+    <input type="number"
+           name="txt_numero1"
+           value="{{ numero1 }}"
+           required
+           id="numero1"
+           min="0" 
+           max="500" 
+           step="0.01"
+           placeholder="0.0">
+    <label for="numero2">Número 2:</label>
+    <input type="number"
+           name="txt_numero2"
+           value="{{ numero2 }}"
+           required
+           id="numero2"
+           min="0" 
+           max="500" 
+           step="0.01"
+           placeholder="0.0">
+
+    <!-- SALIDA -->
+    <label for="resultado">Resultado:</label>
+    <input type="text"
+           name="txt_resultado"
+           value="{{ resultado }}"
+           id="resultado"
+           placeholder="0.0"
+           readonly>
+
+
+    <!-- ACCION -->
+    <input type="submit" name="btn_sumar" value="Sumar">
+    <input type="submit" name="btn_limpiar" value="Limpiar">
+
+  </form>
+
+  <a href='{% url "home" %}'>Ir al menú</a>  
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Selector de Estatura</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+    
+    .estatura-container {
+      max-width: 300px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #f5f5f5;
+      border-radius: 10px;
+    }
+    
+    .estatura-slider {
+      width: 100%;
+      margin: 15px 0;
+    }
+    
+    .estatura-display {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    
+    .estatura-visual {
+      height: 200px;
+      width: 50px;
+      background: #e0e0e0;
+      margin: 0 auto;
+      position: relative;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    
+    .estatura-bar {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: #4CAF50;
+      height: 0%;
+      transition: height 0.3s;
+    }
+    
+    .estatura-marks {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="estatura-container">
+  <h3>Selecciona tu estatura</h3>
+  
+  <div class="estatura-visual">
+    <div class="estatura-bar" id="estatura-bar"></div>
+  </div>
+  
+  <div class="estatura-display" id="estatura-display">0.0 m</div>
+  
+  <input type="range" 
+         class="estatura-slider" 
+         id="estatura-slider" 
+         min="0" 
+         max="30" 
+         step="1" 
+         value="0">
+  
+  <div class="estatura-marks">
+    <span>0 m</span>
+    <span>1 m</span>
+    <span>2 m</span>
+    <span>3 m</span>
+  </div>
+</div>
+
+<script>
+  const slider = document.getElementById('estatura-slider');
+  const display = document.getElementById('estatura-display');
+  const bar = document.getElementById('estatura-bar');
+  
+  slider.addEventListener('input', function() {
+    // Convertir el valor (0-30) a metros (0.0-3.0)
+    const estatura = (this.value / 10).toFixed(1);
+    display.textContent = `${estatura} m`;
+    
+    // Actualizar la barra visual (0-3m = 0-100%)
+    const porcentaje = (this.value / 30) * 100;
+    bar.style.height = `${porcentaje}%`;
+  });
+  
+  // Inicializar
+  slider.dispatchEvent(new Event('input'));
+</script>
+
+</body>
+</html>

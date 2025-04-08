@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Error de Base de Datos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffe6e6;
+            color: #b30000;
+            padding: 2rem;
+        }
+        .container {
+            background-color: #fff0f0;
+            border: 1px solid #b30000;
+            padding: 1.5rem;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: auto;
+        }
+        h1 {
+            color: #cc0000;
+        }
+        p {
+            font-size: 1.1rem;
+        }
+        .detalle {
+            font-family: monospace;
+            background-color: #fff5f5;
+            border: 1px solid #ffcccc;
+            padding: 0.5rem;
+            margin-top: 1rem;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Error al acceder a la base de datos</h1>
+        <p>Ocurrió un problema al intentar conectarse o consultar la base de datos.</p>
+        {% if mensaje_error %}
+        <div class="detalle">
+            {{ mensaje_error }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

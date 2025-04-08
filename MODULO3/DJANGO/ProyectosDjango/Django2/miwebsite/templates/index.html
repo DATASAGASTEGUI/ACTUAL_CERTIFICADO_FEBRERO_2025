@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <h1>INDEX</h1>
+  <a href="{% url 'admin:index' %}">Ir al Admin</a><br>
+
+  <a href="{% url 'mostrar_alumnos' %}">Mostrar-Actualizar-Eliminar</a><br>
+
+  <a href="{% url 'insertar_alumnos' %}">Ingresar nuevos alumnos</a><br>
+  <a href="{% url 'buscar_por_talla' %}">Mostrar todos los alumnos dado una talla</a><br>
+
+  <a href="{% url 'buscar_por_nombre_o_talla' %}">Buscar alumno por nombre o talla</a><br>
+
+  <a href="{% url 'buscar_por_nombre_y_talla' %}">Buscar alumno por nombre y talla</a><br>
+
+  <a href="{% url 'buscar_por_id' %}">Buscar por id desde un combobox</a>
+    
+</body>
+</html>

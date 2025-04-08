@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %} | Mi Web Personal</title>
+    <style>
+      body {
+        font-family: "Courier New", Courier, monospace;
+      }
+    </style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}" />
+  </head>
+  <body style="background-image: url('{% static 'img/imagen.jpg' %}'); background-size: cover;background-repeat: no-repeat;background-position: center center;font-family: "Courier New", Courier, monospace;">
+    <!-- Cabecera y Menú -->
+    <div class="container">
+      <h1>Filtros</h1>
+      <ul>
+        <li><a href="{% url 'ejemplo01' %}">[01] Formatear nombres completos</a></li>
+        <li><a href="{% url 'ejemplo02' %}">[02] Mostrar texto en color según estado</a></li>
+        <li><a href="{% url 'ejemplo03' %}">[03] Aplicar un iva del 21%</a></li>
+        <li><a href="{% url 'ejemplo04' %}">[04] Capitalizar la primera letra de cada palabra</a></li>
+        <li><a href="{% url 'ejemplo05' %}">[05] Calcular la edad a partir de el año de nacimiento</a></li>
+        <li><a href="{% url 'ejemplo06' %}">[06] Calcular el precio total en función del precio e impuesto</a></li>
+        <li><a href="{% url 'ejemplo07' %}">[07] Distintos filtros</a></li>
+        <li><a href="{% url 'ejemplo08' %}">Ejemplo08</a></li>
+        <li><a href="{% url 'ejemplo09' %}">Ejemplo09</a></li>
+        <li><a href="{% url 'ejemplo10' %}">Ejemplo10</a></li>
+      </ul>
+      <!-- Contenido -->
+      {% block content %}{% load filtros %}
+
+      {% endblock %}
+    </div>
+  </body>
+</html>

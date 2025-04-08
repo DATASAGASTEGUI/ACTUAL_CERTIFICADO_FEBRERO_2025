@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 03{% endblock %}
+
+{% block content %} 
+    <h2>[03] Mostrar todas las constultas de un medico</h2>
+    {% if consultas %}
+        {% for consulta in consultas %}
+           <p> {{ consulta.nombreMedico }} </p>
+        {% endfor %}
+    {% else %}
+        <p>No hay consultas para el médico</p>
+    {% endif %}
+{% endblock %}

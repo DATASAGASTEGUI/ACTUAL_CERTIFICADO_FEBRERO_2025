@@ -1,0 +1,25 @@
+
+<form method="post">
+    {% csrf_token %}
+    <label for="alumno_id">Selecciona un alumno por ID:</label>
+    <select name="cbo_alumnos" id="alumno_id">
+        {% for alumno in alumnos %}
+            <option value="{{ alumno.id }}" {% if alumno_seleccionado  and alumno_seleccionado.id == alumno.id %}selected{% endif %}>
+                    {{ alumno.id }} - {{ alumno.nombre }}
+            </option>
+        {% endfor %}
+    </select>
+    <button type="submit">Buscar</button>
+</form>
+
+{% if alumno_seleccionado %}
+    <h2>Detalles del Alumno</h2>
+    <p><strong>Id:</strong> {{ alumno_seleccionado.id }}</p>
+    <p><strong>Nombre:</strong> {{ alumno_seleccionado.nombre }}</p>
+    <p><strong>Direccion:</strong> {{ alumno_seleccionado.direccion }}</p>
+    <p><strong>Estatura:</strong> {{ alumno_seleccionado.estatura }}</p>
+{% endif %}
+
+
+
+<a href="{% url 'index' %}">Volver al index</a>

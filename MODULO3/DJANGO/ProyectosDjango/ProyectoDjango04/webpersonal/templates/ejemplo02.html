@@ -1,0 +1,10 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 02{% endblock %}
+
+{% block content %} 
+<h2>[02] Mostrar todos los registros de la tabla consulta ordenado por fecha</h2>
+{% for consulta in consultas %}
+   <p>{{ consulta }}</p>
+{% endfor %}
+{% endblock %}

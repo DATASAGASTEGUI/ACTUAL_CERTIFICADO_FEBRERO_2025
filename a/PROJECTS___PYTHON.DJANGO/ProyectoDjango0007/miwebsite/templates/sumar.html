@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+          {% load static %}
+          <link rel="stylesheet" href="{% static 'css/estilo.css' %}" />
+
+
+
+    </head>
+    <body>
+    <div class="container">
+        <h1>Sumador de Números</h1>
+        
+        <form method="post">
+            {% csrf_token %}
+            <!-- ENTRADA -->
+            Ingrese Número 1? <input type="number" step="any" name="txtNumero1" value="{{ numero1 }}"><br><br>
+            Ingrese Número 2? <input type="number" step="any" name="txtNumero2" value="{{ numero2 }}"><br><br>
+            <!-- SALIDA -->
+            Resultado: <input type="text" name="txtResultado" value="{{ resultado }}" readonly><br><br>
+            <!-- ACCION(PROCESO) -->
+            <input type="submit" value="Sumar" name="cmdSumar">
+            <input type="submit" value="Nuevo" name="cmdNuevo">
+        </form>
+    </div>
+        
+        <script src="" async defer></script>
+    </body>
+</html>

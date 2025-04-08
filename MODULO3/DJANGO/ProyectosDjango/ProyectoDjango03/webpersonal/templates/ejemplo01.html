@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 01{% endblock %}
+
+{% block content %} 
+{% load filtros %}
+<h2>[01] Formar un nombre completo</h2>
+{% if lista %}
+    {% for diccionario in lista %}
+        <p>{{ diccionario|nombre_completo }}</p>
+    {% endfor %}
+{% else %}
+    <p>Lista Vacia.</p>
+{% endif %}
+
+
+
+{% endblock %}
