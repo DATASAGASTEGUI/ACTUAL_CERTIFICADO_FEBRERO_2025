@@ -1,0 +1,362 @@
+/*
+JUEGO PAPEL TIJERA PIEDRA SIN MODULOS 
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+
+int main()
+{
+  srand(time(NULL));
+  int usuario;
+  char maquina[10], jugador[10];
+  int ce, cg, cp;
+  ce = cg = cp = 0;
+  for (int i = 0; i < 10; i++)
+  {
+    // MAQUINA
+    int aleatorio = rand() % 3 + 1;
+    if (aleatorio == 1)
+    {
+      // printf("Máquina: %s", "Tijera");
+      strcpy(maquina, "Tijera");
+    }
+    else if (aleatorio == 2)
+    {
+      // printf("Máquina: %s", "Piedra");
+      strcpy(maquina, "Piedra");
+    }
+    else if (aleatorio == 3)
+    {
+      // printf("Máquina: %s", "Papel");
+      strcpy(maquina, "Papel");
+    }
+    // USUARIO
+    printf("Escoja 1=Tijera, 2=Piedra, 3=Papel ? ");
+    scanf("%d", &usuario);
+    if (usuario == 1)
+    {
+      // printf("Máquina: %s", "Tijera");
+      strcpy(jugador, "Tijera");
+    }
+    else if (usuario == 2)
+    {
+      // printf("Máquina: %s", "Piedra");
+      strcpy(jugador, "Piedra");
+    }
+    else if (usuario == 3)
+    {
+      // printf("Máquina: %s", "Papel");
+      strcpy(jugador, "Papel");
+    }
+    // COMPARAR MAQUINA - USUARIO
+    if (aleatorio == usuario)
+    {
+      printf("Jugador: %s, Máquina: %s Empate\n", jugador, maquina);
+      ce++;
+    }
+    else if ((aleatorio == 3 && usuario == 1) ||
+             (aleatorio == 2 && usuario == 3) ||
+             (aleatorio == 1 && usuario == 2))
+    {
+      printf("Jugador: %s, Máquina: %s Gana Usuario\n", jugador, maquina);
+      cg++;
+    }
+    else
+    {
+      printf("Jugador: %s, Máquina: %s Pierde Usuario\n", jugador, maquina);
+      cp++;
+    }
+  }
+
+  printf("Cantida Empates: %d\n", ce);
+  printf("Cantida Gano   : %d\n", cg);
+  printf("Cantida Perdio : %d\n", cp);
+
+  if(cg > cp) {
+     printf("GANO USUARIO");
+  }else if(cg < cp) {
+    printf("GANO MAQUINA");
+  }else {
+    printf("USUARIO Y MAQUINA EMPATARON");    
+  }
+
+  return 0;
+}
+
+/*
+VERSION MODULAR
+*/
+
+#include <stdio.h>
+#include <stdlib.h> //system
+#include <time.h>
+#include <string.h>
+
+int opcion_maquina() {
+  srand(time(NULL));
+  int aleatorio = rand() % 3 + 1;
+  return aleatorio;
+}
+
+int opcion_usuario() {
+  int usuario;
+  printf("Escoja 1=Tijera, 2=Piedra, 3=Papel ? ");
+  scanf("%d", &usuario);
+  return usuario;
+}
+
+char* obtener_texto(int opcion) {
+  if (opcion == 1)
+  {
+    return "Tijera";
+  }
+  else if (opcion == 2)
+  {
+    return "Piedra";
+  }
+  else if (opcion == 3)
+  {
+    return "Papel";
+  }
+}
+
+void procesar_juego(int aleatorio, int usuario, int *ce, int *cg, int *cp) {
+  // COMPARAR MAQUINA - USUARIO
+  char *jugador = obtener_texto(usuario);
+  char *maquina = obtener_texto(aleatorio);
+
+  if (jugador == NULL || maquina == NULL) {
+    printf("Error al asignar memoria.\n");
+    return;
+  }
+  if (aleatorio == usuario)
+  {
+    printf("Jugador: %s, Máquina: %s Empate\n", jugador, maquina);
+    (*ce)++;
+  }
+  else if ((aleatorio == 3 && usuario == 1) ||
+           (aleatorio == 2 && usuario == 3) ||
+           (aleatorio == 1 && usuario == 2))
+  {
+    printf("Jugador: %s, Máquina: %s Gana Usuario\n", jugador, maquina);
+    (*cg)++;
+  }
+  else
+  {
+    printf("Jugador: %s, Máquina: %s Pierde Usuario\n", jugador, maquina);
+    (*cp)++;
+  }
+  free(jugador);
+  free(maquina);
+}
+
+void mostrar_resultado(int ce, int cg, int cp) {
+    printf("Cantida Empates: %d\n", ce);
+    printf("Cantida Gano   : %d\n", cg);
+    printf("Cantida Perdio : %d\n", cp);
+
+    if(cg > cp) {
+      printf("GANO USUARIO");
+    }else if(cg < cp) {
+      printf("GANO MAQUINA");
+    }else {
+      printf("USUARIO Y MAQUINA EMPATARON");    
+    }
+}
+
+
+
+int main()
+{
+  system("cls");
+  int ce, cg, cp;
+  ce = cg = cp = 0;
+  for (int i = 0; i < 10; i++)
+  {
+    // MAQUINA
+    int aleatorio = opcion_maquina();
+    // USUARIO
+    int usuario = opcion_usuario();
+    // PROCESAR-JUEGO
+    procesar_juego(aleatorio, usuario, &ce, &cg, &cp);
+  }
+  mostrar_resultado(ce, cg, cp);
+  printf("\n\n");
+  system("pause");
+
+  return 0;
+}
+
+/*
+EJEMPLO DE UN BUCLE CON GOTO 
+PROGRAMA NO ESTRUCTURADA
+*/
+
+#include <stdio.h>
+
+int main() {
+    int i = 0;
+
+    //Bucle con goto
+    start:
+    if(i<5) {
+        printf("i = %d\n", i);
+        i++;
+        goto start;
+    }
+
+    printf("Bucle terminado");
+    
+    return 0;
+}
+
+/*
+EJEMPLO DEL MENU CON ARCHIVOS BAT
+*/
+
+@echo off
+title MIS PROGRAMS EN C
+:menu
+cls
+echo =============================
+echo             MENU
+echo =============================
+echo.
+echo [1] Juego lanzar dado
+echo [2] Juego tijera piedra papel
+echo [3] Calculadora
+echo [4] Salir
+echo.
+echo =============================
+
+set /p opcion=Selecciona una opción ?
+
+if "%opcion%"=="1" aleatorio.exe
+if "%opcion%"=="2" juego.exe
+if "%opcion%"=="3" calc.exe
+if "%opcion%"=="4" exit
+
+pause > nul
+goto menu
+
+/*
+ARRAY 1 : VECTOR
+ARRAY 2 : MATRIZ
+
+SE USA PARA GUARDAR MUCHOS DATOS Y CADA DATO
+SE UBICA CON UN INDEX
+*/
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    /*
+    //DECLARAR UN VECTOR E INICIALIZAR AL MISMO TIEMPO
+
+    int x = 5;
+              //0  1  2  3  4
+    int y[5] = {1, 2, 3, 4, 5};
+    printf("%d", y[4]);
+    //DECLAR E INICIARLIZAR UN VECTOR EN SENTENCIAS SEPARADAS
+    int z[4];
+    z[0] = 12;
+    z[1] = 29;
+    z[2] = 12;
+    z[3] = 29;
+
+    // LLENAR UN VECTOR CON NUMEROS ENTEROS INGRESADOS DESDE EL TECLADO
+    int v[3];
+    for(int i=0; i<3; i++) {
+        printf("Ingresar un valor ? ");
+        scanf("%d", &v[i]);
+    }
+    //MOSTRAR EL CONTENIDO DEL VECTOR
+    for(int i=0; i<3; i++) {
+        printf("%d  ", v[i]);
+    }
+
+    int a, b, c;
+    printf("Ingresar un valor a? ");
+    scanf("%d", &a);
+
+    printf("Ingresar un valor b? ");
+    scanf("%d", &b);
+
+    printf("Ingresar un valor c? ");
+    scanf("%d", &c);
+
+    char caracteres[5] = {'H','X','1','#','?'};
+*/
+    char palabra[10] = "Hola";
+    printf("%s", palabra);
+
+    char *texto = "Mundo";
+    printf("%s", texto);
+                     
+    char nombres[10][20] = {"Luis","Miguel","Carlos"};
+    strcpy(nombres[7],"Arturo");
+    printf("%s", nombres[7]);
+
+    char *frutas[10] = {"Manzana","Piña"};
+    printf("%s", frutas[0]);
+
+    return 0;
+
+}
+
+/*
+OPERACIONES SOBRE UN VECTOR DE NUMEROS
+PROMEDIO
+SUMA
+MOSTRAR SOLO LOS PARES
+RECORRERLO DE FORMA INVERSA
+OBTENER EL MAYOR Y MENOR
+*/
+
+#include <stdio.h>
+#include <stdlib.h> //srand, rand
+#include <time.h>   //time
+
+int main() {
+    
+    srand(time(NULL));
+    int numeros[30];
+    for(int i=0; i<30; i++) {
+        numeros[i] = rand() % 90 + 10; //9[10,99]
+    }
+    //SUMA DE LOS NUMEROS DEL VECTOR: ACUMULADOR
+    int s = 0;
+    for(int i=0; i<30; i++) {
+        s = s + numeros[i]; //ACUMULADOR
+    }
+    for(int i=0; i<30; i++) {
+        printf("%d  ", numeros[i]);
+    }
+
+    printf("\nSuma: %d", s);
+    printf("\nPromedio: %.2f", s/30.0);
+    /*
+    [10, 11, 21, ...]
+    i = 0   s = 0 + 10  = 10
+    i = 1   s = 10 +11  = 21
+    i = 2   s = 21 + 21 = 42
+    */
+    system("cls");
+    printf("\nMOSTRAR TODOS LOS NUMEROS PARES DEL VECTOR\n");
+    for(int i=0; i<30; i++) {
+        if(numeros[i] % 2 == 0) {
+           printf("%d  ", numeros[i]);
+        }
+
+    }
+
+    return 0;
+}
+
+
+
+

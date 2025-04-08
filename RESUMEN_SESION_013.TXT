@@ -1,0 +1,167 @@
+--------------------------------------------------------------------------------
+# Crear un control de versión
+git init
+
+# Configurar las credenciales
+git config user.name DATASAGASTEGUI
+git config user.email datasagamadrid@gmail.com
+
+[user]
+	name = DATASAGASTEGUI
+	email = datasagamadrid@gmail.com
+
+# Mostrar el estado del area de trabajo
+git status
+# Preparar el commit
+git add .
+# Mostrar el estado del area de trabajo
+git status
+
+# Realizar un commit
+git commit -m "Foto 1"
+
+# Mostrar el historial de commit
+git log --oneline
+
+# Cambiar entre distintos commit
+git checkout 434234
+# Cambiar al commit master
+git checkout master
+
+# Vincular tu repositorio local de Git con un repositorio remoto
+git remote add origin https://github.com/DATASAGASTEGUI/PROYECTOGITHUB.git
+git push -u -f origin master
+
+git remote -v
+
+# Cambiar el repositorio local de Git con otro repositorio remoto
+git remote set-url origin https://github.com/DATASAGASTEGUI/PROYECTOGITHUB_OTRO.git
+# Subir el repositorio local a un repositorio remoto
+git push -u -f origin master
+
+CUAL ES EL COMANDO QUE ME PERMITE SACAR UN ARCHIVO DEL AREA DE PREPARACION AL AREA DE TRABAJO
+git rm --cached archivo.txt
+
+RECUPERAR UN ARCHIVO ELIMINADO DEL AREA DE TRABAJO DESDE EL ULTIMO COMMIT
+rm Ejemplo2.java
+git checkout HEAD -- Ejemplo2.java
+
+CLONAR UN PROYECTO
+git clone https://github.com/DATASAGASTEGUI/MIPROYECTO1.git
+
+
+
+git remote add origin https://github.com/DATASAGASTEGUI/PROBANDO5.git
+git push -u -f origin master
+
+git push --set-upstream origin feature/nombre
+
+https://www.youtube.com/watch?v=Kq3AbJayY6Y
+
+
+
+****************
+***   0003   ***
+****************
+
+Este  comando  se usa en Git para subir una  rama  nueva  al  repositorio remoto    
+(por ejemplo, en  GitHub,  GitLab, etc.) y,  además, establecer una  relación de 
+seguimiento entre tu rama local y la rama remota.
+
+git push --set-upstream origin feature/nombre
+
+Desglose de cada parte:
+
+git push: Este comando envía tus cambios (commits) al repositorio remoto.
+
+--set-upstream: Esto le dice a Git que quieres establecer una relación  entre tu 
+rama local y la rama remota que vas a crear o usar. A partir de entonces, cuando
+hagas  git pull  o  git push,  Git sabrá  automáticamente a qué  rama  remota se 
+refiere.
+
+origin: Es el nombre del  repositorio remoto. Por defecto, el repositorio remoto
+principal se llama origin.
+
+feature/nombre: Es el nombre de la rama que estás subiendo, normalmente una rama
+de desarrollo o nueva funcionalidad. Por ejemplo, podrías tener una rama llamada
+feature/login para trabajar en la funcionalidad de inicio de sesión.
+
+¿Cuándo usar este comando?
+
+Cuando creas una nueva rama local con algo como:
+
+git checkout -b feature/nombre
+Y  luego  quieres subirla al repositorio remoto y conectarla con una rama remota 
+del mismo nombre:
+
+git push --set-upstream origin feature/nombre
+
+Una vez hecho esto, ya puedes usar simplemente:
+
+git push
+git pull
+
+Y Git sabrá a qué rama remota debe empujar o desde cuál debe descargar los cambios.
+
+En resumen:
+
+Ese comando: 
+
+✅ Sube tu nueva rama al repositorio remoto.
+✅ Establece un "vínculo" entre la rama local y la rama remota.
+✅ Facilita futuros git pull o git push sin tener que escribir toda la ruta.
+
+Ejemplo:
+
+Supongamos que  estás  trabajando  en  un  proyecto  y  quieres  crear una nueva 
+funcionalidad llamada login.
+
+🔧 Paso 1: Crear una nueva rama local
+
+git checkout -b feature/login
+Esto crea una nueva rama local llamada feature/login y te cambia a esa rama.
+
+💻 Paso 2: Hacer cambios y confirmarlos
+
+Editas archivos, agregas funcionalidad, y luego haces commit:
+
+git add .
+git commit -m "Agregar funcionalidad de login"
+
+☁️ Paso 3: Subir la rama al repositorio remoto y establecer el vínculo
+
+git push --set-upstream origin feature/login
+
+Esto hace dos cosas:
+
+Sube la rama feature/login al repositorio remoto (por ejemplo, GitHub).
+
+Le dice a Git que a partir de ahora, cuando estés en esta rama y hagas git push
+o git pull, se conecte automáticamente con origin/feature/login.
+
+✅ Resultado
+Ya puedes seguir trabajando en tu rama y cada vez que hagas más cambios, solo necesitas hacer:
+
+
+git add .
+git commit -m "Mensaje del nuevo cambio"
+git push
+Sin tener que volver a escribir --set-upstream.
+
+
+
+
+
+
+
+
+git remote -v
+
+
+git remote add origin https://github.com/DATASAGASTEGUI/PROYECTOGITHUB.git
+
+git remote set-url origin https://github.com/DATASAGASTEGUI/PROYECTOGITREMOTO.git
+
+
+git push -u -f origin master
+

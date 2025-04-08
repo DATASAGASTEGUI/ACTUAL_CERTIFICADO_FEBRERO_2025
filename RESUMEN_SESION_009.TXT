@@ -1,0 +1,97 @@
+INSTALAR IDE APACHE NETBEANS
+CREAR UN PROYECTO CONSOLA (TAZA DE CAFE)
+INSTALAR EL SERVIDOR APACHE TOMCAT Y CONECTARLO CON NETBEANS
+CREAR UN PROYECTO WEB (GLOBO TIERRA)
+
+CONFIGUARAR UNA VERSION DE JAVA CON NETBEANS
+
+CREAR UN JAR (ES EL EJECUTABLE DE UN PROYECTO JAVA)
+(src = source = fuente)
+
+
+/*
+LANZAR UN DADO 1000 VECES
+*/
+
+package nuvoproyecto;
+
+public class Aleatorio {
+
+    public static void main(String[] args) {
+        int aleatorio, c1, c2, c3, c4, c5, c6;
+        c1 = c2 = c3 = c4 = c5 = c6 = 0;
+        int creinicio = 0;
+        for (int i = 0; i < 1000; i++) {
+            if (i == (1000 - 1)) {
+                creinicio++;
+                if (creinicio == 5) {
+                    System.out.println();
+                    System.out.println("Lado 1: " + c1);
+                    System.out.println("Lado 2: " + c2);
+                    System.out.println("Lado 3: " + c3);
+                    System.out.println("Lado 4: " + c4);
+                    System.out.println("Lado 5: " + c5);
+                    System.out.println("Lado 6: " + c6);
+                    break;
+                } else {
+                    System.out.println();
+                    System.out.println("Lado 1: " + c1);
+                    System.out.println("Lado 2: " + c2);
+                    System.out.println("Lado 3: " + c3);
+                    System.out.println("Lado 4: " + c4);
+                    System.out.println("Lado 5: " + c5);
+                    System.out.println("Lado 6: " + c6);
+                    
+                    i = 0;
+                    c1 = c2 = c3 = c4 = c5 = c6 = 0;
+                    continue;
+                }
+            }
+            aleatorio = (int) (Math.random() * 6 + 1);   //[1,6] 
+            System.out.printf("%2d", aleatorio);
+            switch (aleatorio) {
+                case 1:
+                    c1++;
+                    break;
+                case 2:
+                    c2++;
+                    break;
+                case 3:
+                    c3++;
+                    break;
+                case 4:
+                    c4++;
+                    break;
+                case 5:
+                    c5++;
+                    break;
+                case 6:
+                    c6++;
+                    break;
+            }
+
+        }
+
+    }
+
+}
+----------------
+Clase: Atributos(variables de instancia)
+       Metodos set y get
+	   Constructores
+	   Otros metodos
+	   
+Metodos: Por instancia, Static
+-------
+Metodos static se accede a traves de
+la clase.
+
+Metodos no-static se accede por instancia
+
+
+
+
+
+
+
+

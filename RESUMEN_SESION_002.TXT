@@ -1,0 +1,341 @@
+**********************
+***   LENGUAJE C   ***
+**********************
+--------------------------------------------------------------------------------
+(01) ESTRUCTURA BASICA DE UN PROGRAMA EN LENGUAJE C
+
+#include <stdio.h> //printf, scanf
+int main() {
+    // AQUI VA SU CODIGO
+
+    return 0;
+}
+--------------------------------------------------------------------------------
+(02) TIPOS DATOS
+
+ENTERO: 		int
+PUNTO FLOTANTE: float, double
+--------------------------------------------------------------------------------
+(03) OPERADORE DE COMPARACION
+
+==  
+!=
+<
+>
+<=
+>=
+--------------------------------------------------------------------------------
+(04) OPERADORES LOGICOS
+
+AND   &&       
+OR    ||       
+NOT   !
+--------------------------------------------------------------------------------
+(05) OPERADORES BINARIOS
+
+AND   & 
+OR    |
+NOT   ~
+--------------------------------------------------------------------------------
+(06) FUNCIONES PROPIAS DEL LENGUAJE
+
+printf   Escribir. Mostrar mensajes en pantalla
+scanf    Leer.     Ingresar datos con el teclado
+--------------------------------------------------------------------------------
+(07) OPERADOR DE ASIGNACION
+
+=
+
+EJEMPLO 1
+
+int x = 5;
+
+EJEMPLO 2
+
+int x;
+x = 5;
+--------------------------------------------------------------------------------
+***********************************
+***   PROGRAMAS EN LENGUAJE C   ***
+***********************************
+--------------------------------------------------------------------------------
+(01) OBTENER EL NEGATIVO DE UN NUMERO (OPERADORES BINARIOS)
+--------------------------------------------------------------------------------
+#include <stdio.h>
+int main() {
+    int x = 5; // 00000101    
+    int y = 3; // 00000011
+    int z1 = x & y; //00000101
+                    //00000011
+                    //--------
+                    //00000001
+                    
+    int z2 = x | y; //00000101
+                    //00000011
+                    //--------
+                    //00000111
+                    
+    int z3 = ~x;    //00000101
+                    //11111010 --->  00000101  
+                    //                      1
+                    //               --------
+                    //               00000110
+    printf("%d\n",z1); //1
+    printf("%d\n",z2); //7
+    printf("%d\n",z3); //-6
+
+    return 0;
+}
+--------------------------------------------------------------------------------
+(02) EJEMPLO DE EXPRESION LOGICA
+--------------------------------------------------------------------------------
+#include <stdio.h> //printf, scanf
+#include <math.h>  //pow
+
+int main() {
+    float talla = 1.78;
+    float peso = 69.8;
+    int edad = 45;
+    float imc = peso / pow(talla,2);
+    int pas = 166;
+    int pad = 88;
+    int fuma = 0;
+    int deporte = 1;
+    int sexo = 1;
+
+    if(sexo == 1 && (pas >= 140 || pad >= 90) && ( (fuma == 0)   ||
+                                                   (imc >= 30)    ||
+                                                   (deporte == 0) || 
+                                                   (edad >= 50)
+                                                 )) {
+       printf("Persona de riesgo");
+    }else {
+       printf("Persona no de riesgo");
+    }
+    return 0;
+      
+}
+--------------------------------------------------------------------------------
+#include <stdio.h> //printf, scanf
+#include <math.h>  //pow
+
+int main() {
+    float talla = 1.78;
+    float peso = 69.8;
+    int edad = 45;
+    float imc = peso / pow(talla,2);
+    int pas = 166;
+    int pad = 88;
+    int fuma = 0;
+    int deporte = 1;
+    int sexo = 1;
+    
+    int expresion_logica = sexo == 1 && (pas >= 140 || pad >= 90) && ( (fuma == 0)   ||
+                                                   (imc >= 30)    ||
+                                                   (deporte == 0) || 
+                                                   (edad >= 50)
+                                                 );
+    printf("Salida: %d\n", expresion_logica);
+
+    if(expresion_logica) {
+       printf("Persona de riesgo");
+    }else {
+       printf("Persona no de riesgo");
+    }
+    return 0;
+      
+} 
+--------------------------------------------------------------------------------
+(03) BLOQUE DE CODIGO - ALCANCE DE UNA VARIABLE 
+--------------------------------------------------------------------------------
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    int z = 8; //Global
+
+    {
+      int x = 1; //Local
+      int y = x * x;
+      printf("y=%d\n",y);
+      printf("z=%d\n",z);
+    }
+    {
+      int x = 3; //Local
+      float y = sqrt(x);
+      printf("y=%f\n", y);
+      printf("z=%d\n",z);
+      printf("x=%d\n",x);
+    }
+
+    return 0;
+}
+--------------------------------------------------------------------------------
+(04) ESTRUCTURA CONDICIONAL MULTIPLE
+--------------------------------------------------------------------------------
+/*
+EVALUAR UN NUMERO SI ES POSITIVO, NEGATIVO O CERO
+*/
+
+#include <stdio.h>
+int main() {
+    int numero;
+
+    printf("Ingrese un número natural? ");
+    scanf("%d", &numero);
+
+    if(numero > 0) {
+       printf("Positivo\n");
+    }else if(numero < 0) {
+       printf("Negativo\n");
+    }else {
+       printf("Cero\n");
+    }
+    return 0
+}
+--------------------------------------------------------------------------------
+/*
+ESTRUCTURA CONDICIONAL MULTIPLE (SWITCH)
+*/
+
+#include <stdio.h>
+int main() {
+    int dia;
+
+    printf("Ingrese día de la semana en número? ");
+    scanf("%d", &dia);
+
+    switch(dia) {
+       case 1: printf("Lunes\n"); break;
+       case 2: printf("Martes\n"); break;
+       case 3: printf("Miercoles\n"); break;
+       case 4: printf("Jueves\n"); break;
+       case 5: printf("Viernes\n"); break;
+       case 6: printf("Sabado\n"); break;
+       case 7: printf("Domingo\n"); break;
+       default: printf("Día no valido");
+    }
+
+    return 0;
+}
+--------------------------------------------------------------------------------
+(05) ESTRUCTURA CONDICIONAL ANIDADA
+--------------------------------------------------------------------------------
+/*
+EVALUAR SI SE PUEDE O NO CONCEDER UN PRESTAMO
+*/
+
+#include <stdio.h>
+int main() {
+    
+    int p1, p2, p3, p4, p5;
+
+    printf("Ingresos mensuales? ");
+    scanf("%d", &p1);
+
+    if(p1 >= 1500) {
+       printf("Años en el empleo actual? ");
+       scanf("%d", &p2);
+       if(p2 >= 1) {
+          printf("Ofrecer el prestamo\n");
+       }else {
+          printf("No ofrecer el prestamo\n");
+       }
+    }else {
+       printf("Antecedentes penales 1=Si, 0=No? ");
+       scanf("%d", &p3);
+       if(p3) {
+          printf("No ofrecer el prestamo\n");
+       }else {
+          printf("Años en el empleo actual? ");
+          scanf("%d", &p4);
+          if(p4 >= 1) {
+             printf("Ofrecer el prestamo\n");
+          }else {
+             printf("Realiza pagos con la tarjeta de crédito 1=Sí 0=No?");
+             scanf("%d", &p5);
+             if(p5) {
+                printf("Ofrecer el prestamo\n");
+             }else {
+                printf("No ofrecer el prestamo\n");
+             }
+          }
+       }
+    }
+
+    return 0;
+}
+--------------------------------------------------------------------------------
+/*
+ARBOL CLIMA. EVALUAR SI PUEDE HACER O NO DEPORTE
+*/
+
+#include <stdio.h>
+#include <string.h>
+int main() {
+    char p1[10], p2[10], p3[10], p4[10];
+   
+    printf("Cómo esta el cielo soleado/lluvioso/nublado? ");
+    scanf("%s", p1);
+
+    if(strcmp(p1,"soleado")==0) {
+       printf("La humedad es alta/normal? ");
+       scanf("%s", p2);
+       if(strcmp(p2,"alta")==0) {
+          printf("No Deporte");
+       }else {
+          printf("Si Deporte");
+       }
+    }else if(strcmp(p1,"nublado")==0) {
+       printf("Si Deporte");
+    }else if(strcmp(p1,"lluvioso")==0) {
+       printf("Cómo esta el viento: debil/fuerte? ");
+       scanf("%s", p4);
+       if(strcmp(p4,"debil")==0) {
+          printf("Si Deporte");
+       }else {
+          printf("No Deporte");
+       }
+    }
+
+    return 0;
+
+}
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

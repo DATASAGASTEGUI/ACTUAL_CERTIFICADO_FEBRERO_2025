@@ -1,0 +1,87 @@
+****************
+***   0001   ***
+****************
+SCRIPT
+--------------------------------------------------------------------------------
+@ECHO OFF
+schtasks /create /sc once /tn "Ejecutar programa 5" /tr "C:\CURSOS\OTROS\PROJECTSCMD\COMANDOS_0007.CMD\EJECUTAR.CMD" /st 01:13 /f
+PAUSE
+--------------------------------------------------------------------------------
+RESUMEN
+
+Este  script  CMD  (archivo por lotes)   está  diseñado  para  crear  una  tarea
+programada  en  Windows  mediante  el  uso  del comando schtasks.
+En resumen, este script CMD crea una tarea programada que ejecutará  el  archivo
+EJECUTAR.CMD a las 22:32 y luego se pausará, esperando que el  usuario  presione
+una tecla antes de cerrar la consola.
+--------------------------------------------------------------------------------
+EXPLICACION
+
+Aquí está una explicación de cada línea:
+
+@ECHO OFF
+Esta  línea desactiva la impresión de los comandos en la consola.
+
+SCHTASKS /create
+         /sc once
+         /tn "Ejecutar programa 5" 
+         /tr "C:\CURSOS\OTROS\PROJECTSCMD\COMANDOS_0007.CMD\EJECUTAR.CMD"
+         /st 22:32 /f /rl highest
+         
+Este comando utiliza schtasks  para  crear  una  nueva  tarea  programada en el 
+sistema. Aquí están los detalles de los parámetros utilizados:
+
+/create
+Indica que se creará una nueva tarea programada.
+
+/sc once
+Establece que la tarea se ejecutará una vez.
+
+/tn "Ejecutar programa 5"   
+Especifica el nombre de la tarea programada como "Ejecutar programa 5".
+
+/tr "C:\CURSOS\OTROS\PROJECTSCMD\COMANDOS_0007.CMD\EJECUTAR.CMD"
+Indica la ruta del archivo o comando que se ejecutará  como  parte  de la tarea 
+programada. En este caso, se  ejecutará  un  archivo CMD  llamado  EJECUTAR.CMD
+ubicado  en  la  ruta proporcionada.
+
+/st 22:32
+Establece la hora de inicio de  la  tarea programada a las 22:32 (10:32 PM).
+
+/f 
+Fuerza la creación de la tarea incluso  si  ya  existe una tarea  con  el mismo
+nombre.
+
+/rl highest
+Especifica  que  la  tarea  se  ejecutará  con  los  privilegios  más     altos
+(como administrador). Si no deseas que  la  tarea  se  ejecute  con privilegios 
+elevados, puedes eliminar esta línea.
+
+PAUSE                       
+Este comando pausa la ejecución del script, lo que permite  que  el usuario vea
+cualquier mensaje en la consola antes de que se cierre. En  este  caso, después
+de ejecutar el comando schtasks, el script se  pausará  hasta  que  el  usuario
+presione una tecla.
+--------------------------------------------------------------------------------
+APUNTES
+
+Para eliminar una tarea programada en Windows, puedes usar el  comando  schtasks
+con la opción /delete. Aquí está el comando que podrías utilizar en tu caso para
+eliminar la tarea llamada "Ejecutar programa 5":
+
+schtasks /delete /tn "Ejecutar programa 5" /f
+
+Desglose de los parámetros utilizados:
+
+/delete: Indica que se eliminará una tarea programada.
+
+/tn "Ejecutar programa 5": Especifica  el  nombre de la tarea programada que  se 
+eliminará.
+
+/f: Fuerza la eliminación de la tarea sin pedir confirmación.
+Este comando eliminará la tarea  programada  llamada  "Ejecutar programa 5"  sin 
+solicitar confirmación. Asegúrate de utilizarlo con precaución, ya que eliminará 
+la tarea de manera irreversible.
+--------------------------------------------------------------------------------
+
+

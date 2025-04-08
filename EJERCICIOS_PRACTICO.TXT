@@ -1,0 +1,113 @@
+n = 8 bits
+     128 64 32  16 8 4 2 1
+5  = 0    0  0   0 0 1 0 1
+
+-5 = 00000101
+
+     11111010 C1
+	        1 C2
+	 --------
+	 11111011
+	 
+5  =   00000101	 
+-5 =   11111011
+     1 00000000
+	 
+-17 = 128 64 32  16 8 4 2 1
+
+      0    0  0   1 0 0 0 1
+	  
+	  1    1  1   0 1 1 1 0
+	                      1
+	  ---------------------
+	  1    1  1   0 1 1 1 1
+	  
+	  
+-8-3 = -11
+
+5 = 00000101
+    11111010
+	       1
+    --------
+	
+	
+	
+	
+	
+	
+	
+PRACTICO BINARIO
+----------------
+(1)
+
+192 - 38	
+
+(2)
+
+-35-48
+
+(3)
+
+1428 TeraByte a KiloByte
+
+(4)
+
+4855 Byte a  MegaByte
+
+PRACTICO .BAT
+-------------
+(1)
+
+BUSCAR TODOS LOS ARCHIVOS 
+APUNTES01.TXT, APUNTES02.TXT, APUNTES03.TXT
+EN UNA RUTA QUE SERA INGRESADA DESDE EL TECLADO. 
+EL SCRIPT MOSTRARA
+LA RUTA DONDE LOS ENCONTRO.
+
+@ECHO OFF
+SET /P "RUTA=INGRESAR LA RUTA?"
+FOR /R %RUTA% %%F IN (APUNTES0?.TXT) DO ECHO %%F
+PAUSE
+
+(2)
+
+HACER UN SCRIPT PARA CONSTRUIR EL SIGUIENTE ARBOL DE CARPETAS Y ARCHIVOS
+
+FACULTAD: - LETRAS:
+              -ARCHIVO0.TXT
+          - CIENCIA: - MATEMATICA:
+		                  - ARCHIVO1.TXT
+						  - ARCHIVO2.TXT
+		             - QUIMICA
+					 
+LUEGO EL SCRIPT DEBE COLOCARSE DENTRO DE LA CARPETA "QUIMICA"
+
+@ECHO OFF
+MKDIR FACULTAD FACULTAD/LETRAS FACULTAD/CIENCIA FACULTAD/CIENCIA/MATEMATICA
+      FACULTAD/CIENCIA/QUIMICA 
+ECHO. > FACULTAD/LETRAS/ARCHIVO0.TXT
+ECHO. > FACULTAD/CIENCIA/MATEMATICA/ARCHIVO1.TXT
+ECHO. > FACULTAD/CIENCIA/MATEMATICA/ARCHIVO2.TXT
+CD FACULTAD/CIENCIA/QUIMICA	  
+
+
+		        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+	 

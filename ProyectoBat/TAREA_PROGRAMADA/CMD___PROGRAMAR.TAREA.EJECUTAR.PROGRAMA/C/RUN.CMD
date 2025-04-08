@@ -1,0 +1,5 @@
+@ECHO OFF
+TITLE SCRIPT CMD
+CHCP 65001 > NUL
+CLS
+aleatorio.exe

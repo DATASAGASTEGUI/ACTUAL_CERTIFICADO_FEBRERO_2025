@@ -1,0 +1,7 @@
+CREAR UNA CLASE: Coche
+                 Estudiante
+
+Con sus atributos respectivos
+Luego crear objetos y gestionar sus atributos con set y get
+--------------------------------------------------------------------------------
+EJEMPLO0007: CONVERTIR UN PROGRAMA DE CALCULO A CLASE

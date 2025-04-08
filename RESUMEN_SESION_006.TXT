@@ -1,0 +1,201 @@
+#include <stdio.h> //printf, scanf
+
+int main() {
+    int numero = 5; //Variable por valor
+    int *puntero = &numero; //Variable por referencia (puntero)
+
+    printf("Numero   : %d\n", numero);   //5
+    printf("Direccion: %p\n", puntero);
+    printf("Direccion: %d\n", *puntero); //5
+    printf("Direccion: %p\n", &numero);
+
+    return 0;
+}
+------------
+#include <stdio.h> //printf, scanf
+
+void incrementar(int *x) {
+     (*x)++; //6
+}
+
+int incrementar1(int x) {
+    return x+1;
+}
+
+int main() {
+    int numero = 5; //Variable por valor
+    printf("Número: %d", numero);
+    incrementar(&numero);
+    printf("Número: %d", numero);
+
+    int numero1 = incrementar1(numero);
+
+    return 0;
+}
+------------
+/*
+Hacer un programa donde el principal
+pide un total y luego el programa
+le añade el iva para obtener lo
+que tiene que pagar el usuario, asumiendo un iva del 20%
+*/
+
+#include <stdio.h> //printf, scanf
+#define IVA 0.20
+
+void agregar_iva(float *total_compra) {
+     *total_compra = *total_compra * (IVA + 1);
+}
+
+float agregar_iva_1(float total_compra) {
+    return total_compra * (IVA + 1); 
+}
+
+int main() {
+    float total_compra;
+
+    printf("Ingresar el total de la compra? ");
+    scanf("%f", &total_compra);
+
+    //agregar_iva(&total_compra);
+
+    total_compra = agregar_iva_1(total_compra);
+
+    printf("Total a pagar: %.2f\n", total_compra);
+    
+
+    return 0;
+}
+-----------
+/*
+Hacer un programa donde el principal
+pide un total y luego el programa
+le añade el iva para obtener lo
+que tiene que pagar el usuario, asumiendo un iva del 20%
+*/
+
+#include <stdio.h> //printf, scanf
+#define IVA 0.20
+
+void ingresar_total_compra(float *total_compra) {
+    printf("Ingresar el total de la compra? ");
+    scanf("%f", total_compra);
+}
+
+void agregar_iva(float *total_compra) {
+     *total_compra = *total_compra * (IVA + 1);
+}
+
+void mostrar_total_pagar(float *total_compra) {
+     printf("Total a pagar: %.2f\n", *total_compra);
+}
+
+int main() {
+    float total_compra;
+
+    //ENTRADA
+    ingresar_total_compra(&total_compra);
+
+    //PROCESO
+    agregar_iva(&total_compra);
+
+    //SALIDA
+    mostrar_total_pagar(&total_compra);
+
+    return 0;
+}
+------------
+/*
+Manejo de cadenas: "Hola", "como estas"
+*/
+#include <stdio.h> //printf, scanf
+#include <string.h>
+
+int main() {
+    
+    char *texto1 = "Hola Mundo";
+    char texto2[11] = "Hola Mundo";
+
+    printf("Texto 1: %s\n", texto1);
+    printf("Texto 2: %s\n", texto2);
+
+    printf("Texto 1: %p\n", texto1);
+    printf("Texto 2: %p\n", texto2);
+
+    for(int i=0; texto2[i] != '\0'; i++) {
+        printf("%c   ", texto2[i]);
+    }
+    printf("\n");
+    for(int i=0; texto1[i] != '\0'; i++) {
+        printf("%c   ", texto1[i]);
+    }
+    printf("\n");
+    for(int i=0; i<10; i++) {
+        printf("%c   ", texto1[i]);
+    }
+    printf("\n");
+    for(int i=5; texto1[i] != '\0'; i++) {
+        printf("%c   ", texto1[i]);
+    }
+    printf("\nCUANTAS VOCALES TIENE UN TEXTO");
+    int c = 0;
+    for(int i=0; texto1[i] != '\0'; i++) {
+        if(texto1[i] == 'a' || texto1[i] == 'e' ||
+           texto1[i] == 'i' || texto1[i] == 'o' ||
+           texto1[i] == 'u') c++;
+    }  
+    printf("\nCantidad vocales: %d", c);
+
+    printf("\nRECORRER UNA CADENA CON EL PUNTERO\n");
+
+    for(int i=0; i<strlen(texto1); i++) {
+       printf("%c  ", *(texto1+i));
+       printf("%p  ", (texto1+i));
+    } 
+    return 0;
+}
+--------------------------------------------------
+/*
+UNA FUNCION QUE REGRESA UNA CADENA
+*/
+
+#include <stdio.h>   //printf, scanf, sizeof
+#include <string.h>  //strcpy
+#include <stdlib.h>  //malloc
+
+char* obtener_texto_opcion(int *opcion) {
+      //MEMORIA DINAMICA
+      char *palabra = (char *)malloc(10 * sizeof(char));
+      if(*opcion == 1) {
+        strcpy(palabra, "Tijera");
+      }
+      if(*opcion == 2) {
+        strcpy(palabra, "Piedra");
+      }
+      if(*opcion == 3) {
+        strcpy(palabra, "Papel");
+      }
+      return palabra;
+}
+
+int main() {
+    int opcion;
+    printf("Ingresar opcion: 1=Tijera, 2=Piedra, 3=Papel");
+    scanf("%d", &opcion);
+
+    char *p = obtener_texto_opcion(&opcion);
+    printf("%s\n", p);
+
+    printf("\n");
+
+    for(int i=0; p[i] != '\0'; i++) {
+        printf("%c  ", p[i]);
+    }
+
+    free(p);
+    return 0;
+}
+
+
+
+
