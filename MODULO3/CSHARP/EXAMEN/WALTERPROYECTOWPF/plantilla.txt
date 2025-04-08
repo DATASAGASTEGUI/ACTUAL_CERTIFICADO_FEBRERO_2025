@@ -1,0 +1,167 @@
+****************
+***   0001   ***
+****************
+--------------------------------------------------------------------------------
+(1) crear.bat
+
+Debe ejecutarse dentro de la ruta "C:\ProjectCSharpWPF_001"
+--------------------------------------------------------------------------------
+@ECHO OFF
+REM CREAR EL PROYECTO WPF
+dotnet new wpf -n MiAppWPF
+cd MiAppWPF
+--------------------------------------------------------------------------------
+(2) compilar_y_ejecutar.bat 
+
+Debe ejecutarse dentro de la ruta "C:\ProjectCSharpWPF_001\MiAppWPF"
+--------------------------------------------------------------------------------
+@ECHO OFF
+REM LIMPIAR-COMPILAR-EJECUTAR
+dotnet clean
+dotnet build
+dotnet run
+--------------------------------------------------------------------------------
+****************
+***   0002   ***
+****************
+--------------------------------------------------------------------------------
+MainWindow.xaml
+--------------------------------------------------------------------------------
+<Window x:Class="MiAppWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MiAppWPF"
+        mc:Ignorable="d"
+        Title="VENTANA WPF"
+        Height="325"
+        Width="400"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+        Background="LightGray"
+        Icon="C:\CERTIFICADO_27022025_MODULO1\MODULO3\CSHARP\EXAMEN\WALTERPROYECTOWPF\MiAppWPF\favicon.ico"
+        >
+		
+    <Grid>
+
+
+
+    </Grid>
+	
+</Window>
+--------------------------------------------------------------------------------
+MainWindow.xaml.cs
+--------------------------------------------------------------------------------
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace MiAppWPF;
+
+/// <summary>
+/// Interaction logic for MainWindow.xaml
+/// </summary>
+public partial class MainWindow : Window
+{
+    public MainWindow()
+    {
+        InitializeComponent();
+    }
+}
+--------------------------------------------------------------------------------
+MiAppWPF.csproj
+--------------------------------------------------------------------------------
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+
+    <!-- Ícono global de la aplicación (ejecutable) -->
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.9" />
+  </ItemGroup>
+
+  <!-- Incluir favicon.ico como recurso -->
+  <ItemGroup>
+    <Resource Include="favicon.ico" />
+  </ItemGroup>
+
+</Project>
+--------------------------------------------------------------------------------
+****************
+***   0003   ***
+****************
+--------------------------------------------------------------------------------
+Convierte un archivo .png a .ico
+
+https://www.icoconverter.com/
+--------------------------------------------------------------------------------
+****************
+***   0004   ***
+****************
+--------------------------------------------------------------------------------
+MainWindow.xaml
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+MainWindow.xaml.cs
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+****************
+***   0005   ***
+****************
+--------------------------------------------------------------------------------
+Estructura del Proyecto donde cada ejemplo es un folder
+--------------------------------------------------------------------------------
+ProjectCSharpWPF_001/
+   MiAppWPF/     <--- Carpeta del proyecto donde esta el archivo MiAppWPF.csproj
+      CalculadoraSimpleButton/
+	     MainWindow.xaml
+		 MainWindow.xaml.cs
+--------------------------------------------------------------------------------
+MainWindow.xaml
+--------------------------------------------------------------------------------
+x:Class="MiAppWPF.CalculadoraSimpleButton.MainWindow" <--- Clase en el paquete (*)
+xmlns:local="clr-namespace:MiAppWPF"
+--------------------------------------------------------------------------------
+MainWindow.xaml.cs
+--------------------------------------------------------------------------------
+namespace MiAppWPF.CalculadoraSimpleButton; <--- Paquete donde esta la clase (*)
+public partial class MainWindow : Window    <--- Nombre de la clase (*)
+public MainWindow()                         <--- Constructor de la clase (')
+--------------------------------------------------------------------------------
+App.xaml
+--------------------------------------------------------------------------------
+x:Class="MiAppWPF.App"
+xmlns:local="clr-namespace:MiAppWPF"  <--- Paquete principal del proyecto
+StartupUri="CalculadoraSimpleButton/MainWindow.xaml"> <--- Paquete del programa (*)
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+

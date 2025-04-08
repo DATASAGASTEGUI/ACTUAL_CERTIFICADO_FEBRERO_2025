@@ -1,0 +1,107 @@
+[
+  {
+    "titulo": "Cien años de soledad",
+    "autor": "Gabriel García Márquez",
+    "genero": ["Realismo mágico", "Novela"],
+    "precio": 22.99,
+    "paginas": 432,
+    "disponible": true,
+    "etiquetas": ["clásico", "best-seller", "premio nobel"],
+    "reseñas": [
+      {
+        "autorResena": "Crítico Oficial",
+        "calificacion": 5,
+        "comentario": "Obra maestra de la literatura latinoamericana"
+      },
+      {
+        "autorResena": "Lector Anónimo",
+        "calificacion": 4,
+        "comentario": "Muy bueno pero algo confuso al final"
+      }
+    ],
+    "fecha_publicacion": { "$date": "1967-05-30T00:00:00Z" },
+    "editorial": {
+      "nombre": "Sudamericana",
+      "pais": "Argentina"
+    }
+  },
+  {
+    "titulo": "1984",
+    "autor": "George Orwell",
+    "genero": ["Ciencia Ficción", "Distopía"],
+    "precio": 15.50,
+    "paginas": 328,
+    "disponible": true,
+    "etiquetas": ["clásico", "político"],
+    "reseñas": [
+      {
+        "autorResena": "Crítico Oficial",
+        "calificacion": 5,
+        "comentario": "Visionario y aterrador"
+      }
+    ],
+    "fecha_publicacion": { "$date": "1949-06-08T00:00:00Z" },
+    "editorial": {
+      "nombre": "Secker & Warburg",
+      "pais": "Reino Unido"
+    }
+  },
+  {
+    "titulo": "Harry Potter y la piedra filosofal",
+    "autor": "J.K. Rowling",
+    "genero": ["Fantasía", "Aventura"],
+    "precio": 18.75,
+    "paginas": 309,
+    "disponible": false,
+    "etiquetas": ["best-seller", "novedad", "infantil"],
+    "reseñas": [
+      {
+        "autorResena": "Crítico Oficial",
+        "calificacion": 4,
+        "comentario": "Excelente inicio de saga"
+      },
+      {
+        "autorResena": "Fan Potter",
+        "calificacion": 5,
+        "comentario": "¡Magia pura!"
+      }
+    ],
+    "fecha_publicacion": { "$date": "1997-06-26T00:00:00Z" },
+    "editorial": {
+      "nombre": "Bloomsbury",
+      "pais": "Reino Unido"
+    },
+    "descuento": 0.15
+  },
+  {
+    "titulo": "El principito",
+    "autor": "Antoine de Saint-Exupéry",
+    "genero": ["Fábula", "Infantil"],
+    "precio": 12.99,
+    "paginas": 96,
+    "disponible": true,
+    "etiquetas": ["clásico", "filosófico"],
+    "fecha_publicacion": { "$date": "1943-04-06T00:00:00Z" },
+    "editorial": {
+      "nombre": "Reynal & Hitchcock",
+      "pais": "Estados Unidos"
+    }
+  },
+  {
+    "titulo": "Don Quijote de la Mancha",
+    "autor": "Miguel de Cervantes",
+    "genero": ["Novela", "Aventura"],
+    "precio": 29.99,
+    "paginas": 863,
+    "disponible": true,
+    "etiquetas": ["clásico", "literatura española"],
+    "reseñas": [
+      {
+        "autorResena": "Crítico Oficial",
+        "calificacion": 5,
+        "comentario": "La mejor obra de la literatura española"
+      }
+    ],
+    "fecha_publicacion": { "$date": "1605-01-16T00:00:00Z" }
+  }
+]

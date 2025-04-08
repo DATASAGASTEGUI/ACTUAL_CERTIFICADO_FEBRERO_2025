@@ -1,0 +1,381 @@
+****************
+***   0001   ***
+****************
+--------------------------------------------------------------------------------
+
+Proyecto: Escuela
+
+App1: alumnos (gestiona alumnos)
+
+App2: profesores (gestiona profesores)
+
+--------------------------------------------------------------------------------
+Paso 1: Crear el proyecto
+--------------------------------------------------------------------------------
+
+django-admin startproject escuela .
+
+
+Esto crea la carpeta del proyecto con settings.py, urls.py, etc.
+--------------------------------------------------------------------------------
+Paso 2: Crear las dos aplicaciones
+--------------------------------------------------------------------------------
+
+python manage.py startapp alumnos
+python manage.py startapp profesores
+
+Ahora tienes:
+
+ProyectoDjango0014/
+    manage.py
+    escuela/
+        settings.py
+        urls.py
+    alumnos/
+        models.py
+        views.py
+    profesores/
+        models.py
+        views.py
+--------------------------------------------------------------------------------
+Paso 3: Registrar las apps en settings.py
+--------------------------------------------------------------------------------
+
+Abre escuela/settings.py y agrega en INSTALLED_APPS:
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    # Nuestras apps
+    'alumnos',
+    'profesores'
+]
+
+--------------------------------------------------------------------------------
+Paso 4: Crear los modelos
+--------------------------------------------------------------------------------
+
+(1) En alumnos/models.py
+
+from django.db import models
+
+class Alumno(models.Model):
+    nombre = models.CharField(max_length=100)
+    edad = models.IntegerField()
+    grupo = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.nombre
+
+(2) En profesores/models.py
+
+from django.db import models
+
+class Profesor(models.Model):
+    nombre = models.CharField(max_length=100)
+    materia = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.nombre} - {self.materia}"
+
+--------------------------------------------------------------------------------
+Paso 5: Migraciones
+--------------------------------------------------------------------------------
+
+python manage.py makemigrations
+python manage.py migrate
+
+--------------------------------------------------------------------------------
+Paso 6: Registrar en el admin
+--------------------------------------------------------------------------------
+
+(1) En alumnos/admin.py
+
+from django.contrib import admin
+from .models import Alumno
+
+admin.site.register(Alumno)
+
+(2) En profesores/admin.py
+
+from django.contrib import admin
+from .models import Profesor
+
+admin.site.register(Profesor)
+
+(3) Crear el superusuario
+
+C:\ProyectoDjango0001>python manage.py createsuperuser
+
+root
+12345678
+
+http://127.0.0.1:8090/admin/
+
+--------------------------------------------------------------------------------
+Paso 7: Crear vistas
+--------------------------------------------------------------------------------
+
+(1) En alumnos/views.py
+
+from django.http import HttpResponse
+from .models import Alumno
+
+def lista_alumnos(request):
+    alumnos = Alumno.objects.all()
+    salida = ", ".join([alumno.nombre for alumno in alumnos])
+    return HttpResponse(f"Alumnos: {salida}")
+
+
+
+(2) En profesores/views.py
+
+from django.http import HttpResponse
+from .models import Profesor
+
+def lista_profesores(request):
+    profesores = Profesor.objects.all()
+    salida = ", ".join([f"{p.nombre} ({p.materia})" for p in profesores])
+    return HttpResponse(f"Profesores: {salida}")
+
+--------------------------------------------------------------------------------
+Paso 8: Configurar URLs
+--------------------------------------------------------------------------------
+(1) Crear archivo alumnos/urls.py
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.lista_alumnos, name='lista_alumnos'),
+]
+
+(2) Crear archivo profesores/urls.py
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.lista_profesores, name='lista_profesores'),
+]
+
+(3) Editar escuela/urls.py
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('alumnos/', include('alumnos.urls')),
+    path('profesores/', include('profesores.urls')),
+]
+
+--------------------------------------------------------------------------------
+Paso 9: Probar el servidor
+--------------------------------------------------------------------------------
+python manage.py runserver
+
+
+Ir a http://127.0.0.1:8090/alumnos/ → lista de alumnos
+
+Ir a http://127.0.0.1:8090/profesores/ → lista de profesores
+
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+
+****************
+***   0002   ***
+****************
+--------------------------------------------------------------------------------
+(1) Abre el shell de Django
+
+python manage.py shell
+--------------------------------------------------------------------------------
+(2) Ejecuta este código:
+
+from alumnos.models import Alumno  # Reemplaza 'tu_app' con el nombre de tu aplicación
+
+# Crear 5 alumnos
+alumnos = [
+    Alumno.objects.create(nombre='Juan Pérez', edad=20, grupo='A'),
+    Alumno.objects.create(nombre='María García', edad=21, grupo='B'),
+    Alumno.objects.create(nombre='Carlos López', edad=19, grupo='A'),
+    Alumno.objects.create(nombre='Ana Martínez', edad=22, grupo='C'),
+    Alumno.objects.create(nombre='Pedro Rodríguez', edad=20, grupo='B')
+]
+
+print("5 alumnos creados exitosamente:")
+for alumno in alumnos:
+    print(f"- {alumno}")
+--------------------------------------------------------------------------------
+****************
+***   0003   ***
+****************
+--------------------------------------------------------------------------------
+(1) Abre el shell de Django
+
+python manage.py shell
+--------------------------------------------------------------------------------
+(2) Ejecuta este código:
+
+from profesores.models import Profesor  # Reemplaza 'tu_app' con el nombre de tu aplicación
+
+# Crear 2 profesores
+profesor1 = Profesor.objects.create(nombre='Ana García', materia='Matemáticas')
+profesor2 = Profesor.objects.create(nombre='Carlos López', materia='Historia')
+
+print("2 profesores creados exitosamente:")
+print(f"- {profesor1}")
+print(f"- {profesor2}")
+--------------------------------------------------------------------------------
+****************
+***   0004   ***
+****************
+http://127.0.0.1:8090/admin/
+http://127.0.0.1:8090/alumnos/
+http://127.0.0.1:8090/profesores/
+
+****************
+***   0005   ***
+****************
+--------------------------------------------------------------------------------
+Paso 1: Crear carpeta de templates
+--------------------------------------------------------------------------------
+
+Dentro del proyecto, crea una carpeta templates para guardar las vistas HTML:
+
+escuela/
+│
+├── templates/
+│   ├── alumnos/
+│   │   └── lista_alumnos.html
+│   ├── profesores/
+│   │   └── lista_profesores.html
+
+--------------------------------------------------------------------------------
+Paso 2: Configurar settings.py
+--------------------------------------------------------------------------------
+
+En escuela/settings.py, dile a Django dónde están los templates:
+
+import os
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # <--- Agregamos esta línea
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+--------------------------------------------------------------------------------
+Paso 3: Crear las plantillas
+--------------------------------------------------------------------------------
+
+(1) templates/alumnos/lista_alumnos.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Alumnos</title>
+</head>
+<body>
+    <h1>Alumnos registrados</h1>
+    <ul>
+        {% for alumno in alumnos %}
+            <li>{{ alumno.nombre }} - Grupo: {{ alumno.grupo }} - Edad: {{ alumno.edad }}</li>
+        {% empty %}
+            <li>No hay alumnos registrados</li>
+        {% endfor %}
+    </ul>
+    <a href="/profesores/">Ver Profesores</a>
+</body>
+</html>
+
+(2) templates/profesores/lista_profesores.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Profesores</title>
+</head>
+<body>
+    <h1>Profesores registrados</h1>
+    <ul>
+        {% for profesor in profesores %}
+            <li>{{ profesor.nombre }} - Materia: {{ profesor.materia }}</li>
+        {% empty %}
+            <li>No hay profesores registrados</li>
+        {% endfor %}
+    </ul>
+    <a href="/alumnos/">Ver Alumnos</a>
+</body>
+</html>
+
+--------------------------------------------------------------------------------
+Paso 4: Modificar las vistas para usar templates
+--------------------------------------------------------------------------------
+
+(1) En alumnos/views.py
+
+from django.shortcuts import render
+from .models import Alumno
+
+def lista_alumnos(request):
+    alumnos = Alumno.objects.all()
+    return render(request, 'alumnos/lista_alumnos.html', {'alumnos': alumnos})
+
+(2) En profesores/views.py
+
+from django.shortcuts import render
+from .models import Profesor
+
+def lista_profesores(request):
+    profesores = Profesor.objects.all()
+    return render(request, 'profesores/lista_profesores.html', {'profesores': profesores})
+
+--------------------------------------------------------------------------------
+Paso 5: Probar
+--------------------------------------------------------------------------------
+
+Ejecuta el servidor:
+
+python manage.py runserver
+
+Entra a:
+
+http://127.0.0.1:8090/alumnos/ → Lista de alumnos en HTML
+
+http://127.0.0.1:8090/profesores/ → Lista de profesores en HTML
+
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------

@@ -1,0 +1,1 @@
+C:\CentralizarEV\entorno313\entorvirtual313\Scripts\activate.bat

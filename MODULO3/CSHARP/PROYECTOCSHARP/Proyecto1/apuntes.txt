@@ -1,0 +1,8 @@
+c:\ProjectCSharp_001>dotnet new console -o Proyecto
+
+C:\ProjectCSharp_001\proyecto>dotnet clean
+C:\ProjectCSharp_001\proyecto>dotnet run 
+
+dotnet new console -o Proyecto
+dotnet new console -o Alumnos
+dotnet new console -o Profesores

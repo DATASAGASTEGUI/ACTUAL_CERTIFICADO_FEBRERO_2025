@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 03{% endblock %}
+
+{% block content %} 
+<h2>[03] Mostrar cada alumno de un color segun la nota</h2>
+{% load filtros %}
+<pre>
+   Insuficiente - red
+   Suficiente - orange
+   Bien - green
+   Notable - yellow
+   Sobresaliente - blue
+</pre>
+
+   {% if alumnos %}
+      {% for alumno in alumnos %}
+         <p>
+             {{ alumno|colorear_categoria_nota|safe }}
+         </p>
+      {% endfor %}
+   {% else %}
+      <p>No hay alumnos registrados</p>
+   {% endif %}
+{% endblock %}

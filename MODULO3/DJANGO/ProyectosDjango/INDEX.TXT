@@ -1,0 +1,16 @@
+----------------------------------------------------
+ProyectoDjango01: Formulario
+
+ProyectoDjango02: Tag Templates - Herencia Templates
+ProyectoDjango03: Filtros
+ProyectoDjango04: SQLite - MySql
+ProyectoDjango05: Formulario
+----------------------------------------------------
+Django1
+Django2 : Crud Base de Datos Sqlite
+Django3 : Distintos componentes (calculo)
+----------------------------------------------------
+JAVA                  DJANGO(PYTHON)
+----------------------------------------
+VISTA(JSP)           = TEMPLATES
+CONTROLADOR(SERVLET) = VIEWS (FUNCIONES) 

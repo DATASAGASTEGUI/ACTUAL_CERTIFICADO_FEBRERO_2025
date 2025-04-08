@@ -1,0 +1,28 @@
+<html>
+<head>
+  <title>
+        {% block title %}{% endblock %}-WebPersonal
+  </title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+</head>
+<body style="background-image: url({% static 'img/imagen.jpg' %}); background-size: cover; background-position: center;">
+     
+    <div class="container">
+        <h1>TAG DE TEMPLATES</h1>
+
+        <ul>
+            <li><a href="{% url 'ejemplo01' %}">[01] Mostrar una variable</a></li>
+            <li><a href="{% url 'ejemplo02' %}">[02] Mostrar un diccionario</a></li>
+            <li><a href="{% url 'ejemplo03' %}">[03] Evaluar un alumno de una lista</a></li>
+            <li><a href="{% url 'ejemplo04' %}">[04] Calcular total a pagar (Variable Temporal)</a></li>
+            <li><a href="{% url 'ejemplo05' %}">[05] Evaluar la nota de un alumno (Condicional Multiple)</a></li>
+        </ul>
+    
+        <!-- CONTENIDO QUE CADA HIJO IMPLEMENTARA -->
+        {% block contenido %}{% endblock %}
+    </div>
+
+
+</body>
+</html>

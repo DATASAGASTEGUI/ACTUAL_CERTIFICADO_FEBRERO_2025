@@ -1,0 +1,1242 @@
+*****************
+***   INDEX   ***
+*****************
+--------------------------------------------------------------------------------
+0001:
+0002:
+0003:
+0004:
+0005:
+0006:
+0007:
+0008:
+0009:
+0010:
+0011:
+0012:                         
+0013:
+0014:
+0015:
+0016:
+0017:
+0018:
+0019:
+0020:
+--------------------------------------------------------------------------------
+
+
+
+
+************************
+***   BIBLIOGRAFIA   ***
+************************
+
+
+
+
+
+
+****************
+***   0001   ***   MAINCIUDADSPAIN.JAVA 
+****************
+
+package array;
+
+import java.sql.Array;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class MainCiudadesSpain {
+
+    public static void main(String[] args) {
+
+        //0. PARAMETROS PARA LA CONEXION BASE DE DATOS
+        String url = "jdbc:postgresql://127.0.0.1:5433/campusfp";
+        String usuario = "postgres";
+        String clave = "12345678";
+
+        //1. CONEXION BASE DE DATOS
+        Connection conexion = null;
+        try {
+            conexion = DriverManager.getConnection(url, usuario, clave);
+            System.out.println("OK: CONEXION BASE DE DATOS");
+        } catch (SQLException e) {
+            System.out.println("ERROR: CONEXION BASE DE DATOS");
+        }
+
+        //2. BORRAR TABLA SI ESTA EXISTE
+        String nombreTabla = "Pais";
+        try {
+            String query = String.format("DROP TABLE IF EXISTS %s", nombreTabla);
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.execute();
+            System.out.println("OK: QUERY 1");
+        } catch (Exception e) {
+            System.out.println("ERROR: QUERY 1");
+        }
+
+        //3. CREAR TABLA
+        try {
+            String query = "CREATE TABLE Pais (pais TEXT, ciudades TEXT[])";
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.execute();
+            System.out.println("OK: QUERY 2");
+        } catch (Exception e) {
+            System.out.println("ERROR: QUERY 2");
+        }
+
+        //4. INSERTAR ARRAYS EN TABLA
+        try {
+            String pais = "Spain";
+            String[] ciudadesSpain = {"Madrid", "Valencia", "Sevilla", "Cadiz"};
+            Array arrayCiudadesSpain = conexion.createArrayOf("text", ciudadesSpain);
+            String query = "INSERT INTO pais VALUES (?, ?)";
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setString(1, pais);
+            ps.setArray(2, arrayCiudadesSpain);
+            ps.executeUpdate();
+            System.out.println("OK: QUERY 3");
+        } catch (Exception e) {
+            System.out.println("ERROR: QUERY 3");
+        }
+
+        //5. RECUPERACION DE ARRAYS
+        try {
+
+            String query = "SELECT * FROM Pais";
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                System.out.println("Pais: " + rs.getString(1));
+                Array arrayCiudadesSpain = rs.getArray(2);
+                String[] ciudadesSpain = (String[]) arrayCiudadesSpain.getArray();
+
+                for (int i = 0; i < ciudadesSpain.length; i++) {
+                    System.out.println(ciudadesSpain[i]);
+                }
+            }
+            System.out.println("OK: QUERY 4");
+        } catch (Exception e) {
+            System.out.println("ERROR: QUERY 4");
+        }
+
+        //6. ACTUALIZAR ARRAYS
+        try {
+            String[] ciudadesSpain = {"Madrid", "Valencia", "Sevilla", "Cadiz", "Granada", "Jaen"};//Array cadena en java
+            Array arrayCiudadesSpain = conexion.createArrayOf("text", ciudadesSpain);//Array texto en postgresql
+            String query = "UPDATE Pais SET ciudades = ? WHERE pais = 'Spain'";
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setArray(1, arrayCiudadesSpain);
+            ps.executeUpdate();
+            System.out.println("OK: QUERY 5");
+        } catch (Exception e) {
+            System.out.println("ERROR: QUERY 5");
+        }
+
+        //7. RECUPERACION DE ARRAYS
+        try {
+            System.out.println("SALIDA 1");
+            System.out.println("========");
+            String query = "SELECT * FROM Pais";
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                System.out.println(rs.getString(1) + "\t" + rs.getString(2));
+            }
+            System.out.println("OK: QUERY 6");
+        } catch (Exception e) {
+            System.out.println("ERROR: QUERY 6");
+        }
+
+        //8. RECUPERACION DE ARRAYS
+        try {
+            System.out.println("SALIDA 2");
+            System.out.println("========");
+            String query = "SELECT * FROM Pais";
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String pais = rs.getString(1);
+                System.out.println("Pais: " + pais);
+                Array arrayCiudadesSpain = rs.getArray(2); //Array Postgresql
+                String[] ciudadesSpain = (String[]) arrayCiudadesSpain.getArray(); //Array Java
+                for (int i = 0; i < ciudadesSpain.length; i++) {
+                    System.out.println(ciudadesSpain[i]);
+                }
+            }
+            System.out.println("OK: QUERY 7");
+        } catch (Exception e) {
+            System.out.println("ERROR: QUERY 7");
+        }
+
+    }
+
+}
+
+****************
+***   0002   ***   CONEXIONPOSTGRESQL.JAVA
+****************
+
+package modelo;
+
+import java.sql.*;
+
+public class ConexionPostgresql {
+
+    private Connection conexion;
+
+    public ConexionPostgresql() {
+    }
+
+    public void setConexion(boolean flag) {
+        try {
+            if (flag) {
+                String url = "jdbc:postgresql://localhost:5433/campusfp";
+                String usuario = "postgres";
+                String clave = "12345678";
+
+                Class.forName("org.postgresql.Driver");
+                conexion = (Connection) DriverManager.getConnection(url, usuario, clave);
+            } else {
+                conexion.close();
+                conexion = null;
+            }
+        } catch (Exception e) {
+            conexion = null;
+        }
+    }
+
+    public Connection getConexion() {
+        return conexion;
+    }
+
+}
+
+****************
+***   0003   ***   OPERACIONESCRUD.JAVA
+****************
+
+package modelo;
+
+import java.sql.Array;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class OperacionesCrud {
+
+    private Connection conexion;
+
+    public OperacionesCrud(Connection conexion) {
+        this.conexion = conexion;
+    }
+
+    public boolean eliminarTablaAficionadoSiExiste() {
+        String nombreTabla = "Aficionado";
+        try {
+            String query = String.format("DROP TABLE IF EXISTS %s", nombreTabla);
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.execute();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean crearTablaAficionado() {
+        try {
+            String query = "CREATE TABLE Aficionado (idAficionado INT, nombre TEXT, clubs TEXT[])";
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.execute();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean insertarRegistroAficionadoTablaAficionado(Aficionado aficionado) {
+        try {
+            String query = "INSERT INTO Aficionado (idAficionado, nombre, clubs) VALUES (?, ?, ?)";
+            String[] clubs = aficionado.getClubs();
+            Array arrayClubs = conexion.createArrayOf("text", clubs);
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setInt(1, aficionado.getIdAficionado());
+            ps.setString(2, aficionado.getNombre());
+            ps.setArray(3, arrayClubs);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public List<Aficionado> obtenerListaAficionadosFromTablaAficionado() {
+        List<Aficionado> alumnos_al = new ArrayList<Aficionado>();
+        String query = "SELECT * FROM Aficionado";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Array arrayClubs = rs.getArray(3);
+                String[] clubs = (String[]) arrayClubs.getArray();
+                alumnos_al.add(new Aficionado(rs.getInt(1), rs.getString(2), clubs));
+            }
+        } catch (SQLException e) {
+            alumnos_al = null;
+        }
+        return alumnos_al;
+    }
+
+}
+   
+****************
+***   0004   ***   SPROCESAR.JAVA (SERVLET)
+****************
+
+package modelo;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class SProcesar extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        if (request.getParameter("registrar") != null) {
+            ConexionPostgresql cp = new ConexionPostgresql();
+            cp.setConexion(true);
+            Connection conexion = cp.getConexion();
+            OperacionesCrud crud = new OperacionesCrud(conexion);
+
+            String idAficionado = request.getParameter("txtIdAficionado");
+            String nombre = request.getParameter("txtNombre");
+            String[] clubs = request.getParameterValues("chkClub");
+
+            Aficionado aficionado = new Aficionado(Integer.parseInt(idAficionado), nombre, clubs);
+
+            String mensaje = "";
+
+            if (conexion != null) {
+                if (crud.insertarRegistroAficionadoTablaAficionado(aficionado)) {
+                    mensaje = "OK: INSERTAR REGISTRO";
+                } else {
+                    mensaje = "ERROR: INSERTAR REGISTRO";
+                }
+            } else {
+                mensaje = "ERROR: CONEXION BASE DE DATOS";
+            }
+
+            request.setAttribute("mensaje_p", mensaje);
+            request.setAttribute("control_p", "OK");
+
+            RequestDispatcher rd = request.getRequestDispatcher("registrar.jsp");
+            rd.include(request, response);
+        }
+
+        if (request.getParameter("action") != null) {
+            ConexionPostgresql cp = new ConexionPostgresql();
+            cp.setConexion(true);
+            Connection conexion = cp.getConexion();
+            OperacionesCrud crud = new OperacionesCrud(conexion);
+
+            String mensaje = "";
+
+            List<Aficionado> aficionados_al = null;
+
+            if (conexion != null) {
+                if ((aficionados_al = crud.obtenerListaAficionadosFromTablaAficionado()) != null) {
+                    mensaje = "OK: OBTENER REGISTROS";
+                } else {
+                    mensaje = "ERROR: OBTENER REGISTROS";
+                }
+            } else {
+                mensaje = "ERROR: CONEXION BASE DE DATOS";
+            }
+
+            request.setAttribute("aficionados_al_p", aficionados_al);
+            request.setAttribute("mensaje_p", mensaje);
+            request.setAttribute("control_p", "OK");
+
+            RequestDispatcher rd = request.getRequestDispatcher("mostrar.jsp");
+            rd.include(request, response);
+        }
+
+        if (request.getParameter("resetear") != null) {
+            ConexionPostgresql cp = new ConexionPostgresql();
+            cp.setConexion(true);
+            Connection conexion = cp.getConexion();
+            OperacionesCrud crud = new OperacionesCrud(conexion);
+
+            String mensaje = "";
+
+            if (conexion != null) {
+                if (crud.eliminarTablaAficionadoSiExiste() && crud.crearTablaAficionado()) {
+                    mensaje = "OK: BORRAR Y CREAR TABLA";
+                } else {
+                    mensaje = "ERROR: BORRAR Y CREAR TABLA";
+                }
+            } else {
+                mensaje = "ERROR: CONEXION BASE DE DATOS";
+            }
+
+            request.setAttribute("mensaje_p", mensaje);
+            request.setAttribute("control_p", "OK");
+
+            RequestDispatcher rd = request.getRequestDispatcher("resetear.jsp");
+            rd.include(request, response);
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }
+
+}
+
+
+****************
+***   0005   ***   INSERTSELECTTIPODATOJSON.JAVA
+****************
+
+package postgresql;
+
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class InsertSelectTipoDatoJson {
+
+    public static void main(String[] args) {
+        //1. PARAMETROS PARA LA CONEXION BASE DE DATOS
+        String url = "jdbc:postgresql://127.0.0.1:5433/campusfp";
+        String usuario = "postgres";
+        String clave = "12345678";
+
+        //2. CONEXION BASE DE DATOS
+        Connection conexion = null;
+        try {
+            Class.forName("org.postgresql.Driver");
+            conexion = (Connection) DriverManager.getConnection(url, usuario, clave);
+            System.out.println("OK: CONEXION BASE DE DATOS");
+        } catch (SQLException ex) {
+            System.out.println("ERROR: CONEXION BASE DE DATOS");
+        } catch (ClassNotFoundException ex) {
+            System.out.println("ERROR: CONEXION BASE DE DATOS");
+        }
+
+        //3. BORRAR TABLA SI ESTA EXISTE
+        String nombreTabla = "Venta";
+        try {
+            String query = String.format("DROP TABLE IF EXISTS %s", nombreTabla);
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.execute();
+            System.out.println("OK: DROP TABLE");
+        } catch (SQLException ex) {
+            System.out.println("ERROR: DROP TABLE");
+        }
+
+        //4. CREATE TABLA
+        try {
+            String query = "CREATE TABLE Venta (id INT, documentoJson JSON)";
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.execute();
+            System.out.println("OK: CREATE TABLE");
+        } catch (SQLException ex) {
+            System.out.println("ERROR: CREATE TABLE");
+        }
+
+        /*
+        //5. INSERTAR TIPO DATO JSON EN TABLA
+        {"idProducto": "P1", "producto": "Lapiz",    "venta": 3000}
+        {"idProducto": "P2", "producto": "Borrador", "venta": 6000}
+        {"idProducto": "P3", "producto": "Tajador",  "venta": 5000}
+        {"idProducto": "P4", "producto": "Regla",    "venta": 2000}
+         */
+        String[] documentojson = {
+            "{\"idProducto\": \"P1\", \"producto\": \"Lapiz\", \"venta\": 3000}",
+            "{\"idProducto\": \"P2\", \"producto\": \"Borrador\", \"venta\": 6000}",
+            "{\"idProducto\": \"P3\", \"producto\": \"Tajador\", \"venta\": 5000}",
+            "{\"idProducto\": \"P4\", \"producto\": \"Regla\", \"venta\": 2000}"
+        };
+        try {
+            String query = "";
+            PreparedStatement ps = null;
+            int k = 0;
+            for (int i = 0; i < documentojson.length; i++) {
+                query = "INSERT INTO Venta VALUES (?,?::JSON)";
+                ps = conexion.prepareStatement(query);
+                ps.setInt(1, ++k);
+                ps.setObject(2, documentojson[i]);
+                ps.executeUpdate();
+            }
+            System.out.println("OK: INSERT TIPO DATO JSON TABLA");
+        } catch (SQLException ex) {
+            System.out.println("ERROR: INSER TIPO DATO JSON TABLA");
+        }
+
+        //6. RECUPERAR TIPO DATO JSON DE TABLA
+        String query4 = "SELECT id, documentojson->'idProducto', documentojson->'producto', documentojson->'venta' FROM Venta";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query4);
+            ResultSet rs = ps.executeQuery();
+            System.out.printf("%-2s  %-12s  %-10s  %-5s\n", "ID", "ID PRODUCTO", "PRODUCTO", "VENTA");
+            System.out.printf("%-2s  %-12s  %-10s  %-5s\n", "--", "-----------", "--------", "-----");
+            while (rs.next()) {
+                System.out.printf("%2d  %-12s  %-10s  %5d\n", rs.getInt(1), rs.getString(2).substring(1, rs.getString(2).length() - 1), rs.getString(3).substring(1, rs.getString(3).length() - 1), rs.getInt(4));
+            }
+            System.out.println("OK: SELECT TIPO DATO JSON DE TABLA");
+        } catch (SQLException ex) {
+            System.out.println("ERROR: SELECT TIPO DATO JSON DE TABLA");
+        }
+    }
+
+}
+
+****************
+***   0006   ***
+****************
+
+**********************************
+***   DESCARGA E INSTALACION   ***
+**********************************
+
+https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
+
+***********************
+***   DRIVER JDBC   ***
+***********************
+
+
+
+
+***********************************
+***   ACCEDER CLIENTE CONSOLA   *** SQL Shell (psql)
+***********************************
+
+-- VERSION 13
+
+@ECHO OFF
+CD "C:\Program Files\PostgreSQL\13\scripts"
+CHCP 850
+CHCP 65001
+runpsql.bat
+PAUSE > nul
+
+-- VERSION 14
+
+@ECHO OFF
+CD "C:\Program Files\PostgreSQL\14\scripts"
+CHCP 850
+CHCP 65001
+runpsql.bat
+PAUSE > nul
+
+***********************************
+***   ACCEDER CLIENTE GRAFICO   *** PGADMIN4
+***********************************
+
+-- VERSION 13
+
+@ECHO OFF
+"C:\Program Files\PostgreSQL\13\pgAdmin 4\bin\pgAdmin4.exe"
+
+-- VERSION 14
+
+@ECHO OFF
+"C:\Program Files\PostgreSQL\14\pgAdmin 4\bin\pgAdmin4.exe"
+
+********************
+***   PGADMIN4   ***
+********************
+
+-- Las tablas se guardar en la ruta siguiente, por defecto dentro de Schemas/public.
+
+NombreBaseDatos/Schemas/public/Tables
+
+-- Acceder a la sintaxis insert, create, delete, update, select
+
+NombreTabla/Script
+
+-- Agregar columnas
+
+NombreTabla/Create/Columna
+
+-- Crear tablas
+
+NombreTabla/Create/Table
+
+-- Seleccionar una base de datos
+
+NombreBaseDatos/Query Tool
+
+Aparece en el nombre de la ventana es decir en la pestaña el nombre de la base de datos seleccionada, por lo tanto todos los comandos que se escriban en dicha ventana se ejecutan a dicha base de datos.
+
+-- Escribir comandos SQL
+
+NombreTabla/Query Tool/
+
+En QueryHistory esta el historial de comandos y desde ahi podemos enviarlos comado a "Query Tool" para volverlos ejecutar.
+
+Cada "Query Tool" que habramos se pone arriba en forma de pestaña que podemos cerrar.
+
+*******************
+***   ERRORES   ***
+*******************
+
+Please configure the PostgreSQL Binary Path in the Preferences dialog.
+
+*************************************************
+***   COMANDOS BASICOS SQL DESDE LA CONSOLA   ***
+*************************************************
+
+-- Crear una base de datos
+
+CREATE DATABASE UNIVERSIDAD;
+
+-- Listar las tablas de una base de datos
+
+SELECT * FROM pg_catalog.pg_tables;
+
+-- Crear una tabla
+
+CREATE TABLE Usuario ( -- La tabla se crea en minuscula
+   idUsuario INT         NOT NULL,
+   nombre    VARCHAR(30) NOT NULL, 
+             PRIMARY KEY (idUsuario)
+);
+
+-- Insertar un registro
+
+INSERT INTO Usuario (idUsuario,nombre) VALUES (1,'Luis');
+
+-- Mostrar todos los registros de una tabla
+
+SELECT * FROM Usuario;
+
+-- Mostrar la estructura de una tabla
+
+SELECT table_name,column_name,udt_name,character_maximum_length 
+FROM information_schema.columns 
+WHERE table_name = 'usuario';  -- Tiene que escribirse la tabla en minuscula 
+
+-- Borrar una tabla si esta existe
+
+DROP TABLE IF EXISTS Usuario;
+
+alter sequence Alumno_idAlumno_seq restart 9;
+
+-- Borrar una base de datos
+
+Hay que cambiar primero a la base de datos por defecto de postgresql que se llama postgres y luego podemos eliminar la base de datos
+
+\c postgres
+DROP DATABASE UNIVERSIDAD;
+
+-- BORRAR UNA BASE DE DATOS SI ESTA EXISTE
+
+\c postgres
+DROP DATABASE IF EXISTS CAMPUSFP;
+
+Si la base de datos campusfp esta siendo usada en pgadmin4 debesmo cerrar primero la apliacación pgadmin4.
+
+-- Borrar una base de datos en postgresql si esta activa
+
+Cuando intentas borrar una base de datos activa, que esta en uso, en postgreSQL, normalmente te da error.
+
+Esto normalmente nos pasa cuando estamos en desarrollo manejando gran cantidad de bases de datos para pruebas y queremos borrarlas y obtenemos el error:
+
+Ejecutamos la siguiente select:
+
+SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'campusfp_p' AND pid <> pg_backend_pid();
+
+Y ya podréis borrar la base de datos con un drop database.
+
+**********************************
+***   BASE DE DATOS COMPLETA   *** EN LA CONSOLA HACERLO UNO POR UNO
+**********************************
+
+-- 1. CREAR UNA TABLA
+
+DROP TABLE IF EXISTS Alumno;
+
+CREATE TABLE Alumno (
+  idAlumno          SERIAL      NOT NULL,
+  nombre            VARCHAR(25) NOT NULL,
+  apellidos         VARCHAR(50) NOT NULL,
+  grupo             VARCHAR(50) NOT NULL,
+  fecha_nacimiento  DATE        NOT NULL,
+                    PRIMARY KEY (idAlumno)
+);
+					  
+-- 2. MOSTRAR LAS TABLAS DE UNA BASE DE DATOS
+
+SELECT * FROM pg_catalog.pg_tables;
+
+-- 3. MOSTRAR LA ESTRUCTURA DE UNA TABLA
+
+SELECT column_name, data_type, character_maximum_length FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = 'alumno'; -- La tabla alumno debe escribirse en minuscula
+
+-- 4. INSERTAR REGISTROS A UNA TABLA (HAY QUE INSERTARLO UNO POR UNO)
+
+INSERT INTO Alumno (nombre, apellidos, grupo, fecha_nacimiento) VALUES ('Carlos','Ledezma Perez','dam','2000.01.15');
+INSERT INTO Alumno (nombre, apellidos, grupo, fecha_nacimiento) VALUES ('Miguel','Ruíz Párraga','daw','2001.02.13');
+INSERT INTO Alumno (nombre, apellidos, grupo, fecha_nacimiento) VALUES ('Luis','Goycochea Ruíz','dam','2002.03.18');
+INSERT INTO Alumno (nombre, apellidos, grupo, fecha_nacimiento) VALUES ('Carmen','Roncal Jauregui','daw','2000.04.15');
+INSERT INTO Alumno (nombre, apellidos, grupo, fecha_nacimiento) VALUES ('Lucho','Diez Rodriguez','dam','2001.10.31');
+INSERT INTO Alumno (nombre, apellidos, grupo, fecha_nacimiento) VALUES ('Lucia','Rodriguez Jauregui','dam','2002.03.25');
+INSERT INTO Alumno (nombre, apellidos, grupo, fecha_nacimiento) VALUES ('Vanessa','Perez Cuba','daw','2000.12.17');
+INSERT INTO Alumno (nombre, apellidos, grupo, fecha_nacimiento) VALUES ('Arturo','Ledezma Perez','dam','2000.10.16');
+
+-- 5. MOSTRAR TODOS LOS REGISTROS DE UNA TABLA
+
+SELECT * FROM Alumno;
+
+****************************
+***   COMANDOS CONSOLA   ***
+****************************
+
+-- Activar el despligue expandido para que se muestre los resultados en la consola en un formato ordenado
+
+\x on
+
+-- Prompt por defecto en postgresql, donde postgres es la base de datos por defecto que viene con postgresql.
+
+postgres=#
+
+-- Cambiar a la base de datos por defecto de postgresl
+
+\c postgres
+
+-- Limpiar la pantalla de salida
+
+\! cls
+
+-- Salir de la consola
+
+\q
+
+-- Ejecutar un script SQL
+
+\i C:/Users/WALTER/Desktop/APUNTES/bd_tienda.sql
+\i C:/Users/RYZEN/Desktop/RESUMEN___POSTGRESQL/bd_campusfp.sql
+
+-- Crear una base de datos
+
+\c postgres
+create database universidad;
+
+-- Crear una tabla en la base de datos seleccionada
+
+CREATE TABLE Usuario (idUsuario INT NOT NULL, nombre VARCHAR(30) NOT NULL, PRIMARY KEY (idUsuario));
+
+
+-- Listar todas las base de datos del sistema
+
+\l
+
+-- Seleccionar una base de datos
+
+\c campusfp
+
+El prompt cambia con el nombre de la base de datos seleccionada "campusfp=#"
+
+-- Listar las tablas de la base de datos actual
+
+\d
+\dt
+
+*********************************************
+***   CONEXION JDBC JAVA CON POSTGRESQL   ***
+*********************************************
+
+package modelo;
+
+import java.sql.*;
+
+public class ConexionPostgresql implements Conexion {
+
+    private Connection conexion;
+
+    private static final String PROTOCOLO = "jdbc:postgresql";
+    private static final String DRIVER = "org.postgresql.Driver";
+    private static final String SERVERNAME = "localhost";
+    private static final String PORT = "5433";
+    private static final String DATABASE = "campusfp1";
+    private static final String USERNAME = "postgres";
+    private static final String PASSWORD = "12345678";
+
+    private static final String URL = PROTOCOLO + "://" + SERVERNAME + ":" + PORT + "/" + DATABASE;
+
+    public ConexionPostgresql() {
+    }
+
+    @Override
+    public void setConexion(boolean flag) {
+        try {
+            if (flag) {
+                Class.forName(DRIVER);
+                conexion = (Connection) DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            } else {
+                conexion.close();
+                conexion = null;
+            }
+        } catch (Exception e) {
+            conexion = null;
+        }
+    }
+
+    @Override
+    public Connection getConexion() {
+        return conexion;
+    }
+
+}
+
+****************************
+***   OPERACIONES CRUD   ***
+****************************
+
+package modelo;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class OperacionesCrud implements Operaciones {
+
+    @Override
+    public boolean crearTablaAlumno(Connection conexion) {
+        boolean bandera = true;
+        String query;
+        try {
+            String[] parte = conexion.getMetaData().getURL().split(":");
+            if (parte[1].equalsIgnoreCase("mysql")) {
+                query = "CREATE TABLE Alumno (idAlumno INT NOT NULL AUTO_INCREMENT, nombre VARCHAR(30) NOT NULL, PRIMARY KEY(idAlumno))";
+            } else {
+                query = "CREATE TABLE Alumno (idAlumno SERIAL NOT NULL, nombre VARCHAR(30) NOT NULL, PRIMARY KEY(idAlumno))";
+            }
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.execute();
+        } catch (SQLException ex) {
+            bandera = false;
+        }
+        return bandera;
+    }
+
+    @Override
+    public boolean insertarRegistroTablaAlumno(Connection conexion, Alumno alumno) {
+        boolean bandera = true;
+        String query = "INSERT INTO Alumno VALUES (?, ?)";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setInt(1, alumno.getIdAlumno());
+            ps.setString(2, alumno.getNombre());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            bandera = false;
+        }
+        return bandera;
+    }
+
+    @Override
+    public boolean eliminarTablaAlumnoSiExiste(Connection conexion) {
+        boolean bandera = true;
+        String query = "DROP TABLE IF EXISTS Alumno";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.execute();
+        } catch (SQLException ex) {
+            bandera = false;
+        }
+        return bandera;
+    }
+
+    @Override
+    public List<Alumno> obtenerListaAlumnosFromTablaAlumno(Connection conexion) {
+        List<Alumno> alumnos_al = new ArrayList<Alumno>();
+        String query = "SELECT * FROM Alumno";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                alumnos_al.add(new Alumno(rs.getInt(1), rs.getString(2)));
+            }
+        } catch (SQLException e) {
+            alumnos_al = null;
+        }
+        return alumnos_al;
+    }
+	
+	    /**
+     * Método para verificar si exite la tabla alumno
+     */
+    public boolean existeTabla(Connection conexion) {
+        boolean bandera = true;
+        try {
+            Statement sql = conexion.createStatement();
+            ResultSet rs = sql.executeQuery("select * from Alumno");
+            rs.close();
+            sql.close();
+        } catch (SQLException e) {
+            bandera = false;
+        }
+        return bandera;
+    }
+
+}
+
+***********************
+***   CONTROLADOR   ***
+***********************
+
+package src;
+
+import java.sql.Connection;
+
+public class Controlador {
+
+    public static OperacionesCrud ocrudta = new OperacionesCrud();
+
+    public static void crearTablaAlumno(Connection conexion) {
+        if (conexion == null) {
+            System.out.println("\nMENSAJE: NO EXISTE CONEXION A LA BASE DE DATOS");
+        } else {
+            if (ocrudta.existeTabla(conexion) == true) {
+                System.out.print("\nMENSAJE: YA EXISTE TABLA ALUMNO");
+            } else {
+                if (ocrudta.crearTabla(conexion) == true) {
+                    System.out.print("\nMENSAJE: CREACION EXISTOSA DE TABLA ALUMNO");
+                } else {
+                    System.out.println("\nMENAJE: ERROR EN CREACION DE TABLA ALUMNO");
+                }
+            }
+        }
+    }   
+}
+
+*******************************
+***   POSTGRESQL CON JSON   ***
+*******************************
+
+package modelo;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class ServletJson extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        Connection conexion = null;
+        //CONEXION JDBC POSTGRESQL
+        String url = "jdbc:postgresql://localhost:5432/campusfp";
+        String usuario = "postgres";
+        String clave = "12345678";
+        try {
+            try {
+                Class.forName("org.postgresql.Driver");
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ServletJson.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            conexion = (Connection)DriverManager.getConnection(url,usuario,clave);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServletJson.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //VERIICAR LA CONEXION
+        
+        if(conexion != null) {
+            out.println("OK: CONEXION<br>");
+        }else {
+            out.println("ERROR: CONEXION<br>");
+        }
+        
+        //DROP TABLE IF EXISTS VENTAS
+        String query1 = "DROP TABLE IF EXISTS Ventas";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query1);
+            ps.execute();
+        } catch (SQLException ex) {
+            out.println("ERROR: QUERY1<br>");
+        }
+        
+        //CREATE TABLE Ventas (id int, documentoJson JSON)
+        String query2 = "CREATE TABLE Ventas (id int, documentoJson JSON)";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query2);
+            ps.execute();
+            out.println("OK: CREAR TABLA<br>");
+        } catch (SQLException ex) {
+            out.println("ERROR: QUERY2<br>");
+        }
+        
+        /*
+        {"producto": "Lapiz", "venta": 5000}
+        {"producto": "Borrador", "venta": 6000}
+        */
+        String documentojson = "{\"producto\": \"Lapiz\", \"venta\": 5000}";
+        int id = 1;
+        String query3 = "INSERT INTO Ventas VALUES (?,?::JSON)";
+        out.println("OK: INSERTAR<br>");
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query3);
+            ps.setInt(1, id);
+            ps.setObject(2, documentojson);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            out.println("ERROR: QUERY3<br>");
+        }
+        
+        //SELECT
+        String query4 = "SELECT documentojson->'producto', documentojson->'venta' FROM Ventas";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query4);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                out.println(rs.getString(1)+"  " + rs.getString(2) + "<br>");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServletJson.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+
+********************
+***   CONSULTA   ***
+********************
+
+-- MOSTRAR EL IDALUMNO, NOMBRE Y AÑO DE NACIMIENTO DE TODOS LOS ALUMNOS
+
+SELECT idAlumno, nombre, EXTRACT(YEAR FROM fecha_nacimiento) FROM Alumno;
+
+-- MOSTRAR LOS ALUMNOS NACIDOS EL 2000
+
+SELECT idAlumno, nombre, EXTRACT(YEAR FROM fecha_nacimiento) FROM Alumno WHERE EXTRACT(YEAR FROM fecha_nacimiento) = 2000;
+
+-- MOSTRAR LOS ALUMNOS NACIDOS EN ENERO
+
+SELECT idAlumno, nombre, EXTRACT(YEAR FROM fecha_nacimiento) FROM Alumno WHERE EXTRACT(MONTH FROM fecha_nacimiento) = 1;   //Da lo mismo poner 01
+
+INSERT INTO public.pais (pais, ciudades, "Correo") VALUES ('Spain', '{Madrid,Valencia,Sevilla,Cadiz,Granada,Jaen}', NULL);
+
+
+
+
+****************
+***   0007   ***
+****************
+
+
+****************
+***   0008   ***
+****************
+
+
+****************
+***   0009   ***
+****************
+
+
+****************
+***   0010   ***
+****************
+
+
+****************
+***   0011   ***
+****************
+
+
+****************
+***   0012   ***
+****************
+
+
+****************
+***   0013   ***
+****************
+
+
+****************
+***   0014   ***
+****************
+
+
+****************
+***   0015   ***
+****************
+
+
+****************
+***   0016   ***
+****************
+
+
+****************
+***   0017   ***
+****************
+
+
+****************
+***   0018   ***
+****************
+
+
+****************
+***   0019   ***
+****************
+
+
+****************
+***   0020   ***
+****************
+
+
+****************
+***   0021   ***
+****************
+
+
+****************
+***   0022   ***
+****************
+
+
+****************
+***   0023   ***
+****************
+
+
+
+****************
+***   0024   ***
+****************
+
+
+****************
+***   0025   ***
+****************
+
+
+****************
+***   0026   ***
+****************
+
+
+****************
+***   0027   ***
+****************
+
+
+****************
+***   0028   ***
+****************
+
+
+****************
+***   0029   ***
+****************
+
+
+
+****************
+***   0030   ***
+****************
+
+
+
+
+
+
+
+
+
+   

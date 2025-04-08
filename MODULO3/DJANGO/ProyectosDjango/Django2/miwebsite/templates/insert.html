@@ -1,0 +1,21 @@
+
+<form method="post">
+    {% csrf_token %}
+    <!-- ENTRADA -->
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="txt_nombre" required><br>
+
+    <label for="direccion">Direccion:</label>
+    <input type="text" id="direccion" name="txt_direccion" required><br>
+
+    <label for="estatura">Estatura:</label>
+    <input type="number" id="estatura" name="txt_estatura" step='0.01' min='1' required><br>
+    <!-- ACCION -->
+    <button type="submit">Insertar Alumno</button>
+</form>
+
+{% if mensaje %}
+    <p>{{ mensaje }}</p>
+{% endif %}
+
+<a href="{% url 'index' %}">Volver al Inicio</a>

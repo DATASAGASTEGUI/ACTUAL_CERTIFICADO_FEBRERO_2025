@@ -1,0 +1,37 @@
+
+
+<form method="post">
+    {% csrf_token %}
+    <!-- ENTRADA -->
+    <p>
+    <label for="temperatura">Temperatura:</label>
+    <input type="number" id="temperatura" name="txt_temperatura" step='0.01' required
+    value="{{ temperatura }}">
+    </p>
+
+    <!-- RADIO BUTTON -->
+     <p>
+    <input type="radio" id="c_to_f" name="rdo_opcion" value="c_to_f"
+           {% if opcion == 'c_to_f' %} 
+             checked 
+           {% endif %}>
+    <label for="c_to_f">Convertir a Celsius a Farenheit</label>
+    </p>
+
+    <p>
+    <input type="radio" id="f_to_c" name="rdo_opcion" value="f_to_c" 
+           {% if opcion == 'f_to_c' %} checked {% endif %}>
+    <label for="f_to_c">Convertir a Farenheit a Celsius</label>
+    </p>
+
+    <input type="submit" name='btn_convertir' value="Convertir">
+    <input type="submit" name="btn_limpiar" value="Limpiar">
+</form> 
+
+{% if resultado %}
+    <h2>Resultado: {{ resultado }}</h2>
+{% endif %}
+
+{% comment %} ESTO ES UN COMENTARIO {% endcomment %}
+<!-- ESTO ES UN COMENTARIO -->
+

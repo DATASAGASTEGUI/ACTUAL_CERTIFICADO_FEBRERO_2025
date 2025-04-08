@@ -1,0 +1,5 @@
+Clase   Clases Hijos
+Base
+
+Figura: Circulo       area() Implimentacion diferente
+        Rectangulo    area()

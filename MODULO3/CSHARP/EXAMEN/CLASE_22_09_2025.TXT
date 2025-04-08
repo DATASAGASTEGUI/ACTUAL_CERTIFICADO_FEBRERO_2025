@@ -1,0 +1,444 @@
+****************
+***   0001   ***
+****************
+--------------------------------------------------------------------------------
+[1] Ventana2.xaml
+--------------------------------------------------------------------------------
+<Window x:Class="MiAppWPF.Ventana2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="VENTANA WPF CSHARP 2"
+        Height="500"
+        Width="500"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="LightGray">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- ComboBox de IDs -->
+        <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+            <TextBlock Text="Selecciona ID: " VerticalAlignment="Center"/>
+            <ComboBox x:Name="cbProductos" Width="100"
+                      SelectionChanged="cbProductos_SelectionChanged"/>
+        </StackPanel>
+
+        <!-- Detalles del producto -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="10">
+                <TextBlock Text="ID:"/>
+                <TextBox x:Name="txtId" IsReadOnly="True"/>
+
+                <TextBlock Text="Nombre:"/>
+                <TextBox x:Name="txtNombre"/>
+
+                <TextBlock Text="Precio:"/>
+                <TextBox x:Name="txtPrecio"/>
+
+                <TextBlock Text="Stock:"/>
+                <TextBox x:Name="txtStock"/>
+
+                <TextBlock Text="Fecha Creación:"/>
+                <TextBox x:Name="txtFecha"/>
+
+                <TextBlock Text="Disponible (Sí/No):"/>
+                <TextBox x:Name="txtDisponible"/>
+
+                <TextBlock Text="Categoría:"/>
+                <TextBox x:Name="txtCategoria"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Botones de CRUD -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal"
+                    HorizontalAlignment="Center" Margin="0,10,0,0">
+            <Button Content="Insertar" Width="100" Margin="5"
+                    Click="btnInsertar_Click"/>
+            <Button Content="Actualizar" Width="100" Margin="5"
+                    Click="btnActualizar_Click"/>
+            <Button Content="Eliminar" Width="100" Margin="5"
+                    Click="btnEliminar_Click"/>
+            <Button Content="Limpiar" Width="100" Margin="5"
+                    Click="btnLimpiar_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
+--------------------------------------------------------------------------------
+[2] Ventana2.xaml.cs
+--------------------------------------------------------------------------------
+using Microsoft.Data.Sqlite;
+using System;
+using System.Windows;
+
+namespace MiAppWPF;
+
+public partial class Ventana2 : Window
+{
+    public Ventana2()
+    {
+        InitializeComponent();
+        CargarIdsProductos();
+    }
+
+    private void CargarIdsProductos()
+    {
+        cbProductos.Items.Clear();
+        string connectionString = "Data Source=tienda.sqlite3";
+
+        using var connection = new SqliteConnection(connectionString);
+        connection.Open();
+
+        string query = "SELECT Id_producto FROM Producto";
+        using var command = new SqliteCommand(query, connection);
+        using var reader = command.ExecuteReader();
+
+        while (reader.Read())
+        {
+            cbProductos.Items.Add(reader.GetInt32(0));
+        }
+    }
+
+    private void cbProductos_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+    {
+        if (cbProductos.SelectedItem == null) return;
+
+        string connectionString = "Data Source=tienda.sqlite3";
+
+        using var connection = new SqliteConnection(connectionString);
+        connection.Open();
+
+        string query = "SELECT * FROM Producto WHERE Id_producto=@id";
+        using var command = new SqliteCommand(query, connection);
+        command.Parameters.AddWithValue("@id", cbProductos.SelectedItem);
+
+        using var reader = command.ExecuteReader();
+        if (reader.Read())
+        {
+            txtId.Text = reader.GetInt32(0).ToString();
+            txtNombre.Text = reader.GetString(1);
+            txtPrecio.Text = reader.GetDouble(2).ToString("N2");
+            txtStock.Text = reader.GetInt32(3).ToString();
+            txtFecha.Text = reader.GetString(4);
+            txtDisponible.Text = reader.GetBoolean(5) ? "Sí" : "No";
+            txtCategoria.Text = reader.GetString(6);
+        }
+    }
+
+    private void btnInsertar_Click(object sender, RoutedEventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(txtNombre.Text) ||
+            string.IsNullOrWhiteSpace(txtPrecio.Text) ||
+            string.IsNullOrWhiteSpace(txtStock.Text) ||
+            string.IsNullOrWhiteSpace(txtFecha.Text) ||
+            string.IsNullOrWhiteSpace(txtDisponible.Text) ||
+            string.IsNullOrWhiteSpace(txtCategoria.Text))
+        {
+            MessageBox.Show("Todos los campos deben estar completos.", "Advertencia",
+                            MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
+        if (!double.TryParse(txtPrecio.Text, out double precio) ||
+            !int.TryParse(txtStock.Text, out int stock))
+        {
+            MessageBox.Show("Precio o Stock no son valores válidos.", "Error",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
+        bool disponible = txtDisponible.Text.ToLower() == "sí" || txtDisponible.Text.ToLower() == "si";
+
+        string connectionString = "Data Source=tienda.sqlite3";
+        using var connection = new SqliteConnection(connectionString);
+        connection.Open();
+
+        string query = @"INSERT INTO Producto 
+                         (Nombre, Precio, Stock, Fecha_creacion, Disponible, Categoria) 
+                         VALUES (@nombre, @precio, @stock, @fecha, @disponible, @categoria)";
+
+        using var command = new SqliteCommand(query, connection);
+        command.Parameters.AddWithValue("@nombre", txtNombre.Text);
+        command.Parameters.AddWithValue("@precio", precio);
+        command.Parameters.AddWithValue("@stock", stock);
+        command.Parameters.AddWithValue("@fecha", txtFecha.Text);
+        command.Parameters.AddWithValue("@disponible", disponible);
+        command.Parameters.AddWithValue("@categoria", txtCategoria.Text);
+
+        int rows = command.ExecuteNonQuery();
+
+        if (rows > 0)
+        {
+            MessageBox.Show("Producto insertado correctamente.",
+                            "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+            CargarIdsProductos();
+            LimpiarCampos();
+        }
+    }
+
+    private void btnActualizar_Click(object sender, RoutedEventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(txtId.Text))
+        {
+            MessageBox.Show("Seleccione un producto para actualizar.", "Advertencia",
+                            MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
+        if (!double.TryParse(txtPrecio.Text, out double precio) ||
+            !int.TryParse(txtStock.Text, out int stock))
+        {
+            MessageBox.Show("Precio o Stock no son válidos.", "Error",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
+        bool disponible = txtDisponible.Text.ToLower() == "sí" || txtDisponible.Text.ToLower() == "si";
+
+        string connectionString = "Data Source=tienda.sqlite3";
+        using var connection = new SqliteConnection(connectionString);
+        connection.Open();
+
+        string query = @"UPDATE Producto SET 
+                            Nombre=@nombre, Precio=@precio, Stock=@stock, 
+                            Fecha_creacion=@fecha, Disponible=@disponible, Categoria=@categoria 
+                         WHERE Id_producto=@id";
+
+        using var command = new SqliteCommand(query, connection);
+        command.Parameters.AddWithValue("@id", int.Parse(txtId.Text));
+        command.Parameters.AddWithValue("@nombre", txtNombre.Text);
+        command.Parameters.AddWithValue("@precio", precio);
+        command.Parameters.AddWithValue("@stock", stock);
+        command.Parameters.AddWithValue("@fecha", txtFecha.Text);
+        command.Parameters.AddWithValue("@disponible", disponible);
+        command.Parameters.AddWithValue("@categoria", txtCategoria.Text);
+
+        int rows = command.ExecuteNonQuery();
+
+        if (rows > 0)
+        {
+            MessageBox.Show("Producto actualizado correctamente.",
+                            "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+            CargarIdsProductos();
+        }
+    }
+
+    private void btnEliminar_Click(object sender, RoutedEventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(txtId.Text))
+        {
+            MessageBox.Show("Seleccione un producto para eliminar.", "Advertencia",
+                            MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
+        string connectionString = "Data Source=tienda.sqlite3";
+        using var connection = new SqliteConnection(connectionString);
+        connection.Open();
+
+        string query = "DELETE FROM Producto WHERE Id_producto=@id";
+        using var command = new SqliteCommand(query, connection);
+        command.Parameters.AddWithValue("@id", int.Parse(txtId.Text));
+
+        int rows = command.ExecuteNonQuery();
+
+        if (rows > 0)
+        {
+            MessageBox.Show("Producto eliminado correctamente.",
+                            "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+            CargarIdsProductos();
+            LimpiarCampos();
+        }
+    }
+
+    private void btnLimpiar_Click(object sender, RoutedEventArgs e)
+    {
+        LimpiarCampos();
+    }
+
+    private void LimpiarCampos()
+    {
+        txtId.Text = "";
+        txtNombre.Text = "";
+        txtPrecio.Text = "";
+        txtStock.Text = "";
+        txtFecha.Text = "";
+        txtDisponible.Text = "";
+        txtCategoria.Text = "";
+        cbProductos.SelectedItem = null;
+    }
+}
+--------------------------------------------------------------------------------
+[3] MiAppWPF.csproj
+--------------------------------------------------------------------------------
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+
+    <!-- Ícono global de la aplicación (ejecutable) -->
+    <ApplicationIcon>favicon.ico</ApplicationIcon>  
+  </PropertyGroup>
+
+    <!-- Incluir favicon.ico como recurso -->
+  <ItemGroup>
+    <Resource Include="favicon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.9" />
+  </ItemGroup>
+
+</Project>
+--------------------------------------------------------------------------------
+****************
+***   0002   ***
+****************
+--------------------------------------------------------------------------------
+[1] VentanaPyQt5_000_1.py
+--------------------------------------------------------------------------------
+import sys
+
+from PyQt5.QtWidgets import QApplication, QLabel, QWidget
+
+app = QApplication(sys.argv)
+
+ventana = QWidget()
+
+# Personalizar ventana
+ventana.setWindowTitle("Mi primera ventana")
+ventana.setFixedSize(400, 200)
+# Personalizar componentes
+etiqueta = QLabel("¡Hola Mundo!", ventana)
+etiqueta.move(0, 80)
+
+ventana.show()
+
+sys.exit(app.exec_())
+--------------------------------------------------------------------------------
+[2] VentanaPyQt5_000_2.py
+--------------------------------------------------------------------------------
+import sys
+from PyQt5.QtWidgets import QApplication, QLabel, QWidget
+
+class MiVentana(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.inicializar_ui()
+        
+    def inicializar_ui(self):
+        # Personalizar ventana
+        self.setWindowTitle("Mi primera ventana")
+        self.setFixedSize(400, 200)
+        # Personalizar componentes
+        self.etiqueta = QLabel("¡Hola Mundo!", self)
+        self.etiqueta.move(0, 80)
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    ventana = MiVentana()
+    ventana.show()
+    sys.exit(app.exec_())
+--------------------------------------------------------------------------------
+[3] VentanaPyQt5_000_3.py
+--------------------------------------------------------------------------------
+import sys
+from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
+
+class MiVentana(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.inicializar_ui()
+
+    def inicializar_ui(self):
+        # Personalizar ventana
+        self.setWindowTitle("Mi primera ventana")
+        self.setFixedSize(400, 200)
+        # Personalizar componentes
+        etiqueta = QLabel("¡Hola Mundo!", self) #QLabel dentro del QMainWindow
+        etiqueta.move(0, 80)
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    ventana = MiVentana()
+    ventana.show()
+    sys.exit(app.exec_())
+--------------------------------------------------------------------------------
+[4] VentanaPyQt5_000_4.py
+--------------------------------------------------------------------------------
+import sys
+
+from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QWidget
+
+class MiVentana(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.inicializar_ui()
+
+    def inicializar_ui(self):
+        # Personalizar ventana
+        self.setWindowTitle("Mi primera ventana")
+        self.setFixedSize(400, 200)
+        # Crear un widget central
+        central = QWidget()
+        self.setCentralWidget(central)
+        # Personalizar componentes
+        etiqueta = QLabel("¡Hola Mundo!", central)
+        etiqueta.move(0, 80)
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    ventana = MiVentana()
+    ventana.show()
+    sys.exit(app.exec_())
+--------------------------------------------------------------------------------
+[5] VentanaPyQt5_000_5.py
+--------------------------------------------------------------------------------
+import sys
+from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QWidget
+from PyQt5.QtCore import Qt  # Importamos Qt para la alineación
+
+class MiVentana(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.inicializar_ui()
+
+    def inicializar_ui(self):
+        # Personalizar ventana
+        self.setWindowTitle("Mi primera ventana")
+        self.setFixedSize(400, 200)
+
+        # Crear un widget central
+        central = QWidget()
+        self.setCentralWidget(central)
+
+        # Personalizar componentes
+        etiqueta = QLabel("¡Hola Mundo!", central)
+        etiqueta.setAlignment(Qt.AlignCenter)  # Centra el texto
+        etiqueta.resize(400, 200)  # Ocupar todo el espacio de la ventana
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    ventana = MiVentana()
+    ventana.show()
+    sys.exit(app.exec_())
+--------------------------------------------------------------------------------
+
+D:\a\29OCTUBRE\LENGUAJE_PROGRAMACION\MIO\PROJECTS___PYTHON\PYTHON_TEXTO\PYTHON\PYTHON_0034
+D:\CHICLANA2024\PROJECTS___PYTHON\PYTHON_TEXTO\PYTHON\PYTHON_0034
+D:\a\PYTHON\PYTHON_0034
+D:\CERTIFICADO_27022025_MODULO1\MIO\NUEVO1\PYTHON_TEXTO\PYTHON\PYTHON_0033\YA.COPIADO
+
+D:\CERTIFICADO_27022025_MODULO1\MIO\NUEVO1\PYTHON_TEXTO\PYTHON\PYTHON_0033\YA.COPIADO
+
+
+
+

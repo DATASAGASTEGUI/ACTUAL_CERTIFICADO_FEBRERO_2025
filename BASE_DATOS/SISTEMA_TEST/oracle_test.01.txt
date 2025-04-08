@@ -1,0 +1,309 @@
+INSERT INTO Pregunta (idPregunta, texto, respuesta_pregunta) VALUES
+(1, '¿Qué tipo de software es Oracle Database?, 1)
+
+INSERT INTO Opcion (idOpcion, texto_opcion, idPregunta) VALUES
+(1,  'Sistema Operativo', 1),
+(2,  'Sistema de Gestión de Base de Datos X', 1),
+(3,  'Editor de texto', 1)
+(4,  'Navegador Web', 1)
+
+
+1. ¿Qué tipo de software es Oracle Database?
+A) Sistema Operativo
+B) Sistema de Gestión de Base de Datos X
+C) Editor de texto
+D) Navegador Web
+
+2. ¿Cuál es el lenguaje principal para interactuar con Oracle Database?
+A) Python
+B) Java
+C) SQL X
+D) HTML
+
+3. ¿Qué componente de Oracle permite la ejecución de procedimientos almacenados?
+A) PL/SQL X
+B) JavaScript
+C) HTML
+D) Bash
+
+4. ¿Qué comando se usa para crear una tabla en Oracle?
+A) MAKE TABLE
+B) CREATE TABLE X
+C) INIT TABLE
+D) NEW TABLE
+
+5. ¿Qué extensión tienen habitualmente los archivos de control en Oracle?
+A) .dbf
+B) .ctl X
+C) .ora
+D) .log
+
+6. ¿Cuál es el comando para eliminar una tabla?
+A) DROP TABLE X
+B) REMOVE TABLE
+C) DELETE TABLE
+D) ERASE TABLE
+
+7. ¿Qué comando sirve para otorgar privilegios a un usuario?
+A) ALLOW
+B) PERMIT
+C) GRANT X
+D) GIVE
+
+8. ¿Qué archivo contiene parámetros de inicialización en Oracle?
+A) init.ora X
+B) conf.ini
+C) dbconfig.xml
+D) start.ctl
+
+9. ¿Cuál es el nombre del lenguaje procedural extendido de SQL en Oracle?
+A) T-SQL
+B) SQL+
+C) PL/SQL X
+D) MySQL
+
+10. ¿Qué tipo de backup permite recuperar una base de datos hasta un punto específico?
+A) Cold Backup
+B) Hot Backup
+C) Full Backup
+D) Point-in-Time Recovery X
+
+11. ¿Qué comando se usa para revocar permisos?
+A) REMOVE
+B) REVOKE X
+C) CANCEL
+D) UNGRANT
+
+12. ¿Qué tabla contiene información sobre todas las tablas del usuario?
+A) USER_TABLES X
+B) ALL_USERS
+C) DBA_DATAFILES
+D) TABLE_INFO
+
+13. ¿Qué vista muestra las sesiones activas en Oracle?
+A) V$SESSION X
+B) V$USER
+C) SESSION_INFO
+D) SYS.SESSIONS
+
+14. ¿Qué comando se usa para finalizar una transacción?
+A) EXIT
+B) FINISH
+C) COMMIT X
+D) SAVE
+
+15. ¿Cuál de estos no es un tipo de dato en Oracle?
+A) VARCHAR2
+B) NUMBER
+C) BOOLEAN X
+D) DATE
+
+16. ¿Cuál es la herramienta gráfica de Oracle para administración?
+A) SQL Server Management
+B) SQL Developer X
+C) MySQL Workbench
+D) Oracle Navigator
+
+17. ¿Cuál es el nombre del archivo de configuración de Oracle Listener?
+A) listener.conf
+B) tnsnames.ora
+C) listener.ora X
+D) init.ora
+
+18. ¿Qué comando PL/SQL se usa para manejar errores?
+A) TRY...CATCH
+B) ON ERROR
+C) EXCEPTION X
+D) CATCH
+
+19. ¿Cuál es la función de ROWNUM en Oracle?
+A) Cuenta filas duplicadas
+B) Devuelve el ID del usuario
+C) Devuelve el número de fila X
+D) Suma todas las filas
+
+20. ¿Qué objeto sirve para automatizar tareas en Oracle?
+A) Cronjob
+B) Event
+C) Trigger X
+D) Hook
+
+21. ¿Qué significa DML?
+A) Data Management Language
+B) Data Migration Language
+C) Data Manipulation Language X
+D) Database Management Layer
+
+22. ¿Cuál no es una instrucción DML?
+A) SELECT X
+B) INSERT
+C) DELETE
+D) UPDATE
+
+23. ¿Cuál es el usuario por defecto de Oracle?
+A) ROOT
+B) SYSTEM X
+C) ADMIN
+D) SA
+
+24. ¿Qué hace el comando ROLLBACK?
+A) Guarda los cambios
+B) Elimina una tabla
+C) Cancela los cambios X
+D) Reinicia la base de datos
+
+25. ¿Cómo se llama el archivo que contiene los nombres de red de Oracle?
+A) oracle.ora
+B) dbnet.ini
+C) tnsnames.ora X
+D) connect.xml
+
+26. ¿Qué comando se usa para cambiar el valor de una columna?
+A) MODIFY
+B) UPDATE X
+C) SET
+D) CHANGE
+
+27. ¿Qué significa DDL?
+A) Data Definition Language X
+B) Database Driver Layer
+C) Data Delete Language
+D) Direct Data Load
+
+28. ¿Cuál es un ejemplo de comando DDL?
+A) SELECT
+B) INSERT
+C) CREATE X
+D) DELETE
+
+29. ¿Qué es un "tablespace"?
+A) Un tipo de tabla
+B) Una partición de disco
+C) Un área de almacenamiento lógico X
+D) Un esquema
+
+30. ¿Cómo se llama el motor de transacciones de Oracle?
+A) InnoDB
+B) OracleDB
+C) ASM 
+D) Undo/Redo X
+
+31. ¿Qué hace el comando DESCRIBE en SQL*Plus?
+A) Elimina una tabla
+B) Muestra estructura de la tabla X
+C) Borra los datos
+D) Exporta la tabla
+
+32. ¿Qué tipo de clave identifica de forma única cada fila?
+A) Clave secundaria
+B) Clave foránea
+C) Clave primaria X
+D) Clave de búsqueda
+
+33. ¿Qué comando se usa para crear una vista?
+A) CREATE WINDOW
+B) CREATE VIEW X
+C) MAKE VIEW
+D) NEW VIEW
+
+34. ¿Qué operador se usa para concatenar cadenas en Oracle?
+A) +
+B) &
+C) || X
+D) CONCAT
+
+35. ¿Qué palabra clave se usa para ordenar resultados?
+A) ORDER
+B) SORT
+C) ORDER BY X
+D) GROUP
+
+36. ¿Cuál es el valor por defecto de una columna si no se especifica ninguno?
+A) 0
+B) NULL X
+C) ''
+D) DEFAULT
+
+37. ¿Qué función devuelve la fecha actual?
+A) TODAY()
+B) GETDATE()
+C) NOW()
+D) SYSDATE X
+
+38. ¿Qué cláusula limita el número de resultados?
+A) LIMIT
+B) TOP
+C) ROWNUM X
+D) OFFSET
+
+39. ¿Qué palabra se usa para agrupar resultados?
+A) SORT BY
+B) GROUP BY X
+C) ORDER BY
+D) COLLECT
+
+40. ¿Cuál es el máximo número de columnas que puede tener una tabla en Oracle 19c?
+A) 100
+B) 255
+C) 1000
+D) 4096 X
+
+41. ¿Qué función se usa para contar filas?
+A) SUM()
+B) COUNT() X
+C) LENGTH()
+D) TOTAL()
+
+42. ¿Qué significa el error ORA-00942?
+A) Tabla o vista no existe X
+B) Error de conexión
+C) Usuario inválido
+D) Dispositivo lleno
+
+43. ¿Qué vista muestra todos los índices de una tabla?
+A) USER_INDEXES X
+B) ALL_INDICES
+C) DBA_INDEX
+D) TABLE_INDEX
+
+44. ¿Cuál es el formato de fecha por defecto en Oracle?
+A) DD-MM-YYYY
+B) MM/DD/YYYY
+C) DD-MON-YY X
+D) YYYY-MM-DD
+
+45. ¿Qué operador se usa para comprobar si un valor está en una lista?
+A) =
+B) MATCH
+C) IN X
+D) ANY
+
+46. ¿Qué significa el acrónimo RAC en Oracle?
+A) Redundant Access Control
+B) Real Application Clusters X
+C) Rapid Access Connection
+D) Remote Administration Console
+
+47. ¿Qué herramienta se usa para clonar bases de datos en Oracle?
+A) Oracle Dump
+B) RMAN X
+C) TNS Admin
+D) Oracle Replicator
+
+48. ¿Qué comando se usa para cambiar la contraseña de un usuario?
+A) CHANGE PASSWORD
+B) ALTER USER X
+C) SET PASSWORD
+D) UPDATE USER
+
+49. ¿Qué comando sirve para finalizar una sesión en SQL*Plus?
+A) STOP
+B) END
+C) DISCONNECT
+D) EXIT X
+
+50. ¿Qué extensión suelen tener los datafiles en Oracle?
+A) .ora
+B) .sql
+C) .dbf X
+D) .log

@@ -1,0 +1,4732 @@
+****************
+***   0001   *** ACCESO A LA MAQUINA VIRTUAL
+****************
+
+- Levantar vmware y acceder a la máquina virtual que esta en la siguiente ruta
+  C:\Users\RYZEN\Documents\Virtual Machines
+  
+- El sistema operativo instalado en la máquina virtual es:
+  CENTOS-8-ORACLE21C QUE SE DESCARGO QUE TIENE YA INSTALADO ORACLE-21C
+  
+- Acceso a la máquina virtual:
+  El usuario es “oracle” con password “lepanto”
+  El usuario root si lo necesitamos también tiene ese password
+
+****************
+***   0002   ***  CONCEPTOS
+****************
+
+- QUE SIGNIFICA PL-SQL
+
+* Lenguaje Procedural SQL. 
+* Es una extensión procedural para el lenguaje SQL de Oracle 
+* SQL no es un lenguaje procedural por lo que PL/SQL permite suplir esas 
+  carencia.
+* Permite una mayor potencia a la hora de acceder a Base de Datos Oracle
+
+- CUAL ES LA BASE DE DATOS GRATUITA DE ORACLE
+
+Oracle Express
+
+- CUAL ES LA HERRAMIENTA DE DESARROLLO DE ORACLE QUE NOS PERMITE TRABAJAR CON
+  PL-SQL
+
+SqlDeveloper
+
+- QUE ES "ORACLE SQL DEVELOPER"
+
+Es una herramienta gratuita que nos provee oracle donde podemos hacer nuestro
+desarrollo en PL-SQL
+
+- ENTORNO PARA REALIZAR LA FORMACION
+
+Tener instalado: Oracle Express
+                 SqlDeveloper
+				 Oracle Live SQL (Se puede trabajar con esta version en nube)
+
+- DONDE DESCARGAR "SQL DEVELOPER 21.4.3 DOWNLOADS"
+
+En essta url se descarga:
+https://www.oracle.com/tools/downloads/sqldev-downloads-2143.html
+
+Se recomienda tener instalado JDK 8 o 11
+
+Descargaremos la que dice: "Windows 64-bit with JDK 8 included" que incorpora
+ya jdk 8 no es necesitario tener instalado jdk 8 o si ya la tuviera da igual
+porque ya lo incopora en una carpeta llamada "jdev"
+
+- ABRIR UNA TERMINAL EN CENTOS
+
+CTRL + ALT + T
+
+****************
+***   0003   *** INTRODUCCION AL PL-SQL
+****************
+
+- Un bloque PL-SQL tien un inicio y un final que son estos:
+  BEGIN ... END;
+- Un bloque PL-SQL no puede estar vacio tiene al menos tener un comando
+- Un comando que se suele poner para que no este vacio y por lo tantodebe
+  no de fallo es NULL como este ejmplo:
+  BEGIN NULL; END;
+- En PL-SQL todo termina en punto y coma
+- Borrar pantalla en la salida en la herramienta SqlDeveloper es con el icono en
+  forma de lapiz con borrador
+- Como guardar nuestros bloques anonimos ya que estos no se quedan guardados
+  en la base de datos como son los procedimientos, funciones y triggers,
+  entonces hay que guardar nuestros bloques anonimos en un fichero sql.
+- Los comandos se pueden escribir en mayusculas o minusculas.
+
+****************
+***   0004   *** SALIDA EN PL-SQL
+****************
+
+- HABILITAR LA SALIDA(OUTPUT) EN BLOQUE PARA IMPRIMIR MENSAJES EN LA PANTALLA
+  DE SALIDA
+  
+(1)
+
+SET SERVEROUTPUT ON
+BEGIN
+   DBMS_OUTPUT.PUT_LINE(100);
+END;
+
+(2)
+
+SET SERVEROUTPUT ON
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('HOLA MUNDO DESDE ORACLE');
+END;
+
+(3)
+
+SET SERVEROUTPUT ON
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('ARTURO' || ' PRADO');
+END;
+
+(4)
+
+SET SERVEROUTPUT ON
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('ARTURO');
+   DBMS_OUTPUT.PUT_LINE('Ismael');
+   DBMS_OUTPUT.PUT_LINE('Sagástegui');
+   DBMS_OUTPUT.PUT_LINE('CASTILLO');
+END;
+
+(5) CONCATENAR CADENAS PARA MOSTRARSE EN LA PANTALLA DE SALIDA
+
+SET SERVEROUTPUT ON
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('EJEMPLO 01');
+   DBMS_OUTPUT.PUT_LINE('----------');
+   DBMS_OUTPUT.PUT_LINE('ARTURO');
+   DBMS_OUTPUT.PUT_LINE('ISMAEL');
+   DBMS_OUTPUT.PUT_LINE('PRADO');
+   DBMS_OUTPUT.PUT_LINE('CASTILLO');
+   DBMS_OUTPUT.PUT_LINE('EJEMPLO 02');
+   DBMS_OUTPUT.PUT_LINE('----------');
+   DBMS_OUTPUT.PUT_LINE('ARTURO' || ' ISMAEL' || ' PRADO' || ' CASTILLO'); 
+END;
+
+****************
+***   0005   *** DECLARAR VARIABLES
+****************
+
+(0)
+
+SET SERVEROUTPUT ON
+DECLARE
+   nombre VARCHAR(100) := 'ARTURO Sagástegui';
+   nacimiento1 DATE := '16-jun-1989';
+   nacimiento2 DATE;
+   salario NUMBER(5) := 1000;
+BEGIN
+   DBMS_OUTPUT.PUT_LINE(nombre);
+   DBMS_OUTPUT.PUT_LINE(nacimiento1);
+   DBMS_OUTPUT.PUT_LINE(nacimiento2);
+   DBMS_OUTPUT.PUT_LINE(salario);
+   salario := salario * 10;
+   IF salario > 10000 THEN
+      DBMS_OUTPUT.PUT_LINE('Rico');
+   ELSE
+      DBMS_OUTPUT.PUT_LINE('Normal');
+   END IF;
+END;
+
+(1) CONCATENAR TIPOS CADENAS
+
+SET SERVEROUTPUT ON
+DECLARE
+   nombre1 VARCHAR2(30) := 'ARTURO';
+   nombre2 VARCHAR2(30) := ' Ismael';
+   paterno VARCHAR2(30) := ' Sagástegui';
+   materno VARCHAR2(30) := ' CASTILLO';
+   cadena  VARCHAR2(120) := '';
+BEGIN
+   cadena := nombre1 || nombre2 || paterno || materno;
+   DBMS_OUTPUT.PUT_LINE(cadena);
+   DBMS_OUTPUT.PUT_LINE(nombre1 || nombre2 || paterno || materno);
+END;
+
+(2) CONCATENAR TIPOS DE DATOS DISTINTOS
+
+SET SERVEROUTPUT ON
+DECLARE
+   idAlumno VARCHAR2(5) := 'A1';
+   nombre VARCHAR2(30) := 'Ismael';
+   edad NUMBER := 34;
+   estatura NUMBER := 1.72;
+   esCasado BOOLEAN := true;
+   cadena VARCHAR2(120) := '';
+BEGIN
+   cadena := idAlumno || nombre || edad || estatura || CASE WHEN esCasado THEN 'TRUE' ELSE 'FALSE' END;
+   DBMS_OUTPUT.PUT_LINE(cadena);
+END;
+
+(3) 
+
+SET SERVEROUTPUT ON
+DECLARE
+   idAlumno VARCHAR2(2) := 'A1';
+   estatura NUMBER(3,2) := 1.72;  
+   edad NUMBER(2) := 56; 
+   esCasado BOOLEAN := true; 
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('Id Alumno: ' || idAlumno);
+   DBMS_OUTPUT.PUT_LINE('Estatura : ' || estatura);
+   DBMS_OUTPUT.PUT_LINE('Edad     : ' || edad);
+   DBMS_OUTPUT.PUT_LINE('Es Casado: ' || CASE WHEN esCasado THEN 'True' ELSE 'False' END);
+END;
+-------------------------------------------------------------------------------
+(3)  DECLARAR VARIABLES Y POSTERIORMENTE INICIALIZARLOS
+
+SET SERVEROUTPUT ON
+DECLARE
+   idAlumno VARCHAR2(2);
+   estatura NUMBER(3,2);  
+   edad NUMBER(2); 
+   esCasado BOOLEAN; 
+BEGIN
+   idAlumno := 'A1';
+   estatura := 1.72;  
+   edad := 56; 
+   esCasado := True; 
+
+   DBMS_OUTPUT.PUT_LINE('Id Alumno: ' || idAlumno);
+   DBMS_OUTPUT.PUT_LINE('Estatura : ' || estatura);
+   DBMS_OUTPUT.PUT_LINE('Edad     : ' || edad);
+   DBMS_OUTPUT.PUT_LINE('Es Casado: ' || CASE WHEN esCasado THEN 'True' ELSE 'False' END);
+END;
+-------------------------------------------------------------------------------
+(4)  DECLARAR E INCIALIZAR VARIABLES AL MISMO TIEMPO
+
+SET SERVEROUTPUT ON
+DECLARE
+   idAlumno VARCHAR2(2) := 'A1';
+   estatura NUMBER(3,2) := 1.72;  
+   edad NUMBER(2) := 56; 
+   esCasado BOOLEAN := true; 
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('Id Alumno: ' || idAlumno);
+   DBMS_OUTPUT.PUT_LINE('Estatura : ' || estatura);
+   DBMS_OUTPUT.PUT_LINE('Edad     : ' || edad);
+   DBMS_OUTPUT.PUT_LINE('Es Casado: ' || CASE WHEN esCasado THEN 'True' ELSE 'False' END);
+END;
+-------------------------------------------------------------------------------
+(5) LIMITADOR DE CADENA
+
+SET SERVEROUTPUT ON
+DECLARE
+   cadena VARCHAR2(50) := 'Mi madre se llama "María" y vive en Madrid';
+BEGIN
+	DBMS_OUTPUT.PUT_LINE(cadena);
+END;
+
+Esto es un error:
+VARCHAR2(50) := "Mi madre se llama 'María' y vive en Madrid"; 
+
+(0008) 
+
+SET SERVEROUTPUT ON
+DECLARE
+   cadena VARCHAR2(60) := q'[Father's]';
+   --- cadena VARCHAR2(60) := Father's;   Error
+BEGIN
+   DBMS_OUTPUT.PUT_LINE(cadena);
+END;
+
+- SALIDA
+
+Father's
+
+(0009)
+
+SET SERVEROUTPUT ON
+DECLARE
+   cadena1 VARCHAR2(60) := q'[Mi madre se llama 'María' y vive en Madrid]'; 
+BEGIN
+   DBMS_OUTPUT.PUT_LINE(cadena1);
+END;
+
+
+************************************
+***   RESTRINGIR LAS VARIABLES   ***
+************************************
+
+(1) SI SE PONE LA RESTRICCION "NOT NULL" TIENE QUE DECLARARSE E INICIALIZARSE AL MISMO TIEMPO
+
+SET SERVEROUTPUT ON
+DECLARE
+	a NUMBER NOT NULL := 10;
+	b NUMBER NOT NULL := 3;
+	x NUMBER;
+BEGIN
+	x := -b/a;
+	DBMS_OUTPUT.PUT_LINE('X: ' || x);
+END;
+
+
+(2) VARIABLE QUE SE DESEA IMPRIMIR Y NO TIENE VALOR, SU VALOR POR DEFECTO ES NULL
+
+- 2.1
+
+SET SERVEROUTPUT ON
+DECLARE
+  nombre  VARCHAR2(30);
+  edad NUMBER(3);
+BEGIN
+  IF nombre IS NULL THEN
+     DBMS_OUTPUT.PUT_LINE('CADENA VACIA');
+  ELSE
+     DBMS_OUTPUT.PUT_LINE('Nombre: ' || nombre);
+  END IF;
+END;
+
+- 2.2
+
+SET SERVEROUTPUT ON
+DECLARE
+  nombre  VARCHAR2(30) DEFAULT NULL;
+  edad NUMBER(3);
+BEGIN
+  IF nombre IS NULL THEN
+     DBMS_OUTPUT.PUT_LINE('CADENA VACIA');
+  ELSE
+     DBMS_OUTPUT.PUT_LINE('Nombre: ' || nombre);
+  END IF;
+  
+  nombre := 'ARTURO';
+  
+  IF nombre IS NULL THEN
+     DBMS_OUTPUT.PUT_LINE('CADENA VACIA');
+  ELSE
+     DBMS_OUTPUT.PUT_LINE('Nombre: ' || nombre);
+  END IF;
+END;
+
+***********************************
+***   CREAR UNA BASE DE DATOS   ***
+***********************************
+
+-- ELIMINAR TABLA
+
+DROP TABLE Alumno;
+
+-- CREAR TABLA
+
+CREATE TABLE Alumno (
+  idAlumno NUMBER        NOT NULL,
+  nombre   VARCHAR2(30)  NOT NULL,
+  edad     NUMBER(3)     NOT NULL,
+  estatura NUMBER(3,2)   NOT NULL,
+  esCasado CHAR CHECK (esCasado IN (0,1)) NOT NULL,
+           PRIMARY KEY (idAlumno)
+);
+
+-- CREAR PROPIEDAD INCREMENTO AUTOMATICO EN LA CLAVE PRIMARIA
+
+DROP SEQUENCE INCREMENTO;
+
+CREATE SEQUENCE INCREMENTO
+START WITH 1
+INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER TRG_ALUMNO
+BEFORE INSERT ON ALUMNO
+FOR EACH ROW
+BEGIN
+   SELECT INCREMENTO.NEXTVAL INTO :NEW.IDALUMNO FROM DUAL;
+END;
+
+-- INSERTAR REGISTROS EN UNA TABLA
+
+INSERT INTO Alumno (nombre, edad, estatura, esCasado) VALUES ('María', 23, 1.72, 1);
+INSERT INTO Alumno (nombre, edad, estatura, esCasado) VALUES ('Carmen', 24, 1.64, 0);
+INSERT INTO Alumno (nombre, edad, estatura, esCasado) VALUES ('Melissa', 21, 1.65, 1);
+INSERT INTO Alumno (nombre, edad, estatura, esCasado) VALUES ('Carlos', 28, 1.73, 1);
+INSERT INTO Alumno (nombre, edad, estatura, esCasado) VALUES ('Delly', 24, 1.71, 0);
+
+-- MOSTRAR TODOS LOS REGISTROS DE UNA TABLA
+
+SELECT * FROM ALUMNO;
+
+***********************
+***   COMENTARIOS   ***
+***********************
+
+-- Comentarios de una línea
+
+/*
+Este es
+un comentario
+de varias
+líneas
+*/
+
+******************************
+***   ESCAPAR CARACTERES   ***
+******************************
+
+- PROGRAMA
+
+SET SERVEROUTPUT ON
+DECLARE
+   cadena1 VARCHAR2(50) := q'[Father's]';
+   cadena2 VARCHAR2(50) := q'[Hola 'ARTURO' como estas]';
+   cadena3 VARCHAR2(50) := q'[Hola "ARTURO" como estas]';
+   cadena4 VARCHAR2(50) := q'[Hola |ARTURO| como estas]';
+BEGIN
+   DBMS_OUTPUT.PUT_LINE(cadena1);
+   DBMS_OUTPUT.PUT_LINE(cadena2);
+   DBMS_OUTPUT.PUT_LINE(cadena3);
+   DBMS_OUTPUT.PUT_LINE(cadena4);
+END;
+
+- SALIDA
+
+Father's
+Hola 'ARTURO' como estas
+Hola "ARTURO" como estas
+Hola |ARTURO| como estas
+
+**************************
+***   TIPOS DE DATOS   ***
+**************************
+- ENTERO
+
+TIPOS			DESCRIPCION
+-----           -----------
+NUMBER			Para almacenar números enteros o de coma flotante.
+BINARY_INTEGER  Para almacenar números enteros en un rango específico.
+INTEGER         Para almacenar números enteros en un rango más amplio que BINARY_INTEGER.
+PLS_INTEGER     Para almacenar números enteros en un rango aún más limitado que BINARY_INTEGER.
+
+- CARACTER
+
+TIPOS			DESCRIPCION
+-----           -----------
+CHAR            Para almacenar una cadena de caracteres de longitud fija.
+VARCHAR2        Para almacenar una cadena de caracteres de longitud variable.
+CLOB            Para almacenar texto de longitud variable de hasta 4 GB.
+NCHAR           Para almacenar una cadena de caracteres Unicode de longitud fija.
+NVARCHAR2       Para almacenar una cadena de caracteres Unicode de longitud variable.
+
+- FECHA Y HORA
+
+TIPOS			DESCRIPCION
+-----           -----------
+DATE            Para almacenar fechas y horas.
+TIMESTAMP       Para almacenar fechas y horas con mayor precisión.
+INTERVAL        Para almacenar intervalos de tiempo.
+
+- LOGICO
+
+TIPOS			DESCRIPCION
+-----           -----------
+BOOLEAN         Para almacenar valores booleanos TRUE o FALSE.
+
+- COMPUESTO
+
+TIPOS			DESCRIPCION
+-----           -----------
+RECORD          Para almacenar un conjunto de variables relacionadas.
+TABLE           Para almacenar un conjunto de valores en una estructura tabular.
+
+- PERSONALIZADO
+
+Además, también se pueden definir tipos de datos personalizados utilizando la sentencia TYPE.
+
+- EJEMPLO
+
+estatura NUMBER(3,2) := 1.725; --1.73    Guardo 3 dígitos de los cuales 2 son  
+estatura NUMBER(4,3) := 1.725; --1.725   Guardo 4 dígitos de los cuales 3 son decimales
+estatura NUMBER(2,3) := 1.725; --ERROR   Guardo 2 dígitos de los cuales 3 son decimales
+estatura NUMBER(3)   := 1.725; --2       Guardo 3 dígitos de los cuales 0 son decimales
+estatura NUMBER(1) := 1.725    --2       Guardo 1 dígito de los cuales 0 son decimales 
+
+**********************************
+***   OPERADORES ARITMETICAS   ***
+**********************************
+
+OPERADOR	DESCRIPCION
+--------    -----------
++ 			Suma
+- 			Resta
+* 			Multiplicación
+/ 			División
+MOD 		Resto  (% JAVA)
+ABS 		Valor Absoluto
+POWER 		Potencia
+
+- EJEMPLOS
+
+(1) OPERACIONES ARITMETICAS
+
+- PROGRAMA
+
+SET SERVEROUTPUT ON
+DECLARE
+  a NUMBER := 10;
+  b NUMBER := 3;
+  c NUMBER;
+BEGIN
+  c := a + b;
+  DBMS_OUTPUT.PUT_LINE('Suma          : ' || c);
+  
+  c := a - b;
+  DBMS_OUTPUT.PUT_LINE('Resta         : ' || c);
+  
+  c := a * b;
+  DBMS_OUTPUT.PUT_LINE('Multiplicación: ' || c);
+  
+  c := a / b;
+  DBMS_OUTPUT.PUT_LINE('División      : ' || c);
+  
+  c := MOD(a, b); 
+  DBMS_OUTPUT.PUT_LINE('Resto         : ' || c);
+  
+  c := ABS(-10); 
+  DBMS_OUTPUT.PUT_LINE('Absoluto      : ' || c);
+  
+  c := POWER(a, b);
+  DBMS_OUTPUT.PUT_LINE('Potencia      : ' || c);
+END;
+
+- SALIDA
+
+Suma          : 13
+Resta         : 7
+Multiplicación: 30
+División      : 3,33333333333333333333333333333333333333
+Resto         : 1
+Absoluto      : 10
+Potencia      : 1000
+
+(2) RESTO
+
+- PROGRAMA
+
+DECLARE
+  dividendo NUMBER := 10;
+  divisor NUMBER := 3;
+  resultado NUMBER;
+BEGIN
+  resultado := dividendo MOD divisor;
+  DBMS_OUTPUT.PUT_LINE('El resultado de la división entera es: ' || resultado);
+END;
+
+- SALIDA
+
+El resultado de la división entera es: 1
+
+(3) DIVISION ENTERA (CONCIENTE ENTERO)
+
+- PROGRAMA
+
+DECLARE
+  dividendo NUMBER := 10;
+  divisor NUMBER := 3;
+  resultado NUMBER;
+BEGIN
+  resultado := TRUNC(dividendo / divisor);
+  DBMS_OUTPUT.PUT_LINE('Cociente Entero: ' || resultado);
+END;
+
+- SALIDA
+
+Cociente Entero: 3
+
+**********************************
+***   OPERADORES COMPARACION   ***
+**********************************
+
+OPERADOR	DESCRIPCION
+--------    -----------
+=			Igual a
+!= o <>		Diferente de 
+>			Mayor que
+<			Menor que
+>=			Mayor o igual que
+<=			Menor o igual que
+IS NULL     Es nulos. No se puede usar el operador =
+IS NOT NULL No es nulo. No se puede usar <> o !=
+
+******************************
+***   OPERADORES LOGICOS   ***
+******************************
+
+OPERADOR	DESCRIPCION
+--------    -----------
+AND			Devuelve TRUE si ambas expresiones son verdaderos.
+OR			Devuelve FALSE si ambas expresiones son falsos.
+NOT			Devuelve el valor opuesto de la expresión.
+
+- Estos operadores se utilizan principalmente en las declaraciones IF y en las cláusulas WHERE de las consultas SQL
+ 
+******************************************************************
+***   ESTRUCTURA CONDICIONALO BINARIO (IF ... THEN ... ELSE)   ***
+******************************************************************
+
+(1)  IF ... THEN ... ELSE
+
+SET SERVEROUTPUT ON
+DECLARE
+   numero NUMBER := 5;
+BEGIN
+   IF numero >= 0 THEN
+      DBMS_OUTPUT.PUT_LINE('El número es positivo');
+   ELSE
+      DBMS_OUTPUT.PUT_LINE('El número es negativo');
+   END IF;
+END;
+
+(2)  IF ... THEN ... ELSE
+
+SET SERVEROUTPUT ON
+DECLARE
+   numero NUMBER;
+BEGIN
+   numero := 5;
+   IF numero >= 0 THEN
+      DBMS_OUTPUT.PUT_LINE('El número es positivo');
+   ELSE
+      DBMS_OUTPUT.PUT_LINE('El número es negativo');
+   END IF;
+END;
+
+(3) IF ... THEN ... ELSE ANIDADO
+
+SET SERVEROUTPUT ON
+DECLARE
+  numero NUMBER := 0;
+BEGIN
+   IF numero > 0 THEN
+      DBMS_OUTPUT.PUT_LINE('El número es positivo');
+   ELSE
+      IF numero < 0 THEN
+         DBMS_OUTPUT.PUT_LINE('El número es negativo');
+      ELSE
+         DBMS_OUTPUT.PUT_LINE('El número es cero');
+      END IF;
+   END IF;
+END;
+
+(4)  IF ... THEN
+
+SET SERVEROUTPUT ON
+DECLARE
+  numero NUMBER := 5;
+BEGIN
+   IF numero > 0 THEN
+      DBMS_OUTPUT.PUT_LINE('El número es positivo');
+   END IF;
+END;
+
+(5)  ELSEIF
+
+SET SERVEROUTPUT ON
+DECLARE
+   dia NUMBER := 7;
+BEGIN
+   IF dia = 1 THEN
+      DBMS_OUTPUT.PUT_LINE('Lunes');
+   ELSIF dia = 2 THEN
+      DBMS_OUTPUT.PUT_LINE('Martes');
+   ELSIF dia = 3 THEN
+      DBMS_OUTPUT.PUT_LINE('Miercoles');
+   ELSIF dia = 4 THEN
+      DBMS_OUTPUT.PUT_LINE('Jueves');
+   ELSIF dia = 5 THEN
+      DBMS_OUTPUT.PUT_LINE('Viernes');
+   ELSIF dia = 6 THEN
+      DBMS_OUTPUT.PUT_LINE('Sabado');
+   ELSIF dia = 7 THEN
+      DBMS_OUTPUT.PUT_LINE('Domingo');
+   ELSE
+      DBMS_OUTPUT.PUT_LINE('Entrada Incorrecta');
+   END IF;
+END;
+
+**************************************************
+***   ESTRUCTURA CONDICIONAL MULTIPLE (CASE)   ***
+**************************************************
+
+(1)
+
+SET SERVEROUTPUT ON
+DECLARE
+   dia NUMBER := 7;
+BEGIN
+   CASE dia
+      WHEN 1 THEN
+         DBMS_OUTPUT.PUT_LINE('Lunes');
+      WHEN 2 THEN
+         DBMS_OUTPUT.PUT_LINE('Martes');
+      WHEN 3 THEN
+         DBMS_OUTPUT.PUT_LINE('Miercoles');
+      WHEN 4 THEN
+         DBMS_OUTPUT.PUT_LINE('Jueves');
+      WHEN 5 THEN
+         DBMS_OUTPUT.PUT_LINE('Viernes');
+      WHEN 6 THEN
+         DBMS_OUTPUT.PUT_LINE('Sabado');
+      WHEN 7 THEN
+         DBMS_OUTPUT.PUT_LINE('Domingo');
+      ELSE
+         DBMS_OUTPUT.PUT_LINE('Entrada Incorrecta');
+   END CASE;
+END;
+
+(2)
+
+SET SERVEROUTPUT ON
+DECLARE
+   dia VARCHAR(20) := 'Domingo';
+BEGIN
+   CASE dia
+      WHEN 'Lunes' THEN
+         DBMS_OUTPUT.PUT_LINE('1');
+      WHEN 'Martes' THEN
+         DBMS_OUTPUT.PUT_LINE('2');
+      WHEN 'Miercoles' THEN
+         DBMS_OUTPUT.PUT_LINE('3');
+      WHEN 'Jueves' THEN
+         DBMS_OUTPUT.PUT_LINE('4');
+      WHEN 'Viernes' THEN
+         DBMS_OUTPUT.PUT_LINE('5');
+      WHEN 'Sabado' THEN
+         DBMS_OUTPUT.PUT_LINE('6');
+      WHEN 'Domingo' THEN
+         DBMS_OUTPUT.PUT_LINE('7');
+      ELSE
+         DBMS_OUTPUT.PUT_LINE('Entrada Incorrecta');
+   END CASE;
+END;
+
+*********************************************
+***   ESTRUCTURA BUCLE MIENTRAS (WHILE)   ***
+*********************************************
+
+(1) SERIE NATURAL 1...N
+
+SET SERVEROUTPUT ON
+DECLARE
+   i NUMBER := 1;
+   n NUMBER := 5;
+BEGIN
+   WHILE i <= n LOOP
+      DBMS_OUTPUT.PUT_LINE(i);
+      i := i + 1;
+   END LOOP;
+END;
+
+(2) SERIE NATURAL N...1
+
+SET SERVEROUTPUT ON
+DECLARE
+   n NUMBER := 5;
+   i NUMBER := n;
+BEGIN
+   WHILE i >= 1 LOOP
+      DBMS_OUTPUT.PUT_LINE(i);
+      i := i - 1;
+   END LOOP;
+END;
+
+*****************************************
+***   ESTRUCTURA BUCLE HASTA (LOOP)   ***   DO...WHILE
+*****************************************
+
+(1) SERIE NATURAL 1...N
+
+SET SERVEROUTPUT ON
+DECLARE
+   i NUMBER := 1;
+   n NUMBER := 5;
+BEGIN
+   LOOP
+      DBMS_OUTPUT.PUT_LINE(i);
+      i := i + 1;
+      EXIT WHEN i > n;
+   END LOOP;
+END;
+
+(2) SERIE NATURAL N...1
+
+SET SERVEROUTPUT ON
+DECLARE
+   n NUMBER := 5;
+   i NUMBER := n;
+BEGIN
+   LOOP
+      DBMS_OUTPUT.PUT_LINE(i);
+      i := i - 1;
+      EXIT WHEN i < 1;
+   END LOOP;
+END;
+
+***************************************
+***   ESTRUCTURA BUCLE PARA (FOR)   ***
+***************************************
+
+(1) SERIE NATURAL 1...N
+
+SET SERVEROUTPUT ON
+DECLARE
+   n NUMBER := 5;
+BEGIN
+   FOR i IN 1..n LOOP
+      DBMS_OUTPUT.PUT_LINE(i);
+   END LOOP;
+END;
+
+(2) SERIE NATURAL N...1
+
+SET SERVEROUTPUT ON
+DECLARE
+   n NUMBER := 5;
+BEGIN
+   FOR i IN REVERSE 1..n LOOP
+      DBMS_OUTPUT.PUT_LINE(i);
+   END LOOP;
+END;
+
+(3) SUMAR LOS NUMEROS DE LA SERIE 1...N
+
+SET SERVEROUTPUT ON
+DECLARE
+   total NUMBER := 0;
+   n NUMBER := 5;
+BEGIN
+   FOR i IN 1..n LOOP
+      total := total + i;
+   END LOOP;
+   DBMS_OUTPUT.PUT_LINE(total);
+END;
+
+*************************************
+***   LIMPIAR CONSOLA DE SALIDA   ***
+*************************************
+
+- HACIENDO IMPRESIONES EN BLANCO PARA DEJAR LA PANTALLA LIMPIA
+
+SET SERVEROUTPUT ON
+BEGIN
+   FOR i IN 1..50 LOOP
+       DBMS_OUTPUT.PUT_LINE(' ');
+   END LOOP;
+   DBMS_OUTPUT.PUT_LINE('Hola Mundo');
+END;
+
+- CREAR UN PROCEDURE (FUNCION QUE NO RETORNA NADA Y NO RECIBE PARAMETRO SE DEFINE COMO PROCEDURE)
+
+DROP PROCEDURE cls;
+CREATE OR REPLACE PROCEDURE cls IS
+BEGIN
+   FOR i IN 1..50 LOOP
+       DBMS_OUTPUT.PUT_LINE(' ');
+   END LOOP;
+END;
+
+SET SERVEROUTPUT ON
+BEGIN
+  cls();
+  DBMS_OUTPUT.PUT_LINE('Hola Mundo');
+END;
+
+*******************
+***   FUNCION   ***
+*******************
+
+Si retorna algo es una funcion (function)  RETURN
+Si no retorna nada es un procedimiento (procedure)  - DEVOLVER ALGO CON PARAMETROS DE SALIDA
+
+(1) FUNCION CON PARAMETRO Y CON RETORNO
+
+- FUNCION: ABRIMOS UNA VENTANA NUEVA Y PONEMOS EL CODIGO DE LA FUNCION Y CON F5 LO COMPILAMOS
+
+DROP FUNCTION IF EXISTS calcular_area_circulo;
+CREATE OR REPLACE FUNCTION calcular_area_circulo (radio NUMBER) RETURN NUMBER IS 
+  area NUMBER;
+BEGIN
+  area := 3.1416 * radio * radio;
+  RETURN area;
+END;
+\
+
+- BLOQUE ANONIMO: ABRIMOS OTRA VENTANA Y EJECUTAMOS EL SIGUIENTE CODIGO CON F5
+
+SET SERVEROUTPUT ON
+DECLARE
+   radio NUMBER := 5;
+   area NUMBER;
+BEGIN
+   area := calcular_area_circulo(radio);
+   DBMS_OUTPUT.PUT_LINE('Area Circulo: ' || area);
+END;
+
+(2) FUNCION SIN PARAMETROS Y CON RETORNO
+
+- FUNCION
+
+DROP FUNCTION obtener_pi;
+CREATE OR REPLACE FUNCTION obtener_pi RETURN NUMBER IS
+    pi NUMBER := 3.14159265358979323846;
+BEGIN
+    RETURN pi;
+END;
+
+- BLOQUE ANONIMO (PROGRAMA PL-SQL)
+
+SET SERVEROUTPUT ON
+DECLARE
+   pi NUMBER;
+BEGIN
+   pi := obtener_pi();
+   DBMS_OUTPUT.PUT_LINE('PI: ' || pi);
+END;
+
+(3) FUNCION CON PARAMETRO Y SIN RETORNO
+
+- FUNCION
+
+DROP PROCEDURE mostrar_mensaje;
+CREATE OR REPLACE PROCEDURE mostrar_mensaje (mensaje VARCHAR2) IS
+BEGIN
+  DBMS_OUTPUT.PUT_LINE(mensaje);
+END;
+
+- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON
+DECLARE
+  mensaje VARCHAR2(100) := 'Hola, mundo!';
+BEGIN
+  mostrar_mensaje(mensaje);
+END;
+
+(4) FUNCION CON PARAMETRO Y CON RETORNO
+
+-- FUNCION
+
+DROP FUNCTION IF EXISTS sumar;
+CREATE OR REPLACE FUNCTION sumar (a NUMBER, b NUMBER) RETURN NUMBER IS
+  c NUMBER;
+BEGIN
+  c := a + b;
+  RETURN c;
+END sumar;
+/
+
+DROP FUNCTION IF EXISTS sumar;
+CREATE OR REPLACE FUNCTION sumar (a NUMBER, b NUMBER) RETURN NUMBER IS
+BEGIN
+  RETURN a + b;
+END;
+/
+
+-- BLOQUE ANONIMO (PROGRAMA PL-SQL)
+
+SET SERVEROUTPUT ON
+DECLARE
+  a NUMBER := 2;
+  b NUMBER := 7;
+  c NUMBER;
+BEGIN
+  c := sumar(a, b);
+  DBMS_OUTPUT.PUT_LINE('Suma: ' || c);
+END;
+
+-- BLOQUE ANONIMO
+
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Suma: ' || sumar(7,8));
+END;
+
+(5) FUNCION CON PARAMETRO Y CON RETORNO
+
+- FUNCION
+
+DROP FUNCTION area_circulo;
+CREATE OR REPLACE FUNCTION area_circulo (radio NUMBER) RETURN NUMBER IS
+  pi CONSTANT NUMBER := 3.14159;
+BEGIN
+  RETURN pi * radio * radio;
+END area_circulo;
+
+- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON
+DECLARE
+  radio NUMBER := 2.5;
+  area NUMBER;
+BEGIN
+  area := area_circulo(radio);
+  DBMS_OUTPUT.PUT_LINE('Area: ' || area);
+END;
+
+(6) FUNCION CON PARAMETRO Y CON RETORNO
+
+- FUNCION
+
+-- DROP FUNCTION invertir_cadena;
+CREATE OR REPLACE FUNCTION invertir_cadena (cadena VARCHAR2) RETURN VARCHAR2 IS
+  resultado VARCHAR2(50);
+BEGIN
+  FOR i IN REVERSE 1..LENGTH(cadena) LOOP
+    resultado := resultado || SUBSTR(cadena, i, 1); -- HOLA  1234
+  END LOOP;
+  RETURN resultado;
+END invertir_cadena;
+
+-- BLOQUE ANONIMO
+
+BEGIN
+  cls;
+  DBMS_OUTPUT.PUT_LINE('Invertida: ' || invertir_cadena ('HOLA MUNDO'));
+END;
+
+DROP FUNCTION es_palindromo;
+CREATE OR REPLACE FUNCTION es_palindromo(cadena1 VARCHAR2) RETURN BOOLEAN IS
+  cadena_invertida VARCHAR2(30);
+BEGIN
+  cadena_invertida := invertir_cadena(cadena1);
+  -- DBMS_OUTPUT.PUT_LINE(cadena_invertida);
+  IF cadena1 = cadena_invertida THEN
+    RETURN TRUE;
+  ELSE
+    RETURN FALSE;
+  END IF;
+END es_palindromo;
+
+-- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON
+BEGIN
+  cls;
+  IF es_palindromo('ANA HOLA') THEN
+     DBMS_OUTPUT.PUT_LINE('Es palidromo'); 
+  ELSE 
+     DBMS_OUTPUT.PUT_LINE('No es palidromo' || '');
+  END IF;
+END;
+/
+
+- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON
+DECLARE
+  cadena1 VARCHAR2(30) := 'amar';
+  cadena2 VARCHAR2(30) := 'rama';
+  sipalidromo BOOLEAN DEFAULT TRUE;
+BEGIN
+  sipalidromo := es_palindromo(cadena1, cadena2);
+  DBMS_OUTPUT.PUT_LINE('Si Palidromo: ' || CASE WHEN sipalidromo THEN 'True' ELSE 'False' END);
+END;
+
+(7)
+
+- FUNCION
+
+CREATE OR REPLACE FUNCTION SUMA (n1 IN NUMBER, n2 IN NUMBER) RETURN NUMBER IS
+    resultado NUMBER;
+BEGIN
+    resultado := n1 + n2;
+    return(resultado);
+END;
+
+- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON
+DECLARE
+  resultado NUMBER;
+BEGIN
+    resultado := SUMA(12,23);
+    DBMS_OUTPUT.PUT_LINE('Resultado de la suma: ' || resultado);
+END;
+
+(8)
+
+CREATE OR REPLACE FUNCTION BOOLEAN_TO_CHAR(STATUS IN BOOLEAN) RETURN VARCHAR2 IS
+BEGIN
+  RETURN
+   CASE STATUS
+     WHEN TRUE THEN 'TRUE'
+     WHEN FALSE THEN 'FALSE'
+     ELSE 'NULL'
+   END;
+END;
+
+**************************
+***   BLOQUE ANONIMO   ***
+**************************
+
+(1) RECORRER UNA ORACION(CADENA) LETRA POR LETRA
+
+SET SERVEROUTPUT ON
+DECLARE
+  oracion VARCHAR2(100) := 'ARTURO Ismael Sagástegui CASTILLO';
+  letra VARCHAR2(2);    
+  n NUMBER;
+BEGIN
+  n := LENGTH(oracion);
+  FOR i IN 1..n LOOP
+      letra := SUBSTR(oracion, i, 1);
+      DBMS_OUTPUT.PUT_LINE(letra);
+  END LOOP;
+END;
+
+(2) LONGITUD DE LA CIRCUNFERENCIA DE UN CIRCULO
+
+- PROGRAMA
+
+SET SERVEROUTPUT ON
+DECLARE
+   pi CONSTANT NUMBER := ACOS(-1);
+   radio NUMBER := 2.1;
+   longitud NUMBER;
+BEGIN
+   longitud := 2 * pi * radio;
+   DBMS_OUTPUT.PUT_LINE('Longitud Circulo: ' || ROUND(longitud,2));
+END;
+
+- SALIDA
+
+Longitud Circulo: 13,19
+
+(3) AREA Y PERMETRO DE UN CIRCULO
+
+- PROGRAMA
+
+SET SERVEROUTPUT ON
+DECLARE
+   pi CONSTANT NUMBER(7,6) := 3.141516;
+   perimetro NUMBER(10,2);
+   area NUMBER(10,2);
+   radio NUMBER;
+BEGIN
+   radio := 10;
+   perimetro := 2 * pi * radio;
+   area := 2 * pi**2;
+   DBMS_OUTPUT.PUT_LINE('Perimetro: ' || perimetro);
+   DBMS_OUTPUT.PUT_LINE('Area     : ' || area);
+END;
+
+- SALIDA
+
+Perimetro: 62,83
+Area     : 19,74
+
+****************************
+***   CARACTER UNICODE   ***
+****************************
+
+SET SERVEROUTPUT ON
+DECLARE
+   letra_a VARCHAR2(2);
+   letra_e VARCHAR2(2);
+   letra_i VARCHAR2(2);
+   letra_o VARCHAR2(2);
+   letra_u VARCHAR2(2);
+BEGIN
+   letra_a := U'\00E1';
+   letra_e := U'\00E9';
+   letra_i := U'\00ED';
+   letra_o := U'\00F3';
+   letra_u := U'\00FA'; 
+   DBMS_OUTPUT.PUT_LINE('La a acentuada: ' || letra_a);
+   DBMS_OUTPUT.PUT_LINE('La e acentuada: ' || letra_e);
+   DBMS_OUTPUT.PUT_LINE('La i acentuada: ' || letra_i);
+   DBMS_OUTPUT.PUT_LINE('La o acentuada: ' || letra_o);
+   DBMS_OUTPUT.PUT_LINE('La u acentuada: ' || letra_u);
+END;
+
+-- CARACTER CHINO
+
+SET SERVEROUTPUT ON
+DECLARE
+   letra_a VARCHAR2(2);
+   letra_e VARCHAR2(2);
+   letra_i VARCHAR2(2);
+   letra_o VARCHAR2(2);
+   letra_u VARCHAR2(2);
+   letraChina VARCHAR2(4);
+BEGIN
+   cls;
+   letra_a := U'\00E1';
+   letra_e := U'\00E9';
+   letra_i := U'\00ED';
+   letra_o := U'\00F3';
+   letra_u := U'\00FA';
+   letraChina := U'\597D';
+   DBMS_OUTPUT.PUT_LINE('La a acentuada: ' || letra_a);
+   DBMS_OUTPUT.PUT_LINE('La e acentuada: ' || letra_e);
+   DBMS_OUTPUT.PUT_LINE('La i acentuada: ' || letra_i);
+   DBMS_OUTPUT.PUT_LINE('La o acentuada: ' || letra_o);
+   DBMS_OUTPUT.PUT_LINE('La u acentuada: ' || letra_u);
+   DBMS_OUTPUT.PUT_LINE('Letra China: ' || letraChina);
+END;
+
+*******************************
+***   CONVERSION DE TIPOS   ***
+*******************************
+
+(1) CONVERTIR UNA CADENA A NUMERO
+
+SET SERVEROUTPUT ON
+DECLARE
+   cadena VARCHAR2(10) := '3,1416';
+   numero NUMBER;
+BEGIN
+   numero := TO_NUMBER(cadena);
+   DBMS_OUTPUT.PUT_LINE('El valor del número es: ' || numero);
+END;
+
+(2) CONVERTIR UN LOGICO A CADENA
+
+SET SERVEROUTPUT ON
+DECLARE
+   correcto BOOLEAN DEFAULT FALSE;
+   resultado VARCHAR2(5);
+BEGIN
+    resultado := CASE
+	                 WHEN correcto THEN 'TRUE'
+                     WHEN NOT correcto THEN 'FALSE'
+                 END;					 
+	DBMS_OUTPUT.PUT_LINE('Resultado: ' || resultado);
+END;
+
+(3) CONVERTIR UN NUMERO A CADENA
+
+DECLARE
+  numero NUMBER := 123;
+  cadena VARCHAR2(20);
+BEGIN
+  cadena := TO_CHAR(numero);
+  DBMS_OUTPUT.PUT_LINE('El número como cadena es: ' || cadena);
+END;
+
+*********************
+***   CONSTANTE   ***
+*********************
+
+- PROGRAMA
+
+SET SERVEROUTPUT ON
+DECLARE
+   pi CONSTANT NUMBER := ACOS(-1);
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('Constante PI: ' || pi);
+END;
+
+- SALIDA
+
+Constante PI: 3,1415926535897932384626433832795028842
+
+*********************************
+***   REDONDEAR NUMERO REAL   ***
+*********************************
+
+(1) REDONDEAR UN NUMERO PUNTO FLOTANTE A DOS DECIMALES
+
+- PROGRAMA
+
+SET SERVEROUTPUT ON
+DECLARE
+   pi CONSTANT NUMBER := ACOS(-1);
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('Constante PI: ' || ROUND(pi,2));
+END;
+
+- SALIDA
+
+Constante PI: 3,14
+
+(2) REDONDEAR UN NUMERO PUNTO FLOTANTE A 4 DECIMALES
+
+- PROGRAMA
+
+SET SERVEROUTPUT ON
+DECLARE
+   pi CONSTANT NUMBER := ACOS(-1);
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('Constante PI: ' || ROUND(pi,4));
+END;
+
+- SALIDA
+
+Constante PI: 3,1416
+
+(2) REDONDEAR UN NUMERO PUNTO FLOTANTE A 0 DECIMALES (PARTE ENTERA)
+
+- PROGRAMA
+
+SET SERVEROUTPUT ON
+DECLARE
+   pi CONSTANT NUMBER := ACOS(-1);
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('Constante PI: ' || ROUND(pi,0)); -- 3.141516 3.5 ---> 4  
+END;
+
+- SALIDA
+
+Constante PI: 3
+
+Nota: Si hubiera sido 3.5 se redondeaba a la parte entera 4
+
+*********************
+***   COLECCION   ***
+*********************
+
+(1)
+
+- BLOQUE ANONIMO
+
+FORMA 1
+
+SET SERVEROUTPUT ON
+DECLARE
+   TYPE nombres_t IS TABLE OF VARCHAR2(100);
+   nombres nombres_t := nombres_t('Juan', 'Maria', 'Pedro', 'Ana');
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('La colección contiene ' || nombres.COUNT || ' elementos.');
+   FOR i IN 1..nombres.COUNT LOOP
+      DBMS_OUTPUT.PUT_LINE(nombres(i));
+   END LOOP;
+END;
+
+FORMA 2
+
+SET SERVEROUTPUT ON
+DECLARE
+   TYPE nombres_t IS TABLE OF VARCHAR2(100);
+   nombres nombres_t := nombres_t('Juan', 'Maria', 'Pedro', 'Ana');
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('La colección contiene ' || nombres.COUNT || ' elementos.');
+   FOR i IN nombres.FIRST..nombres.LAST LOOP
+      DBMS_OUTPUT.PUT_LINE(nombres(i));
+   END LOOP;
+END;
+
+- SALIDA
+
+La colección contiene 4 elementos.
+Juan
+Maria
+Pedro
+Ana
+
+(2)
+
+- BLOQUE ANONIMO
+
+FORMA 1
+
+SET SERVEROUTPUT ON
+DECLARE
+    TYPE numeros_t IS TABLE OF NUMBER;
+    numeros numeros_t := numeros_t(1, 2, 3, 4, 5);
+BEGIN
+    FOR i IN 1..numeros.COUNT LOOP
+        DBMS_OUTPUT.PUT_LINE(numeros(i));
+    END LOOP;
+END;
+
+FORMA 2
+
+SET SERVEROUTPUT ON
+DECLARE
+    TYPE numeros_t IS TABLE OF NUMBER;
+    numeros numeros_t := numeros_t(1, 2, 3, 4, 5);
+BEGIN
+    FOR i IN numeros.FIRST..numeros.LAST LOOP
+        DBMS_OUTPUT.PUT_LINE(numeros(i));
+    END LOOP;
+END;
+
+- SALIDA
+
+1
+2
+3
+4
+5
+
+(3)
+
+- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON
+DECLARE
+  TYPE numeros_t IS VARRAY(5) OF NUMBER;
+  numeros numeros_t := numeros_t(1, 2, 3, 4, 5);
+BEGIN
+  FOR i IN 1..numeros.COUNT LOOP
+    DBMS_OUTPUT.PUT_LINE('Número ' || i || ': ' || numeros(i));
+  END LOOP;
+END;
+
+- SALIDA
+
+Número 1: 1
+Número 2: 2
+Número 3: 3
+Número 4: 4
+Número 5: 5
+
+(4)
+
+- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON
+DECLARE
+  TYPE nombres_t IS TABLE OF VARCHAR2(50);
+  nombres nombres_t := nombres_t('Juan', 'María', 'Pedro', 'Lucía');
+BEGIN
+  FOR i IN 1..nombres.COUNT LOOP
+    DBMS_OUTPUT.PUT_LINE('Nombre ' || i || ': ' || nombres(i));
+  END LOOP;
+END;
+
+- SALIDA
+
+Nombre 1: Juan
+Nombre 2: María
+Nombre 3: Pedro
+Nombre 4: Lucía
+
+(5)
+
+- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON
+DECLARE
+  TYPE precios_t IS TABLE OF NUMBER INDEX BY VARCHAR2(50);
+  precios precios_t;
+BEGIN
+  precios('producto1') := 10.99;
+  precios('producto2') := 5.99;
+  precios('producto3') := 15.99;
+
+  DBMS_OUTPUT.PUT_LINE('El precio del producto1 es ' || precios('producto1'));
+END;
+
+- SALIDA
+
+El precio del producto1 es 10,99
+
+(6)
+
+SET SERVEROUTPUT ON
+DECLARE
+  TYPE diccionario_t IS TABLE OF VARCHAR2(50) INDEX BY VARCHAR2(50);
+  datosAlumno diccionario_t;
+BEGIN
+  cls;
+  datosAlumno('nombre') := 'Luis';
+  datosAlumno('apellido') := 'Castro';
+  datosAlumno('edad') := 15;
+    
+  DBMS_OUTPUT.PUT_LINE('Edad: ' || datosAlumno('edad'));
+END;
+
+
+-- CREAR UNA FUNCION QUE RETORNE VARIOS VALORES
+
+CREATE OR REPLACE FUNCTION fucion_retorna_varios_valores(p_id NUMBER) RETURN TABLE IS
+   v_empresa Cliente.empresa%TYPE;
+   v_idVendedor Cliente.idVendedor%TYPE
+   v_limite_credito Cliente.limite_credito%TYPE
+   
+   TYPE datos_t IS TABLE OF VARCHAR2(50) INDEX BY VARCHAR2(50);
+   vector datos_t;
+BEGIN
+	 SELECT empresa, idVendedor, limite_credito INTO  v_empresa, v_idVendedor, v_limite_credito
+	 FROM Cliente WHERE idCliente = p_id;
+	 
+	 vector('empresa') := v_empresa;
+	 vector('idVendedor') := TO_CHAR(v_idVendedor);
+	 vector('limite_credito') := TO_CHAR(v_limite_credito);
+	 
+	 RETURN vector;
+END;
+
+
+
+
+
+
+********************************
+***   ARREGLO DE REGISTROS   ***
+********************************
+
+(1)
+
+- BLOQUE ANONIMO
+
+
+- SALIDA
+
+
+
+
+
+
+
+
+*********************************
+***   FUNCIONES MATEMATICAS   ***
+*********************************
+
+- PROGRAMA
+
+SET SERVEROUTPUT ON
+DECLARE
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('VALOR ABSOLUTO');
+  DBMS_OUTPUT.PUT_LINE('--------------');
+  DBMS_OUTPUT.PUT_LINE(ABS(-10));
+  DBMS_OUTPUT.PUT_LINE(ABS(10));
+  DBMS_OUTPUT.PUT_LINE(ABS(-3.5));
+  DBMS_OUTPUT.PUT_LINE('RAIZ CUADRADA');
+  DBMS_OUTPUT.PUT_LINE('-------------');
+  DBMS_OUTPUT.PUT_LINE(SQRT(4));
+  DBMS_OUTPUT.PUT_LINE(SQRT(2.1));
+  DBMS_OUTPUT.PUT_LINE(SQRT(2));
+  DBMS_OUTPUT.PUT_LINE('REDONDEAR A LA PARTE ENTERA HACIA ARRIBA');
+  DBMS_OUTPUT.PUT_LINE('----------------------------------------');
+  DBMS_OUTPUT.PUT_LINE(CEIL(3.5));
+  DBMS_OUTPUT.PUT_LINE(CEIL(3.4));
+  DBMS_OUTPUT.PUT_LINE(CEIL(3.1));
+  DBMS_OUTPUT.PUT_LINE('REDONDEAR A LA PARTE ENTERA HACIA ABAJO');
+  DBMS_OUTPUT.PUT_LINE('---------------------------------------');
+  DBMS_OUTPUT.PUT_LINE(FLOOR(3.5));
+  DBMS_OUTPUT.PUT_LINE(FLOOR(3.4));
+  DBMS_OUTPUT.PUT_LINE(FLOOR(3.1));  
+  DBMS_OUTPUT.PUT_LINE('REDONDEAR');
+  DBMS_OUTPUT.PUT_LINE('---------');
+  DBMS_OUTPUT.PUT_LINE(ROUND(3.5));
+  DBMS_OUTPUT.PUT_LINE(ROUND(3.4));
+  DBMS_OUTPUT.PUT_LINE(ROUND(3.1)); 
+  DBMS_OUTPUT.PUT_LINE(ROUND(3.141516,5));
+  DBMS_OUTPUT.PUT_LINE(ROUND(3.141516,4));
+  DBMS_OUTPUT.PUT_LINE('TRUNCAR LA PARTE ENTERA');
+  DBMS_OUTPUT.PUT_LINE('-----------------------');
+  DBMS_OUTPUT.PUT_LINE(TRUNC(3.513));
+  DBMS_OUTPUT.PUT_LINE(TRUNC(3.444));
+  DBMS_OUTPUT.PUT_LINE(TRUNC(3.181));
+  DBMS_OUTPUT.PUT_LINE('RESTO DIVISION');
+  DBMS_OUTPUT.PUT_LINE('----------------');
+  DBMS_OUTPUT.PUT_LINE(MOD(5,2));
+  DBMS_OUTPUT.PUT_LINE(MOD(10,3));
+  DBMS_OUTPUT.PUT_LINE(MOD(4,2));
+  DBMS_OUTPUT.PUT_LINE('POTENCIA');
+  DBMS_OUTPUT.PUT_LINE('--------');
+  DBMS_OUTPUT.PUT_LINE(POWER(5,2));
+  DBMS_OUTPUT.PUT_LINE(POWER(10,3));
+  DBMS_OUTPUT.PUT_LINE(POWER(4,0.5));
+  DBMS_OUTPUT.PUT_LINE(POWER(3,0.5));
+  DBMS_OUTPUT.PUT_LINE(POWER(3,1/2));
+  DBMS_OUTPUT.PUT_LINE('ARCO TANGENTE');
+  DBMS_OUTPUT.PUT_LINE('-------------');
+  DBMS_OUTPUT.PUT_LINE(ATAN(4/3)); -- Y/X
+  DBMS_OUTPUT.PUT_LINE(ATAN(2/3)); 
+END;
+
+- SALIDA
+
+VALOR ABSOLUTO
+--------------
+10
+10
+3,5
+RAIZ CUADRADA
+-------------
+2
+1,44913767461894385737186641571697717231
+1,41421356237309504880168872420969807857
+REDONDEAR A LA PARTE ENTERA HACIA ARRIBA
+----------------------------------------
+4
+4
+4
+REDONDEAR A LA PARTE ENTERA HACIA ABAJO
+---------------------------------------
+3
+3
+3
+REDONDEAR
+---------
+4
+3
+3
+3,14152
+3,1415
+TRUNCAR LA PARTE ENTERA
+-----------------------
+3
+3
+3
+RESTO DIVISION
+----------------
+1
+1
+0
+POTENCIA
+--------
+25
+1000
+1,99999999999999999999999999999999999999
+1,73205080756887729352744634150587236696
+1,73205080756887729352744634150587236696
+ARCO TANGENTE
+-------------
+,9272952180016122324285124629224287610381
+,5880026035475675512456110806250854276003
+
+*********************
+***   EJERCICIO   ***
+*********************
+
+(1)
+
+-- ELIMINAR TABLA
+
+DROP TABLE Alumno;
+
+-- CREAR TABLA
+
+CREATE TABLE Alumno (
+  id_alumno NUMBER        NOT NULL,
+  nombre   VARCHAR2(30)  NOT NULL,
+  edad     NUMBER(3)     NOT NULL,
+  estatura NUMBER(3,2)   NOT NULL,
+  esCasado CHAR CHECK (esCasado IN (0,1)) NOT NULL,
+           PRIMARY KEY (idAlumno)
+);
+
+-- CREAR PROPIEDAD INCREMENTO AUTOMATICO EN LA CLAVE PRIMARIA
+
+DROP SEQUENCE INCREMENTO;
+
+CREATE SEQUENCE INCREMENTO
+START WITH 1
+INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER TRG_ALUMNO
+BEFORE INSERT ON ALUMNO
+FOR EACH ROW
+BEGIN
+   SELECT INCREMENTO.NEXTVAL INTO :NEW.IDALUMNO FROM DUAL;
+END;
+
+-- INSERTAR REGISTROS EN UNA TABLA
+
+INSERT INTO Alumno (nombre, edad, estatura, esCasado) VALUES ('María', 23, 1.72, 1);
+INSERT INTO Alumno (nombre, edad, estatura, esCasado) VALUES ('Carmen', 24, 1.64, 0);
+INSERT INTO Alumno (nombre, edad, estatura, esCasado) VALUES ('Melissa', 21, 1.65, 1);
+INSERT INTO Alumno (nombre, edad, estatura, esCasado) VALUES ('Carlos', 28, 1.73, 1);
+INSERT INTO Alumno (nombre, edad, estatura, esCasado) VALUES ('Delly', 24, 1.71, 0);
+
+-- MOSTRAR TODOS LOS REGISTROS DE UNA TABLA
+
+SELECT * FROM ALUMNO;
+
+-- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON
+DECLARE
+   
+BEGIN
+  FOR alumno IN (SELECT * FROM alumno) LOOP
+    IF alumno.edad < 22 THEN
+      DBMS_OUTPUT.PUT_LINE('El alumno ' || alumno.nombre || ', su edad es ' || alumno.edad || '. Tiene una edad por debajo de 22.');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('El alumno ' || alumno.nombre || ', su edad es ' || alumno.edad || '. Tiene una edad por encima o igual a 22.');
+    END IF;
+  END LOOP;
+END;
+
+(2)
+
+-- ELIMINAR TABLA
+
+DROP TABLE Empleado;
+
+-- CREAR TABLA
+
+CREATE TABLE Empleado (
+   id_empleado        NUMBER(10)   PRIMARY KEY,
+   nombre             VARCHAR2(50) NOT NULL,
+   salario            NUMBER(10,2),
+   fecha_contratacion DATE
+);
+
+-- INSERTAR REGISTROS EN UNA TABLA
+
+INSERT INTO Empleado (id_empleado, nombre, salario, fecha_contratacion)
+VALUES (1, 'Juan Perez', 2500.50, TO_DATE('01-01-2022', 'DD-MM-YYYY'));
+
+INSERT INTO Empleado (id_empleado, nombre, salario, fecha_contratacion)
+VALUES (2, 'Maria Lopez', 3000.00, TO_DATE('15-02-2022', 'DD-MM-YYYY'));
+
+-- MOSTRAR TODOS LOS REGISTROS DE UNA TABLA
+
+SELECT * FROM Empleado;
+
+-- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON
+DECLARE
+  salario_minimo NUMBER(10,2) := 2000.00;
+BEGIN
+  FOR e IN (SELECT * FROM Empleado) LOOP
+    IF e.salario < salario_minimo THEN
+      DBMS_OUTPUT.PUT_LINE('El empleado ' || e.nombre || ', tiene un salario por debajo del salario mínimo.');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('El empleado ' || e.nombre || ', tiene un salario adecuado.');
+    END IF;
+  END LOOP;
+END;
+
+(3)
+
+-- ELIMINAR TABLA
+
+DROP TABLE Venta;
+
+-- CREAR TABLA	
+
+CREATE TABLE Venta (
+  id_venta        NUMBER(10) PRIMARY KEY,
+  fecha           DATE,
+  producto        VARCHAR2(50),
+  cantidad        NUMBER(10),
+  precio_unitario NUMBER(10,2)
+);
+
+-- INSERTAR REGISTROS EN UNA TABLA
+
+INSERT INTO Venta (id_venta, fecha, producto, cantidad, precio_unitario)
+VALUES (1, TO_DATE('2023-04-01', 'YYYY-MM-DD'), 'Producto X', 10, 100.00);
+
+INSERT INTO Venta (id_venta, fecha, producto, cantidad, precio_unitario)
+VALUES (2, TO_DATE('2023-04-02', 'YYYY-MM-DD'), 'Producto Y', 5, 50.00);
+
+INSERT INTO Venta (id_venta, fecha, producto, cantidad, precio_unitario)
+VALUES (3, TO_DATE('2023-04-03', 'YYYY-MM-DD'), 'Producto X', 8, 120.00);
+
+INSERT INTO Venta (id_venta, fecha, producto, cantidad, precio_unitario)
+VALUES (4, TO_DATE('2023-04-04', 'YYYY-MM-DD'), 'Producto Z', 12, 75.00);
+
+INSERT INTO Venta (id_venta, fecha, producto, cantidad, precio_unitario)
+VALUES (5, TO_DATE('2023-04-05', 'YYYY-MM-DD'), 'Producto X', 6, 110.00);
+
+-- MOSTRAR TODOS LOS REGISTROS DE UNA TABLA
+
+SELECT * FROM Venta;
+
+-- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON
+DECLARE
+   total NUMBER;
+BEGIN
+   SELECT SUM(cantidad * precio_unitario) INTO total
+   FROM Venta
+   WHERE Producto = 'Producto X';
+   DBMS_OUTPUT.PUT_LINE('El total de ventas del Producto X es: ' || total);
+END;
+
+-- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON
+DECLARE
+  CURSOR venta_cursor IS SELECT * FROM Venta;
+  
+  v_id_venta Venta.id_venta%TYPE;
+  v_fecha Venta.fecha%TYPE;
+  v_producto Venta.producto%TYPE;
+  v_cantidad Venta.cantidad%TYPE;
+  v_precio_unitario Venta.precio_unitario%TYPE;
+BEGIN
+  OPEN venta_cursor;
+  
+  LOOP
+    FETCH venta_cursor INTO v_id_venta, v_fecha, v_producto, v_cantidad, v_precio_unitario;
+    EXIT WHEN venta_cursor%NOTFOUND;
+    
+    DBMS_OUTPUT.PUT_LINE('IdVenta: ' || v_id_venta || ', Fecha: ' || TO_CHAR(v_fecha, 'DD/MM/YYYY') || ', Producto: ' || v_producto || ', Cantidad: ' || v_cantidad || ', PrecioUnitario: ' || v_precio_unitario);
+  END LOOP;
+  
+  CLOSE venta_cursor;
+END;
+
+/*
+v_id_venta Venta.id_venta%TYPE
+
+En este ejemplo, estamos declarando una variable llamada "v_id_venta" utilizando el atributo "%TYPE". La variable se define como del mismo tipo de datos que la columna "id_venta" de la tabla "Venta".
+
+El uso de "%TYPE" tiene varias ventajas. En primer lugar, evita errores de tipos de datos al garantizar que la variable o parámetro tenga el mismo tipo de datos que la columna correspondiente. En segundo lugar, facilita la tarea de mantener el código, ya que si se cambia el tipo de datos de la columna en la tabla, la variable o parámetro declarado con "%TYPE" se ajustará automáticamente al nuevo tipo de datos.
+*/
+
+(4)
+
+-- ELIMINAR TABLA
+
+DROP TABLE Producto;
+
+-- CREAR TABLA	
+
+CREATE TABLE Producto (
+  id_producto NUMBER(10) PRIMARY KEY,
+  nombre      VARCHAR2(50),
+  descripcion VARCHAR2(200),
+  precio      NUMBER(10,2)
+);
+
+-- INSERTAR REGISTROS EN UNA TABLA
+
+INSERT INTO Producto (id_producto, nombre, descripcion, precio)
+VALUES (1, 'Producto X', 'Descripción del Producto X', 100.00);
+
+INSERT INTO Producto (id_producto, nombre, descripcion, precio)
+VALUES (2, 'Producto Y', 'Descripción del Producto Y', 150.00);
+
+INSERT INTO Producto (id_producto, nombre, descripcion, precio)
+VALUES (3, 'Producto Z', 'Descripción del Producto Z', 200.00);
+
+INSERT INTO Producto (id_producto, nombre, descripcion, precio)
+VALUES (4, 'Producto W', 'Descripción del Producto W', 75.00);
+
+-- MOSTRAR TODOS LOS REGISTROS DE UNA TABLA
+
+SELECT * FROM Producto;
+
+-- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON
+DECLARE
+  v_id_producto NUMBER := 1;
+  v_nuevo_precio NUMBER := 150.00;
+BEGIN
+  UPDATE Producto
+  SET precio = v_nuevo_precio
+  WHERE id_producto = v_id_producto;
+  
+  DBMS_OUTPUT.PUT_LINE('El precio del producto con Id ' || v_id_producto || ' ha sido actualizado a ' || v_nuevo_precio);
+END;
+
+(5)
+
+-- ELIMINAR TABLA
+
+DROP TABLE Pedido;
+
+-- CREAR TABLA	
+
+CREATE TABLE Pedido (
+  numero_pedido NUMBER PRIMARY KEY,
+  fecha_pedido  DATE,
+  cliente       VARCHAR2(50),
+  total         NUMBER(10, 2)
+);
+
+-- INSERTAR REGISTROS EN UNA TABLA
+
+INSERT INTO Pedido (numero_pedido, fecha_pedido, cliente, total)
+VALUES (1, TO_DATE('2023/04/10', 'yyyy/mm/dd'), 'Juan Perez', 1000.00);
+
+INSERT INTO Pedido (numero_pedido, fecha_pedido, cliente, total)
+VALUES (2, TO_DATE('2023/04/20', 'yyyy/mm/dd'), 'Maria Gomez', 2500.00);
+
+INSERT INTO Pedido (numero_pedido, fecha_pedido, cliente, total)
+VALUES (3, TO_DATE('2023/04/05', 'yyyy/mm/dd'), 'Pedro Torres', 1500.00);
+
+INSERT INTO Pedido (numero_pedido, fecha_pedido, cliente, total)
+VALUES (4, TO_DATE('2023/03/12', 'yyyy/mm/dd'), 'Ana Rodriguez', 500.00);
+
+COMMIT;
+
+/*
+En PL/SQL, una transacción es un conjunto de operaciones que se realizan como una unidad lógica y se confirman o se deshacen como una sola entidad. El comando COMMIT se utiliza para confirmar una transacción, lo que significa que se guardarán los cambios realizados en la base de datos desde el inicio de la transacción hasta el punto en que se llama al COMMIT.
+
+En el ejemplo del script que te mostré, se utiliza el comando COMMIT después de realizar los INSERT en la tabla Pedidos, para confirmar la transacción y asegurarse de que los cambios se guarden en la base de datos. Si no se llamara al COMMIT, los cambios no se guardarían y se desharían automáticamente al salir del bloque anónimo.
+
+Es importante tener en cuenta que el uso de COMMIT debe realizarse con precaución, ya que una transacción confirmada no se puede deshacer. Si se llama a COMMIT antes de que se completen todas las operaciones necesarias o se producen errores durante la transacción, se pueden generar resultados no deseados o inconsistentes en la base de datos.
+*/
+
+-- MOSTRAR TODOS LOS REGISTROS DE UNA TABLA
+
+SELECT * FROM Pedido;
+
+-- BLOQUE ANONIMO 1
+
+SET SERVEROUTPUT ON;
+DECLARE
+   v_fecha_inicio DATE := TRUNC(SYSDATE, 'MM'); -- Primero día del mes actual
+   v_fecha_fin DATE := ADD_MONTHS(v_fecha_inicio, 1) - 1; -- Último día del mes actual
+BEGIN
+   -- DBMS_OUTPUT.ENABLE;
+   DBMS_OUTPUT.PUT_LINE('Fecha Inicio: ' || TO_CHAR(v_fecha_inicio, 'DD/MM/YYYY'));
+   DBMS_OUTPUT.PUT_LINE('Fecha Fin   : ' || TO_CHAR(v_fecha_fin, 'DD/MM/YYYY'));
+   FOR r IN (SELECT * FROM Pedido WHERE fecha_pedido BETWEEN v_fecha_inicio AND v_fecha_fin) LOOP
+      DBMS_OUTPUT.PUT_LINE('Pedido #' || r.numero_pedido || ', fecha: ' || r.fecha_pedido);
+   END LOOP;
+END;
+
+/*
+En PL/SQL, MM es un formato de fecha que representa el mes de una fecha en dos dígitos con un cero inicial si es necesario. Por ejemplo, 01 representa enero, 02 representa febrero, y así sucesivamente.
+La función TRUNC con el parámetro 'MM' se utiliza para truncar una fecha a su primer día del mes. En otras palabras, se eliminan los componentes de la fecha que representan días y horas, manteniendo solo el año y el mes. El resultado es una fecha con un valor de día igual a 1. Por ejemplo, si hoy es 23 de abril de 2023, TRUNC(SYSDATE, 'MM') devolvería la fecha 01/04/2023 (primer día del mes de abril de 2023).
+*/
+
+/*
+La función TO_CHAR se utiliza para convertir la fecha del registro en una cadena de caracteres con el formato especificado ('DD/MM/YYYY') antes de imprimirla en la consola.
+*/
+
+****************************
+***   GESTION DE FECHA   ***
+****************************
+
+(1)
+
+- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON
+DECLARE
+  fecha DATE := SYSDATE;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('La fecha es: ' || TO_CHAR(fecha, 'DD/MM/YYYY'));
+END;
+
+- SALIDA
+
+La fecha es: 23/04/2023
+
+(2)
+
+- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON;
+DECLARE
+  fecha_actual DATE := SYSDATE;
+  fecha_futura DATE;
+BEGIN
+  fecha_futura := ADD_MONTHS(fecha_actual, 6); -- Suma 6 meses a la fecha actual
+  DBMS_OUTPUT.PUT_LINE('Fecha Actual: ' || TO_CHAR(fecha_actual, 'DD/MM/YYYY'));
+  DBMS_OUTPUT.PUT_LINE('Fecha Futura: ' || TO_CHAR(fecha_futura, 'DD/MM/YYYY'));
+END;
+
+- SALIDA
+
+Fecha Actual: 23/04/2023
+Fecha Futura: 23/10/2023
+
+(3)
+
+-- ELIMINAR TABLA
+
+DROP TABLE Persona;
+
+-- CREAR TABLA	
+
+CREATE TABLE Persona (
+  id               NUMBER(10) PRIMARY KEY,
+  nombre           VARCHAR2(50),
+  fecha_nacimiento DATE,
+  telefono         VARCHAR2(15)
+);
+
+-- INSERTAR REGISTROS EN UNA TABLA
+
+INSERT INTO Persona (id, nombre, fecha_nacimiento, telefono) VALUES (1, 'Juan', TO_DATE('01/01/1990', 'DD/MM/YYYY'), '555-1234');
+INSERT INTO Persona (id, nombre, fecha_nacimiento, telefono) VALUES (2, 'Maria', TO_DATE('15/06/1985', 'DD/MM/YYYY'), '555-5678');
+INSERT INTO Persona (id, nombre, fecha_nacimiento, telefono) VALUES (3, 'Pedro', TO_DATE('03/09/1995', 'DD/MM/YYYY'), '555-9876');
+
+-- MOSTRAR TODOS LOS REGISTROS DE UNA TABLA
+
+SELECT * FROM Persona;
+
+-- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON;
+DECLARE
+  v_fecha_inicio DATE := TO_DATE('01/01/1984', 'DD/MM/YYYY');
+  v_fecha_fin DATE := TO_DATE('31/12/1990', 'DD/MM/YYYY');
+BEGIN
+  FOR registro IN (SELECT * FROM Persona WHERE fecha_nacimiento BETWEEN v_fecha_inicio AND v_fecha_fin) LOOP
+    DBMS_OUTPUT.PUT_LINE('Registro: ' || registro.id || ' - Fecha: ' || TO_CHAR(registro.fecha_nacimiento, 'DD/MM/YYYY'));
+  END LOOP;
+END;
+
+-- SALIDA
+
+Registro: 1 - Fecha: 01/01/1990
+Registro: 2 - Fecha: 15/06/1985
+
+******************************
+***   GESTION DE CADENAS   ***
+******************************
+
+(1)
+
+- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON;
+DECLARE
+  -- Definir una variable de cadena
+  v_cadena VARCHAR2(50) := 'Hola mundo!';
+  
+  -- Obtener la longitud de la cadena
+  v_longitud NUMBER := LENGTH(v_cadena);
+  
+  -- Obtener una subcadena de la cadena original
+  v_subcadena VARCHAR2(20) := SUBSTR(v_cadena, 1, 4);
+  
+  -- Convertir la cadena a mayúsculas
+  v_cadena_mayusculas VARCHAR2(50) := UPPER(v_cadena);
+  
+  -- Concatenar dos cadenas
+  v_cadena_concatenada VARCHAR2(100) := v_cadena || ' Esto es una prueba.';
+  
+  -- Buscar una subcadena dentro de la cadena original
+  v_posicion NUMBER := INSTR(v_cadena, 'mundo');
+BEGIN
+  -- Imprimir los resultados
+  DBMS_OUTPUT.PUT_LINE('Cadena original                          : ' || v_cadena);
+  DBMS_OUTPUT.PUT_LINE('Longitud de la cadena                    : ' || v_longitud);
+  DBMS_OUTPUT.PUT_LINE('Subcadena de la cadena original          : ' || v_subcadena);
+  DBMS_OUTPUT.PUT_LINE('Cadena en mayúsculas                     : ' || v_cadena_mayusculas);
+  DBMS_OUTPUT.PUT_LINE('Cadena concatenada                       : ' || v_cadena_concatenada);
+  DBMS_OUTPUT.PUT_LINE('Posición de "mundo" en la cadena original: ' || v_posicion);
+END;
+
+- SALIDA
+
+Cadena original                          : Hola mundo!
+Longitud de la cadena                    : 11
+Subcadena de la cadena original          : Hola
+Cadena en mayúsculas                     : HOLA MUNDO!
+Cadena concatenada                       : Hola mundo! Esto es una prueba.
+Posición de "mundo" en la cadena original: 6
+
+(2) ELIMINAR ESPACIOS EN BLANCO AL PRINCIPIO Y FINAL DE UNA CADENA
+
+- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON
+DECLARE
+  v_cadena VARCHAR2(50) := '   Hola mundo!   ';
+  v_cadena_sin_espacios VARCHAR2(50) := TRIM(v_cadena);
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Cadena original    : ' || v_cadena);
+  DBMS_OUTPUT.PUT_LINE('Cadena sin espacios: ' || v_cadena_sin_espacios);
+END;
+
+- SALIDA
+
+Cadena original    :    Hola mundo!   
+Cadena sin espacios: Hola mundo!
+
+(3) REEMPLAZAR UNA SUBCADENA EN UNA CADENA
+
+- BLOQUE ANONIMO
+
+DECLARE
+  v_cadena VARCHAR2(50) := 'Hola mundo!';
+  v_cadena_reemplazada VARCHAR2(50) := REPLACE(v_cadena, 'mundo', 'PL/SQL');
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Cadena original   : ' || v_cadena);
+  DBMS_OUTPUT.PUT_LINE('Cadena reemplazada: ' || v_cadena_reemplazada);
+END;
+
+- SALIDA
+
+Cadena original   : Hola mundo!
+Cadena reemplazada: Hola PL/SQL!
+
+(4) SEPARAR UNA CADENA EN VARIAS PARTES BASADAS EN UN DELIMITADOR
+
+- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON
+DECLARE
+  v_cadena VARCHAR2(50) := 'Hola,mundo,!';
+  v_primer_elemento VARCHAR2(50);
+  v_segundo_elemento VARCHAR2(50);
+  v_tercer_elemento VARCHAR2(50);
+BEGIN
+  v_primer_elemento := SUBSTR(v_cadena, 1, INSTR(v_cadena, ',')-1);
+  v_segundo_elemento := SUBSTR(v_cadena, INSTR(v_cadena, ',')+1, INSTR(SUBSTR(v_cadena, INSTR(v_cadena, ',')+1), ',')-1);
+  v_tercer_elemento := SUBSTR(v_cadena, INSTR(SUBSTR(v_cadena, INSTR(v_cadena, ',')+1), ',')+INSTR(v_cadena, ',')+1);
+  DBMS_OUTPUT.PUT_LINE('Cadena original : ' || v_cadena);
+  DBMS_OUTPUT.PUT_LINE('Primer elemento : ' || v_primer_elemento);
+  DBMS_OUTPUT.PUT_LINE('Segundo elemento: ' || v_segundo_elemento);
+  DBMS_OUTPUT.PUT_LINE('Tercer elemento : ' || v_tercer_elemento);
+END;
+
+- SALIDA
+
+Cadena original : Hola,mundo,!
+Primer elemento : Hola
+Segundo elemento: mundo
+Tercer elemento : !
+
+******************************
+***   MANEJO EXCEPCIONES   ***
+******************************
+
+-------------------------------------------------------------------------------
+(1) EXCEPCION PREDEFINIDA: NO_DATA_FOUND
+
+Este código intenta buscar un empleado en la tabla "Empleado" usando su ID. Si
+el empleado no se encuentra, se captura la excepción predefinida "NO_DATA_FOUND"
+y se muestra un mensaje por pantalla.
+
+-- CODIGO
+
+-- ELIMINAR TABLA
+
+DROP TABLE Empleado;
+
+-- CREAR TABLA	
+
+CREATE TABLE Empleado (
+  id_empleado         NUMBER(6),
+  nombre              VARCHAR2(20),
+  apellido            VARCHAR2(25),
+  email               VARCHAR2(25),
+  fecha_contratacion  DATE,
+  id_trabajo          VARCHAR2(10),
+  salario             NUMBER(8,2),
+  porcentaje_comision NUMBER(2,2),
+  id_administrador    NUMBER(6),
+  id_departamento     NUMBER(4)
+);
+
+-- INSERTAR REGISTROS EN UNA TABLA
+
+INSERT INTO Empleado VALUES (1000, 'John', 'Doe', 'jdoe@example.com', SYSDATE, 'IT_PROG', 7000, NULL, 300, 60);
+
+-- MOSTRAR TODOS LOS REGISTROS DE UNA TABLA
+
+SELECT * FROM empleado;
+
+COMMIT;
+
+-- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON;
+DECLARE
+  v_apellido_empleado empleado.apellido%TYPE;
+  v_salario_empleado  empleado.salario%TYPE;
+BEGIN
+  SELECT apellido, salario INTO v_apellido_empleado, v_salario_empleado
+  FROM Empleado
+  WHERE id_empleado = 1000;
+  
+  DBMS_OUTPUT.PUT_LINE('Empleado Apellido: ' || v_apellido_empleado);
+  DBMS_OUTPUT.PUT_LINE('Empleado Salario : ' || v_salario_empleado);
+  EXCEPTION
+     WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Empleado no encontrado');
+END;
+
+-- SALIDA
+
+Empleado Apellido: Doe
+Empleado Salario : 7000
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+(2) EXCEPCION PERSONALIZADA
+
+Este código comprueba si el valor de una variable es cero. Si es así, se levanta
+una excepción personalizada llamada "exception_personalizado". Luego se captura
+esta excepción y se muestra un mensaje por pantalla.
+
+-- CODIGO
+
+SET SERVEROUTPUT ON;
+DECLARE
+  exception_personalizado EXCEPTION;
+  v_valor_entrada NUMBER := 0;
+BEGIN
+  IF v_valor_entrada = 0 THEN
+    RAISE exception_personalizado;
+  END IF;
+  
+  DBMS_OUTPUT.PUT_LINE('Valor de entrada: ' || v_valor_entrada);
+EXCEPTION
+  WHEN exception_personalizado THEN
+    DBMS_OUTPUT.PUT_LINE('Valor de entrada no valido');
+END;
+
+-- SALIDA
+
+Valor de entrada no valido
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+(3) EXCEPCION DE SISTEMA
+
+Este código intenta buscar un empleado en la tabla "Empleo" usando su ID,
+pero el valor de la variable "v_employee_id" es una cadena de caracteres en
+lugar de un número. Esto levanta una excepción de sistema, que se captura con
+la cláusula "WHEN OTHERS". Luego se muestra un mensaje por pantalla con el
+texto de la excepción usando la función SQLERRM.
+
+-- CODIGO  : NO FUNCIONA CORREGIR
+
+DECLARE
+  v_id_empleado empleado.id_empleado%TYPE := 'ABC';
+  v_apellido empleado.apellido%TYPE;
+BEGIN
+  SELECT apellido
+  INTO v_apellido
+  FROM Empleado
+  WHERE id_empleado = v_id_empleado;
+  
+  DBMS_OUTPUT.PUT_LINE('Empleado Apellido: ' || v_apellido);
+EXCEPTION
+  WHEN VALUE_ERROR THEN
+    DBMS_OUTPUT.PUT_LINE('Invalid employee ID: ' || v_id_empleado);
+  WHEN NO_DATA_FOUND THEN
+    DBMS_OUTPUT.PUT_LINE('Employee not found for ID: ' || v_id_empleado);
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('Error occurred: ' || SQLERRM);
+END;
+
+-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+*******************
+***   ERRORES   ***
+*******************
+
+PL/SQL: numeric or value error: character string buffer too small
+
+Significa que si "x VARCHAR2(1)" utilizo para guardar una letra como "a" no hay problema, pero si intento guardar la letra "á" surge el problema no hay suficiente espacio, la solución "x VARCHAR2(2)". 
+
+PLS-00201: identifier 'V_INPUT_VALUE' must be declared
+VARIABLE NO DECLARADA
+
+************************
+***   BIBLIOGRAFIA   ***
+************************
+
+https://ora.u440.com/conversion/to_char.html
+https://magicplsql.blogspot.com/2016/08/las-variables-de-plsql.html
+https://www.tutorialesprogramacionya.com
+https://es.code-paper.com/sql/examples-oracle-show-tables-sql
+https://www.youtube.com/watch?v=5Hvwf2RPONU
+http://www.nosolounix.com/2010/12/crear-una-funcion-en-oracle.html
+https://www.iteramos.com/pregunta/40353/imprimir-el-valor-de-una-variable-en-sql-developer
+https://www.plsql.biz/2006/10/tipos-de-datos-en-plsql.html
+https://ikastaroak.birt.eus/edu/argitalpen/backupa/20200331/1920k/es/DAMDAW/BD/BD07/es_DAMDAW_BD07_Contenidos/website_421_ejemplos_de_utilizacin_del_paquete_dbms_output.html
+
+
+CREAR UNA BASE DE DATOS EN ORCLE SQL DEVELOPER
+https://www.youtube.com/watch?v=DzkdS310PUo
+
+
+
+
+*******************
+***   TEMARIO   ***
+*******************
+
+Conceptos básicos de PL/SQL
+Estructuras de control de flujo en PL/SQL (if, case, loops)
+Tipos de datos en PL/SQL (numéricos, caracteres, fecha, booleanos, etc.)
+Cursores en PL/SQL (cursores implícitos y explícitos)
+Procedimientos almacenados en PL/SQL
+Funciones en PL/SQL
+Desencadenadores (Triggers) en PL/SQL
+Manejo de excepciones en PL/SQL
+Paquetes en PL/SQL
+Interfaz de bases de datos en PL/SQL (JDBC)
+Uso de SQL en PL/SQL
+Optimización de consultas en PL/SQL
+Seguridad en PL/SQL
+
+Introducción a PL/SQL: sintaxis, características y beneficios.
+Tipos de datos: numéricos, caracteres, booleanos, fechas y horas, objetos, colecciones, etc.
+Estructuras de control: if-then-else, case, loops, goto, exit, continue, etc.
+Cursores: implícitos, explícitos, parámetros de cursor, cursores dinámicos, etc.
+Subprogramas: procedimientos, funciones, paquetes, variables locales, variables globales, excepciones, parámetros, sobrecarga de subprogramas, etc.
+Manejo de excepciones: tipos de excepciones, excepciones predefinidas, excepciones definidas por el usuario, excepciones no capturadas, etc.
+Desencadenadores (Triggers): tipos de desencadenadores, desencadenadores de fila y de tabla, desencadenadores DML y DDL, bloques de desencadenadores, etc.
+SQL en PL/SQL: tipos de sentencias SQL, cursores implícitos, cursores explícitos, cursores de referencia, cursores anidados, etc.
+Optimización de consultas: utilización de índices, análisis de planes de ejecución, perfiles de SQL, estadísticas de rendimiento, etc.
+Manejo de errores: identificación y solución de errores en PL/SQL, herramientas de depuración, etc.
+Seguridad: control de acceso, auditoría, autenticación y autorización, técnicas de encriptación, etc.
+Integración con otras tecnologías: llamadas a procedimientos remotos, llamadas a funciones externas, interconexión con Java y .NET, etc.
+Herramientas y utilidades: Oracle SQL Developer, SQL*Plus, Oracle Enterprise Manager, etc.
+
+
+*************************
+***   SQL EN PL/SQL   ***
+*************************
+
+(1) OBTENER EL SALARIO DEL EMPLEADO IDENTIFICADO CON EL NUMERO 100 (SELECT)
+
+-- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON
+DECLARE
+    v_salary NUMBER;
+    v_first_name Employees.first_name%TYPE;
+BEGIN
+    SELECT  --SOLO PUEDE DEVOLVER UNA FILA
+        salary, first_name INTO v_salary, v_first_name
+    FROM
+        Employees
+    WHERE
+        employee_id = 100;
+    
+    DBMS_OUTPUT.PUT_LINE('Nombre : ' || v_first_name);
+    DBMS_OUTPUT.PUT_LINE('Salario: ' || v_salary);
+END;
+   
+(2)
+
+SET SERVEROUTPUT ON
+DECLARE
+    v_employees Employees%ROWTYPE;
+BEGIN
+    SELECT * INTO v_employees FROM Employees WHERE employee_id = 100;
+    
+    DBMS_OUTPUT.PUT_LINE('Nombre : ' || v_employees.first_name);
+    DBMS_OUTPUT.PUT_LINE('Salario: ' || v_employees.salary);
+END;
+
+(3) INSERTAR UN REGISTRO (INSERT)
+
+-- CODIGO
+
+-- ELIMINAR TABLA
+
+DROP TABLE T1;
+
+-- CREAR TABLA	
+
+CREATE TABLE T1 (
+  c1 NUMBER       NOT NULL PRIMARY KEY,
+  c2 VARCHAR2(20) NOT NULL 
+);
+
+-- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON
+DECLARE
+    v_c1 T1.c1%TYPE;
+    v_c2 T1.c2%TYPE;
+BEGIN
+    v_c1 := 20;
+    v_c2 := 'ARTURO';
+    INSERT INTO T1 (c1, c2) VALUES (v_c1, v_c2);
+    COMMIT;
+END;
+/
+
+-- MOSTRAR TODOS LOS REGISTROS DE UNA TABLA
+
+SELECT * FROM T1;
+
+(4) ACTUALIZAR UN REGISTRO (UPDATE)
+
+-- CODIGO
+
+-- ELIMINAR TABLA
+
+DROP TABLE T1;
+
+-- CREAR TABLA	
+
+CREATE TABLE T1 (
+  c1 NUMBER       NOT NULL PRIMARY KEY,
+  c2 VARCHAR2(20) NOT NULL 
+);
+
+-- INSERTAR UN REGISTRO EN UNA TABLA
+
+INSERT INTO T1 (c1, c2) VALUES (10, 'ARTURO');
+
+-- MOSTRAR TODOS LOS REGISTROS DE UNA TABLA
+
+SELECT * FROM T1;
+
+-- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON
+DECLARE
+    v_c1 T1.c1%TYPE;
+    v_c2 T1.c2%TYPE;
+BEGIN
+    v_c1 := 10;
+    v_c2 := 'Ismael';
+    UPDATE T1 SET c2 = v_c2 WHERE c1 = v_c1;
+    COMMIT;
+END;
+/
+
+-- MOSTRAR TODOS LOS REGISTROS DE UNA TABLA
+
+SELECT * FROM T1;
+
+(5) ELIMINAR UN REGISTRO (DELETE)
+
+-- CODIGO
+
+-- ELIMINAR TABLA
+
+DROP TABLE T1;
+
+-- CREAR TABLA	
+
+CREATE TABLE T1 (
+  c1 NUMBER       NOT NULL PRIMARY KEY,
+  c2 VARCHAR2(20) NOT NULL 
+);
+
+-- INSERTAR UN REGISTRO EN UNA TABLA
+
+INSERT INTO T1 (c1, c2) VALUES (10, 'ARTURO');
+
+-- MOSTRAR TODOS LOS REGISTROS DE UNA TABLA
+
+SELECT * FROM T1;
+
+-- BLOQUE ANONIMO
+
+SET SERVEROUTPUT ON
+DECLARE
+    v_c1 T1.c1%TYPE;
+BEGIN
+    v_c1 := 10;
+    DELETE FROM T1 WHERE c1 = v_c1;
+    COMMIT;
+END;
+/
+
+-- MOSTRAR TODOS LOS REGISTROS DE UNA TABLA
+
+SELECT * FROM T1;
+
+*******************
+***   APUNTES   ***
+*******************
+
+El resultado de la select hay que guardarlo en una variable.
+
+
+
+**********************************
+***   SECCION 8: EXCEPCIONES   ***
+**********************************
+
+(65)
+
+SET SERVEROUTPUT ON
+DECLARE
+   EMPL EMPLOYEES%ROWTYPE;
+BEGIN
+   SELECT * INTO EMPL FROM EMPLOYEES WHERE EMPLOYEE_ID=100;
+   DBMS_OUTPUT.PUT_LINE(EMPL.FIRST_NAME);
+END;
+
+SALIDA
+------
+
+Steven
+
+(66)
+
+SET SERVEROUTPUT ON
+DECLARE
+   EMPL EMPLOYEES%ROWTYPE;
+BEGIN
+   SELECT * INTO EMPL FROM EMPLOYEES WHERE EMPLOYEE_ID=100;
+   DBMS_OUTPUT.PUT_LINE(EMPL.FIRST_NAME);
+EXCEPTION
+   WHEN EX1 THEN
+        NULL;
+   WHEN EX2 THEN
+        NULL;
+   WHEN OTHERS THEN
+        NULL;   
+END;
+
+No funciona es solo sintaxis donde esta EX1 y EX2 se debe poner la correspondiente excepción
+EXCEPTION es un nuevo bloque para manejar excepciones si algo ocurre en el bloque BEGIN entra este bloque
+
+(67) EXCEPCIONES PREDEFINIDAS: Son excepciones que oracle le ha dado un nombre porque son clasicas o cumunes que ocurren
+
+NO_DATA_FOUND		: Excepción que se dispara cuando un select no encuentra una fila
+TOO_MANY_ROWS		: Excepción que se dispara cuando la select devuelve mas de una fila
+ZERO_DIVIDE			: Excepción que se dispara cuando hay una operación aritmetica que quiere realizar una división entre cero
+DUP_VAL_ON_INDEX	: Excepción que se dispara cuando la clave no es única.
+
+ORA-01403: no data found
+
+-- 1
+
+SET SERVEROUTPUT ON
+DECLARE
+   EMPL EMPLOYEES%ROWTYPE;
+BEGIN
+   SELECT * INTO EMPL FROM EMPLOYEES WHERE EMPLOYEE_ID=1000;
+   DBMS_OUTPUT.PUT_LINE(EMPL.FIRST_NAME);
+EXCEPTION
+   WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('ERROR: EMPLEADO INEXISTENTE');
+   WHEN OTHERS THEN
+       DBMS_OUTPUT.PUT_LINE('ERROR: INDEFINIDO');     
+END;
+
+SALIDA
+------
+
+ERROR: EMPLEADO INEXISTENTE
+
+-- 2
+
+SET SERVEROUTPUT ON
+DECLARE
+   EMPL EMPLOYEES%ROWTYPE;
+BEGIN
+   SELECT * INTO EMPL FROM EMPLOYEES WHERE EMPLOYEE_ID>1;
+   DBMS_OUTPUT.PUT_LINE(EMPL.FIRST_NAME);
+EXCEPTION
+   WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('ERROR: EMPLEADO INEXISTENTE');
+   WHEN TOO_MANY_ROWS THEN
+        DBMS_OUTPUT.PUT_LINE('ERROR: DEMASIADOS EMPLEADOS');
+   WHEN OTHERS THEN
+       DBMS_OUTPUT.PUT_LINE('ERROR: INDEFINIDO');   
+END;
+
+SALIDA
+------
+
+ERROR: DEMASIADOS EMPLEADOS
+
+(68) EXCEPCIONES NO PREDEFINIDAS  (MANIPULAR EXCEPCION NO PREDEFINIDAS PERO SIGUEN SIENDO DE ORACLE)
+
+SEARCH FOR ERROR MESSAGES
+
+Necesito saber el código de error que necesito capturar.
+
+ORA-00937 not a single-group group function
+
+-- 1
+
+SET SERVEROUTPUT ON
+DECLARE
+   MI_EXCEP EXCEPTION;
+   PRAGMA EXCEPTION_INIT(MI_EXCEP,-937);    --Se puede usar muchas de esta para usarlas en el bloque EXCEPTION
+   V1 NUMBER;
+   V2 NUMBER;
+BEGIN
+   SELECT EMPLOYEE_ID, SUM(SALARY) INTO V1,V2 FROM EMPLOYEES;   --Error porque estoy mezclando una columna simple con una función de grupo
+   DBMS_OUTPUT.PUT_LINE(V1);
+EXCEPTION
+   WHEN MI_EXCEP THEN
+        DBMS_OUTPUT.PUT_LINE('ERROR: FUNCION DE GRUPO INCORRECTA');
+   WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('ERROR: INDEFINIDO'); 
+END;	
+
+SALIDA
+------	
+   
+ERROR: FUNCION DE GRUPO INCORRECTA
+
+(69) COMO SABER QUE ERROR SE PRODUCTO PARA LUEGO UTILIZARLO
+
+Clic en el margen izquierdo puedo activar o desactivar la numeración de línea
+
+-- 1
+
+SET SERVEROUTPUT ON
+DECLARE
+   EMPL EMPLOYEES%ROWTYPE;
+BEGIN
+   SELECT * INTO EMPL FROM EMPLOYEES;
+   DBMS_OUTPUT.PUT_LINE(EMPL.SALARY);
+EXCEPTION
+   WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE(SQLCODE);  --Código
+		DBMS_OUTPUT.PUT_LINE(SQLERRM);  --Mensaje
+END;
+   
+SALIDA
+------
+-1422
+ORA-01422: la recuperación exacta devuelve un número mayor de filas que el solicitado 
+
+-- 2
+
+SET SERVEROUTPUT ON
+DECLARE
+   EMPL EMPLOYEES%ROWTYPE;
+   CODE NUMBER;
+   MESSAGE VARCHAR2(100);
+BEGIN
+   SELECT EMPLOYEE_ID, SUM(SALARY) INTO V1,V2 FROM EMPLOYEES;
+   DBMS_OUTPUT.PUT_LINE(EMPL.SALARY);
+EXCEPTION
+   WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE(SQLCODE);  --Código
+		DBMS_OUTPUT.PUT_LINE(SQLERRM);  --Mensaje
+        CODE := SQLCODE;
+        MESSAGE := SQLERRM;
+		-- INSERT INTO ERRORS VALUES (SQLCODE,SQLERRM); Esto no es correcto
+        INSERT INTO ERRORS VALUES (CODE,MESSAGE);
+END;
+   
+SALIDA
+------
+
+-1422
+ORA-01422: la recuperación exacta devuelve un número mayor de filas que el solicitado
+
+-- 3    (Esto lo aplique en 68-1)
+
+SET SERVEROUTPUT ON
+DECLARE
+   EMPL EMPLOYEES%ROWTYPE;
+   V1 NUMBER;
+   V2 NUMBER;
+   CODE NUMBER;
+   MESSAGE VARCHAR2(100);
+BEGIN
+   SELECT EMPLOYEE_ID, SUM(SALARY) INTO V1,V2 FROM EMPLOYEES;
+EXCEPTION
+   WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE(SQLCODE);  --Código
+		DBMS_OUTPUT.PUT_LINE(SQLERRM);  --Mensaje
+        CODE := SQLCODE;
+        MESSAGE := SQLERRM;
+		-- INSERT INTO ERRORS VALUES (SQLCODE,SQLERRM); Esto no es correcto
+        INSERT INTO ERRORS VALUES (CODE,MESSAGE);
+END;
+
+SALIDA
+------
+
+-937
+ORA-00937: la función de grupo no es de grupo único
+
+(70) Práctica de excepciones: 11-Prácticas+con+Excepciones.pdf
+
+(71) Controlar SQL con excepciones, Probar la funcionalidad de nuestro código con excepciones
+
+SET SERVEROUTPUT ON
+DECLARE
+   REG REGIONS%ROWTYPE;
+   REG_CONTROL REGIONS.REGION_ID%TYPE;  
+BEGIN
+   REG.REGION_ID := 101;
+   REG.REGION_NAME := 'AFRICA';
+   SELECT REGION_ID INTO REG_CONTROL FROM REGIONS WHERE REGION_ID=REG.REGION_ID;
+   DBMS_OUTPUT.PUT_LINE('ERROR: LA REGION YA EXISTE');
+EXCEPTION
+   WHEN NO_DATA_FOUND THEN
+		INSERT INTO REGIONS VALUES (REG.REGION_ID,REG.REGION_NAME);
+		COMMIT;
+        DBMS_OUTPUT.PUT_LINE('OK: INSERTAR REGISTRO');
+END;
+
+SALIDA
+------
+
+OK: INSERTAR REGISTRO
+
+(72) EXCEPCIONES PERSONALIZADAS POR EL DESARROLLADOR(USUARIO)
+
+Cuando es mi excpcion oracle no sabe cuando sucede yo tengo que indicarle cuando sucede
+
+-- 1
+
+SET SERVEROUTPUT ON
+DECLARE
+   reg_max EXCEPTION;
+   regn NUMBER;
+   regt VARCHAR2(200);
+BEGIN
+   regn := 101;
+   regt := 'ASIA';
+   IF regn > 100 THEN --No se puedan insertar en la tabla regiones mayores que 100 será mi excepción
+      RAISE reg_max; --RAISE es una clausula usada en las excepciones personalizadas de usuario. Oracle no sabe cuando lazar la excepción mia tengo que decirle yo 
+   ELSE              --RAISE dice dispara la excepción cuando se excedio a 100 regn
+      INSERT INTO REGIONS VALUES (regn,regt);
+   END IF;
+EXCEPTION
+   WHEN reg_max THEN --Capturar la excepcion lanzada por RAISE (Es un error controlador por nosotros)
+        DBMS_OUTPUT.PUT_LINE('La región no puede ser mayor de 100.');
+   WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('ERROR: INDEFINIDO'); 
+END;
+/
+
+SALIDA
+------
+
+La región no puede ser mayor de 100.	
+
+(73) PRACTICAR EXCEPCIONES DE USUARIO (12-Prácticas+con+Excepciones+de+usuario.pdf)
+
+(74) AMBITO DE LAS EXCEPCIONES
+
+-- 1
+
+SET SERVEROUTPUT ON
+DECLARE
+   reg_max EXCEPTION;
+   regn NUMBER;
+   regt VARCHAR2(200);
+BEGIN
+   regn := 101;
+   regt := 'ASIA';
+   BEGIN
+      IF regn > 100 THEN
+	     RAISE reg_max;
+	  ELSE
+	     INSERT INTO REGIONS VALUES (regn,regt);
+		 COMMIT;
+	  END IF;
+   END;
+EXCEPTION
+   WHEN reg_max THEN
+        DBMS_OUTPUT.PUT_LINE('La region no puede ser mayor de 100.');
+   WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('ERROR: INDEFINIDO');
+END;
+/
+
+SALIDA
+------
+
+La region no puede ser mayor de 100.
+
+-- 2
+
+SET SERVEROUTPUT ON
+DECLARE --PADRE
+   regn NUMBER;
+   regt VARCHAR2(200);
+BEGIN
+   regn := 101;
+   regt := 'ASIA';
+   DECLARE --HIJO
+      reg_max EXCEPTION;
+   BEGIN
+      IF regn > 100 THEN
+	     RAISE reg_max;
+	  ELSE
+	     INSERT INTO REGIONS VALUES (regn,regt);
+		 COMMIT;
+	  END IF;
+   EXCEPTION
+      WHEN reg_max THEN
+           DBMS_OUTPUT.PUT_LINE('La region no puede ser mayor de 100. BLOQUE HIJO');    
+   END;
+EXCEPTION
+   /*WHEN reg_max THEN
+        DBMS_OUTPUT.PUT_LINE('La region no puede ser mayor de 100.');*/
+   WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('ERROR: INDEFINIDO');
+END;
+/
+
+SALIDA
+------
+
+La region no puede ser mayor de 100. BLOQUE HIJO
+
+(75) COMANDO
+
+RAISE_APPLICATION_ERROR: Es una función que nos permite devolver un error personalizado 
+-20000 y -20999 El código de error debe estar entre este rango
+
+SET SERVEROUTPUT ON
+DECLARE
+   regn NUMBER;
+   regt VARCHAR2(200);
+BEGIN
+   regn := 101;
+   regt := 'ASIA';
+   IF regn > 100 THEN
+      RAISE_APPLICATION_ERROR(-20001,'LA ID NO PUEDE SER MAYOR DE 100'); --Es un error que yo me eh inventado
+   ELSE
+      INSERT INTO REGIONS VALUES (regn,regt);
+	  COMMIT;
+   END IF;
+END;
+/
+
+SALIDA
+------
+
+Informe de error -
+ORA-20001: LA ID NO PUEDE SER MAYOR DE 100
+ORA-06512: en línea 8
+
+(76) PRACTICAR (13-Prácticas+con+RAISE.pdf)
+
+*****************************************************
+***   SECCION 9: COLECCIONES Y TIPOS COMPUESTOS   ***
+*****************************************************
+
+-------------------------------------------------------------------------------
+(77) COLECCIONES Y TIPOS COMPUESTOS
+
+Son componentes que pueden albergar múltiples valores, a diferencia de los escalares que solo pueden tener 1.
+
+Son de dos posibles tipos: 
+  RECORDS
+  
+  COLECCIONES O COLLECTIONS
+     ARRAYS ASOCIATIVOS (INDEX BY)
+	 NESTED TABLES
+	 VARRAYS
+	 
+PL/SQL RECORDS
+   Son similares a los rgistros de una tabla
+   Pueden albergar una "Fila" de datos de distintos tipos
+   Ya hemos visto un ejempo al usar el atributo %ROWTYPE
+   Podemos definirlos de forma personalizada con la clausula record
+   
+EMPLEADO EMPLOYEES%ROWTYPE;
+
+NOMBRE    DIRECCION    SALARIO    COMISION    FECHA_NACIMIENTO
+VARCHAR2  VARCHAR2     NUMBER     BOOLEAN     DATE
+
+PL/SQL RECORDS
+   Primero debemos declarar o crear el tipo.
+   Su formato es el siguiente: TYPE nombre IS RECORDS(campo1,campo2,...)
+   Una vez declarado el tipo (plantilla) podemos crear variables de ese tipo: VARIABLE TIPO;
+   Los campos pueden ser de cualquier tipo, ioncluido otros records o collections.
+   Pueden llevar clausula NULL y clausula default.
+   
+PL/SQL RECORDS
+
+EJEMPLO
+
+TYPE empleado IS RECORD
+   (nombre varchar2(100),
+    salario number,
+	fecha employees.hire_date%type,
+	datos completos employees%rowtype);
+	
+emple1 empleado;
+-------------------------------------------------------------------------------
+(78) PL/SQL RECORDS
+
+-- 1
+
+SET SERVEROUTPUT ON
+DECLARE
+   TYPE empleado IS RECORD
+        (nombre VARCHAR2(100),
+		 salario NUMBER, --Salario después de impuestos
+		 fecha Employees.hire_date%TYPE,
+		 datos Employees%ROWTYPE);
+   emple1 empleado;
+   emple2 empleado;
+BEGIN
+   SELECT * INTO emple1.datos FROM Employees WHERE employee_id = 100;
+   emple1.nombre := emple1.datos.first_name || ' ' || emple1.datos.last_name;
+   emple1.salario := emple1.datos.salary * 0.80;
+   emple1.fecha := emple1.datos.hire_date;
+      DBMS_OUTPUT.PUT_LINE(emple1.nombre);
+	  DBMS_OUTPUT.PUT_LINE(emple1.salario);
+	  DBMS_OUTPUT.PUT_LINE(emple1.fecha);
+	  DBMS_OUTPUT.PUT_LINE(emple1.datos.first_name);
+	  emple2 := emple1;
+	  DBMS_OUTPUT.PUT_LINE(emple2.nombre);
+END;
+
+SALIDA
+------
+
+Steven King
+19200
+17/06/03
+Steven
+Steven King
+-------------------------------------------------------------------------------
+(79) INSERTS Y UPDATES CON PL/SQL RECORDS
+
+CREATE TABLE Regiones AS SELECT * FROM Regions WHERE region_id = 0; --Creamos una tabla llamada Regiones vacia con los mismos campos que la tabla Regions
+
+DECLARE
+   reg1 Regions%ROWTYPE;
+BEGIN
+   SELECT * INTO reg1 FROM Regions WHERE region_id = 1; --Lleno la variable reg1 con los datos de la region 1
+   -- INSERT
+   INSERT INTO Regiones VALUES reg1;
+END;
+/
+
+DECLARE
+   reg1 Regions%ROWTYPE;
+BEGIN
+   reg1.region_id := 1;
+   reg1.region_name := 'AUSTRALIA';
+   --UPDATE
+   UPDATE Regiones SET ROW=reg1 WHERE region_id = 1;
+END;
+-------------------------------------------------------------------------------
+(80) COLECCIONES. ARRAYS ASOCIATIVOS: INTRODUCCION
+
+COLECCIONES Y TIPOS COMPUESTOS
+
+COLECCIONES
+   Arrays asociativos
+   Nested tables
+   Varrays
+   
+ASSOCIATIVE ARRAYS (INDEX BY TABLES)
+   Son colecciones PL/SQL con dos columnas
+     Clave primaria de tipo entero o cadena
+	 Valores: Un tipo que puede ser escalar, o record
+	 
+SINTAXIS
+   TYPE nombre IS TABLE OF
+      TIPO COLUMNA
+	  INDEX BY PLS_INTEGER | BINARY_INTEGER | VARCHAR2(X);
+	  
+	  VARIABLE TIPO:
+	  
+	  
+TYPE DEPARTAMENTOS IS TABLE OF
+   DEPARTMENTS DEPARTMENT_NAME%TYPE
+INDEX BY PLS_INTEGER;
+
+TYPE EMPLEADOS IS TABLE OF
+   EMPLOYEES%ROWTYPE
+INDEX BY PLS_INTEGER;
+
+DEPTS DEPARTAMENTOS;
+EMPLS EMPLEADOS;
+
+-- TIPO SIMPLE
+   DEPTS(1) := 'INFORMATICA';
+   DEPTS(2) := 'RRHH';
+   DBMS_OUTPUT.PUT_LINE(DEPTS(1));
+   DBMS_OUTPUT.PUT_LINE(DEPTS(2));
+   
+-- TIPO COMPUESTO
+   SELECT * INTO EMPLES(1) FROM EMPLOYEES WHERE EMPLOYEE_ID = 100;
+   
+   DBMS_OUTPUT.PUT_LINE(EMPLES(1).FIRST_NAME);
+
+ACCESO AL ARRAYS
+   PARA ACCEDER AL ARRAY USAMOS ARRAY(N)
+   SI ES DE UN TIPO COMPLEJO, POR EJEMPLO EMPLOYEES, USAMOS ARRAY(N).CAMPO
+   
+METODOS DE LOS ARRAYS
+   EXISTS(N): Detectar si existe un elemento
+   COUNT: Número de elementos
+   FIRST: Devuelve el indice mas pequeño
+   LAST: Devuelve el índice más alto
+   PRIOR(N): Devuelve el índice anterior a N
+   NEXT(N): Devuelve el índice posterior a N
+   DELETE: Borrar todo
+   DELETE(N): Borrar el índice N
+   DELETE(M,N): Borrar de los índices M a N 
+   
+EJEMPLOS USANDO METODOS DE LOS ARRAYS
+
+DBMS_OUTPUT.PUT_LINE(DEPTS.LAST);
+DBMS_OUTPUT.PUT_LINE(DEPTS.FIRST);
+
+IF DEPTS.EXISTS(3) THEN
+   DBMS_OUTPUT.PUT_LINE(DEPTS(3));
+ELSE
+   DBMS_OUTPUT.PUT_LINE('ESE VALOR NO EXISTE');
+END IF;   
+-------------------------------------------------------------------------------
+(81) TRABAJAR CON ARRAYS ASOCIATIVOS
+
+-- 1
+
+SET SERVEROUTPUT ON
+DECLARE
+   TYPE DEPARTAMENTOS IS TABLE OF DEPARTMENTS.DEPARTMENT_NAME%TYPE
+   INDEX BY PLS_INTEGER;
+   
+   TYPE EMPLEADOS IS TABLE OF EMPLOYEES%ROWTYPE
+   INDEX BY PLS_INTEGER;
+   
+   DEPTS DEPARTAMENTOS;
+   EMPLES EMPLEADOS;
+   
+BEGIN
+   -- TIPO SIMPLE
+   DEPTS(1) := 'INFORMATICA';
+   DEPTS(2) := 'RRHH';
+   DEPTS(55) := 'PRUEBA';
+   DBMS_OUTPUT.PUT_LINE(DEPTS(1));
+   DBMS_OUTPUT.PUT_LINE(DEPTS(2));
+   DBMS_OUTPUT.PUT_LINE(DEPTS(55));
+   DBMS_OUTPUT.PUT_LINE(DEPTS.LAST);
+   DBMS_OUTPUT.PUT_LINE(DEPTS.FIRST);
+   IF DEPTS.EXISTS(3) THEN
+      DBMS_OUTPUT.PUT_LINE(DEPTS(3));
+   ELSE
+      DBMS_OUTPUT.PUT_LINE('ESE VALOR NO EXISTE');
+   END IF;
+   -- TIPO COMPUESTO
+   SELECT * INTO EMPLES(1) FROM EMPLOYEES WHERE EMPLOYEE_ID = 100; --Guardo el empleado 100 en el array y luego lo pinto
+   DBMS_OUTPUT.PUT_LINE(EMPLES(1).FIRST_NAME);
+   
+   SELECT * INTO EMPLES(2) FROM EMPLOYEES WHERE EMPLOYEE_ID = 110; --Guardo el empleado 100 en el array y luego lo pinto
+   DBMS_OUTPUT.PUT_LINE(EMPLES(1).FIRST_NAME);
+   DBMS_OUTPUT.PUT_LINE(EMPLES(2).FIRST_NAME);
+END;
+/
+
+SALIDA
+------
+
+INFORMATICA
+RRHH
+PRUEBA
+55
+1
+ESE VALOR NO EXISTE
+Steven
+Steven
+John
+-------------------------------------------------------------------------------
+(82) SELECTS MULTIPLES CON ARRAYS ASOCIATIVOS
+
+-- 1
+
+SET SERVEROUTPUT ON
+DECLARE
+   TYPE DEPARTAMENTOS IS TABLE OF DEPARTMENTS%ROWTYPE INDEX BY PLS_INTEGER;
+   DEPTS DEPARTAMENTOS;
+BEGIN
+   FOR I IN 1..10 LOOP
+       SELECT * INTO DEPTS(I) FROM DEPARTMENTS WHERE DEPARTMENT_ID = I * 10;
+   END LOOP;
+   
+   FOR I IN DEPTS.FIRST..DEPTS.LAST LOOP
+       DBMS_OUTPUT.PUT_LINE(DEPTS(I).DEPARTMENT_NAME);
+   END LOOP;
+END;
+/
+
+SALIDA
+------
+
+Administration
+Marketing
+Purchasing
+Human Resources
+Shipping
+IT
+Public Relations
+Sales
+Executive
+Finance
+-------------------------------------------------------------------------------
+(83) PRACTICAS DE COLECCIONES Y REGISTROS  (14-Prácticas+de+Colecciones+y+Records.pdf)
+-------------------------------------------------------------------------------
+
+********************************
+***   SECCION 10: CURSORES   ***
+********************************
+
+-------------------------------------------------------------------------------
+(84) INTRODUCCION A LOS CURSORES 
+
+CURSORES: IMPLICITOS. POR EJEMPLO UN SELECT
+          EXPLICITOS. ESTOS YA SON CURSORES PROPIAMENTE DICHOS. SE GENERAN DE MANERA MANUAL
+-------------------------------------------------------------------------------
+(85) ATRIBUTOS IMPLICITOS
+
+ATRIBUTOS DE LOS CURSORES SON LOS MISMOS PARA LOS IMPLICITOS Y EXPLICITOS
+
+
+SQL%ISOPEN           Siempre devuelve un FALSE
+SQL%FOUND
+SQL%NOTFOUND
+SQL%ROWCOUNT
+
+SELECT
+SELECT
+SQL%FOUND     Se aplica al ultimo select tener cuidado con eso
+
+-- 1
+
+CREATE TABLE Test (c1 NUMBER, c2 VARCHAR2(30));
+INSERT INTO Test (c1,c2) VALUES (10,'AAAAA');
+INSERT INTO Test (c1,c2) VALUES (20,'BBBBB');
+
+BEGIN
+   UPDATE TEST SET C2='PPPPP' WHERE C1=10;
+   DBMS_OUTPUT.PUT_LINE(SQL%ROWCOUNT); --Número de filas que se han procesado
+END;
+
+SALIDA
+------
+
+1
+
+-- 2
+
+CREATE TABLE Test (c1 NUMBER, c2 VARCHAR2(30));
+INSERT INTO Test (c1,c2) VALUES (10,'AAAAA');
+INSERT INTO Test (c1,c2) VALUES (20,'BBBBB');
+
+BEGIN
+   UPDATE TEST SET C2='PPPPP' WHERE C1=100;
+   DBMS_OUTPUT.PUT_LINE(SQL%ROWCOUNT); --Número de filas que se han procesado(ENCONTRADAS)
+   IF SQL%FOUND THEN
+      DBMS_OUTPUT.PUT_LINE('ENCONTRADO');
+   END IF;
+   IF SQL%NOTFOUND THEN
+      DBMS_OUTPUT.PUT_LINE('NO ENCONTRADO');
+   END IF;
+END;
+
+SALIDA
+------
+0
+NO ENCONTRADO
+
+-- 3
+
+CREATE TABLE Test (c1 NUMBER, c2 VARCHAR2(30));
+INSERT INTO Test (c1,c2) VALUES (10,'AAAAA');
+INSERT INTO Test (c1,c2) VALUES (20,'BBBBB');
+
+BEGIN
+   UPDATE TEST SET C2='PPPPP' WHERE C1=10;
+   DBMS_OUTPUT.PUT_LINE(SQL%ROWCOUNT); --Número de filas que se han procesado(ENCONTRADAS)
+   IF SQL%FOUND THEN
+      DBMS_OUTPUT.PUT_LINE('ENCONTRADO');
+   END IF;
+END;
+
+SALIDA
+------
+1
+ENCONTRADO
+-------------------------------------------------------------------------------
+(86) CICLO DE VIDA DE UN CURSOR
+
+1. Declarar el cursor
+2. Abrir el cursor
+3. Leer fila del cursor
+4. Preguntar: Fin de cursor
+   Si: Cerrar cursor
+   No: Ir a 3
+   
+Los cursores manejar una secuencia hacia adelante no permite irnos al principio o al final o alguna posición que queramos
+para eso estan los arrays.
+-------------------------------------------------------------------------------
+(87) CREAR UN CURSOR
+
+-- 1
+
+DECLARE
+  CURSOR C1 IS SELECT * FROM REGIONS; --El cursor aun esta cerrado solo hemos declarado
+  V1 REGIONS%ROWTYPE;
+BEGIN
+  OPEN C1; --Abrimos el cursor
+  FETCH C1 INTO  V1; --Fetch es el comando que permite leer el cursor y lo que lee lo guarda en V1
+  DBMS_OUTPUT.PUT_LINE(V1.REGION_NAME);
+  CLOSE C1; --Cerrar el cursor
+  /*
+  FETCH C1 INTO  V1;
+  DBMS_OUTPUT.PUT_LINE(V1.REGION_NAME);
+  CLOSE C1;*/
+END;
+
+SALIDA
+------
+AFRICA
+
+-- 2
+
+DECLARE
+  CURSOR C1 IS SELECT * FROM REGIONS; --El cursor aun esta cerrado solo hemos declarado
+  V1 REGIONS%ROWTYPE;
+BEGIN
+  OPEN C1; --Abrimos el cursor
+  FETCH C1 INTO  V1; --Fetch es el comando que permite leer el cursor y lo que lee lo guarda en V1
+  DBMS_OUTPUT.PUT_LINE(V1.REGION_NAME);
+  FETCH C1 INTO  V1;
+  DBMS_OUTPUT.PUT_LINE(V1.REGION_NAME);
+  CLOSE C1;
+END;
+
+SALIDA
+------
+AFRICA
+AFRICA
+
+Estos ejemplos son sin bucle secuencial
+-------------------------------------------------------------------------------
+(88) ATRIBUTOS (RECORDATORIO)
+
+ATRIBUTOS DE CURSORES EXPLICITOS
+
+C1%NOTFOUND     No encontraba una fila en el cursor
+C1%FOUND        Si encontraba una fila en el cursor
+C1%ISOPEN       Si estaba abierto el cursor  (No tiene sentido en los cursores explicitos)
+C1%ROWCOUNT     Número de filas procesadas por ese cursor
+
+Los cursores implicitos son los que se generan automáticamente
+
+En los cursores implicitos se tiene que poner SQL y luego el atributo
+En los cursores explicitos que yo los creo tengo que poner el nombre del cursor C1 y luego el atributo ya que puedo tener varios a lo largo del programa por lo que se necesita saber con cual se quiere trabajar.
+-------------------------------------------------------------------------------
+(89) RECORRER UN CURSOR CON EL BUCLE LOOP
+
+-- 1
+
+DECLARE
+  CURSOR C1 IS SELECT * FROM REGIONS; --Crear cursor
+  V1 REGIONS%ROWTYPE;
+BEGIN
+  OPEN C1; --Abrir cursor
+  LOOP --Recorrer cursor
+      FETCH C1 INTO  V1; --Leer cursor
+      EXIT WHEN C1%NOTFOUND; --Preguntamos si el cursor aun tiene elementos (Salir si ya no hay elementos en el cursor) exit forma parte de loop
+      DBMS_OUTPUT.PUT_LINE(V1.REGION_NAME);
+  END LOOP;
+  CLOSE C1; --Cerrar cursor
+END;
+
+SALIDA
+------
+AFRICA
+AFRICA
+Europe
+Americas
+Asia
+Middle East and Africa
+-------------------------------------------------------------------------------
+(90) RECORRER UN CURSOR CON EL BUCLE FOR
+
+-- 1
+
+DECLARE
+  CURSOR C1 IS SELECT * FROM REGIONS; --Crear cursor
+  V1 REGIONS%ROWTYPE;
+BEGIN
+  OPEN C1; --Abrir cursor
+  LOOP --Recorrer cursor
+      FETCH C1 INTO  V1; --Leer cursor
+      EXIT WHEN C1%NOTFOUND; --Preguntamos si el cursor aun tiene elementos (Salir si ya no hay elementos en el cursor) exit forma parte de loop
+      DBMS_OUTPUT.PUT_LINE(V1.REGION_NAME);
+  END LOOP;
+  CLOSE C1; --Cerrar cursor
+  --BUCLE FOR
+  FOR i IN C1 LOOP
+        DBMS_OUTPUT.PUT_LINE(i.REGION_NAME);
+  END LOOP;
+END;
+
+SALIDA
+------
+AFRICA
+AFRICA
+Europe
+Americas
+Asia
+Middle East and Africa
+AFRICA
+AFRICA
+Europe
+Americas
+Asia
+Middle East and Africa
+-------------------------------------------------------------------------------
+(91) BUCLE FOR CON SUBQUERIES
+
+-- 1
+
+DECLARE
+  CURSOR C1 IS SELECT * FROM REGIONS; --Crear cursor
+  V1 REGIONS%ROWTYPE;
+BEGIN
+  FOR i IN C1 LOOP
+        DBMS_OUTPUT.PUT_LINE(i.REGION_NAME);
+  END LOOP;
+END;
+
+SALIDA
+------
+AFRICA
+AFRICA
+Europe
+Americas
+Asia
+Middle East and Africa
+
+-- 2   Esta es la definitiva resumida y compacta
+
+BEGIN
+  FOR i IN (SELECT * FROM REGIONS) LOOP
+    DBMS_OUTPUT.PUT_LINE(i.REGION_NAME);
+  END LOOP;
+END;
+
+SALIDA
+------
+AFRICA
+AFRICA
+Europe
+Americas
+Asia
+Middle East and Africa
+-------------------------------------------------------------------------------
+(92) CURSORES CON PARAMETROS
+
+-- 1
+
+DECLARE
+  CURSOR C1(SAL number) IS SELECT * FROM employees --Cursores con parametros son cursores mas dinámicos. Ejemplo que empleados ganan mas que un determinado salario
+  where SALARY> SAL;
+  empl EMPLOYEES%ROWTYPE;
+BEGIN
+  OPEN C1(10000); --Le pasamos el salario entonces todos los empleados que ganen mas que ese salario lo recibe en SAL
+  LOOP
+      FETCH C1 INTO  empl;
+      EXIT WHEN C1%NOTFOUND;
+      DBMS_OUTPUT.PUT_LINE(empl.first_name||' '||empl.salary);
+  END LOOP;
+  dbms_output.put_line('He encontrado '||c1%rowcount||' empleados');
+  CLOSE C1;
+END;
+
+SALIDA
+------
+Steven 24000
+Neena 17000
+Lex 17000
+Nancy 12008
+Den 11000
+John 14000
+Karen 13500
+Alberto 12000
+Gerald 11000
+Eleni 10500
+Clara 10500
+Lisa 11500
+Ellen 11000
+Michael 13000
+Shelley 12008
+He encontrado 15 empleados
+-------------------------------------------------------------------------------
+(93) UPDATES Y DELETES CON WHERE CURRENT OF
+
+-- 1
+
+DECLARE
+  empl employees%rowtype;
+  CURSOR cur IS SELECT * FROM employees FOR UPDATE; --Blquea para actualizar(for update)
+BEGIN
+  OPEN cur;
+  LOOP
+    FETCH cur INTO empl;
+    EXIT   WHEN cur%notfound;
+    IF EMPL.COMMISSION_PCT IS NOT NULL THEN
+       UPDATE employees SET SALARY=SALARY*1.10 WHERE CURRENT OF cur; --Modificame siempre y cuando este en el cursor actual (where current of cur)
+    ELSE
+       UPDATE employees SET SALARY=SALARY*1.15 WHERE CURRENT OF cur;
+    END IF;
+  END LOOP;
+ 
+  CLOSE cur;
+END;
+
+--Modificar al vuelo la fila del cursor donde me encuentro en ese momento puedo hacerlo con update o delete
+
+SALIDA
+------
+
+-------------------------------------------------------------------------------
+(94) PRACTICAS CON CURSORES  (Practicas-cursores.pdf)
+-------------------------------------------------------------------------------
+
+**************************************************************
+***   SECCION 11: PROCEDIMIENTOS Y FUNCIONES ALMACENADAS   ***
+**************************************************************
+
+-------------------------------------------------------------------------------
+(95) INTRODUCCION A PROCEDIMIENTOS Y FUNCIONES
+
+BLOQUES ANONIMOS: Hay que guardarlos en un archivo .sql y volverlos a ejecutar, se llaman así porque no tienen nombre
+                  y se guardan dentro del sistema de fichero y son independiente de la base de datos
+
+Se guardan en la base de datos para poder ser utilizados como cualquier otro objeto de oracle				  
+PROCEDURES
+FUNCTIONS
+PACKAGES
+TRIGGERS
+
+1. Crear el objeto
+   Código fuente
+   Código pseudo-compilado
+2. Invocar en cualquier momento (sql)
+-------------------------------------------------------------------------------
+(96) CREAR UN PROCEDIMIENTO
+
+Los bloques anónimos se ejecutan
+En cambio un procedimiento yo creo el programa y lo compilo y luego lo llamaré
+Declare es para los bloques anónimos.
+Para crear un procedimiento debe empezar con CREATE
+En un procedure IS es como DECLARE de los bloques anonimos
+
+Crear una nueva conexion, es haciendo clic en el icono sql
+Con el icono triangulo verde a la derecha sólo ejecuto la línea donde se encuentra el cursor
+La / es para diferenciar un bloque de otro bloque
+
+
+-- 1
+
+CREATE OR REPLACE PROCEDURE P1
+IS
+   X NUMBER := 10;
+BEGIN
+   DBMS_OUTPUT.PUT_LINE(X);
+END;
+
+-- CONSTRUYO UN BLOQUE ANONIMO DONDE HAGO USO DEL OBJETO PROCEDURE P1 (LANZAR EL PROCEDURE)
+
+SET SERVEROUTPUT ON
+BEGIN
+   P1;
+END;
+
+SALIDA
+------
+10
+
+-- 2 (LANZAR EL PROCEDURE DE DOS FORMAS DISTINTAS / SEPARA LAS DOS FORMAS DISTINTAS YA QUE SON DOS BLOQUES DISTINTOS)
+
+SET SERVEROUTPUT ON
+BEGIN
+   P1;
+END;
+/
+EXECUTE P1;
+
+SALIDA
+------
+10
+10
+-------------------------------------------------------------------------------
+(97) CREAR PROCEDIMIENTO CON SQLDEVELOPER
+
+BD en Procedimientos, Opción "Nuevo procedimiento..."
+
+CREATE OR REPLACE PROCEDURE P3(PARAM1 IN NUMBER) 
+AS 
+BEGIN
+  NULL;
+END P3; --FIN DEL PROCEDIMIENTO NO ES NECESARIO PONER EL NOMBRE DEL PROCEDIMIENTO QUE SE TERMINA PERO ES RECOMENDABLE
+
+Se compila con las ruedas dentadas
+Se ejecuta con la fleja verde a la derecha
+Si esta P3 debajo de Procedimientos esta compilado y solo lo ejecutamos con el triangulo verde
+
+Recuperar el código del procedimiento, debajo de procedimientos esta doble clic y listo lo recuperamos
+
+-------------------------------------------------------------------------------
+(98) VER EL CODIGO FUENTE DE PROCEDIMIENTOS Y FUNCIONES
+
+-- 1
+SELECT * FROM USER_OBJECTS WHERE OBJECT_TYPE = 'PROCEDURE';
+
+SALIDA
+------
+
+No muestra todos los objetos incluidos los procedures que hemos creado y nos dice si es valido o invalido.
+Valido cuando esta compilado correctamente porque no tienes errores de sintaxis
+Invalido cuando no se puedo compilar porque tiene errores de sintaxis
+
+
+-- TODOS LOS OBJETOS QUE TENGO QUE SON MIOS
+
+SELECT OBJECT_TYPE, COUNT(*) FROM USER_OBJECTS GROUP BY OBJECT_TYPE;
+
+SALIDA
+
+TABLE		10
+INDEX		8
+SEQUENCE	4
+VIEW		1
+PROCEDURE	5
+TRIGGER		2
+
+-- VER EL CODIGO FUENTE SI NO SE TIENE UNA HERRAMIENTA GRAFICA
+
+SELECT * FROM USER_SOURCE WHERE NAME = 'P3';    --Siempre lo guarda en mayuscula P3 no poner p3 minuscula que no lo encuentra
+
+SALIDA
+
+P3	PROCEDURE	1	"PROCEDURE P3(PARAM1 IN NUMBER) 
+"	3
+P3	PROCEDURE	2	"AS 
+"	3
+P3	PROCEDURE	3	"BEGIN
+"	3
+P3	PROCEDURE	4	"  DBMS_OUTPUT.PUT_LINE('XXXX');
+"	3
+P3	PROCEDURE	5	END P3;--FIN DEL PROCEDIMIENTO NO ES NECESARIO PONER EL NOMBRE DEL PROCEDIMIENTO QUE SE TERMINA PERO ES RECOMENDABLE	3
+
+-- VER EL CODIGO SOLO TEXTO SI NO SE TIENE UNA HERRAMIENTA GRAFICA
+
+SELECT TEXT FROM USER_SOURCE WHERE NAME = 'P3'; 
+
+SALIDA
+
+"PROCEDURE P3(PARAM1 IN NUMBER) 
+"
+"AS 
+"
+"BEGIN
+"
+"  DBMS_OUTPUT.PUT_LINE('XXXX');
+"
+END P3;--FIN DEL PROCEDIMIENTO NO ES NECESARIO PONER EL NOMBRE DEL PROCEDIMIENTO QUE SE TERMINA PERO ES RECOMENDABLE
+-------------------------------------------------------------------------------
+(99) PARAMETROS DE FUNCIONES Y PROCEDIMIENTOS
+
+PL/SQL BLOCK    ------> IN    PROCEDURE
+                <------ OUTPUT
+				<-----> IN/OUT
+-------------------------------------------------------------------------------
+(100) PARAMETROS TIPO IN
+
+-- 1. PROCEDURE
+
+CREATE OR REPLACE PROCEDURE CALC_TAX 
+(EMPL IN EMPLOYEES.EMPLOYEE_ID%TYPE, --IN no es necesario ponerlo pero se recomienda las variables de entrada son de solo lectura no se pueden modificar se les pasa por referencia
+    T1 IN NUMBER)
+IS
+  TAX NUMBER:=0; --Impuesto
+  SAL NUMBER:=0; --Salario
+BEGIN
+   IF T1 <0 OR T1 > 60 THEN 
+      RAISE_APPLICATION_ERROR(-20000,'EL PORCENTAJE DEBE ESTAR ENTRE 0 Y 60');
+    END IF;
+   SELECT SALARY INTO SAL FROM EMPLOYEES    WHERE EMPLOYEE_ID=EMPL;
+   --T1:=0;  Esto da un error no se puede modificar por ser de entrada solo deben usarse para ser leida
+   TAX:=SAL*T1/100;
+   DBMS_OUTPUT.PUT_line('SALARY:'||SAL);
+   DBMS_OUTPUT.PUT_line('TAX:'||TAX);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+    DBMS_OUTPUT.PUT_line('NO EXISTE EL EMPLEADO');
+END;
+/
+
+-- primero compilar siempre para no tener una versión antigua si hicimos cambios inmediatamente compilar
+
+-- 2. LLAMARLO PARA USARLO
+
+set serveroutput on
+DECLARE
+  A NUMBER;
+  B NUMBER;
+begin
+  A:=120;
+  B:=5;
+  calc_tax(A,B);
+end;
+/
+
+SALIDA
+
+SALARY:9200
+TAX:460
+-------------------------------------------------------------------------------
+(101) PARAMETROS TIPO OUT
+
+-- 1. PROCEDURE (COMPILAR)
+
+create or replace PROCEDURE CALC_TAX_OUT 
+(EMPL IN EMPLOYEES.EMPLOYEE_ID%TYPE,
+    T1 IN NUMBER,
+    R1 OUT NUMBER)
+IS
+  --TAX NUMBER:=0;
+  SAL NUMBER:=0;
+BEGIN
+   IF T1 <0 OR T1 > 60 THEN 
+      RAISE_APPLICATION_ERROR(-20000,'EL PORCENTAJE DEBE ESTAR ENTRE 0 Y 60');
+    END IF;    
+   SELECT SALARY INTO SAL FROM EMPLOYEES    WHERE EMPLOYEE_ID=EMPL;
+   --T1:=0;
+   R1:=SAL*T1/100;
+   DBMS_OUTPUT.PUT_line('SALARY:'||SAL);
+  -- DBMS_OUTPUT.PUT_line('TAX:'||TAX);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+       DBMS_OUTPUT.PUT_line('NO EXISTE EL EMPLEADO');
+END;
+
+-- OUT devuelve un valor generado dentro del procedimiento
+-- Si cambiamos el valor de la variable OUT este cambia en el que lo llama
+
+-- 2. LLAMARLO PARA USARLO
+
+set serveroutput on
+DECLARE
+  A NUMBER;
+  B NUMBER;
+  R NUMBER;
+begin
+  A:=120;
+  B:=10;
+  R:=0;
+ CALC_TAX_OUT(A,B,R);
+ DBMS_OUTPUT.PUT_LINE('R='||R);
+end;
+/
+
+
+SALIDA
+
+SALARY:9200
+R=920
+
+-------------------------------------------------------------------------------
+(102) PARAMETROS TIPO IN-OUT
+
+-- 1. PROCEDURE (COMPILAR)
+
+create or replace PROCEDURE CALC_TAX_IN_OUT 
+(EMPL IN EMPLOYEES.EMPLOYEE_ID%TYPE,
+    T1 IN OUT NUMBER
+   )
+IS
+  --TAX NUMBER:=0;
+  SAL NUMBER:=0;
+BEGIN
+   IF T1 <0 OR T1 > 60 THEN 
+      RAISE_APPLICATION_ERROR(-20000,'EL PORCENTAJE DEBE ESTAR ENTRE 0 Y 60');
+    END IF;    
+   SELECT SALARY INTO SAL FROM EMPLOYEES    WHERE EMPLOYEE_ID=EMPL;
+   --T1:=0;
+   DBMS_OUTPUT.PUT_LINE('T1='||T1);
+   T1:=SAL*T1/100; --Recibe un valor en T1 y pone el resultado en T1
+   DBMS_OUTPUT.PUT_line('SALARY:'||SAL);
+  -- DBMS_OUTPUT.PUT_line('TAX:'||TAX);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+       DBMS_OUTPUT.PUT_line('NO EXISTE EL EMPLEADO');
+END;
+
+--in out me sirve para pasarle un valor y también para recibir el resultado
+--El icono triangulo verde con una hoja es compilar
+--Podemos tener varias variables in out por lo tanto un procedimiento podría devolver mas de un valor
+
+-- 2. LLAMARLO PARA USARLO
+
+set serveroutput on
+DECLARE
+  A NUMBER;
+  B NUMBER;
+  R NUMBER;
+begin
+  A:=120;
+  B:=10;
+ -- R:=1000;
+ CALC_TAX_IN_OUT(A,B);
+ DBMS_OUTPUT.PUT_LINE('B='||B);
+end;
+/
+
+SALIDA
+
+T1=10
+SALARY:9200
+B=920
+-------------------------------------------------------------------------------
+(103) PRACTICA DE PROCEDIMIENTOS Y PARAMETROS  (16-Practica+de+procedimientos+y+parámetros.pdf)
+
+
+-------------------------------------------------------------------------------
+(104) FUNCIONES
+
+-- 1. FUNCTION (COMPILAR)
+
+CREATE OR REPLACE FUNCTION CALC_TAX_F
+    (EMPL IN EMPLOYEES.EMPLOYEE_ID%TYPE,
+      T1 IN NUMBER)
+RETURN NUMBER --La diferencia con procedure e FUNCTION y RETURN NUMBER(TIPO QUE DEVUELVE)
+IS
+  TAX NUMBER:=0;
+  SAL NUMBER:=0;
+BEGIN
+   IF T1 <0 OR T1 > 60 THEN 
+      RAISE_APPLICATION_ERROR(-20000,'EL PORCENTAJE DEBE ESTAR ENTRE 0 Y 60');
+    END IF;
+   SELECT SALARY INTO SAL FROM EMPLOYEES WHERE EMPLOYEE_ID=EMPL;
+   --T1:=0;
+   TAX:=SAL*T1/100;
+   RETURN TAX; --Lo que retorna es un numero
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+       DBMS_OUTPUT.PUT_line('NO EXISTE EL EMPLEADO');
+END;
+
+-- Las funciones las puedo poner con comandos sql
+-- La buena práctica es que use solo variables de entrada tipo IN puede tambien usar out y in out pero no es aconsejable
+
+-- 2. LLAMARLO PARA USARLO
+
+set serveroutput on
+DECLARE
+  A NUMBER;
+  B NUMBER;
+  R NUMBER;
+begin
+  A:=120;
+  B:=10;
+  R:=CALC_TAX_F(A,B); --Al retornar un número tengo que guardarlo en una variable que recibe lo que retorna la función
+ DBMS_OUTPUT.PUT_LINE('R='||R);
+end;
+/
+
+SALIDA
+
+R=920
+
+-------------------------------------------------------------------------------
+(105) FUNCIONES EN COMANDOS SQL
+
+-- USAMOS LA FUNCION CREADA EN 104 YA DENTRO DE UN COMANDO SQL
+
+SELECT FIRST_NAME, SALARY, CALC_TAX_F(EMPLOYEE_ID,18) FROM EMPLOYEES;
+
+-- Si usamos funciones con comandos sql, la función sólo puede tener parametros de tipo IN o OUTPUT
+-- La función tiene que estar en la base de datos debajo del apartado Funciones
+-- La función debe devolver un valor de tipo sql y pl/sql
+
+-------------------------------------------------------------------------------
+(106) PRACTICA DE FUNCIONES (17-Practica+de+funciones.pdf)
+-------------------------------------------------------------------------------
+
+********************************
+***   SECCION 12: PACKAGES   ***
+********************************
+
+-------------------------------------------------------------------------------
+(107) INTRODUCCION A LOS PAQUETES
+
+Un paquete sería algo asi como una librería en los lenguajes de programación.
+Un paquete guarda otros objetos como por ejemplo procedimientos, funciones, cursores
+Un paquete crea una librería haciendo uso de otros objetos 
+
+			   --->  SPEC(ESPECIFICACION)   --- VARIABLES, DECLARACIONES
+PAQUETE PL/SQL
+			   --->  BODY                   --- VARIABLES, CODIGO, PROCEDURE, FUNCTION
+			   
+Si declaro un procedimiento en spec es público es decir puede ser accedido desde fuera y tengo que implementarlo en body.
+En body puedo tener procedimientos que no estan declarados en spec por lo que son privados e implementados en body.
+Todo lo que no este declarado en spec(es decir en body) no puede ser accedido fuera del paquete es decir en body ya que es privado.
+Cuando cree un paquete el spec siempre es obligatorio el body no es obligatorio.
+En spec puede ser que solo puedo tener variables por lo que no es necesario implementar nada en body.
+-------------------------------------------------------------------------------
+(108) CREAR LAS ESPECIFICACIONES DE UN PAQUETE
+
+Un paquete tiene 2 partes spec(Especificación) que es la cabecera y el cuerpo que es el body.
+
+El objeto paquete es un objeto mas de la base de datos y cuelga del apartado Packages.
+Cuando el paquete se crea este ya es accesible desde procedimientos y funciones o bloques anonimos.
+
+
+-- 1
+
+-- 1.1 CREAR PAQUETE SIN BODY SOLO SPEC
+
+CREATE OR REPLACE PACKAGE PACK1
+IS
+   V1 NUMBER;
+   V2 VARCHAR2(100);
+END;
+/
+
+-- 1.2 LLAMAR AL PAQUETE
+
+SET SERVEROUTPUT ON
+BEGIN
+   PACK1.V1 := 100;  --Inicializar variable
+   PACK1.V2 := 'AAAAA';
+   DBMS_OUTPUT.PUT_LINE(PACK1.V1);
+   DBMS_OUTPUT.PUT_LINE(PACK1.V2);
+END;
+
+SALIDA
+
+100
+AAAAA
+
+-------------------------------------------------------------------------------
+(109) AMBITO DE LAS VARIABLES EN UN PAQUETE
+
+-- 1
+
+-- 1.1
+
+CREATE OR REPLACE PACKAGE PACK1
+IS
+   V1 NUMBER:=10;
+   V2 VARCHAR2(100);
+END;
+/
+
+-- 1.2
+
+SET SERVEROUTPUT ON
+BEGIN
+ PACK1.V1:=PACK1.V1+10;
+ DBMS_OUTPUT.PUT_LINE(PACK1.V1);
+END;
+
+-- El valor de las variables declaradas en spec permanecen mientras este abierta la sesión no es como el procedimiento y funciones que se termina cuando termina el procedimiento o fución.
+-- Es como una variable global si se vuelve a ejecutar conserva el ultimo valor
+-- Facilita compartir valores entre procedimientos o funciones
+
+SALIDA
+
+20   Lo ejecuto
+
+30   Lo vuelvo ejecutar toma el 20 y lo incrementa en 10
+
+40   Lo vuelvo a ejecutar toma el 30 y lo incrementa en 10
+
+-------------------------------------------------------------------------------
+(110) CREAR EL CUERPO DE UN PAQUETE
+
+-- 1
+
+-- 1.1
+
+CREATE OR REPLACE PACKAGE PACK1
+IS
+  PROCEDURE CONVERT (NAME VARCHAR2, CONVERSION_TYPE CHAR);
+END;
+/
+
+CREATE OR REPLACE PACKAGE BODY PACK1
+IS
+FUNCTION UP(NAME VARCHAR2) RETURN VARCHAR2 
+IS
+BEGIN
+    RETURN UPPER(NAME);
+END UP;
+
+FUNCTION DO(NAME VARCHAR2) RETURN VARCHAR2 
+IS
+BEGIN
+    RETURN LOWER(NAME);
+END DO;
+
+PROCEDURE CONVERT (NAME VARCHAR2, CONVERSION_TYPE CHAR)
+ IS
+ BEGIN
+    IF CONVERSION_TYPE='U' THEN
+       DBMS_OUTPUT.PUT_LINE(UP(NAME));
+    ELSIF CONVERSION_TYPE='L' THEN
+       DBMS_OUTPUT.PUT_LINE(DO(NAME));
+    ELSE
+       DBMS_OUTPUT.PUT_LINE('EL PARAMETRO DEBE SER U o L');
+   END IF;
+END CONVERT;
+
+END PACK1;
+
+-- 1.2
+
+SET SERVEROUTPUT ON
+BEGIN
+ PACK1.CONVERT('aaaa','U');
+ 
+END;
+
+SALIDA
+
+AAAA
+-------------------------------------------------------------------------------
+(111) USAR FUNCIONES DE UN PAQUETE EN COMANDOS SQL
+
+-- 1
+
+-- 1.1
+
+CREATE OR REPLACE PACKAGE PACK1
+IS
+  FUNCTION CONVERT (NAME VARCHAR2, CONVERSION_TYPE CHAR) RETURN VARCHAR2;
+END;
+/
+
+CREATE OR REPLACE PACKAGE BODY PACK1
+IS
+FUNCTION UP(NAME VARCHAR2) RETURN VARCHAR2 
+IS
+BEGIN
+    RETURN UPPER(NAME);
+END UP;
+
+FUNCTION DO(NAME VARCHAR2) RETURN VARCHAR2 
+IS
+BEGIN
+    RETURN LOWER(NAME);
+END DO;
+
+FUNCTION CONVERT (NAME VARCHAR2, CONVERSION_TYPE CHAR) RETURN VARCHAR2
+ IS
+ BEGIN
+    IF CONVERSION_TYPE='U' THEN
+       RETURN(UP(NAME));
+    ELSIF CONVERSION_TYPE='L' THEN
+       RETURN(DO(NAME));
+    ELSE
+       DBMS_OUTPUT.PUT_LINE('EL PARAMETRO DEBE SER U o L');
+   END IF;
+END CONVERT;
+
+END PACK1;
+
+-- 1.2
+
+SET SERVEROUTPUT ON
+DECLARE
+  V1 VARCHAR2(100);
+BEGIN
+ V1:=PACK1.CONVERT('AAAAA','L');
+ DBMS_OUTPUT.PUT_LINE(V1);
+END;
+/
+
+SELECT
+    first_name,PACK1.CONVERT(FIRST_NAME,'L'),PACK1.CONVERT(LAST_NAME,'U')
+FROM
+    employees;
+
+SALIDA
+
+-------------------------------------------------------------------------------
+(112) SOBRECARGA DE PROCEDIMIENTOS
+
+Es la posibilidad de tener procedimientos y funciones siempre y cuando no coincidan sus argumentos.
+
+Ejemplo: P1(NUMBER)
+         P1(VARCHAR2)
+
+-- 1
+
+-- 1.1
+
+CREATE OR REPLACE PACKAGE PACK2 AS 
+
+  /* TODO enter package declarations (types, exceptions, methods etc) here */
+  FUNCTION COUNT_EMPLOYEES(ID NUMBER) RETURN NUMBER;
+  FUNCTION COUNT_EMPLOYEES(ID VARCHAR2) RETURN NUMBER;
+END PACK2;
+/
+CREATE OR REPLACE PACKAGE BODY PACK2 AS
+
+  FUNCTION COUNT_EMPLOYEES(ID NUMBER) RETURN NUMBER AS
+  X NUMBER;
+  BEGIN
+    -- TODO: Implementation required for FUNCTION PACK2.COUNT_EMPLOYEES
+    SELECT COUNT(*) INTO X FROM EMPLOYEES WHERE DEPARTMENT_ID=ID;
+    RETURN X;
+  END COUNT_EMPLOYEES;
+
+  FUNCTION COUNT_EMPLOYEES(ID VARCHAR2) RETURN NUMBER AS
+  X NUMBER;
+  BEGIN
+    -- TODO: Implementation required for FUNCTION PACK2.COUNT_EMPLOYEES
+    SELECT COUNT(*) INTO X FROM EMPLOYEES A, DEPARTMENTS B
+         WHERE DEPARTMENT_NAME=ID
+         AND A.DEPARTMENT_ID=B.DEPARTMENT_ID;
+       
+    RETURN X;
+  END COUNT_EMPLOYEES;
+
+END PACK2;
+
+-- 1.2
+
+SET SERVEROUTPUT ON
+BEGIN
+ DBMS_OUTPUT.PUT_LINE(PACK2.COUNT_EMPLOYEES(50));
+ DBMS_OUTPUT.PUT_LINE(PACK2.COUNT_EMPLOYEES('Marketing'));
+END;
+
+SALIDA
+
+45
+2
+-------------------------------------------------------------------------------
+(113) PAQUETES PREDEFINIDOS DE ORACLE
+
+PAQUETES QUE YA VIENEN CUANDO INSTALAMOS ORACLE:
+
+DBMS_OUTPUT
+UTL_FILE
+UTL_MAIL
+DBMS_ALERT
+DBMS_LOCK
+DBMS_SESSION
+DBMS_APPLICATION_INFO
+HTP
+DBMS_SCHEDULER
+
+Los paquetes suelen iniciar con dbms o utl pero no necesariamente
+
+Documentación: Database PL/SQL Packages and Types Reference
+
+-------------------------------------------------------------------------------
+(114) PAQUETES UTL_FILE
+
+UTL_FILE es un paquete predefinido por oracle que me permite trabajar con ficheros externos a la base de datos.
+UTL_FILE hay que ir a la documentación para ver como usarlo.
+Para usar UTL_FILE hay que darle los permisos adecuados.
+El uso de muchos paquetes defenidos por oracle puden tener problemas de seguridad por lo que el usuario tiene
+que tener permisos para crear directorios y tener permisos para ejecutar el paquete UTL_FILE
+
+Lo siguiente hay que hacerlo con una conexion a SYSTEM:
+GRANT CREATE ANY DIRECTORY TO HR;
+GRANT EXECUTE ON SYS.UTL_FILE TO HR;
+
+
+
+create or replace directory EXERCISES as 'C:\EXERCISES'
+
+DESC UTL_FILE
+
+-- 1
+-- 1.1
+
+set serveroutput on
+create or replace PROCEDURE read_file IS
+
+string VARCHAR2(32767); 
+Vfile UTL_FILE.FILE_TYPE; 
+
+BEGIN 
+-- Open FILE
+Vfile := UTL_FILE.FOPEN('EXERCISES','f1.txt','R'); 
+Loop
+    begin
+        --read line
+        UTL_FILE.GET_LINE(Vfile,string); 
+        INSERT INTO F1 VALUES(string); --Hay que crear previamente esta tabla
+        dbms_output.put_line(string);
+     EXCEPTION
+          WHEN NO_DATA_FOUND THEN EXIT; 
+    end;
+end loop;
+-- close file
+UTL_FILE.FCLOSE(Vfile);
+
+END;
+
+-- 1.2
+
+BEGIN
+   READ_FILE;
+END;
+/
+
+SALIDA
+
+a
+b
+c
+d
+e
+f
+g
+
+
+Configuración+UTL_FILE+Oracle+18+Express.pdf
+
+-------------------------------------------------------------------------------
+(115) PRACTICAS CON PAQUETES (18-Practica+de+paquetes.pdf)
+
+-------------------------------------------------------------------------------
+
+********************************
+***   SECCION 13: TRIGGERS   ***
+********************************
+
+-------------------------------------------------------------------------------
+(116) INTRODUCCION A LOS TRIGGERS
+
+Los triggers son objetos muy especiales que estan dentro de pl/sql y que se puede
+utilizar para multiples cosas como auditoria, control, cambio de lógica de negocio
+
+Los triggers pueden ser de distintos tipos 
+ 
+Hay una imagen interesante que no me deja copiar
+-------------------------------------------------------------------------------
+(117) TIPOS Y EVENTOS EN LOS TRIGGERS
+
+Un triggers se dispara cuando se da un determinado evento.
+
+
+TIPOS          EVENTOS               FILAS AFECTADAS
+BEFORE         INSERT
+AFTER   -----> UPDATE
+INSTEAD OF     DELETE
+
+-------------------------------------------------------------------------------
+(118) CREAR UN TRIGGER
+
+Cada vez que alguien inserte un registro en la tabla regions
+voy a guardar en una tabla LOG_TABLE el mensaje "INSERCION EN LA TABLA REGIONS" y
+el usuario que lo realizó.
+
+Se lanza el evento insertar ese evento lanza el trigger AFTER(DESPUES DEL EVENTO)
+
+Crear previamente la tabla LOG_TABLE
+
+-- 1  CREO LA TABLA
+
+CREATE TABLE Log_Table (
+    log_column 	VARCHAR2(200),
+    user_name   VARCHAR2(20)
+);
+
+-- 2  COMPILO EL TRIGGER
+
+CREATE OR REPLACE TRIGGER INS_EMPL 
+AFTER INSERT ON REGIONS 
+BEGIN
+  INSERT INTO LOG_TABLE VALUES('INSERCION EN LA TABLA REGIONS',USER);
+END;
+
+-- 3 INSERTAR UN REGISTRO EN LA TABLA REGIONS
+
+INSERT INTO REGIONS VALUES (1000,'TEST_REGION');
+
+INSERT INTO REGIONS VALUES (1001,'TEST_REGION1');
+
+-- LO HAGO DESDE LA CONSOLA PLSQL
+connect hr/hr@localhost:1521/XEPDB1
+INSERT INTO REGIONS VALUES (1002,'TEST_REGION2');
+COMMIT; --IMPORTANTE
+
+-- LO HAGO DESDE LA CONSOLA PLSQL
+connect system/12345678@localhost:1521/XEPDB1
+INSERT INTO HR.REGIONS VALUES (1003,'TEST_REGION3');
+COMMIT; --IMPORTANTE
+
+-- Creo la tabla en 1, Compilo el trigger en 2, Ejecuto la inserción en 3 entonces de dispara el trigger ins_empl
+-------------------------------------------------------------------------------
+(119) IMPEDIR OPERACIONES CON TRIGGERS
+
+Ejemplo controlar para que no se graba una fila en la base de datos
+Sólo el usuario HR pueda insertar filas en la tabla prohibier para el resto de usuarios
+BEFORE ANTES DEL EVENTO (EL EVENTO ES INSERTAR UN REGISTRO) CONTROLA EL USUARIO
+
+-- 1 COMPILO
+
+create or replace TRIGGER TR1_REGION 
+BEFORE INSERT ON REGIONS 
+BEGIN
+  IF USER <>'HR' THEN
+    RAISE_APPLICATION_ERROR(-20000,'SOLO HR PUEDE TRABAJAR EN REGIONS');
+  END IF;
+END;
+
+-- 2 GENERO EL EVENTO CON INSERT
+
+INSERT INTO REGIONS VALUES (1005,'REGION5'); -- SE INGRESA PORQUE ES EL USUARIO HR QUIEN LO EJECUTA.
+
+-- 3 LO HAGO DESDE LA CONSOLA PLSQL
+connect system/12345678@localhost:1521/XEPDB1
+INSERT INTO HR.REGIONS VALUES (1007,'TEST_REGION7');
+COMMIT; --IMPORTANTE
+
+
+ERROR en lnea 1:  --ACABO DE IMPEDIR QUE OTROS USUARIOS DISTITOS A HR NO PUEDAN INSERTAR
+ORA-20000: SOLO HR PUEDE TRABAJAR EN REGIONS
+ORA-06512: en "HR.TR1_REGION", lnea 3
+ORA-04088: error durante la ejecucin del disparador
+
+-------------------------------------------------------------------------------
+(120) CREAR TRIGGERES CON EVENTOS MULTIPLES
+
+Vamos a ver como controlar mas de una operación al mismo tiempo:
+No es necesario crear un trigger por cada operación.
+
+EJEMPLO 1: BEFORE SIGNIFICA QUE ANTES DE INSERTAR, MODIFICAR O BORRAR HAGO LA OPERACION QUE ESTA ENTRE BEGIN Y END ES DECIR VERIFICO SI EL USUARIO ES DISTINTO A HR NO PUEDO TRABAJAR EN LA TABLA REGIONS ES DECIR NO PUEDO INSERTAR, MODIFICAR O BORRAR
+
+-- 1.1  CREAR EL TRIGGER
+
+CREATE OR REPLACE TRIGGER TR1_REGION 
+BEFORE INSERT OR UPDATE OR DELETE
+ON REGIONS --BEFORE SIGNIFICA QUE ANTES DE INSERTAR, MODIFICAR O BORRAR HAGO LA OPERACION QUE ESTA ENTRE BEGIN Y END
+BEGIN
+  IF USER <>'HR' THEN
+    RAISE_APPLICATION_ERROR(-20000,'SOLO HR PUEDE TRABAJAR EN REGIONS');
+  END IF;
+  
+END;
+
+-- 1.2  HACER ESTA OPERACION CON EL USUARIO SYSTEM Y COMO EL USUARIO ES DISTINTO A HR NO PUEDO HACER ESTA OPERACION PORQUE SE LANZA EL TRIGGER
+
+UPDATE HR.REGIONS SET REGION_NAME='XXXX'
+WHERE REGION_ID = 1000;
+
+EJEMPLO 2: TRABAJAR SOLO CON COLUMNAS EN EL UPDATE ES DECIR NO DESEO CONTROLAR EL UPDATE COMPLETO COMO EL EJEMPLO ANTERIOR SINO SOLAMENTE CUANDO SE ACCEDE A DETERMINADAS COLUMNAS
+POR EJEMPLO NO QUIERO QUE SE TOQUE LA COLUMNA REGION_NAME
+QUE EL TRIGGER SE DISPARE SI SE MODIFICA UNA SOLA COLUMNA
+
+
+
+-- 2.1 CREAR EL TRIGGER
+
+CREATE OR REPLACE TRIGGER TR1_REGION 
+BEFORE INSERT OR UPDATE OF REGION_NAME OR DELETE
+ON REGIONS --BEFORE SIGNIFICA QUE ANTES DE INSERTAR, MODIFICAR O BORRAR HAGO LA OPERACION QUE ESTA ENTRE BEGIN Y END
+		 --LOGICAMENTE NO HAY COLUMNAS PARA INSERT Y DELETE YA QUE SE ELIMINA O SE INSERTA UN TODO.
+		 --PUEDO INDICAR MAS COLUMNAS UPDATE OF REGION_NAME, COLUMNA2,COLUMNA3
+BEGIN
+  IF USER <>'HR' THEN
+    RAISE_APPLICATION_ERROR(-20000,'SOLO HR PUEDE TRABAJAR EN REGIONS');
+  END IF;
+  
+END;
+
+-- 2.2  TRATO DE MODIFICAR LA COLUMNA REGION_NAME
+
+UPDATE HR.REGIONS SET REGION_NAME='XXXX'
+WHERE REGION_ID = 1000;
+
+---> FALLA
+
+-- 2.3 TRATO MODIFICAR LA COLUMNA REGION_ID=1040
+
+UPDATE HR.REGIONS SET REGION_ID=1040
+WHERE REGION_ID = 1000;
+COMMIT; --IMPORTANTE SINO NO SE MUESTRA EL RESULTADO DEL CAMBIO
+
+---> EXITO  PORQUE SE ACTUALIZA UN CAMPO QUE NO ESTA RESTRINGIDO
+
+-------------------------------------------------------------------------------
+(121) CONTROLAR EL TIPO DE EVENTO
+
+Para mi es importante saber quien ha disparado
+Si yo quiero hacer algo que es distinto para un insert que para un update o que para un delete es decir un trigger para cada un tipo.
+
+
+EJEMPLO 1
+
+-- 1.1 CREO EL TRIGGER
+
+create or replace TRIGGER TR1_REGION 
+BEFORE INSERT OR UPDATE OR DELETE
+ON REGIONS 
+BEGIN
+   
+   IF INSERTING THEN --La operación que ha disparado el trigger es un insert
+     INSERT INTO LOG_TABLE VALUES ('INSERCION',USER); --Guardo en esta tabla la operación que se hizo que es inserción y el usuario quien hizo dicha operación
+   END IF;
+   IF UPDATING('REGION_NAME') THEN --La operación que ha disparado el trigger es un update
+                                   --IF UPDATING THEN  si fuera así es para cualquier columna que se modifique
+                                   --En este caso sólo para la columna region_name que es la que se mofifica y lanza el trigger
+      INSERT INTO LOG_TABLE VALUES ('UPDATE DE REGION_NAME', USER);
+   END IF;
+   IF UPDATING('REGION_ID') THEN
+      INSERT INTO LOG_TABLE VALUES ('UPDATE DE REGION_ID', USER);
+   END IF;
+   IF DELETING  THEN
+      INSERT INTO LOG_TABLE VALUES ('DELETE', USER);
+   END IF;
+   
+  /*IF USER <>'HR' THEN
+    RAISE_APPLICATION_ERROR(-20000,'SOLO HR PUEDE TRABAJAR EN REGIONS');
+  END IF;*/
+  
+END;
+
+--Borramos el trigger ins_empl porque ya la insersión lo hacemos desde este trigger
+-- DROP TRIGGER INS_EMPL;
+
+-- 1.2 CON EL USUARIO SYSTEM REALIZO LA OPERACION INSERT QUE SERÁ LA QUE LANCE EL TRIGGER DE 1.1
+
+INSERT INTO HR.REGIONS VALUES(1050,'REGION6');
+COMMIT;
+
+UPDATE HR.REGIONS SET REGION_ID=1100 WHERE REGION_ID=1050; --Si modifico cuaquier campo de la tqabla regions
+COMMIT;
+
+UPDATE HR.REGIONS SET REGION_NAME='REGION90' WHERE REGION_ID=1050;
+COMMIT;
+
+SALIDA
+
+En la tabla log_table se inserta el registro
+'INSERCION EN LA TABLA REGIONS',SYSTEM
+
+-------------------------------------------------------------------------------
+(122) TRIGGERS DE TIPO ROW
+
+Se dispara por cada fila de la operación
+
+Teoría hay unos gráficos interesantes que no se puede copiar por la proteccion que tiene udemy.
+
+-------------------------------------------------------------------------------
+(123) CREAR UN TRIGGER DE TIPO ROW
+
+
+EJEMPLO 1
+
+-- 1.1 EL TRIGGER QUE SE LANZA POR CADA FILA QUE SE ACTULICE DE LA TABLA
+
+create or replace TRIGGER TR1_REGION 
+BEFORE INSERT OR UPDATE OR DELETE
+ON REGIONS 
+FOR EACH ROW -- ESTE ES LA CLAVE QUE HACE QUE SE LANCE POR CADA FILA QUE ES UNA OPERACION POR CADA FILA 
+BEGIN 
+   IF INSERTING THEN
+    :NEW.REGION_NAME:=UPPER(:NEW.REGION_NAME); --POR CADA FILA PROCESADA ME LO PONE EN MAYUSCULA
+     INSERT INTO LOG_TABLE VALUES ('INSERCION',USER);
+   END IF;
+   IF UPDATING('REGION_NAME') THEN
+      :NEW.REGION_NAME:=UPPER(:NEW.REGION_NAME);
+      INSERT INTO LOG_TABLE VALUES ('UPDATE DE REGION_NAME', USER);
+   END IF;
+   IF UPDATING('REGION_ID') THEN
+      INSERT INTO LOG_TABLE VALUES ('UPDATE DE REGION_ID', USER);
+   END IF;
+   IF DELETING  THEN
+      INSERT INTO LOG_TABLE VALUES ('DELETE', USER);
+   END IF;
+   
+  /*IF USER <>'HR' THEN
+    RAISE_APPLICATION_ERROR(-20000,'SOLO HR PUEDE TRABAJAR EN REGIONS');
+  END IF;*/
+  
+END;
+
+-- 1.2   USUARIO HR
+
+UPDATE REGIONS SET REGION_NAME=LOWER(REGION_NAME);
+COMMIT;
+
+INSERT INTO REGIONS VALUES(1090,'region89');
+COMMIT;
+
+SALIDA
+La tabla log_table se inserta uno por cada una de las actualizacion que hace por cada fila
+
+-------------------------------------------------------------------------------
+(124) CLAUSULA WHEN
+
+La clausula when es una condición que puedo poner para que el trigger se lance
+bajo ciertas circunstancias.
+
+Por ejemplo quiero que se dispare cuando "WHEN (NEW.REGION_ID> 1000)"  :new se pone dentro de begin pero aqui new no esta dentro de begin por lo que sepone sin dos puntos.
+
+BORRAR EL CONTENIDO DE UNA TABLA
+BD la tabla log_name, Tabla, Truncar...
+
+EJEMPLO 1
+
+-- 1.1 CREAR TRIGGER
+
+create or replace TRIGGER TR1_REGION 
+BEFORE INSERT OR UPDATE OR DELETE
+ON REGIONS 
+FOR EACH ROW
+WHEN (NEW.REGION_ID> 1000)
+BEGIN 
+   IF INSERTING THEN
+    :NEW.REGION_NAME:=UPPER(:NEW.REGION_NAME);
+     INSERT INTO LOG_TABLE VALUES ('INSERCION',USER);
+   END IF;
+   IF UPDATING('REGION_NAME') THEN
+      :NEW.REGION_NAME:=UPPER(:NEW.REGION_NAME);
+      INSERT INTO LOG_TABLE VALUES ('UPDATE DE REGION_NAME', USER);
+   END IF;
+   IF UPDATING('REGION_ID') THEN
+      INSERT INTO LOG_TABLE VALUES ('UPDATE DE REGION_ID', USER);
+   END IF;
+   IF DELETING  THEN
+      INSERT INTO LOG_TABLE VALUES ('DELETE', USER);
+   END IF;
+   
+  /*IF USER <>'HR' THEN
+    RAISE_APPLICATION_ERROR(-20000,'SOLO HR PUEDE TRABAJAR EN REGIONS');
+  END IF;*/
+  
+END;
+
+-- 1.2 OPERACION QUE LANZA EL TRIGGER
+
+INSERT INTO REGIONS VALUES(124,'REGIONS124');
+COMMIT;
+
+SALIDA
+No se lanza el trigger ya que no cumple la condición esta WHEN (NEW.REGION_ID> 1000) es decir 124 >1000 es falsa.
+
+-- 1.3 OPERACION QUE LANZA EL TRIGGER
+
+INSERT INTO REGIONS VALUES(1240,'REGIONS1240');
+COMMIT;
+
+SALIDA
+Se lanza el trigger ya que cumple la condición esta WHEN (NEW.REGION_ID> 1000) es decir 1240 >1000 es verdadera. Entonces en la tabla LOG_TABLE se inserta el registro:
+"insercion hr"(log_column,user_name)
+
+-- 1.4 OPERACION QUE LANZA EL TRIGGER
+
+UPDATE REGIONS SET REGION_NAME='HOLA' || '-' || REGION_ID;
+COMMIT;
+
+SALIDA
+En log_table sólo se graban 9 porque solo esos cumplen con la condición >1000 su id.
+pero en la tabla regions si se actualizan todos los registros.
+
+-------------------------------------------------------------------------------
+(125) COMPROBAR EL ESTAO DE LOS TRIGGERS
+
+-- 1
+
+DESC USER_TRIGGERS;
+
+SALIDA
+
+Nombre            ¿Nulo? Tipo           
+----------------- ------ -------------- 
+TRIGGER_NAME             VARCHAR2(128)  
+TRIGGER_TYPE             VARCHAR2(16)   
+TRIGGERING_EVENT         VARCHAR2(246)  
+TABLE_OWNER              VARCHAR2(128)  
+BASE_OBJECT_TYPE         VARCHAR2(18)   
+TABLE_NAME               VARCHAR2(128)  
+COLUMN_NAME              VARCHAR2(4000) 
+REFERENCING_NAMES        VARCHAR2(422)  
+WHEN_CLAUSE              VARCHAR2(4000) 
+STATUS                   VARCHAR2(8)    
+DESCRIPTION              VARCHAR2(4000) 
+ACTION_TYPE              VARCHAR2(11)   
+TRIGGER_BODY             LONG           
+CROSSEDITION             VARCHAR2(7)    
+BEFORE_STATEMENT         VARCHAR2(3)    
+BEFORE_ROW               VARCHAR2(3)    
+AFTER_ROW                VARCHAR2(3)    
+AFTER_STATEMENT          VARCHAR2(3)    
+INSTEAD_OF_ROW           VARCHAR2(3)    
+FIRE_ONCE                VARCHAR2(3)    
+APPLY_SERVER_ONLY        VARCHAR2(3)  
+
+-- 2  NOMBRE CODIGO DE LOS TRIGGERS
+
+SELECT TRIGGER_NAME, TRIGGER_TYPE, TRIGGERING_EVENT, ACTION_TYPE, TRIGGER_BODY FROM USER_TRIGGERS;
+COMMIT;
+
+-- 3 ESTADO DE LOS TRIGGERS
+
+SELECT OBJECT_NAME, OBJECT_TYPE, STATUS
+FROM USER_OBJECTS
+WHERE OBJECT_TYPE='TRIGGER';
+
+-------------------------------------------------------------------------------
+(126) TRABAJAR CON LOS TRIGGERS EN MODO COMANDO
+
+Manejar los triggers en modo comando. Desacticar, Compilar triggers.
+
+Ejemplo: Hacer un trigger invalido.
+
+1. Por decir el ejemplo siguiente escribo "IF INSERTONG THEN" que es incorrecto lo compilo su estado sera invalido
+
+create or replace TRIGGER TR1_REGION 
+BEFORE INSERT OR UPDATE OR DELETE
+ON REGIONS 
+FOR EACH ROW
+WHEN (NEW.REGION_ID> 1000)
+BEGIN 
+   IF INSERTONG THEN
+    :NEW.REGION_NAME:=UPPER(:NEW.REGION_NAME);
+     INSERT INTO LOG_TABLE VALUES ('INSERCION',USER);
+   END IF;
+   IF UPDATING('REGION_NAME') THEN
+      :NEW.REGION_NAME:=UPPER(:NEW.REGION_NAME);
+      INSERT INTO LOG_TABLE VALUES ('UPDATE DE REGION_NAME', USER);
+   END IF;
+   IF UPDATING('REGION_ID') THEN
+      INSERT INTO LOG_TABLE VALUES ('UPDATE DE REGION_ID', USER);
+   END IF;
+   IF DELETING  THEN
+      INSERT INTO LOG_TABLE VALUES ('DELETE', USER);
+   END IF;
+   
+  /*IF USER <>'HR' THEN
+    RAISE_APPLICATION_ERROR(-20000,'SOLO HR PUEDE TRABAJAR EN REGIONS');
+  END IF;*/
+  
+END;
+
+2. 
+
+SELECT OBJECT_NAME, OBJECT_TYPE, STATUS
+FROM USER_OBJECTS
+WHERE OBJECT_TYPE='TRIGGER';
+
+SALIDA
+El trigger en 1 me sale invalido en la columna STATUS
+
+3. El trigger 1 tambien puedo compilarlo con el siguiente comando
+
+ALTER TRIGGER TR1_REGION COMPILE;
+
+4. MOSTRAR LOS ULTIMOS ERRORES QUE SE HAN PRODUCIDO
+
+SELECT * FROM USER_ERRORS;
+
+5. UN TRIGGER SIEMPRE ESTA ACTIVO PERO PUEDO DESACTIVARLO PORQUE NECESITO GRABAR COSAS Y EL TRIGGER ME ESTA FASTIDIANDO PARA LUEGO ACTIVARLO OTRA VEZ. ES DESIR PODEMOS DESACTIVARLO TEMPORALMENTE
+
+ALTER TRIGGER TR1_REGION DISABLE;
+
+SELECT TRIGGER_NAME, STATUS FROM USER_TRIGGERS;  --Con esto vemos que esta el trigger disables
+
+ALTER TRIGGER TR1_REGION ENABLE;   --Vuelvo activar el trigger
+
+
+
+-------------------------------------------------------------------------------
+(127) TRIGGERS DE TIPO COMPOUND
+
+Tipo de trigger DDL.
+Trigger compuesto. Aparecio en la version 11 permite tener sobre un un solo objeto
+distintos tipos de trigger
+
+TRIGGER COMPOUND:
+   DECLARACION(TIPO, EVENTO, ETC...)
+      - BEFORE STATEMENT IS
+	  - AFTER STATEMENT IS
+	  - BEFORE EACH ROW IS
+	  - AFTER EACH ROW IS
+-------------------------------------------------------------------------------
+(128) CREAR UN TRIGGER DE TIPO COMPOUND
+
+EJEMPLO 1
+
+-- 1. CREAR TRIGGER. TENGO EN SOLO TRIGGER LOS 4 TIPOS
+
+CREATE OR REPLACE TRIGGER trigger1 
+FOR DELETE OR INSERT OR UPDATE ON regions --Operaciones que quiero controlar 
+COMPOUND TRIGGER --Cuando se dispara el trigger solo se ejecuta el bloque que corresponde
+    BEFORE STATEMENT IS BEGIN
+        INSERT INTO LOG_TABLE VALUES('BEFORE STATEMENT',USER);
+    END BEFORE STATEMENT;
+    
+    AFTER STATEMENT IS BEGIN
+        INSERT INTO LOG_TABLE VALUES('AFTER STATEMENT',USER);
+    END AFTER STATEMENT;
+    
+    BEFORE EACH ROW IS BEGIN
+        INSERT INTO LOG_TABLE VALUES('BEFORE EACH ROW',USER);
+    END BEFORE EACH ROW;
+   
+   AFTER EACH ROW IS BEGIN
+        INSERT INTO LOG_TABLE VALUES('AFTER EACH ROW',USER);
+    END AFTER EACH ROW;
+END trigger1;
+
+-- 2. OPERACION QUE LANZA EL TRIGGER
+
+ALTER TRIGGER TR1_REGION DISABLE; --Evita que salga "AFTER STATEMENT HR" otra vez
+INSERT INTO REGIONS VALUES(9001,'REGION9000');
+COMMIT;
+
+SALIDA
+EN LA TABLA LOG_TABLE SE GRABA ESTO:
+BEFORE STATEMENT	HR
+BEFORE EACH ROW	HR
+INSERCION	HR
+AFTER EACH ROW	HR
+
+
+-- 3. OPERACION QUE LANZA EL TRIGGER
+
+UPDATE REGIONS SET REGION_NAME='AAA';
+
+SALIDA: SE HA DISPARADO POR CADA UNA DE LAS FILAS EN LA TABLA REGIONS QUE ACTUALIZAMOS CADA FILA.
+BEFORE STATEMENT	HR
+BEFORE EACH ROW	HR
+AFTER EACH ROW	HR
+BEFORE EACH ROW	HR
+AFTER EACH ROW	HR
+BEFORE EACH ROW	HR
+AFTER EACH ROW	HR
+BEFORE EACH ROW	HR
+AFTER EACH ROW	HR
+BEFORE EACH ROW	HR
+AFTER EACH ROW	HR
+BEFORE EACH ROW	HR
+AFTER EACH ROW	HR
+BEFORE EACH ROW	HR
+AFTER EACH ROW	HR
+BEFORE EACH ROW	HR
+AFTER EACH ROW	HR
+BEFORE EACH ROW	HR
+AFTER EACH ROW	HR
+BEFORE EACH ROW	HR
+AFTER EACH ROW	HR
+BEFORE EACH ROW	HR
+AFTER EACH ROW	HR
+BEFORE EACH ROW	HR
+AFTER EACH ROW	HR
+BEFORE EACH ROW	HR
+AFTER EACH ROW	HR
+BEFORE EACH ROW	HR
+AFTER EACH ROW	HR
+BEFORE EACH ROW	HR
+AFTER EACH ROW	HR
+BEFORE EACH ROW	HR
+AFTER EACH ROW	HR
+BEFORE EACH ROW	HR
+AFTER EACH ROW	HR
+BEFORE EACH ROW	HR
+AFTER EACH ROW	HR
+BEFORE EACH ROW	HR
+AFTER EACH ROW	HR
+AFTER STATEMENT	HR
+
+
+-------------------------------------------------------------------------------
+(129) TRIGGERS DE TIPO DDL
+
+Cuando uno desea crear una tabla o borrar un objeto
+Por ejemplo controlar el borrado
+
+Ejemplo: Quiero evitar que se elimine una tabla.
+
+-- 1. TRIGGER QUE SE LANZA CUANDO SE INENTA HACER UNA OPERACION DE UNA TABLA
+
+CREATE OR REPLACE TRIGGER TRIGGER_DDL 
+BEFORE DROP ON HR.SCHEMA --Esto es lo que cambia ya no es un insert, update o delete es un DROP
+BEGIN
+  RAISE_APPLICATION_ERROR(-20000,'NO SE PUEDE BORRAR TABLAS');
+END;
+
+-- 2. OPERACION QUE LANZA EL TRIGGER. EN ESTE CASO SE IMPIDE QUE SE BORRE LA TABLA ES DECIR EL OBJETO MISMO
+
+DROP TABLE LOG_TABLE;
+COMMIT;
+
+-------------------------------------------------------------------------------
+(130) PRACTICA DE TRIGGERS  (18-Practicas+de+Triggers.pdf)
+
+-------------------------------------------------------------------------------
+
+
+
+
+
+****************************
+***   TRIGGER MIO 0001   ***
+****************************
+
+NOTA
+----
+Trabajar con el usuario ARTURO.
+Creo un trigger que se dispare antes de realizar la operación de insersión y se dispara por cada fila que se inserte
+
+-- 1. CREO UNA SECUENCIA
+
+CREATE SEQUENCE seq_alumno START WITH 1 INCREMENT BY 1;
+
+-- 2. CREO UN TRIGGER
+
+CREATE OR REPLACE TRIGGER before_insert_alumno_1
+BEFORE INSERT ON Alumno
+FOR EACH ROW
+BEGIN
+    SELECT seq_alumno.NEXTVAL
+    INTO :NEW.idalumno
+    FROM dual;
+END;
+/
+
+-- 3. EJECUTAR OPERACION QUE DISPARA EL TRIGGER
+
+INSERT INTO Alumno (nombre,edad,estatura,escasado) VALUES ('Arturo',45,1.72,1);
+
+-- LEYENDA
+
+BEFORE INSERT ON clientes indica que este trigger se activará antes de una operación de inserción en la tabla clientes.
+
+FOR EACH ROW especifica que el trigger se aplica a cada fila individual que se está insertando.
+
+:NEW.id_cliente se refiere al valor de la columna id_cliente que se está insertando. :NEW es una referencia especial en un trigger BEFORE que se refiere a los valores nuevos que se están insertando.
+
+seq_clientes.NEXTVAL es una secuencia que genera un nuevo valor de id_cliente.
+
+FROM dual se utiliza porque NEXTVAL de una secuencia debe ser seleccionado desde dual, ya que no es una operación de tabla normal.
+
+Con este trigger en lugar, si intentamos insertar un nuevo cliente sin proporcionar un id_cliente, el trigger automáticamente generará y asignará un valor a esa columna. 
+
+Esto resultaría en una nueva fila en la tabla clientes con un id_cliente autoincrementado generado por la secuencia seq_clientes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

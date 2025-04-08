@@ -1,0 +1,7 @@
+NOMBRE PROYECTO: MiguelDjango/
+                     proyectoexamen
+					 
+				 Maven_MVC_Miguel
+				     miguel/        <-- PAQUETE
+					   controlador
+					   modelo

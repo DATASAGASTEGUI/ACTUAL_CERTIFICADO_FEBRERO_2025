@@ -1,0 +1,3 @@
+@startuml
+Emmpresa "1" *-- "1..*" Empleado
+@enduml

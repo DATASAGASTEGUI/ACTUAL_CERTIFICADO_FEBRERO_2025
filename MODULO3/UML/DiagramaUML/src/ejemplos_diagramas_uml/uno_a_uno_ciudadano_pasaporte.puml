@@ -1,0 +1,17 @@
+@startuml
+class Ciudadano {
+    - nombre: String
+    - pasaporte: Pasaporte
+    + asignarPasaporte(p: Pasaporte)
+    + getNombre(): String
+    + getPasaporte(): Pasaporte
+}
+
+class Pasaporte {
+    - numero: String
+    + getNumero(): String
+}
+
+Ciudadano --> Pasaporte : 1 a 1
+@enduml
+

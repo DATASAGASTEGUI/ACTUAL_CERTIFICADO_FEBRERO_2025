@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "CREAR_BIBLIOTECA.C": "cpp",
+        "CREAR_BIBLIOTECA_PUNTERO.C": "cpp"
+    }
+}

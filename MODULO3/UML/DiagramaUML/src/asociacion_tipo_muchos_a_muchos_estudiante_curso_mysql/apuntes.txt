@@ -1,0 +1,825 @@
+TE DOY TODAS LAS CLASES DE MI PROGRAMA EN JAVA PERO TENGO UN ERROR
+CUANDO INENTO ELIMINAR UN ESTUDIANTE QUE ES LA OPCION 7 E INGRESO
+EL IDESTUDIANTE PARA ELIMINAR LUEGO PONGO UN JOPTION PARA CONFIRMAR
+SI DESE HACER EL COMMIT ES DECIR CONFIRMAR LA ALIMINACION DEL ESTUDIANTE
+Y EN CASCADA DE SUS HIJOS Y SI DIGO NO HAGO EL ROLLBACK PARA REVERTIR LOS CAMBIOS
+PERO SE ME QUEDA COLGANDO DESPUES DE INGRESAR EL IDESTUDIANTE QUE DESEO ELIMINAR
+MAS ABAJO TE DOY TAMBIEN MI SCRIPT EN MYSQL QUE CREA MI BASE DE DATOS ME PUEDES CORREGIR
+LO QUE TE COMENTO Y PORQUE SUCEDE
+
+package asociacion_tipo_muchos_a_muchos_estudiante_curso_mysql;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Estudiante {
+
+    // VARIABLES DE INSTANCIA
+    private String idEstudiante;
+    private String nombre;
+    private List<Inscripcion> inscripciones; //Relación con inscripción
+
+    // CONSTRUCTORES
+    public Estudiante() {
+        this.idEstudiante = "";
+        this.nombre = "";
+        this.inscripciones = null;
+    }
+
+    public Estudiante(String idEstudiante, String nombre) {
+        this.idEstudiante = idEstudiante;
+        this.nombre = nombre;
+        inscripciones = new ArrayList<>();
+    }
+    
+    // METODOS SET Y GET
+    public String getIdEstudiante() {
+        return idEstudiante;
+    }
+
+    public void setIdEstudiante(String idEstudiante) {
+        this.idEstudiante = idEstudiante;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    // METODO TOSTRING
+    @Override
+    public String toString() {
+        return "Estudiante{" + "idEstudiante=" + idEstudiante + ", nombre=" + nombre + '}';
+    }
+    
+    // METODO RELACION INSCRIPCION
+    public void inscribirCurso(Curso curso, String fechaInscripcion) {
+        Inscripcion inscripcion = new Inscripcion(this,curso,fechaInscripcion);
+        this.inscripciones.add(inscripcion);
+    }
+}
+
+package asociacion_tipo_muchos_a_muchos_estudiante_curso_mysql;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Curso {
+
+    // VARIABLES DE INSTANCIA
+    private String idCurso;
+    private String nombre;
+    private List<Inscripcion> inscripciones;
+
+    // CONSTRUCTORES
+    public Curso() {
+        this.idCurso = "";
+        this.nombre = "";
+        this.inscripciones = null;
+    }
+
+    public Curso(String idCurso, String nombre) {
+        this.idCurso = idCurso;
+        this.nombre = nombre;
+        this.inscripciones = new ArrayList<>();
+    }
+
+    // METODOS SET Y GET
+    public String getIdCurso() {
+        return idCurso;
+    }
+
+    public void setIdCurso(String idCurso) {
+        this.idCurso = idCurso;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    // METODO TOSTRING
+    @Override
+    public String toString() {
+        return "Curso{" + "idCurso=" + idCurso + ", nombre=" + nombre + '}';
+    }
+
+    // METODO RELACION INSCRIPCION
+    public void agregarInscripcion(Inscripcion inscripcion) {
+        this.inscripciones.add(inscripcion);
+    }
+}
+
+
+package asociacion_tipo_muchos_a_muchos_estudiante_curso_mysql;
+
+
+public class Inscripcion {
+
+    // VARIABLES DE INSTANCIA
+    private Estudiante estudiante;
+    private Curso curso;
+    private String fechaInscripcion;
+
+    // CONSTRUCTORES
+    public Inscripcion() {
+        this.estudiante = null;
+        this.curso = null;
+        this.fechaInscripcion = "";
+    }
+
+    public Inscripcion(Estudiante estudiante, Curso curso, String fechaInscripcion) {
+        this.estudiante = estudiante;
+        this.curso = curso;
+        this.fechaInscripcion = fechaInscripcion;
+    }
+    
+    // METODOS SET Y GET
+    public Estudiante getEstudiante() {
+        return estudiante;
+    }
+
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
+    public String getFechaInscripcion() {
+        return fechaInscripcion;
+    }
+
+    public void setFechaInscripcion(String fechaInscripcion) {
+        this.fechaInscripcion = fechaInscripcion;
+    }
+    
+    // METODO TOSTRING
+
+    @Override
+    public String toString() {
+        return "Inscripcion{" + "estudiante=" + estudiante + ", curso=" + curso + ", fechaInscripcion=" + fechaInscripcion + '}';
+    }
+}
+
+package asociacion_tipo_muchos_a_muchos_estudiante_curso_mysql;
+
+import java.util.List;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+public class Data {
+    
+    private Connection conexion;
+
+    public Data(Connection conexion) {
+        this.conexion = conexion;
+    }
+    
+    
+
+    public void getEstudiantesCursosInscripciones(List<Estudiante> estudiantes, List<Curso> cursos, List<Inscripcion> inscripciones) {
+        estudiantes.clear();
+        cursos.clear();
+        inscripciones.clear();
+        
+        cargarListaEstudiantes(estudiantes);
+        cargarListaCursos(cursos);
+        cargarListaInscripciones(inscripciones, estudiantes, cursos);
+
+    }
+    
+    // READ
+    public void cargarListaEstudiantes(List<Estudiante> estudiantes) {
+        String query = "SELECT * FROM estudiantes";
+        try {
+             PreparedStatement ps = conexion.prepareStatement(query);
+             ResultSet rs = ps.executeQuery();
+             while(rs.next()) {
+                 Estudiante estudiante = new Estudiante(
+                          rs.getString("id_estudiante"), //1
+                          rs.getString("nombre") //2
+                 );
+                 estudiantes.add(estudiante);
+             }
+            
+        }catch(SQLException e) {
+            System.out.println("Error: Query Select Estudiantes");
+            //Principal.pause();
+        }
+    }
+    
+    // READ
+    public void cargarListaCursos(List<Curso> cursos) {
+        String query = "SELECT * FROM cursos";
+        try {
+             PreparedStatement ps = conexion.prepareStatement(query);
+             ResultSet rs = ps.executeQuery();
+             while(rs.next()) {
+                 Curso curso = new Curso(
+                          rs.getString("id_curso"), //1
+                          rs.getString("nombre") //2
+                 );
+                 cursos.add(curso);
+             }
+            
+        }catch(SQLException e) {
+            System.out.println("Error: Query Select Cursos");
+            //Principal.pause();
+        }
+    }  
+    
+    // READ
+    public void cargarListaInscripciones(List<Inscripcion> inscripciones, List<Estudiante> estudiantes, List<Curso> cursos) {
+        String query = "SELECT * FROM inscripciones";
+        try {
+             PreparedStatement ps = conexion.prepareStatement(query);
+             ResultSet rs = ps.executeQuery();
+             while(rs.next()) {
+                 String idEstudiante = rs.getString("id_estudiante");
+                 String idCurso = rs.getString("id_curso");
+                 GestionMatricula gm = new GestionMatricula(estudiantes, cursos);
+                 
+                 Estudiante estudiante = gm.buscarObjetoEstudiante(idEstudiante);
+                 Curso curso = gm.buscarObjetoCurso(idCurso);
+                 
+                 
+                 Inscripcion inscripcion = new Inscripcion(
+                          estudiante, curso, rs.getDate("fecha_inscripcion").toString()
+                          
+                 );
+                 inscripciones.add(inscripcion);
+             }
+            
+        }catch(SQLException e) {
+            System.out.println("Error: Query Select Cursos");
+            //Principal.pause();
+        }
+    }
+    
+    // CREATE
+    public void insertarInscripcion(String idEstudiante, String idCurso, String fechaInscripcion) throws ParseException {
+        String query = "INSERT INTO Inscripciones(id_estudiante, id_curso, fecha_inscripcion) VALUES (?,?,?)";
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date dateutil = formato.parse(fechaInscripcion);
+        java.sql.Date datesql = new java.sql.Date(dateutil.getTime());
+        try {
+              PreparedStatement ps = conexion.prepareStatement(query);
+              ps.setString(1, idEstudiante);
+              ps.setString(2, idCurso);
+              ps.setDate(3, datesql);
+              ps.executeUpdate();
+        }catch(SQLException e) {
+            System.out.println("Error: Quere Insert Inscripcion");
+        }
+    }
+    
+    // UPDATE
+    public void actualizarNombreEstudiante(String idEstudiante, String nombreNuevo) {
+        String query = "UPDATE estudiantes SET nombre = ? WHERE id_estudiante = ?";
+        try {
+              PreparedStatement ps = conexion.prepareStatement(query);
+              ps.setString(1, nombreNuevo);
+              ps.setString(2, idEstudiante);
+              ps.executeUpdate();
+        }catch(SQLException e) {
+            System.out.println("Error: Query Update Estudiantes");
+        }
+    }
+
+    // DELETE
+    public void eliminarEstudiante(String idEstudiante) {
+        String query = "DELETE FROM estudiantes WHERE id_estudiante = ?";
+        try {
+              //conexion.setAutoCommit(false);
+              PreparedStatement ps = conexion.prepareStatement(query);
+              ps.setString(1, idEstudiante);
+              ps.executeUpdate();
+              //conexion.commit();
+        }catch(SQLException e) {
+            System.out.println("Error: Query Delete Estudiantes" + e.getMessage());
+        }
+    }    
+
+}
+
+package asociacion_tipo_muchos_a_muchos_estudiante_curso_mysql;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class GestionMatricula {
+
+    // VARIABLES DE INSTANCIA
+    private List<Estudiante> estudiantes;
+    private List<Curso> cursos;
+    private List<Inscripcion> inscripciones;
+
+    // CONSTRUCTORES
+    public GestionMatricula() {
+        this.estudiantes = null;
+        this.cursos = null;
+        this.inscripciones = null;
+    }
+
+    public GestionMatricula(List<Estudiante> estudiantes, List<Curso> cursos, List<Inscripcion> inscripciones) {
+        this.estudiantes = estudiantes;
+        this.cursos = cursos;
+        this.inscripciones = inscripciones;
+    }
+    
+    public GestionMatricula(List<Estudiante> estudiantes, List<Curso> cursos) {
+        this.estudiantes = estudiantes;
+        this.cursos = cursos;
+    }
+
+    // METODOS SET Y GET
+    public List<Estudiante> getEstudiantes() {
+        return estudiantes;
+    }
+
+    public void setEstudiantes(List<Estudiante> estudiantes) {
+        this.estudiantes = estudiantes;
+    }
+
+    public List<Curso> getCursos() {
+        return cursos;
+    }
+
+    public void setCursos(List<Curso> cursos) {
+        this.cursos = cursos;
+    }
+
+    public List<Inscripcion> getInscripciones() {
+        return inscripciones;
+    }
+
+    public void setInscripciones(List<Inscripcion> inscripciones) {
+        this.inscripciones = inscripciones;
+    }
+    
+    // METODO TOSTRING
+    @Override
+    public String toString() {
+        return "GestionMatricula{" + "estudiantes=" + estudiantes + ", cursos=" + cursos + ", inscripciones=" + inscripciones + '}';
+    }
+    
+    // METODOS CRUD
+    // READ
+    public void mostrarTodosEstudiantes() {
+       if(this.estudiantes.size() > 0) {
+            for(Estudiante e: this.estudiantes) {
+                System.out.println(e);
+            }
+       }else {
+            System.out.println("Warning: Lista vacia");
+       }
+    }
+    
+    // READ
+    public void mostrarTodosCursos() {
+       for(Curso c: this.cursos) {
+           System.out.println(c);
+       }
+    } 
+    
+    // READ
+    public void mostrarTodasInscripciones() {
+       for(Inscripcion i: this.inscripciones) {
+           System.out.println(i);
+       }
+    }     
+    
+    // READ
+    public List<String> obtenerAsignaturasDeUnEstudiante(String idEstudiante) {
+        List<String> nombresCursos = new ArrayList<>();
+        for(Inscripcion inscripcion: this.inscripciones) {
+            Curso curso = inscripcion.getCurso();
+            Estudiante estudiante = inscripcion.getEstudiante();
+            if(estudiante.getIdEstudiante().equalsIgnoreCase(idEstudiante)) {
+               nombresCursos.add(curso.getNombre());
+            }
+        }
+        return nombresCursos;
+    }
+    
+    // READ
+    public Estudiante buscarObjetoEstudiante(String idEstudiante) {
+        for(Estudiante estudiante: this.estudiantes) {
+            if(estudiante.getIdEstudiante().equalsIgnoreCase(idEstudiante)) {
+               return estudiante; 
+            }
+        }
+        return null;
+    }
+    // READ
+    public Curso buscarObjetoCurso(String idCurso) {
+        for(Curso curso: this.cursos) {
+            if(curso.getIdCurso().equalsIgnoreCase(idCurso)) {
+               return curso; 
+            }
+        }
+        return null;
+    }
+    
+    // CREATE (INSERT = inscripciones.add)
+    public void insertarObjetoInscripcion(Inscripcion inscripcion) {
+       this.inscripciones.add(inscripcion);
+    }
+    
+    // READ
+    public List<Estudiante> obtenerTodosEstudiantesDadoAsignatura(String idAsignatura) {
+        List<Estudiante> estudiantes = new ArrayList<>();
+        for(Inscripcion inscripcion: this.inscripciones) {
+            Curso curso = inscripcion.getCurso();
+            Estudiante estudiante = inscripcion.getEstudiante();
+            if(curso.getIdCurso().equalsIgnoreCase(idAsignatura)) {
+               estudiantes.add(estudiante);
+            }
+        }
+        return estudiantes;
+    }
+    
+    // DELETE
+    public void eliminarObjetoEstudiante(String idEstudiante) {
+        Iterator<Estudiante> iterator = estudiantes.iterator();
+        while (iterator.hasNext()) {
+              Estudiante estudiante = iterator.next();
+              if(estudiante.getIdEstudiante().equalsIgnoreCase(idEstudiante)) {
+                 iterator.remove(); // Eliminación segura usando el iterador
+              }
+        }        
+    }
+    
+}
+
+package asociacion_tipo_muchos_a_muchos_estudiante_curso_mysql;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.DriverManager;
+
+public class ConexionMySql {
+    
+    public static Connection getConexion() {
+        String url = "jdbc:mysql://localhost:3307/gestion_matriculas";
+        String usuario = "root";
+        String clave = "12345678";
+        Connection conexion = null;
+        try {
+            conexion = DriverManager.getConnection(url, usuario,clave);
+            conexion.setAutoCommit(false); //START TRANSACTION (DESABILITAR EL COMMIT AUTOMATICO)
+        }catch(SQLException e) {
+            conexion = null;
+        }
+        return conexion;
+    }
+    
+}
+
+
+package asociacion_tipo_muchos_a_muchos_estudiante_curso_mysql;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+
+public class Principal {
+
+    static Scanner sc = new Scanner(System.in);
+
+    static List<Estudiante> estudiantes = null;
+    static List<Curso> cursos = null;
+    static List<Inscripcion> inscripciones = null;
+
+    static GestionMatricula gm = null;
+
+    static Data data = null;
+
+    static Connection conexion = ConexionMySql.getConexion();
+
+    public static void main(String[] args) {
+        estudiantes = new ArrayList<>();
+        cursos = new ArrayList<>();
+        inscripciones = new ArrayList<>();
+
+        if (conexion != null) {
+            System.out.println("Ok: Conexión");
+            data = new Data(conexion);
+            data.getEstudiantesCursosInscripciones(estudiantes, cursos, inscripciones);
+            gm = new GestionMatricula(estudiantes, cursos, inscripciones);
+
+        } else {
+            System.out.println("Error: Conexión");
+        }
+
+        String opcion = "";
+        do {
+            cls();
+            mostrarMenu();
+            opcion = sc.next();
+
+            switch (opcion) {
+                case "1":
+                    cls();
+                    opcion1();
+                    pause();
+                    break;
+                case "2":
+                    cls();
+                    opcion2();
+                    pause();
+                    break;
+                case "3":
+                    cls();
+                    opcion3();
+                    pause();
+                    break;
+                case "4":
+                    cls();
+                    opcion4();
+                    pause();
+                    break;
+                case "5":
+                    cls();
+                    opcion5();
+                    pause();
+                    break;
+                case "6":
+                    cls();
+                    opcion6();
+                    pause();
+                    break;
+                case "7":
+                    cls();
+                    opcion7();
+                    pause();
+                    break;
+                case "8":
+                    cls();
+                    opcion8();
+                    pause();
+                    break;
+
+                case "0":
+                    cls();
+                    System.out.println("Gracia por su visita");
+                    pause();
+                    System.exit(0);
+                    break;
+                default:
+                    cls();
+                    System.out.println("Opción no existe");
+                    pause();
+            }
+        } while (true);
+    }
+
+    private static void mostrarMenu() {
+        System.out.println("SISTEMA GESTION DE MATRICULAS");
+        System.out.println("-----------------------------");
+        System.out.println("[1] Mostrar todos los estudiantes");
+        System.out.println("[2] Mostrar todos los cursos");
+        System.out.println("[3] Mostrar las asignaturas de un alumno dado su id");
+        System.out.println("[4] Realizar una matricula");
+        System.out.println("[5] Mostrar los estudiantes de una asignatura dado su id");
+        System.out.println("[6] Actualizar nombre de un estudiante dado su id");
+        System.out.println("[7] Eliminar un estudiante dado su id");
+        System.out.println("[8] Mostrar todas las incripciones");
+        System.out.println("[0] Salir");
+
+        System.out.print("Ingrese su opción? ");
+    }
+
+    private static void opcion1() {
+        System.out.println("[1] Mostrar todos los estudiantes");
+        System.out.println("---------------------------------");
+        gm.mostrarTodosEstudiantes();
+    }
+
+    private static void opcion2() {
+        System.out.println("[2] Mostrar todos los cursos");
+        System.out.println("----------------------------");
+        gm.mostrarTodosCursos();
+    }
+
+    private static void opcion3() {
+        System.out.println("[3] Mostrar las asignaturas de un alumno dado su id");
+        System.out.println("---------------------------------------------------");
+        System.out.println("Ingrese el id del estudiante? ");
+        String idEstudiante = sc.next();
+        List<String> nombresCursos = gm.obtenerAsignaturasDeUnEstudiante(idEstudiante);
+        if (nombresCursos.size() > 0) {
+            for (String nombre : nombresCursos) {
+                System.out.println(nombre);
+            }
+        } else {
+            System.out.println("Estudiante no matriculado o no existe dicho idEstudiante");
+        }
+    }
+
+    private static void opcion4() {
+        System.out.println("[4] Realizar una matricula");
+        System.out.println("--------------------------");
+        String idCurso = "";
+        System.out.println("Ingrese el id del estudiante? ");
+        String idEstudiante = sc.next();
+        Estudiante estudiante = gm.buscarObjetoEstudiante(idEstudiante);
+        if (estudiante != null) {
+            System.out.println("Selecciones un curso a matricular: ");
+            List<Curso> cursos = gm.getCursos();
+            for (Curso curso : cursos) {
+                System.out.println(curso.getIdCurso() + " " + curso.getNombre());
+            }
+            System.out.println("Escriba el id del curso a matricular? ");
+            idCurso = sc.next();
+            Curso curso = gm.buscarObjetoCurso(idCurso);
+            if (curso != null) {
+                Inscripcion inscripcion = new Inscripcion(estudiante, curso, "2025-01-04");
+                gm.insertarObjetoInscripcion(inscripcion);
+                try {
+                    data.insertarInscripcion(idEstudiante, idCurso, "2025-01-04");
+                } catch (ParseException ex) {
+                    System.out.println("Error: Insert Inscripción");
+                }
+
+                System.out.println("Matricula realizada");
+            } else {
+                System.out.println("El id del curso no existe");
+            }
+        } else {
+            System.out.println("Estudiante con dicho id no existe");
+        }
+    }
+
+    private static void opcion5() {
+        System.out.println("[5] Mostrar los estudiantes de una asignatura dado su id");
+        System.out.println("--------------------------------------------------------");
+        System.out.println("Ingrese el id de la asignatura? ");
+        String idAsignatura = sc.next();
+        List<Estudiante> estudiantes = gm.obtenerTodosEstudiantesDadoAsignatura(idAsignatura);
+        if (estudiantes.size() > 0) {
+            for (Estudiante estudiante : estudiantes) {
+                System.out.println(estudiante);
+            }
+        } else {
+            System.out.println("No hay alumnos matriculados o no existe dicho idAsignatura");
+        }
+    }
+
+    private static void opcion6() {
+        System.out.println("[6] Actualizar nombre de un estudiante dado su id");
+        System.out.println("-------------------------------------------------");
+        String nombreNuevo = "";
+        System.out.println("Ingrese id del estudiante? ");
+        String idEstudiante = sc.next();
+        Estudiante estudiante = gm.buscarObjetoEstudiante(idEstudiante);
+        if (estudiante != null) {
+            System.out.println("Ingrese nombre nuevo? ");
+            nombreNuevo = sc.next();
+            estudiante.setNombre(nombreNuevo);
+            data.actualizarNombreEstudiante(idEstudiante, nombreNuevo);
+            System.out.println("Actualización del nombre satisfactorio");
+        } else {
+            System.out.println("El idEstudiante no existe");
+        }
+    }
+
+    private static void opcion7() {
+        System.out.println("[7] Eliminar un estudiante dado su id");
+        System.out.println("-------------------------------------");
+        System.out.print("Ingrese el id del estudiante a eliminar? ");
+        String idEstudiante = sc.next();
+        Estudiante estudiante = gm.buscarObjetoEstudiante(idEstudiante);
+        if (estudiante != null) {
+            gm.eliminarObjetoEstudiante(idEstudiante);
+
+            data.eliminarEstudiante(idEstudiante);
+            
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas confirmar la operación?", "Confirmar", JOptionPane.YES_NO_OPTION);
+            if (opcion == JOptionPane.YES_OPTION) {
+                try {
+                    conexion.commit();
+                } catch (SQLException ex) {
+                    System.out.println("Error: Commit Manual");
+                }
+            } else {
+                try {
+                    conexion.rollback();
+                } catch (SQLException ex) {
+                    System.out.println("Error: Rollback Manual");
+                }
+            }
+
+            data.getEstudiantesCursosInscripciones(estudiantes, cursos, inscripciones);
+            System.out.println("Eliminacion del estudiante satisfactorio");
+            
+        } else {
+           
+              System.out.println("No existe estudiante con dicho id");
+        }
+            
+
+    }
+
+    private static void opcion8() {
+        System.out.println("[8] Mostrar todos las incripciones");
+        System.out.println("----------------------------------");
+        gm.mostrarTodasInscripciones();
+    }
+
+    public static void pause() {
+        try {
+            System.out.print("\nPresiona una tecla para continuar...");
+            System.in.read();
+        } catch (IOException e) {
+        }
+    }
+
+    private static void cls() {
+        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    }
+
+                               }
+
+AQUI ESTA EL SCRIPT DE MI BASE DE DATOS
+
+-- Borrar la base de datos
+DROP DATABASE IF EXISTS gestion_matriculas;
+
+-- Creación de la base de datos
+CREATE DATABASE IF NOT EXISTS gestion_matriculas;
+USE gestion_matriculas;
+
+-- Tabla Estudiantes
+CREATE TABLE estudiantes (
+    id_estudiante VARCHAR(10) PRIMARY KEY,
+    nombre        VARCHAR(50) NOT NULL
+);
+
+-- Tabla Cursos
+CREATE TABLE cursos (
+    id_curso VARCHAR(10) PRIMARY KEY,
+    nombre   VARCHAR(50) NOT NULL
+);
+
+-- Tabla Inscripciones (relación muchos a muchos)
+CREATE TABLE inscripciones (
+    id_inscripcion    INT AUTO_INCREMENT PRIMARY KEY,
+    id_estudiante     VARCHAR(10) NOT NULL,
+    id_curso          VARCHAR(10) NOT NULL,
+    fecha_inscripcion DATE        NOT NULL,
+                      FOREIGN KEY (id_estudiante) REFERENCES estudiantes(id_estudiante) ON DELETE CASCADE,
+                      FOREIGN KEY (id_curso) REFERENCES cursos(id_curso)
+);
+
+-- Datos de prueba
+INSERT INTO estudiantes (id_estudiante, nombre) VALUES 
+('E1', 'Luis'),
+('E2', 'Miguel'),
+('E3', 'Carlos'),
+('E4', 'María'),
+('E5', 'Silvia');
+
+INSERT INTO cursos (id_curso, nombre) VALUES 
+('Mat', 'Matemática'),
+('Qui', 'Química'),
+('Fis', 'Física');
+
+INSERT INTO inscripciones (id_estudiante, id_curso, fecha_inscripcion) VALUES 
+('E1', 'Mat', '2025-01-01'),
+('E1', 'Qui', '2025-01-01'),
+('E1', 'Fis', '2025-01-01'),
+('E2', 'Mat', '2025-01-02'),
+('E2', 'Qui', '2025-01-02'),
+('E3', 'Mat', '2025-01-01'),
+('E3', 'Fis', '2025-01-01'),
+('E4', 'Mat', '2025-01-01'),
+('E5', 'Qui', '2025-01-01');
+
+
+

@@ -1,0 +1,174 @@
+****************
+***   0001   ***   ASIGNATURAS PARA UN ESTUDIANTE (FICHA MATRICULA)
+****************
+
+(1) DOCUMENTO
+
+--------------------------------------------------------------------------------
+id_alumno nombre_alumno 
+------    -----
+
+curso: -----
+
+asignatura: -----
+            -----
+			-----
+			-----
+--------------------------------------------------------------------------------
+			
+(2) TABLA
+			
+----------------------------------------------------------------------------------------------------
+AlumnoID 	| NombreAlumno 	| Curso 	| Asignatura1 | Asignatura2 | Asignatura3 	| FechaMatricula
+----------------------------------------------------------------------------------------------------
+A001 		| Juan Pérez 	| 1º ESO 	| Matemáticas | Lengua 		| Historia 		| 2024-09-01
+A002 		| Ana López 	| 1º ESO 	| Matemáticas | Lengua 		| Inglés 		| 2024-09-01
+----------------------------------------------------------------------------------------------------
+
+(3) NORMALIZAR
+
+LISTA CAMPOS
+------------
+
+id_alumno
+nombre_alumno
+fecha_matricula
+curso (identificador asignatura)
+secuencia
+descripcion_asignatura
+
+1 FORMA NORMAL
+--------------
+No tiene campos repetidos
+
+*id_alumno
+nombre_alumno
+curso
+fecha_matricula
+
+*id_alumno
+*secuencia
+descripcion_asignatura
+
+
+------------------------------------------------
+id_alumno nombre_alumno curso    fecha_matricula
+------------------------------------------------
+A001      Juan Pérez    1º ESO   2024-09-01
+A002      Ana López     1º ESO   2024-09-01
+------------------------------------------------
+
+--------------------------------
+id_alumno secuencia descripcion_asignatura
+--------------------------------
+A001      1			Matemática
+A001      2			Lengua
+A001      3			Historia
+A001      4			Religión
+A002      1			Matemática
+A002      2			Lengua
+A002      3			Ingles
+
+2 FORMA NORMAL
+--------------
+Conseguir dependencia funcional completa
+(Eliminar las dependencias parciales)
+
+*id_alumno
+nombre_alumno
+curso
+fecha_matricula
+
+*id_alumno
+*secuencia
+descripcion_asignatura
+
+3 FORMA NORMAL
+--------------
+ELIMINAR LA TRANSITIVIDAD
+(CAMPOS NO CLAVES DEPENDEN DE OTROS CAMPOS NO CLAVE)
+
+*id_alumno
+nombre_alumno
+curso
+fecha_matricula
+
+*id_alumno
+*id_asignatura
+
+*id_asignatura
+descripcion_asignatura
+
+ALUMNO
+------------------------------------------------
+id_alumno nombre_alumno curso    fecha_matricula
+------------------------------------------------
+A001      Juan Pérez    1º ESO   2024-09-01
+A002      Ana López     1º ESO   2024-09-01
+------------------------------------------------
+
+MATRICULA
+-------------------------
+id_alumno   id_asignatura
+-------------------------
+A001      	AS1
+A001        AS2
+A001        AS3
+A001        AS4
+A002      	AS1
+A002        AS2
+A002        AS5
+-------------------------
+
+ASIGNATURA
+--------------------------------------
+id_asignatura   descripcion_asignatura
+--------------------------------------
+AS1             Matemática
+AS2             Lengua
+AS3             Historia
+AS4             Religión
+AS5             Inglés
+--------------------------------------
+
+
+ALUMNO                ASIGNATURA
+1                     1..N
+1..M                      1
+
+
+
+
+
+
+
+
+
+
+
+
+****************
+***   0002   *** 
+****************
+
+(1) DOCUMENTO
+
+id_matricula
+-----
+
+nombre_alumno   dni_alumno   
+
+
+(2) TABLA
+
+----------------------------------------------------------------------------------------------------------------
+MatriculaID | AlumnoNombre 	| AlumnoDNI | ProfesorNombre 	| Curso 		| Aula | FechaInicio 	| FechaFin
+M001 		| Laura Ríos 	| 12345678A | Pedro Gómez 		| Python Básico | A101 | 2025-01-10 	| 2025-04-10
+M002 		| Mario Peña 	| 87654321B | Pedro Gómez 		| Python Básico | A101 | 2025-01-10 	| 2025-04-10
+----------------------------------------------------------------------------------------------------------------
+
+(3) NORMALIZAR
+
+
+
+

@@ -1,6 +1,6 @@
 @ECHO OFF
 
-:INCIO
+:INICIO
 CLS
 ECHO MENU
 ECHO ----
@@ -91,4 +91,4 @@ IF "8"=="%OPCION%" (
    EXIT
 )
 
-GOTO INCIO
+GOTO INICIO

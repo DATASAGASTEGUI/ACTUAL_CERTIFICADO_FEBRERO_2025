@@ -1,0 +1,234 @@
+--------------------------------------------------------------------------------
+/src
+  └── modelo/
+      ├── Estudiante.java
+      ├── Curso.java
+  └── dao/
+      ├── Conexion.java
+      ├── EstudianteDAO.java
+      ├── CursoDAO.java
+  └── Main.java
+--------------------------------------------------------------------------------
+CREATE DATABASE Escuela;
+
+USE Escuela;
+
+-- Tabla Estudiante
+CREATE TABLE Estudiante (
+    id_estudiante INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100)
+);
+
+-- Tabla Curso
+CREATE TABLE Curso (
+    id_curso INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100)
+);
+
+-- Tabla intermedia: Estudiante_Curso
+CREATE TABLE Estudiante_Curso (
+    id_estudiante INT,
+    id_curso INT,
+    PRIMARY KEY (id_estudiante, id_curso),
+    FOREIGN KEY (id_estudiante) REFERENCES Estudiante(id_estudiante),
+    FOREIGN KEY (id_curso) REFERENCES Curso(id_curso)
+);
+
+INSERT INTO Estudiante (id_estudiante, nombre) VALUES
+(1, 'Ana Martínez'),
+(2, 'Carlos Pérez'),
+(3, 'Lucía Gómez');
+
+INSERT INTO Curso (id_curso, nombre) VALUES
+(1, 'Matemáticas'),
+(2, 'Historia'),
+(3, 'Programación');
+
+INSERT INTO Estudiante_Curso (id_estudiante, id_curso, fecha_inscripcion) VALUES
+(1, 1, '2025-06-01'),  -- Ana Martínez se inscribió en Matemáticas
+(1, 3, '2025-06-02'),  -- Ana Martínez se inscribió en Programación
+(2, 1, '2025-06-01'),  -- Carlos Pérez se inscribió en Matemáticas
+(2, 2, '2025-06-03'),  -- Carlos Pérez se inscribió en Historia
+(3, 3, '2025-06-04');  -- Lucía Gómez se inscribió en Programación
+--------------------------------------------------------------------------------
+package modelo;
+
+public class Curso {
+    private int id;
+    private String nombre;
+
+    public Curso(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Curso(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
+    // Getters y Setters
+    public int getId() { return id; }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+}
+--------------------------------------------------------------------------
+package dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class Conexion {
+    private static final String URL = "jdbc:mysql://localhost:3306/Escuela";
+    private static final String USUARIO = "root";
+    private static final String CLAVE = ""; // ajusta si tienes contraseña
+
+    public static Connection getConexion() {
+        try {
+            return DriverManager.getConnection(URL, USUARIO, CLAVE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+}
+------------------------------------------------------------------------------
+package dao;
+
+import modelo.Curso;
+import modelo.Estudiante;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class EstudianteDAO {
+
+    public void guardarEstudianteConCursos(Estudiante estudiante) {
+        String sqlEstudiante = "INSERT INTO Estudiante(nombre) VALUES(?)";
+        String sqlRelacion = "INSERT INTO Estudiante_Curso(id_estudiante, id_curso) VALUES(?, ?)";
+
+        try (Connection con = Conexion.getConexion()) {
+            // Insertar estudiante
+            PreparedStatement psEst = con.prepareStatement(sqlEstudiante, PreparedStatement.RETURN_GENERATED_KEYS);
+            psEst.setString(1, estudiante.getNombre());
+            psEst.executeUpdate();
+
+            var rs = psEst.getGeneratedKeys();
+            if (rs.next()) {
+                int idEstudiante = rs.getInt(1);
+
+                // Insertar relaciones con cursos
+                for (Curso curso : estudiante.getCursos()) {
+                    PreparedStatement psRel = con.prepareStatement(sqlRelacion);
+                    psRel.setInt(1, idEstudiante);
+                    psRel.setInt(2, curso.getId());
+                    psRel.executeUpdate();
+                }
+
+                System.out.println("Estudiante y cursos insertados correctamente.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+--------------------------------------------------------------------------------
+import dao.EstudianteDAO;
+import modelo.Curso;
+import modelo.Estudiante;
+
+public class Main {
+    public static void main(String[] args) {
+        // Crear cursos existentes (con IDs ya insertados en la BD)
+        Curso matematicas = new Curso(1, "Matemáticas");
+        Curso programacion = new Curso(2, "Programación");
+
+        // Crear estudiante y asignar cursos
+        Estudiante est1 = new Estudiante("Juan Pérez");
+        est1.agregarCurso(matematicas);
+        est1.agregarCurso(programacion);
+
+        // Guardar en BD
+        EstudianteDAO dao = new EstudianteDAO();
+        dao.guardarEstudianteConCursos(est1);
+    }
+}
+--------------------------------------------------------------------------------
+package modelo;
+
+import java.time.LocalDate;
+
+public class EstudianteCurso {
+    private int idEstudiante;
+    private int idCurso;
+    private LocalDate fechaInscripcion;
+
+    public EstudianteCurso(int idEstudiante, int idCurso, LocalDate fechaInscripcion) {
+        this.idEstudiante = idEstudiante;
+        this.idCurso = idCurso;
+        this.fechaInscripcion = fechaInscripcion;
+    }
+
+    // Getters y Setters
+    public int getIdEstudiante() { return idEstudiante; }
+    public void setIdEstudiante(int idEstudiante) { this.idEstudiante = idEstudiante; }
+
+    public int getIdCurso() { return idCurso; }
+    public void setIdCurso(int idCurso) { this.idCurso = idCurso; }
+
+    public LocalDate getFechaInscripcion() { return fechaInscripcion; }
+    public void setFechaInscripcion(LocalDate fechaInscripcion) { this.fechaInscripcion = fechaInscripcion; }
+}
+
+CREATE TABLE Estudiante_Curso (
+    id_estudiante INT,
+    id_curso INT,
+    fecha_inscripcion DATE,
+    PRIMARY KEY (id_estudiante, id_curso),
+    FOREIGN KEY (id_estudiante) REFERENCES Estudiante(id_estudiante),
+    FOREIGN KEY (id_curso) REFERENCES Curso(id_curso)
+);
+
+
+--------------------------------------------------------------------------------
+import dao.EstudianteCursoDAO;
+import modelo.EstudianteCurso;
+import java.time.LocalDate;
+
+public class Main {
+    public static void main(String[] args) {
+        EstudianteCurso ec = new EstudianteCurso(1, 2, LocalDate.now());
+        EstudianteCursoDAO dao = new EstudianteCursoDAO();
+        dao.insertarRelacion(ec);
+    }
+}
+--------------------------------------------------------------------------------
+package dao;
+
+import modelo.EstudianteCurso;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Date;
+
+public class EstudianteCursoDAO {
+    public void insertarRelacion(EstudianteCurso ec) {
+        String sql = "INSERT INTO Estudiante_Curso(id_estudiante, id_curso, fecha_inscripcion) VALUES (?, ?, ?)";
+        try (Connection con = Conexion.getConexion()) {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, ec.getIdEstudiante());
+            ps.setInt(2, ec.getIdCurso());
+            ps.setDate(3, Date.valueOf(ec.getFechaInscripcion()));
+            ps.executeUpdate();
+            System.out.println("Relación estudiante-curso insertada correctamente.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------

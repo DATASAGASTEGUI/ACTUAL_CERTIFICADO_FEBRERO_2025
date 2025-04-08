@@ -1,0 +1,8 @@
+               Servlet
+index.jsp ---> MostrarTablaAlumnos.java ---> ConexionMysql.java
+Formulario<--- Armar la página          <---  Crud.java
+Pedir                                            - obtenerListaAlumnos()
+
+Vista           Nexo(Controlador)            Data
+
+MVC = MODELO VISTA CONTROLADOR

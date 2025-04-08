@@ -1,0 +1,52 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 01{% endblock %}
+
+{% block content %} 
+<h2>[01] Hacer un formulario para obtener las raices de una ecuación cuadrática</h2>
+
+
+<form action="" method="post">
+    {% csrf_token %}
+    <!-- ENTRADA -->
+     <p>
+      <label for="a">Valor de A</label>
+      <input type="text" name="txtA" id="a" value="{{ a }}" required />
+     </p>
+     <p>
+      <label for="b">Valor de B</label>
+      <input type="text" name="txtB" id="b" value="{{ b }}" required  />
+     </p>
+     <p>
+      <label for="c">Valor de C</label>
+      <input type="text" name="txtC" id="c" value="{{ c }}" required />
+     </p>
+    <!-- SALIDA -->
+     <p>
+      <label for="x1">Valor de X1</label>
+      <input type="text" name="txtX1" id="x1" value="{{ x1 }}"  readonly />
+     </p>
+     <p>
+      <label for="x2">Valor de X2</label>
+      <input type="text" name="txtX2" id="x2" value="{{ x2 }}"  readonly />
+     </p>
+     <p>
+      <label for="m">Mensaje</label>
+      <input type="text" name="txtM" id="m" value="{{ mensaje }}"  readonly />
+     </p>
+    <!-- EVENTO -->
+     <p>
+    <input type="submit" value="Calcular Raices" name = 'cmdRaices'/>
+    <input type="submit" value="Reiniciar" name = 'cmdNuevo'/>
+     </p>
+</form>
+
+
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,188 @@
+show dbs
+cls
+use
+db
+db.nombre_coleccion.insertOne({})
+
+db.tipoCafe.find()
+
+db.tipoCafe.insertMany([
+{
+    nombre: 'María',
+    bebida: 'Café Expreso',
+    cantidad: 3,
+    stock: 77,
+    disponible: true
+},
+{
+    nombre: 'Carlos',
+    bebida: 'Café Expreso',
+    cantidad: 5,
+    stock: 72,
+    disponible: true
+}
+])
+
+db.tipoCafe.updateOne({nombre: "Carla"},{$set:{nombre: "Carolina"}})
+db.tipoCafe.deleteOne({_id:ObjectId('681cc612bfa1030c81e86a1d')})
+
+CRUD = CREATE READ UPDATE DELETE
+
+READ   = SELECT = find()
+CREATE = INSERT = insertOne, insertMany
+UPDATE = UPDATE = updateOne, deleteMany
+DELETE = DELETE = deleteOne, deleteMany
+
+
+bdtienda
+
+db.cliente.insertMany([
+{
+    nombre: 'María',
+    bebida: 'Café Expreso',
+    cantidad: 3,
+    stock: 77,
+    disponible: true
+},
+{
+    nombre: 'Carlos',
+    bebida: 'Café Expreso',
+    cantidad: 5,
+    stock: 72,
+    disponible: true
+}
+])
+
+db.cliente.find({"nombre": "Carlos"})
+
+IMPORTAR UNA BASE DE DATOS MONGODB DESDE UN SCRIPT
+mongoimport product.json -d mitienda -c producto --jsonArray --drop
+
+
+*********************
+***   CONSULTAS   ***
+*********************
+
+(1) OPERADORES DE COMPARACION
+
+$eq   =
+$ne   !=
+
+$gt    >
+$gte   >=
+
+$lt    <
+$lte   <=
+
+$in    Pertenencia a un conjunto
+
+$nin   No pertenece a un conjunto
+
+- Mostrar todos los documentos cuyo precio es superior a 40
+
+$gt     >
+
+db.producto.find({price: {$gt: 40}},{price: 1, _id: 0});
+
+SELECT price FROM Producto WHERE price > 40;
+
+- Mostrar todos los documentos de productos distintos a laptops
+
+$ne     !=
+db.producto.find({category: {$ne: "laptops"}},{id:1, category: 1, title: 1, price: 1, _id: 0});
+
+Contar Documentos
+db.producto.find({category: {$ne: "laptops"}},{id:1, category: 1, title: 1, price: 1, _id: 0}).count()
+
+- Mostrar la cantidad total de documentos de la coleccion producto
+
+db.producto.find().count();
+
+- Mostrar los productos que tenga un stock de 68, 65 o 52
+
+  stock $in [52, 68, 65]
+  
+db.producto.find({stock: {$in: [52, 68, 65]} },{id:1, category: 1, title: 1, price: 1, stock: 1, _id: 0})
+
+db.producto.find({stock: {$nin: [52, 68, 65]} },{id:1, category: 1, title: 1, price: 1, stock: 1, _id: 0})
+
+(2) OPERADORES LOGICOS
+
+$and
+$or
+$nor
+
+- Mostrar todos los documentos de la categoria "fragancia" y con el stock mayor a 60
+
+db.producto.find({$and: [{category: "fragrances"},{stock: {$gt: 60}}]},{})
+
+(3) OPERADORES ARITMETICOS
+
+$add      +
+$multiply *
+$subtract -
+$divide   /
+
+- Mostrar el monto en dinero que tenemos en stock de cada producto
+
+db.producto.aggregate([
+  {
+    $project: {
+      _id: 0,                  // Opcional: excluye el _id
+      price: 1,
+      stock: 1,
+      total: { $multiply: ["$price", "$stock"] }
+    }
+  }
+])
+
+SELECT price, stock, (price * stock) AS total FROM Producto;
+
+(4) OPERADORES DE ACUMULACION
+
+$sum
+$avg
+$max
+$min
+
+- Sumar todos los valores del campo stock presente en todos los documentos
+
+db.producto.aggregate([
+  {
+    $group: {
+      _id: 0,
+      suma_stock: { $sum: "$stock" }
+    }
+  }
+])
+
+SELECT sum(stock) AS suma_stock FROM Producto;
+
+
+db.producto.aggregate([
+  {
+    $group: {
+      _id: "$category",
+      suma_stock: { $sum: "$stock" }
+    }
+  }
+])
+
+SELECT category, sum(stock) 
+FROM Producto
+GROUP BY category;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

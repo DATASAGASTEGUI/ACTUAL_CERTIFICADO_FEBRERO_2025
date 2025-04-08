@@ -1,0 +1,20 @@
+---------------------
+RELACION UNO A MUCHOS
+---------------------
+DEPARTAMENTO       EMPLEADO
+1                  1..N
+1                  1
+
+EN UN DEPARTAMENTO TRABAJAN 1 A MAS EMPLEADOS
+UN EMPLEADO TRABAJA EN UN SOLO DEPARTAMENTO
+
+
+CLIENTE     PEDIDO
+1           1..N
+1           1
+
+MOSTRAR DADO UN CLIENTE LA FECHA DE TODOS SUS PEDIDOS.
+
+
+
+

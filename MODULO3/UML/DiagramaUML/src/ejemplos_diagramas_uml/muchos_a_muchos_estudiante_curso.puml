@@ -1,0 +1,20 @@
+@startuml
+class Estudiante {
+    - nombre: String
+    - cursos: List<Curso>
+    + inscribirEnCurso(c: Curso)
+    + getNombre(): String
+    + getCursos(): List<Curso>
+}
+
+class Curso {
+    - nombre: String
+    - estudiantes: List<Estudiante>
+    + agregarEstudiante(e: Estudiante)
+    + getNombre(): String
+    + getEstudiantes(): List<Estudiante>
+}
+
+Estudiante "0..*" --> "0..*" Curso : inscrito en
+Curso --> Estudiante : contiene
+@enduml

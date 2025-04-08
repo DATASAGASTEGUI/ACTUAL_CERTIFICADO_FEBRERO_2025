@@ -1,0 +1,43 @@
+@startuml
+package composicion {
+  class Estudiante {
+    - idEstudiante: String
+    - nombre: String
+    + Estudiante()
+    + Estudiante(idEstudiante: String, nombre: String)
+    + getIdEstudiante(): String
+    + setIdEstudiante(idEstudiante: String): void
+    + getNombre(): String
+    + setNombre(nombre: String): void
+    + toString(): String
+  }
+
+  class Universidad {
+    - idUniversidad: String
+    - nombre: String
+    - estudiantes: List<Estudiante>
+    + Universidad()
+    + Universidad(idUniversidad: String, nombre: String)
+    + agregarEstudiante(idEstudiante: String, nombre: String): void
+    + getIdUniversidad(): String
+    + setIdUniversidad(idUniversidad: String): void
+    + getNombre(): String
+    + setNombre(nombre: String): void
+    + getEstudiantes(): List<Estudiante>
+    + setEstudiantes(estudiantes: List<Estudiante>): void
+    + toString(): String
+  }
+
+  class Principal {
+    + main(args: String[]): void
+  }
+}
+
+Universidad "1" *-- "0..*" Estudiante : contiene
+Principal ..> Universidad : usa
+
+note right of Universidad::agregarEstudiante
+  Crea un nuevo Estudiante
+  y lo añade a la lista
+end note
+@enduml

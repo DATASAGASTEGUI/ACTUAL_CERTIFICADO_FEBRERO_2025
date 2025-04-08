@@ -1,0 +1,173 @@
+****************
+***   0001   ***
+****************
+--------------------------------------------------------------------------------
+(1) PONER EN EL PATH LA RUTA DEL COMPILADOR DE CSHARP .NET
+--------------------------------------------------------------------------------
+C:\ProjectCSharp_001\conf.bat
+--------------------------------------------------------------------------------
+(2) CREAR UN PROYECTO
+--------------------------------------------------------------------------------
+c:\ProjectCSharp_001>dotnet new console -o Proyecto
+--------------------------------------------------------------------------------
+(3) LIMPIAR Y EJECUTAR UN PROYECTO
+--------------------------------------------------------------------------------
+C:\ProjectCSharp_001\proyecto>dotnet clean
+C:\ProjectCSharp_001\proyecto>dotnet run 
+--------------------------------------------------------------------------------
+****************
+***   0002   ***
+****************
+--------------------------------------------------------------------------------
+(1) MAIN IMPLICITO
+--------------------------------------------------------------------------------
+Console.WriteLine("Hello, World!");
+--------------------------------------------------------------------------------
+(2) MAIN EXPLICITO (VERSION MODERNA Y RECOMENDADA)
+--------------------------------------------------------------------------------
+using System;
+
+namespace Proyecto;
+
+internal class Program
+{
+    private static void Main(string[] args)
+    {
+        Console.WriteLine("Hello, World!");
+    }
+}
+--------------------------------------------------------------------------------
+(3) MAIN EXPLICITO
+--------------------------------------------------------------------------------
+using System;
+
+namespace Proyecto
+{
+	internal class Program
+	{
+		private static void Main(string[] args)
+		{
+			Console.WriteLine("Hello, World!");
+		}
+	}
+}
+--------------------------------------------------------------------------------
+(4) MAIN EXPLICITO
+--------------------------------------------------------------------------------
+namespace Proyecto
+{
+    using System;
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello, World!");
+        }
+    }
+}
+--------------------------------------------------------------------------------
+Diferencia clave: Alcance de los using
+
+using fuera del namespace: Aplican a todo el archivo (3)
+using dentro del namespace: Aplican solo dentro de ese bloque de namespace (4)
+--------------------------------------------------------------------------------
+Si usas namespace con llaves {}, los using dentro solo afectan ese bloque
+
+Ejemplo
+
+namespace Proyecto
+{
+    using System;
+    using System.Collections.Generic;
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello, World!");
+            List<string> lista = new List<string>();
+        }
+    }
+}
+--------------------------------------------------------------------------------
+****************
+***   0003   ***
+****************
+
+<StartupObject>Program</StartupObject>
+<StartupObject>Proyecto.Program</StartupObject>
+
+****************
+***   0004   ***
+****************
+--------------------------------------------------------------------------------
+(1) ARCHIVO DE CONFIGURACION DEL PROYECTO
+--------------------------------------------------------------------------------
+<!-- ProjectCSharp_001.csproj -->
+
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- 
+    Sdk indica qué tipo de proyecto es.
+    "Microsoft.NET.Sdk" = configuración básica para proyectos .NET (consola, librerías, etc.).
+  -->
+
+  <PropertyGroup>
+    <!-- Tipo de salida del proyecto:
+         Exe = ejecutable (consola o GUI)
+         Library = librería (.dll) -->
+    <OutputType>Exe</OutputType>
+
+    <!-- Versión de .NET que usará el proyecto.
+         En este caso, .NET 8.0 -->
+    <TargetFramework>net8.0</TargetFramework>
+
+    <!-- 
+      Desactiva el "Main implícito".
+      En .NET 6+ puedes escribir directamente "Console.WriteLine("Hola")"
+      sin necesidad de un método Main(). 
+      Al ponerlo en "true", obligamos a definir explícitamente Main().
+    -->
+    <DisableImplicitProgramMain>true</DisableImplicitProgramMain>
+
+    <!-- 
+      Configura los "using" automáticos.
+      Por defecto, .NET 6+ agrega varios usings comunes (System, Linq, etc.).
+      Aquí se desactiva (disable) para que el alumno los escriba manualmente.
+    -->
+    <ImplicitUsings>disable</ImplicitUsings>
+
+    <!-- 
+      Control de nulabilidad de referencias.
+      enable  = .NET avisa de posibles null (programación más segura).
+      disable = se ignoran los avisos relacionados con null.
+    -->
+    <Nullable>disable</Nullable>
+	
+    <!-- 
+      Especifica la clase principal con el método Main().
+      Útil cuando hay varias clases con Main en el proyecto.
+      Aquí el punto de entrada es Proyecto.Program (namespace.Prog).
+    -->
+    <StartupObject>Proyecto.Program</StartupObject>
+  </PropertyGroup>
+</Project>
+--------------------------------------------------------------------------------
+(2)
+--------------------------------------------------------------------------------
+<!-- ProjectCSharp_001.csproj -->
+
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <DisableImplicitProgramMain>true</DisableImplicitProgramMain>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <StartupObject>Proyecto.Program</StartupObject>
+  </PropertyGroup>
+</Project>
+--------------------------------------------------------------------------------
+****************
+***   0005   ***
+****************

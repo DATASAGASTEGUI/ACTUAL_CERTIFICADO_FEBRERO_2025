@@ -1,0 +1,75 @@
+📌 ¿Qué es una tupla?
+Una tupla es una colección inmutable (no se puede cambiar) de elementos. Se define usando paréntesis ().
+
+✅ Ejemplo 1: Crear una tupla
+
+mi_tupla = (1, 2, 3)
+print(mi_tupla)
+Salida:
+
+
+(1, 2, 3)
+✅ Ejemplo 2: Acceder a elementos de una tupla
+
+mi_tupla = ('manzana', 'banana', 'cereza')
+print(mi_tupla[0])  # manzana
+print(mi_tupla[2])  # cereza
+✅ Ejemplo 3: Recorrer una tupla con un bucle
+
+colores = ('rojo', 'verde', 'azul')
+for color in colores:
+    print(color)
+✅ Ejemplo 4: Tupla con diferentes tipos de datos
+
+persona = ("Juan", 25, 1.75, True)
+print(persona)
+✅ Ejemplo 5: Desempaquetar una tupla
+
+persona = ("Ana", 30)
+nombre, edad = persona
+print(nombre)  # Ana
+print(edad)    # 30
+✅ Ejemplo 6: Tupla dentro de otra tupla
+
+clase = (("Juan", 18), ("Lucía", 20), ("Pedro", 19))
+for nombre, edad in clase:
+    print(f"{nombre} tiene {edad} años")
+	
+✅ Ejemplo 7: Devolver múltiples valores desde una función (como tupla)
+
+def calcular_area_y_perimetro_rectangulo(base, altura):
+    area = base * altura
+    perimetro = 2 * (base + altura)
+    return area, perimetro  # Esto es una tupla
+
+resultado = calcular_area_y_perimetro_rectangulo(5, 3)
+print(resultado)            # (15, 16)
+
+# Desempaquetar
+area, perimetro = resultado
+print("Área:", area)
+print("Perímetro:", perimetro)
+✅ Ejemplo 8: Lista de tuplas
+
+alumnos = [("Pedro", 7.5), ("María", 8.2), ("Luis", 6.9)]
+for nombre, nota in alumnos:
+    print(f"{nombre} tiene una nota de {nota}")
+✅ Ejemplo 9: Usar tuplas como claves en un diccionario (porque son inmutables)
+
+coordenadas = {
+    (0, 0): "Origen",
+    (1, 0): "Eje X",
+    (0, 1): "Eje Y"
+}
+
+print(coordenadas[(0, 0)])  # Origen
+✅ Ejemplo 10: Enumerar elementos con enumerate() que devuelve tuplas
+
+frutas = ["manzana", "banana", "pera"]
+for i, fruta in enumerate(frutas):
+    print(f"Índice {i}: {fruta}")
+✅ Ejemplo 11: Ordenar una lista de tuplas
+
+productos = [("lápiz", 0.5), ("cuaderno", 1.5), ("mochila", 15.0)]
+productos_ordenados = sorted(productos, key=lambda producto: producto[1])
+print(productos_ordenados)

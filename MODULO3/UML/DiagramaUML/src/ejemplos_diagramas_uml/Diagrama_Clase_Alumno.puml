@@ -1,0 +1,26 @@
+@startuml
+
+class Alumno {
+  -idAlumno: int
+  -nombre: String
+  -estatura: double
+  -edad: int
+  --
+  +Alumno(idAlumno: int, nombre: String, estatura: double, edad: int)
+  +getIdAlumno(): int
+  +getNombre(): String
+  +getEstatura(): double
+  +getEdad(): int
+  +setIdAlumno(idAlumno: int): void
+  +setNombre(nombre: String): void
+  +setEstatura(estatura: double): void
+  +setEdad(edad: int): void
+  --
+  +esAdulto(): boolean
+}
+
+note top of Alumno
+  Representa un estudiante con sus
+  datos básicos y métodos de validación.
+end note
+@enduml

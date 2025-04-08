@@ -1,0 +1,1 @@
+<div style='background-color:#eee;padding:10px;'>Encabezado</div>

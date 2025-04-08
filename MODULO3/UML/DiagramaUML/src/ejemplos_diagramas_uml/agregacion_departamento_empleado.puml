@@ -1,0 +1,14 @@
+@startuml
+class Departamento {
+    - empleados: List<Empleado>
+    + agregarEmpleado(e: Empleado)
+    + getEmpleados(): List<Empleado>
+}
+
+class Empleado {
+    - nombre: String
+    + getNombre(): String
+}
+
+Departamento o-- Empleado : tiene
+@enduml

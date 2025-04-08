@@ -1,0 +1,11 @@
+Este diagrama muestra:
+
+Las tres clases en el paquete composicion
+
+La relación de composición (diamante negro) entre Universidad y Estudiante, indicando que una universidad contiene estudiantes (y los estudiantes no existen independientemente de la universidad)
+
+La dependencia de Principal con Universidad
+
+Los atributos y métodos de cada clase
+
+Una nota explicativa para el método agregarEstudiante

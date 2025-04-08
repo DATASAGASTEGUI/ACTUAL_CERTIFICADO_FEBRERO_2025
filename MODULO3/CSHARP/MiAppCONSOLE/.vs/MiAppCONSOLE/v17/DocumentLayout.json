@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\MiAppCONSOLE\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A70B00EB-8E55-4794-94FD-CC926148E776}|MiAppCONSOLE.csproj|c:\\certificado_27022025_modulo1\\modulo3\\csharp\\miappconsole\\principal2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A70B00EB-8E55-4794-94FD-CC926148E776}|MiAppCONSOLE.csproj|solutionrelative:principal2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A70B00EB-8E55-4794-94FD-CC926148E776}|MiAppCONSOLE.csproj|c:\\certificado_27022025_modulo1\\modulo3\\csharp\\miappconsole\\principal1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A70B00EB-8E55-4794-94FD-CC926148E776}|MiAppCONSOLE.csproj|solutionrelative:principal1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A70B00EB-8E55-4794-94FD-CC926148E776}|MiAppCONSOLE.csproj|C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\MiAppCONSOLE\\principal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A70B00EB-8E55-4794-94FD-CC926148E776}|MiAppCONSOLE.csproj|solutionrelative:principal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Principal2.cs",
+              "DocumentMoniker": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\MiAppCONSOLE\\Principal2.cs",
+              "RelativeDocumentMoniker": "Principal2.cs",
+              "ToolTip": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\MiAppCONSOLE\\Principal2.cs",
+              "RelativeToolTip": "Principal2.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAAAgwCoAAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T18:13:40.092Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Principal.cs",
+              "DocumentMoniker": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\MiAppCONSOLE\\Principal.cs",
+              "RelativeDocumentMoniker": "Principal.cs",
+              "ToolTip": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\MiAppCONSOLE\\Principal.cs",
+              "RelativeToolTip": "Principal.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T17:19:48.608Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Principal1.cs",
+              "DocumentMoniker": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\MiAppCONSOLE\\Principal1.cs",
+              "RelativeDocumentMoniker": "Principal1.cs",
+              "ToolTip": "C:\\CERTIFICADO_27022025_MODULO1\\MODULO3\\CSHARP\\MiAppCONSOLE\\Principal1.cs",
+              "RelativeToolTip": "Principal1.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T17:17:25.308Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

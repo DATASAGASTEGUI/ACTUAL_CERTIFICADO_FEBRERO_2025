@@ -1,0 +1,14 @@
+@startuml
+class Casa {
+    - habitaciones: List<Habitacion>
+    + agregarHabitacion(h: Habitacion)
+    + getHabitaciones(): List<Habitacion>
+}
+
+class Habitacion {
+    - nombre: String
+    + getNombre(): String
+}
+
+Casa *-- Habitacion : contiene
+@enduml

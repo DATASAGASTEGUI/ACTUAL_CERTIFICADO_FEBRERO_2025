@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <Compile Update="VentanaCsv.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="VentanaSqliteCombobox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="VentanaSqliteComboboxDataGrid.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="VentanaSqliteComboboxDataGridCategoria.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="VentanaSqliteComboboxEliminarActualizar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="VentanaCsv.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="VentanaSqliteCombobox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="VentanaSqliteComboboxDataGrid.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="VentanaSqliteComboboxDataGridCategoria.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="VentanaSqliteComboboxEliminarActualizar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

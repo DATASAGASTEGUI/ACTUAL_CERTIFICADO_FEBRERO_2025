@@ -1,0 +1,297 @@
+package asociacion_tipo_muchos_a_muchos_estudiante_curso_mysql;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+public class Principal {
+
+    static Scanner sc = new Scanner(System.in);
+
+    static List<Estudiante> estudiantes = null;
+    static List<Curso> cursos = null;
+    static List<Inscripcion> inscripciones = null;
+
+    static GestionMatricula gm = null;
+
+    static Data data = null;
+
+    static Connection conexion = ConexionMySql.getConexion();
+
+    public static void main(String[] args) {
+        estudiantes = new ArrayList<>();
+        cursos = new ArrayList<>();
+        inscripciones = new ArrayList<>();
+
+        if (conexion != null) {
+            System.out.println("Ok: Conexión");
+            data = new Data(conexion);
+            data.getEstudiantesCursosInscripciones(estudiantes, cursos, inscripciones);
+            gm = new GestionMatricula(estudiantes, cursos, inscripciones);
+
+        } else {
+            System.out.println("Error: Conexión");
+        }
+
+        String opcion = "";
+        do {
+            cls();
+            mostrarMenu();
+            opcion = sc.next();
+
+            switch (opcion) {
+                case "1":
+                    cls();
+                    opcion1();
+                    pause();
+                    break;
+                case "2":
+                    cls();
+                    opcion2();
+                    pause();
+                    break;
+                case "3":
+                    cls();
+                    opcion3();
+                    pause();
+                    break;
+                case "4":
+                    cls();
+                    opcion4();
+                    pause();
+                    break;
+                case "5":
+                    cls();
+                    opcion5();
+                    pause();
+                    break;
+                case "6":
+                    cls();
+                    opcion6();
+                    pause();
+                    break;
+                case "7":
+                    cls();
+                {
+                    try {
+                        opcion7();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                    pause();
+                    break;
+
+                case "8":
+                    cls();
+                    opcion8();
+                    pause();
+                    break;
+
+                case "0":
+                    cls();
+                    System.out.println("Gracia por su visita");
+                    pause();
+                    System.exit(0);
+                    break;
+                default:
+                    cls();
+                    System.out.println("Opción no existe");
+                    pause();
+            }
+        } while (true);
+    }
+
+    private static void mostrarMenu() {
+        System.out.println("SISTEMA GESTION DE MATRICULAS");
+        System.out.println("-----------------------------");
+        System.out.println("[1] Mostrar todos los estudiantes");
+        System.out.println("[2] Mostrar todos los cursos");
+        System.out.println("[3] Mostrar las asignaturas de un alumno dado su id");
+        System.out.println("[4] Realizar una matricula");
+        System.out.println("[5] Mostrar los estudiantes de una asignatura dado su id");
+        System.out.println("[6] Actualizar nombre de un estudiante dado su id");
+        System.out.println("[7] Eliminar un estudiante dado su id");
+        System.out.println("[8] Mostrar todas las incripciones");
+        System.out.println("[0] Salir");
+
+        System.out.print("Ingrese su opción? ");
+    }
+
+    private static void opcion1() {
+        System.out.println("[1] Mostrar todos los estudiantes");
+        System.out.println("---------------------------------");
+        gm.mostrarTodosEstudiantes();
+    }
+
+    private static void opcion2() {
+        System.out.println("[2] Mostrar todos los cursos");
+        System.out.println("----------------------------");
+        gm.mostrarTodosCursos();
+    }
+
+    private static void opcion3() {
+        System.out.println("[3] Mostrar las asignaturas de un alumno dado su id");
+        System.out.println("---------------------------------------------------");
+        System.out.println("Ingrese el id del estudiante? ");
+        String idEstudiante = sc.next();
+        List<String> nombresCursos = gm.obtenerAsignaturasDeUnEstudiante(idEstudiante);
+        if (nombresCursos.size() > 0) {
+            for (String nombre : nombresCursos) {
+                System.out.println(nombre);
+            }
+        } else {
+            System.out.println("Estudiante no matriculado o no existe dicho idEstudiante");
+        }
+    }
+
+    private static void opcion4() {
+        System.out.println("[4] Realizar una matricula");
+        System.out.println("--------------------------");
+        String idCurso = "";
+        System.out.println("Ingrese el id del estudiante? ");
+        String idEstudiante = sc.next();
+        Estudiante estudiante = gm.buscarObjetoEstudiante(idEstudiante);
+        if (estudiante != null) {
+            System.out.println("Selecciones un curso a matricular: ");
+            List<Curso> cursos = gm.getCursos();
+            for (Curso curso : cursos) {
+                System.out.println(curso.getIdCurso() + " " + curso.getNombre());
+            }
+            System.out.println("Escriba el id del curso a matricular? ");
+            idCurso = sc.next();
+            Curso curso = gm.buscarObjetoCurso(idCurso);
+            if (curso != null) {
+                Inscripcion inscripcion = new Inscripcion(estudiante, curso, "2025-01-04");
+                gm.insertarObjetoInscripcion(inscripcion);
+                try {
+                    data.insertarInscripcion(idEstudiante, idCurso, "2025-01-04");
+                } catch (ParseException ex) {
+                    System.out.println("Error: Insert Inscripción");
+                }
+
+                System.out.println("Matricula realizada");
+            } else {
+                System.out.println("El id del curso no existe");
+            }
+        } else {
+            System.out.println("Estudiante con dicho id no existe");
+        }
+    }
+
+    private static void opcion5() {
+        System.out.println("[5] Mostrar los estudiantes de una asignatura dado su id");
+        System.out.println("--------------------------------------------------------");
+        System.out.println("Ingrese el id de la asignatura? ");
+        String idAsignatura = sc.next();
+        List<Estudiante> estudiantes = gm.obtenerTodosEstudiantesDadoAsignatura(idAsignatura);
+        if (estudiantes.size() > 0) {
+            for (Estudiante estudiante : estudiantes) {
+                System.out.println(estudiante);
+            }
+        } else {
+            System.out.println("No hay alumnos matriculados o no existe dicho idAsignatura");
+        }
+    }
+
+    private static void opcion6() {
+        System.out.println("[6] Actualizar nombre de un estudiante dado su id");
+        System.out.println("-------------------------------------------------");
+        String nombreNuevo = "";
+        System.out.println("Ingrese id del estudiante? ");
+        String idEstudiante = sc.next();
+        Estudiante estudiante = gm.buscarObjetoEstudiante(idEstudiante);
+        if (estudiante != null) {
+            System.out.println("Ingrese nombre nuevo? ");
+            nombreNuevo = sc.next();
+            estudiante.setNombre(nombreNuevo);
+            data.actualizarNombreEstudiante(idEstudiante, nombreNuevo);
+            System.out.println("Actualización del nombre satisfactorio");
+        } else {
+            System.out.println("El idEstudiante no existe");
+        }
+    }
+
+    private static void opcion7() {
+    System.out.println("[7] Eliminar un estudiante dado su id");
+    System.out.println("-------------------------------------");
+    System.out.print("Ingrese el id del estudiante a eliminar? ");
+    String idEstudiante = sc.next();
+    Estudiante estudiante = gm.buscarObjetoEstudiante(idEstudiante);
+    
+    if (estudiante != null) {
+        // Mostrar información antes de cualquier cambio
+        System.out.println("\nEstudiante a eliminar:");
+        System.out.println(estudiante);
+        System.out.println("\nCursos inscritos:");
+        gm.obtenerAsignaturasDeUnEstudiante(idEstudiante).forEach(System.out::println);
+        
+        System.out.println("Confirmar con S y Cancelar con C? ");
+        String opcion = sc.next();
+        
+        if (opcion.equalsIgnoreCase("S")) {
+            try {
+                // Iniciamos transacción
+                conexion.setAutoCommit(false);
+                
+                // 1. Eliminar de la base de datos
+                data.eliminarEstudiante(idEstudiante);
+                
+                // 2. Eliminar de las listas en memoria
+                gm.eliminarObjetoEstudiante(idEstudiante);
+                
+                // Confirmar cambios
+                conexion.commit();
+                System.out.println("\nEliminación completada exitosamente");
+            } catch (SQLException ex) {
+                System.out.println("Error durante la operación: " + ex.getMessage());
+                try {
+                    conexion.rollback();
+                } catch (SQLException e) {
+                    System.out.println("Error crítico al hacer rollback: " + e.getMessage());
+                }
+            } finally {
+                try {
+                    conexion.setAutoCommit(true);
+                } catch (SQLException e) {
+                    System.out.println("Error al restaurar auto-commit: " + e.getMessage());
+                }
+            }
+        } else {
+            // No se ejecutaron cambios, no necesita rollback
+            System.out.println("\nOperación cancelada por el usuario");
+        }
+        
+        // Refrescar datos
+        data.getEstudiantesCursosInscripciones(estudiantes, cursos, inscripciones);
+    } else {
+        System.out.println("No existe estudiante con dicho id");
+    }
+}
+
+    private static void opcion8() {
+        System.out.println("[8] Mostrar todos las incripciones");
+        System.out.println("----------------------------------");
+        gm.mostrarTodasInscripciones();
+    }
+
+    public static void pause() {
+        try {
+            System.out.print("\nPresiona una tecla para continuar...");
+            System.in.read();
+        } catch (IOException e) {
+        }
+    }
+
+    private static void cls() {
+        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    }
+
+}

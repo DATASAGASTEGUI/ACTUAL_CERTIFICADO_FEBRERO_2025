@@ -1,0 +1,26 @@
+Desarrollar una clase para resolver el siguiente ejercicio:
+
+Sacar el promedio de n alumnos.
+
+El promedio estara determinado por la siguiente formula:
+Participación Activa        : PA   35%
+Practica                    : P    15%
+Prueba conocimiento Parcial : PCP  30%
+Prueba conocimiento General : PCG  30%
+
+-----------------------------------------------
+Clase: Promedio
+
+Constantes: PA, P, PCP, PCG
+Atributos: Entrada pa, p, pcp, pcg
+           Salida  promedio
+Constructores
+
+Métodos set y get
+
+Método toString
+
+
+
+
+

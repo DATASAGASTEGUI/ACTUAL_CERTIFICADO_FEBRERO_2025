@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+
+{% block title %}Ejemplo04{% endblock %}
+
+{% block contenido %}
+   {% load filtros %}
+
+   <h2>[04] Calcular total a pagar (Variable Temporal)</h2>
+   {% if lista_productos %}
+        {% for producto in lista_productos %}
+                {% with total=producto|total_con_impuesto %}
+                    <p>Producto: {{ producto.nombre }}</p>
+                    <p>Precio: {{ producto.precio }}</p>
+                    <p>Impuesto: {{ producto.impuesto }}</p>
+                    <p>Total: {{ total }}</p>
+                {% endwith %}
+        {% endfor %}
+    {% else %}
+       <p>No hay productos disponibles</p>
+    {% endif %}
+{% endblock %}

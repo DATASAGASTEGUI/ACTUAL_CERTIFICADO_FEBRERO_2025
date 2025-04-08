@@ -1,0 +1,49 @@
+<Window x:Class="MiAppWPF.VentanaPestanas"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MiAppWPF"
+        mc:Ignorable="d"
+        Title="VENTANA PESTAÑAS"
+        Height="450"
+        Width="800">
+    <Grid>
+
+        <TabControl Margin="10">
+            <!-- TAB 1: MySql -->
+            <TabItem Header="MySql">
+                <DataGrid x:Name="dgClientes"
+                          AutoGenerateColumns="True"
+                          IsReadOnly="True"
+                          Margin="10"
+                          ColumnWidth="*"/>
+            </TabItem>
+
+            <!-- TAB 2: SQLite -->
+            <TabItem Header="SQLite">
+                <DataGrid x:Name="dgProductos"
+                          AutoGenerateColumns="True"
+                          IsReadOnly="False"
+                          Margin="10"
+                          ColumnWidth="*"/>
+            </TabItem>
+
+            <!-- TAB 3: Calculo -->
+            <TabItem Header="Calculo">
+
+                <StackPanel Margin="10">
+                    <TextBlock Text="Número 1:" Margin="0,0,0,5"/>
+                    <TextBox x:Name="txtNumero1" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Número 2:" Margin="0,0,0,5"/>
+                    <TextBox x:Name="txtNumero2" Margin="0,0,0,10"/>
+
+                    <Button Content="Calcular Suma" Margin="0,0,0,10"/>
+
+                    <TextBlock x:Name="txtResultado" FontWeight="Bold"/>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

@@ -1,0 +1,43 @@
+@startuml
+package agregacion {
+  class Estudiante {
+    - idEstudiante: String
+    - nombre: String
+    + Estudiante()
+    + Estudiante(idEstudiante: String, nombre: String)
+    + getIdEstudiante(): String
+    + setIdEstudiante(idEstudiante: String): void
+    + getNombre(): String
+    + setNombre(nombre: String): void
+    + toString(): String
+  }
+
+  class Universidad {
+    - idUniversidad: String
+    - nombre: String
+    - estudiantes: List<Estudiante>
+    + Universidad()
+    + Universidad(idUniversidad: String, nombre: String, estudiantes: List<Estudiante>)
+    + getIdUniversidad(): String
+    + setIdUniversidad(idUniversidad: String): void
+    + getNombre(): String
+    + setNombre(nombre: String): void
+    + getEstudiantes(): List<Estudiante>
+    + setEstudiantes(estudiantes: List<Estudiante>): void
+    + toString(): String
+  }
+
+  class Principal {
+    + main(args: String[]): void
+  }
+}
+
+Universidad "1" o-- "0..*" Estudiante : contiene
+Principal ..> Universidad : usa
+Principal ..> Estudiante : usa
+
+note right of Universidad::estudiantes
+  Los estudiantes existen
+  independientemente de la Universidad
+end note
+@enduml

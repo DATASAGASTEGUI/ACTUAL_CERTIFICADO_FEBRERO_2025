@@ -1,0 +1,15 @@
+
+
+<form method="post">
+    {% csrf_token %}
+    <label for="nacimiento">Seleccione su fecha de nacimiento:</label>
+    <input type="date" id="nacimiento" name="date_nacimiento" value="{{ fecha_nacimiento|date:'Y-m-d' }}" required>
+    <button type="submit">Calcular Edad</button>
+</form>
+
+{% if edad %}
+    <h2>{{ fecha_nacimiento|date:"d/m/Y" }}</h2>
+    <h2>Tu edad en años: {{ edad }} años</h2>
+    <h2>Tu meses: {{ meses }} meses</h2>
+    <h2>Tu dias: {{ dias }} días</h2>
+{% endif %}

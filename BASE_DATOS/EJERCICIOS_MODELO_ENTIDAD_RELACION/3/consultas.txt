@@ -1,0 +1,297 @@
+*******************************************
+***   FUNCIONES PARA MANEJO DE FECHAS   ***
+*******************************************
+
+   YEAR
+   MONTH
+   DAY
+   
+-- MOSTRAR TODOS LOS PEDIDOS REALIZADOS EN EL MES DE ENERO DEL AÑO 1990
+
+   1990-01-01
+
+SELECT * 
+FROM Pedido 
+WHERE YEAR(fecha_pedido) = 1990 AND MONTH(fecha_pedido) = 1;
+
+
+SELECT idProducto, SUM(Cantidad)
+FROM Pedido 
+WHERE YEAR(fecha_pedido) = 1990 AND MONTH(fecha_pedido) = 1
+GROUP BY idProducto;
+
+-- OPERADORES DE COMPARACION (<, >, <=, >=, <>)
+
+-- 1. MOSTRAR LOS VENDEDORES CONTRATADOS ANTES DE 1988
+
+SELECT *
+FROM Vendedor
+WHERE contrato < '1988-01-01';
+
+SELECT *
+FROM Vendedor
+WHERE YEAR(contrato) < 1988;
+
++------------+-------------+------+-----------+------------+------------+--------+--------+----------------+
+| idVendedor | nombre      | edad | idOficina | titulo     | contrato   | cuota  | ventas | idVendedorJefe |
++------------+-------------+------+-----------+------------+------------+--------+--------+----------------+
+|        101 | Dan Roberts |   45 |        12 | Rep ventas | 1986-10-20 | 300000 | 305673 |            108 |
+|        102 | Sue Smith   |   48 |        21 | Rep ventas | 1986-12-10 | 350000 | 474050 |            104 |
+|        103 | Paul Cruz   |   29 |        12 | Rep ventas | 1987-03-01 | 275000 | 286775 |            105 |
+|        104 | Bob Smith   |   33 |        12 | Dir ventas | 1987-05-19 | 200000 | 142594 |           NULL |
++------------+-------------+------+-----------+------------+------------+--------+--------+----------------+
+
+-- 2. LISTAR LAS OFICINAS CUYAS VENTAS ESTAN POR DEBAJO DEL 80% DEL OBJETIVO
+
+SELECT idOficina
+FROM Oficina
+WHERE ventas < (0.8 * objetivo);
+
+-- CANTIDAD DE OFICINAS DIRIGIDAS POR CADA DIRECTOR
+
+SELECT idDirector, COUNT(*) AS Cantidad
+FROM Oficina
+GROUP BY idDirector;
+
++------------+----------+
+| idDirector | Cantidad |
++------------+----------+
+|        104 |        1 |
+|        105 |        1 |
+|        106 |        1 |
+|        108 |        2 |
++------------+----------+
+
+-- OBTENER EL NOMBRE DEL DIRECTOR DE LA CONSULTA ANTERIOR
+
+SELECT idDirector, nombre, COUNT(*) AS Cantidad
+FROM Oficina
+JOIN Vendedor ON idVendedor = idDirector  
+GROUP BY idDirector;
+
++------------+-------------+----------+
+| idDirector | nombre      | Cantidad |
++------------+-------------+----------+
+|        104 | Bob Smith   |        1 |
+|        105 | Bill Adams  |        1 |
+|        106 | Sam  Clark  |        1 |
+|        108 | Larry Fitch |        2 |
++------------+-------------+----------+
+
+-- UTILIZAR UN RANGO (BETWEEN)
+
+MOSTRAR LOS PEDIDOS ENTRE ENERO Y JULIO DE 1989
+
+SELECT * FROM Pedido WHERE fecha_pedido BETWEEN '1989-01-01' AND '1989-07-31';
+
+SELECT * FROM Pedido WHERE fecha_pedido >= '1989-01-01' AND fecha_pedido <= '1989-07-31';
+
++----------+------------+-----------+-----------+------------+--------------+----------+---------+
+| idPedido | idVendedor | idCliente | idFabrica | idProducto | fecha_pedido | cantidad | importe |
++----------+------------+-----------+-----------+------------+--------------+----------+---------+
+|   112993 |        102 |      2106 | REI       | 2A45C      | 1989-01-04   |       24 |    1896 |
++----------+------------+-----------+-----------+------------+--------------+----------+---------+
+
+-- OPERADOR DE PERTENENCIA A UN CONJUNTO (IN)
+
+SELECT *
+FROM Pedido
+WHERE fecha_pedido IN ('1990-01-03', '1990-01-22','1989-01-04');
+
+SELECT *
+FROM Pedido
+WHERE fecha_pedido = '1990-01-03' OR fecha_pedido = '1990-01-22' OR fecha_pedido = '1989-01-04';
+
++----------+------------+-----------+-----------+------------+--------------+----------+---------+
+| idPedido | idVendedor | idCliente | idFabrica | idProducto | fecha_pedido | cantidad | importe |
++----------+------------+-----------+-----------+------------+--------------+----------+---------+
+|   112989 |        106 |      2101 | FEA       | 114        | 1990-01-03   |        6 |    1458 |
+|   112993 |        102 |      2106 | REI       | 2A45C      | 1989-01-04   |       24 |    1896 |
+|   113027 |        105 |      2103 | ACI       | 41002      | 1990-01-22   |       54 |    4104 |
++----------+------------+-----------+-----------+------------+--------------+----------+---------+
+
+-- OPERADOR DE PATRON (LIKE)
+
+-- MOSTRAR TODOS LOS PRODUCTOS CUYA DESCRIPCION INICIEN CON "ART"
+
+SELECT *
+FROM Producto
+WHERE descripcion LIKE 'Art%';
+
++-----------+------------+-----------------+--------+------------+
+| idFabrica | idProducto | descripcion     | precio | existencia |
++-----------+------------+-----------------+--------+------------+
+| ACI       | 41001      | Articulo Tipo 1 |     55 |        277 |
+| ACI       | 41002      | Articulo Tipo 2 |     76 |        167 |
+| ACI       | 41003      | Articulo Tipo 3 |    107 |        207 |
+| ACI       | 41004      | Articulo Tipo 4 |    117 |        139 |
++-----------+------------+-----------------+--------+------------+
+
+SELECT *
+FROM Producto
+WHERE descripcion LIKE '%TIPO%';
+
++-----------+------------+-----------------+--------+------------+
+| idFabrica | idProducto | descripcion     | precio | existencia |
++-----------+------------+-----------------+--------+------------+
+| ACI       | 41001      | Articulo Tipo 1 |     55 |        277 |
+| ACI       | 41002      | Articulo Tipo 2 |     76 |        167 |
+| ACI       | 41003      | Articulo Tipo 3 |    107 |        207 |
+| ACI       | 41004      | Articulo Tipo 4 |    117 |        139 |
++-----------+------------+-----------------+--------+------------+
+
+-- MOSTRAR TODOS LOS PRODUCTOS CUYO IDPRODUCTO TENGA SOLO 3 LETRAS
+
+SELECT *
+FROM Producto
+WHERE idProducto LIKE '___';
+
++-----------+------------+---------------+--------+------------+
+| idFabrica | idProducto | descripcion   | precio | existencia |
++-----------+------------+---------------+--------+------------+
+| FEA       | 112        | Cubierta      |    148 |        115 |
+| FEA       | 114        | Bancada Motor |    243 |         15 |
++-----------+------------+---------------+--------+------------+
+
+-- OPERADOR (IS NULL) (IS NOT NULL)
+
+HACER UNA CONSULTA EN LA TABLA VENDEDOR PARA AVERIGUAR QUE VENDEDOR ES JEFE
+
+SELECT *
+FROM Vendedor
+WHERE idVendedorJefe IS NULL;
+
++------------+-------------+------+-----------+------------+------------+--------+--------+----------------+
+| idVendedor | nombre      | edad | idOficina | titulo     | contrato   | cuota  | ventas | idVendedorJefe |
++------------+-------------+------+-----------+------------+------------+--------+--------+----------------+
+|        104 | Bob Smith   |   33 |        12 | Dir ventas | 1987-05-19 | 200000 | 142594 |           NULL |
+|        105 | Bill Adams  |   37 |        13 | Rep ventas | 1988-02-12 | 350000 | 367911 |           NULL |
+|        106 | Sam  Clark  |   52 |        11 | VP ventas  | 1988-06-14 | 275000 | 299912 |           NULL |
+|        108 | Larry Fitch |   62 |        21 | Dir ventas | 1989-10-12 | 350000 | 361865 |           NULL |
++------------+-------------+------+-----------+------------+------------+--------+--------+-----------------
+
+MOSTRAR LOS VEDEDORES QUE NO SON JEFES
+
+SELECT *
+FROM Vendedor
+WHERE idVendedorJefe IS NOT NULL
+
++------------+---------------+------+-----------+------------+------------+--------+--------+----------------+
+| idVendedor | nombre        | edad | idOficina | titulo     | contrato   | cuota  | ventas | idVendedorJefe |
++------------+---------------+------+-----------+------------+------------+--------+--------+----------------+
+|        102 | Sue Smith     |   48 |        21 | Rep ventas | 1986-12-10 | 350000 | 474050 |            104 |
+|        103 | Paul Cruz     |   29 |        12 | Rep ventas | 1987-03-01 | 275000 | 286775 |            105 |
+|        107 | Nancy Angelli |   49 |        22 | Rep Ventas | 1988-11-14 | 300000 | 186042 |            106 |
+|        109 | Mary Jones    |   31 |        11 | Rep ventas | 1999-10-12 | 300000 | 392725 |            106 |
+|        101 | Dan Roberts   |   45 |        12 | Rep ventas | 1986-10-20 | 300000 | 305673 |            108 |
+|        110 | Tom Snyder    |   41 |      NULL | Rep ventas | 1990-10-13 |   NULL |  75985 |            108 |
++------------+---------------+------+-----------+------------+------------+--------+--------+----------------+
+
+-- OPERADORES LOGICOS (AND, OR, NOT)
+
+MOSTRAR TODOS LOS CONTRATOS DISTINTOS AL AÑO 1989
+
+SELECT *
+FROM Vendedor
+WHERE NOT YEAR(contrato) = 1989;
+
+SELECT *
+FROM Vendedor
+WHERE YEAR(contrato) <> 1989;
+
+MOSTRAR LOS PEDIDOS QUE NO ESTENENTRE ENERO Y JULIO DE 1989
+
+SELECT * FROM Pedido WHERE NOT fecha_pedido BETWEEN '1989-01-01' AND '1989-07-31';
+
+SELECT * FROM Pedido WHERE NOT (fecha_pedido >= '1989-01-01' AND fecha_pedido <= '1989-07-31');
+
+-- CLAUSLA (ORDER BY)
+
+MOSTRAR LOS NOMBRES DE LOS VENDEDORES ORDENADOS ALFABETICAMENTE DE A ... Z
+
+SELECT nombre
+FROM Vendedor
+ORDER BY nombre;
+
++---------------+
+| nombre        |
++---------------+
+| Bill Adams    |
+| Bob Smith     |
+| Dan Roberts   |
+| Larry Fitch   |
+| Mary Jones    |
+| Nancy Angelli |
+| Paul Cruz     |
+| Sam  Clark    |
+| Sue Smith     |
+| Tom Snyder    |
++---------------+
+
+SELECT nombre
+FROM Vendedor
+ORDER BY nombre DESC;
+
+ORDENAR POR 3 CAMPOS
+
+SELECT idFabrica, idProducto, precio
+FROM Producto
+ORDER BY idFabrica DESC, idProducto ASC, precio ASC;
+
++-----------+------------+--------+
+| idFabrica | idProducto | precio |
++-----------+------------+--------+
+| ACI       | 41001      |     55 |
+| ACI       | 41002      |     76 |
+| ACI       | 41003      |    107 |
+| ACI       | 41004      |    117 |
+| ACI       | 4100X      |     25 |
+| ACI       | 4100Y      |   2750 |
+| ACI       | 4100Z      |   2500 |
+| BIC       | 41003      |    652 |
+| BIC       | 41089      |    225 |
+| BIC       | 41672      |    180 |
+| FEA       | 112        |    148 |
+| FEA       | 114        |    243 |
+| IMM       | 773C       |    975 |
+| IMM       | 775C       |   1425 |
+| IMM       | 779C       |   1875 |
+| IMM       | 887H       |     54 |
+| IMM       | 887P       |    250 |
+| IMM       | 887X       |    475 |
+| QSA       | XK47       |    355 |
+| QSA       | XK48       |    134 |
+| QSA       | XK48A      |    117 |
+| REI       | 2A44G      |    350 |
+| REI       | 2A44L      |   4500 |
+| REI       | 2A44R      |   4500 |
+| REI       | 2A45C      |     79 |
++-----------+------------+--------+
+
+-- DISTINCT
+
+MOSTRAR TODOS LOS IDFABRICA DISTINTOS
+
+SELECT DISTINCT IDFABRICA
+FROM Producto;
+
++-----------+
+| IDFABRICA |
++-----------+
+| ACI       |
+| BIC       |
+| FEA       |
+| IMM       |
+| QSA       |
+| REI       |
++-----------+
+
+
+
+
+
+
+
+
+
+

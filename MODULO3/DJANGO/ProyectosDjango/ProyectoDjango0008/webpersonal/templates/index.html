@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %} | Mi Web Personal</title>
+    <style>
+      body {
+        font-family: "Courier New", Courier, monospace;
+      }
+    </style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}" />
+  </head>
+  <body style="background-image: url('{% static 'img/imagen.jpg' %}'); background-size: cover;background-repeat: no-repeat;background-position: center center;font-family: "Courier New", Courier, monospace;">
+    <!-- Cabecera y Menú -->
+    <div class="container">
+      <h1>Mi Web Personal</h1>
+      <ul>
+        <li><a href="{% url 'ejemplo01' %}">Ejemplo01</a></li>
+        <li><a href="{% url 'ejemplo02' %}">Ejemplo02</a></li>
+        <li><a href="{% url 'ejemplo03' %}">Ejemplo03</a></li>
+        <li><a href="{% url 'ejemplo04' %}">Ejemplo04</a></li>
+        <li><a href="{% url 'ejemplo05' %}">Ejemplo05</a></li>
+        <li><a href="{% url 'ejemplo06' %}">Ejemplo06</a></li>
+        <li><a href="{% url 'ejemplo07' %}">Ejemplo07</a></li>
+        <li><a href="{% url 'ejemplo08' %}">Ejemplo08</a></li>
+        <li><a href="{% url 'ejemplo09' %}">Ejemplo09</a></li>
+        <li><a href="{% url 'ejemplo10' %}">Ejemplo10</a></li>
+      </ul>
+      <!-- Contenido -->
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>

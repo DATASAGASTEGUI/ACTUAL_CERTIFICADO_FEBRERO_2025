@@ -1,0 +1,36 @@
+VARIABLE DE CLASE VS METODO DE CLASE : SELF
+
+CRUD : 
+       READ   (SELECT) ---> Registros
+	   
+	   UPDATE (UPDATE) ---> rows
+	   DELETE (DELETE) ---> rows
+	   CREATE (INSERT) ---> rows
+	  
+clase DBMANAGER
+
+row = [
+(1, 'Laptop Lenovo', 850.75, 10, '2025-09-09', 1, 'Electrónica')
+(4, 'Cuaderno A4', 3.5, 200, '2025-09-01', 1, 'Papelería')
+]
+
+row = row[0]
+row = (1, 'Laptop Lenovo', 850.75, 10, '2025-09-09', 1, 'Electrónica')
+
+rox = "hola"
+
+x = "hola"
+x = 5
+
+milista = [
+(1, 'Laptop Lenovo', 850.75, 10, '2025-09-09', 1, 'Electrónica')
+(4, 'Cuaderno A4', 3.5, 200, '2025-09-01', 1, 'Papelería')
+]
+
+mitupla = milista[0]
+row = (1, 'Laptop Lenovo', 850.75, 10, '2025-09-09', 1, 'Electrónica')
+
+x = "hola"
+
+
+x = 5

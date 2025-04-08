@@ -1,0 +1,199 @@
+1. CREAR EL PROYECTO DJANGO
+python -m django startproject miwebsite .
+
+2. REGISTRAR EL PROYECTO EN SETTINGS.PY
+
+3. CREAR LA BASE DE DATOS COLEGIO.SQLITE3
+
+4. REGISTRAR LA BASE DE DATOS EN SETTINGS.PY
+
+5. CREAR EL MODELO DE NUESTRA TABLA ALUMNO MODELS.PY
+
+6. CREAR LAS TABLAS DE USUARIO Y OTRAS CONFIGURACIONES PARA MANEJAR BASE DE DATOS
+
+# Generar las migraciones (crea los archivos de migración)
+C:\ProyectoDjango0012>python manage.py makemigrations miwebsite
+
+# Aplicar las migraciones (crea las tablas en la BD)
+C:\ProyectoDjango0012>python manage.py migrate
+
+7. CREAR EL USUARIO ADMINISTRADOR
+
+python manage.py createsuperuser
+
+root
+12345678
+
+http://127.0.0.1:8090/admin/
+
+8. REGISTRAR NUESTRO TABLA EN ADMIN.PY
+
+from django.contrib import admin
+from .models import Alumno
+# Register your models here.
+admin.site.register(Alumno)
+
+9. TERMINARL DE COMANDO PARA EJECUTAR PYTHON
+
+python manage.py shell
+
+
+10. PROBAR COMANDOS DJANGO DESDE UNA TERMINARL
+
+(2) Devolver todos los registros de la tabla
+
+from miwebsite.models import Alumno
+Alumno.objects.all()  # Debería devolver <QuerySet []> sin errores
+
+****************
+***   0006   ***
+****************
+
+(1)  Entrar a la línea de comandos django(python)
+
+C:\ProyectoDjango0012>python manage.py shell
+
+(2) Devolver todos los registros de la tabla
+
+from miwebsite.models import Alumno
+Alumno.objects.all()  # Debería devolver <QuerySet []> sin errores
+
+(3) Consultas básicas
+
+# Todos los alumnos
+Alumno.objects.all()
+
+# El primer alumno
+Alumno.objects.first()
+
+# El último alumno
+Alumno.objects.last()
+
+# Obtener un alumno por ID
+Alumno.objects.get(id=1)
+
+# Filtrar por nombre exacto
+Alumno.objects.filter(nombre="Juan")
+
+# Filtrar por parte del nombre (contiene)
+Alumno.objects.filter(nombre__icontains="an")  # "Juan", "Andrés", etc.
+
+# Filtrar por estatura mayor a 1.70
+Alumno.objects.filter(estatura__gt=1.70)
+
+# Filtrar por estatura entre 1.60 y 1.80
+Alumno.objects.filter(estatura__range=(1.60, 1.80))
+
+(4) Crear registros
+
+# Crear un alumno (forma 1)
+Alumno.objects.create(nombre="Pedro", direccion="Calle Mayor 123", estatura=1.75)
+
+# Crear un alumno (forma 2)
+alumno = Alumno(nombre="Ana", direccion="Av. Libertad 45", estatura=1.65)
+alumno.save()
+
+(5) Actualizar registros
+
+# Actualizar un alumno
+alumno = Alumno.objects.get(id=1)
+alumno.direccion = "Nueva Dirección 456"
+alumno.save()
+Alumno.objects.get(id=1)
+
+(6) Eliminar registros
+
+# Eliminar un alumno
+alumno = Alumno.objects.get(id=2)
+alumno.delete()
+
+(7) Ordenar resultados
+
+# Ordenar por nombre ascendente
+Alumno.objects.order_by("nombre")
+
+# Ordenar por estatura descendente
+Alumno.objects.order_by("-estatura")
+
+(8) Contar registros
+
+# Número total de alumnos
+Alumno.objects.count()
+
+# Número de alumnos con estatura mayor a 1.70
+Alumno.objects.filter(estatura__gt=1.70).count()
+
+(9) Agregaciones y estadísticas
+
+from django.db.models import Avg, Max, Min, Count
+
+# Promedio de estatura
+Alumno.objects.aggregate(Avg("estatura"))
+# {'estatura__avg': 1.70}
+
+# Estatura máxima
+Alumno.objects.aggregate(Max("estatura"))
+
+# Estatura mínima
+Alumno.objects.aggregate(Min("estatura"))
+
+# Contar alumnos con la misma dirección
+Alumno.objects.values("direccion").annotate(total=Count("id"))
+# [{'direccion': 'Calle Mayor 123', 'total': 2}, {'direccion': 'Av. Libertad 45', 'total': 1}]
+
+(10) Consultas complejas con Q (OR, AND, NOT)
+
+from django.db.models import Q
+
+# Alumnos con nombre "Juan" O estatura mayor a 1.75
+Alumno.objects.filter(Q(nombre="Juan") | Q(estatura__gt=1.75))
+
+# Alumnos con nombre "Ana" Y estatura menor a 1.70
+Alumno.objects.filter(Q(nombre="Ana") & Q(estatura__lt=1.70))
+
+# Alumnos que NO viven en "Calle Mayor 123"
+Alumno.objects.filter(~Q(direccion="Calle Mayor 123"))
+
+(11) Seleccionar solo ciertos campos
+
+# Obtener solo nombres
+Alumno.objects.values("nombre")
+
+# Obtener nombre y estatura
+Alumno.objects.values("nombre", "estatura")
+
+# Obtener pares (id, nombre) como tuplas
+Alumno.objects.values_list("id", "nombre")
+
+(12) Ordenamientos y límites
+
+# Ordenar por estatura descendente y tomar los 3 primeros
+Alumno.objects.order_by("-estatura")[:3]
+
+# El alumno con menor estatura
+Alumno.objects.order_by("estatura").first()
+
+# El alumno con mayor estatura
+Alumno.objects.order_by("-estatura").first()
+
+(13) Búsquedas de texto
+
+# Nombre que contiene "an" (ej. "Juan", "Andrés")
+Alumno.objects.filter(nombre__icontains="an")
+
+# Dirección que empieza con "Calle"
+Alumno.objects.filter(direccion__startswith="Calle")
+
+# Dirección que termina en "123"
+Alumno.objects.filter(direccion__endswith="123")
+
+(14) Ejemplo de uso práctico
+
+# Los 5 alumnos más altos con nombre que contenga "a"
+Alumno.objects.filter(nombre__icontains="a").order_by("-estatura")[:5]
+
+
+
+
+
+

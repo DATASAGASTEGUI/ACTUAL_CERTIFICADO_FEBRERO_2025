@@ -1,0 +1,38 @@
+
+<form method="post">
+     {% csrf_token %}
+    <label for="estatura">Buscar alumnos por rango estatura:</label>
+
+    <label for="estatura_minima">Estatura mínima:</label>
+    <input type="number" step="0.01" name="txt_estatura_minima" id="estatura_minima" required>
+
+    <label for="estatura_maxima">Estatura máxima:</label>
+    <input type="number" step="0.01" name="txt_estatura_maxima" id="estatura_maxima" required>
+
+    <button type="submit">Buscar</button>
+</form>
+
+{% if alumnos %}
+    <table border="1">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Direccion</th>
+            <th>Estatura</th>
+        </tr>
+    </thead>
+        <tbody>
+            {% for alumno in alumnos %}
+            <tr>
+                <td>{{ alumno.id }}</td>
+                <td>{{ alumno.nombre }}</td>
+                <td>{{ alumno.direccion }}</td>
+                <td>{{ alumno.estatura }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No hay alumnos</p>
+{% endif %} 

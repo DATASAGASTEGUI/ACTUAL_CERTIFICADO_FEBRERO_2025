@@ -1,0 +1,57 @@
+@startuml
+' Estilo opcional para mejorar la legibilidad
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+' ==== Asociación Uno a Uno ====
+class Ciudadano {
+    - nombre: String
+    - pasaporte: Pasaporte
+    + asignarPasaporte(p: Pasaporte)
+    + getNombre(): String
+    + getPasaporte(): Pasaporte
+}
+
+class Pasaporte {
+    - numero: String
+    + getNumero(): String
+}
+
+Ciudadano --> Pasaporte : 1 a 1
+
+
+' ==== Asociación Uno a Muchos ====
+class Profesor {
+    - nombre: String
+    - cursos: List<Curso>
+    + agregarCurso(c: Curso)
+    + getNombre(): String
+    + getCursos(): List<Curso>
+}
+
+class Curso {
+    - nombreCurso: String
+    - profesor: Profesor
+    + setProfesor(p: Profesor)
+    + getNombreCurso(): String
+    + getProfesor(): Profesor
+}
+
+Profesor "1" --> "0..*" Curso : imparte
+Curso --> Profesor : pertenece a
+
+
+' ==== Asociación Muchos a Muchos ====
+class Estudiante {
+    - nombre: String
+    - cursos: List<Curso>
+    + inscribirEnCurso(c: Curso)
+    + getNombre(): String
+    + getCursos(): List<Curso>
+}
+
+Estudiante --> "0..*" Curso : inscrito en
+
+Curso --> "0..*" Estudiante : contiene
+
+@enduml

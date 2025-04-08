@@ -1,0 +1,78 @@
+@startuml
+
+' Paquete
+package implementacion {
+
+    ' Clase abstracta FiguraGeometrica
+    abstract class FiguraGeometrica {
+        - nombre : String
+        + getNombre() : String
+        + setNombre(nombre : String) : void
+        + toString() : String
+        {abstract} +area() : double
+        {abstract} +perimetro() : double
+    }
+
+    ' Subclase Triangulo
+    class Triangulo {
+        - base : double
+        - altura : double
+        + getBase() : double
+        + setBase(base : double) : void
+        + getAltura() : double
+        + setAltura(altura : double) : void
+        + area() : double
+        + perimetro() : double
+        + toString() : String
+    }
+
+    ' Subclase Rectangulo
+    class Rectangulo {
+        - ancho : double
+        - alto : double
+        + getAncho() : double
+        + setAncho(ancho : double) : void
+        + getAlto() : double
+        + setAlto(alto : double) : void
+        + area() : double
+        + perimetro() : double
+        + toString() : String
+    }
+
+    ' Subclase Circulo
+    class Circulo {
+        - radio : double
+        + getRadio() : double
+        + setRadio(radio : double) : void
+        + area() : double
+        + perimetro() : double
+        + toString() : String
+    }
+
+    ' Clase GestionModelo
+    class GestionModelo {
+        - lista : List<FiguraGeometrica>
+        + getLista() : List<FiguraGeometrica>
+        + setLista(lista : List<FiguraGeometrica>) : void
+        + mostrarTodosFigurasGeometricas() : void
+    }
+
+    ' Clase Principal
+    class Principal {
+        + main(args : String[]) : void
+    }
+
+    ' Relaciones de herencia
+    FiguraGeometrica <|-- Triangulo
+    FiguraGeometrica <|-- Rectangulo
+    FiguraGeometrica <|-- Circulo
+
+    ' Asociación: GestionModelo usa Lista de Figuras
+    GestionModelo --> "1..*" FiguraGeometrica
+
+    ' Asociación: Principal crea GestionModelo
+    Principal --> GestionModelo
+}
+
+@enduml
+

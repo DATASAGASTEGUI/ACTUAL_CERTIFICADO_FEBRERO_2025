@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+
+{% block title %}Ejemplo 02{% endblock %}
+
+{% block content %} 
+<h2>[02] Mostrar texto en color según el estado</h2>
+{% load filtros %}
+{% if usuarios %}
+   <table border="1">
+    <tr>
+         <th>Nombre</th>
+         <th>Estado</th>
+     </tr>
+   {% for usuario in usuarios %}
+      <tr>
+          <td>{{ usuario.nombre  }}</td>
+          <td>{{ usuario.estado|colorear_texto|safe }}</td>
+      </tr>
+   {% endfor %}
+    </table>
+{% else %}
+   <p>Lista Vacia</p>
+
+{% endif %}
+
+
+
+{% endblock %}

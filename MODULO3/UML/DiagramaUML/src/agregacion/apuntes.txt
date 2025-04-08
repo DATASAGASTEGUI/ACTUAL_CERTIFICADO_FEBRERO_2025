@@ -1,0 +1,7 @@
+Universidad   Estudiante  "tiene"
+1             *
+1             1
+
+1:M
+
+Agregación
