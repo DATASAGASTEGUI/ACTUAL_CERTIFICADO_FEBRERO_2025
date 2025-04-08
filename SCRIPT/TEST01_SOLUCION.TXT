@@ -1,0 +1,352 @@
+-----------------------------------
+Sección 1: Conceptos básicos de Git
+-----------------------------------
+
+1. ¿Quién creó Git?
+
+a) Bill Gates
+b) Linus Torvalds X 
+c) Mark Zuckerberg
+d) Steve Jobs
+
+2. ¿Para qué se creó originalmente Git?
+
+a) Para gestionar el kernel de Linux X
+b) Para desarrollar Windows
+c) Para crear Facebook
+d) Para programar videojuegos
+
+3. ¿Qué es un commit en Git?
+a) Un error en el código
+b) Una fotografía de los cambios en un momento dado X
+c) Un mensaje de chat
+d) Una rama del proyecto
+
+4. ¿Qué característica principal distingue a Git de otros sistemas de control de versiones?
+a) Es centralizado
+b) Es distribuido X 
+c) Solo funciona en Linux
+d) No permite colaboración
+
+5. ¿Qué significa que Git sea un sistema distribuido?
+a) Que cada desarrollador tiene una copia completa del repositorio X
+b) Que solo existe en la nube
+c) Que necesita internet constante
+d) Que solo un administrador puede hacer cambios
+
+--------------------------------------
+Sección 2: Conceptos básicos de GitHub
+--------------------------------------
+
+6. ¿Qué es GitHub?
+a) Un sistema operativo
+b) Una plataforma de alojamiento de repositorios Git X
+c) Un lenguaje de programación
+d) Un editor de texto
+
+7. ¿Qué tipo de repositorios permite crear GitHub?
+a) Solo públicos
+b) Solo privados
+c) Públicos y privados X
+d) Ninguna de las anteriores
+
+8. ¿Qué es un "pull request" en GitHub?
+a) Una solicitud para eliminar código
+b) Una solicitud para cambiar de rama
+c) Una solicitud para integrar cambios en el código X
+d) Un mensaje de error
+
+9. ¿Qué ventaja ofrece la comunidad de GitHub?
+a) Permite colaborar en proyectos de todo el mundo X
+b) Ofrece almacenamiento ilimitado
+c) Proporciona hardware gratuito
+d) Ninguna de las anteriores
+
+10. ¿GitHub es propiedad de qué empresa?
+a) Google
+b) Microsoft X
+c) Amazon
+d) Apple
+
+--------------------------------------
+Sección 3: Comandos básicos de consola
+--------------------------------------
+
+11. ¿Qué comando limpia la pantalla en la consola?
+a) clean
+b) clear X
+c) cls
+d) wipe
+
+12. ¿Qué comando muestra la ruta actual?
+a) path
+b) pwd X
+c) where
+d) route
+
+13. ¿Qué comando lista archivos y carpetas?
+a) dir
+b) list
+c) ls X
+d) show
+
+14. ¿Cómo se crea un archivo en blanco desde la consola?
+a) new archivo
+b) create archivo
+c) touch archivo X
+d) mkfile archivo
+
+15. ¿Qué comando elimina una carpeta y su contenido recursivamente?
+a) rm -rf carpeta X
+b) del carpeta
+c) erase carpeta
+d) remove carpeta
+
+----------------------------------------
+Sección 4: Configuración de credenciales
+----------------------------------------
+
+16. ¿Dónde se guardan las credenciales de configuración local?
+a) C:\Users\Usuario\.gitconfig
+b) C:\MIPROYECTO\.git\config X
+c) C:\Program Files\Git\etc\.gitconfig
+d) Ninguna de las anteriores
+
+17. ¿Qué comando muestra la configuración local?
+a) git config --local --list X
+b) git show local
+c) git local config
+d) git list local
+
+18. ¿Dónde se guarda la configuración global?
+a) C:\Users\Usuario\.gitconfig X 
+b) C:\MIPROYECTO\.git\config
+c) C:\Program Files\Git\etc\.gitconfig
+d) Ninguna de las anteriores
+
+19. ¿Qué comando configura el email del usuario globalmente?
+a) git config --global user.email "email" X 
+b) git set global email "email"
+c) git global email "email"
+d) git user email "email"
+
+20. ¿Qué tipo de configuración afecta a todos los usuarios del sistema?
+a) Local
+b) Global X
+c) Sistema 
+d) Compartida
+
+---------------------------------
+Sección 5: Primeros pasos con Git
+---------------------------------
+
+21. ¿Qué comando muestra el estado del área de trabajo?
+a) git status X 
+b) git show
+c) git info
+d) git check
+
+22. ¿Qué comando añade todos los cambios al área de preparación?
+a) git add all
+b) git add *
+c) git add . X 
+d) git stage all
+
+23. ¿Qué comando crea un commit con el mensaje "FOTO 1"?
+a) git commit "FOTO 1"
+b) git save -m "FOTO 1"
+c) git commit -m "FOTO 1" X 
+d) git snapshot "FOTO 1"
+
+24. ¿Qué comando muestra el historial de commits de manera corta?
+a) git log --short
+b) git log --oneline X 
+c) git history
+d) git list
+
+25. ¿Qué comando permite modificar el último commit?
+a) git modify
+b) git change
+c) git commit --amend X
+d) git update
+
+-----------------------
+Sección 6: Ramas en Git
+-----------------------
+
+26. ¿Qué comando crea una rama llamada "rama1"?
+a) git create rama1
+b) git new rama1
+c) git branch rama1 X 
+d) git make rama1
+
+27. ¿Cómo se cambia a la rama "rama1"?
+a) git move rama1
+b) git switch rama1
+c) git checkout rama1 X 
+d) git go rama1
+
+28. ¿Qué comando muestra todas las ramas?
+a) git show branches
+b) git list
+c) git branch 
+d) git all
+
+29. ¿Cómo se elimina la rama "rama1"?
+a) git delete rama1
+b) git remove rama1
+c) git branch -d rama1 X 
+d) git erase rama1
+
+30. ¿Qué comando cambia el nombre de "rama1" a "ramita1"?
+a) git rename rama1 ramita1
+b) git branch -m rama1 ramita1 X
+c) git branch --rename rama1 ramita1
+d) git change rama1 ramita1
+
+-------------------------------------------
+Sección 7: Trabajo con repositorios remotos
+-------------------------------------------
+
+31. ¿Qué comando añade un repositorio remoto llamado "origin"?
+a) git remote create origin URL
+b) git add remote origin URL
+c) git remote add origin URL X
+d) git new remote origin URL
+
+32. ¿Qué comando sube los cambios al repositorio remoto?
+a) git upload
+b) git send
+c) git push X
+d) git up
+
+33. ¿Qué comando muestra los repositorios remotos configurados?
+a) git remote -v X
+b) git show remotes
+c) git list remote
+d) git remotes
+
+34. ¿Qué comando cambia la URL del repositorio remoto?
+a) git remote update origin URL
+b) git remote set-url origin URL X
+c) git remote change origin URL
+d) git remote modify origin URL
+
+35. ¿Qué comando elimina un repositorio remoto llamado "origin1"?
+a) git remote delete origin1
+b) git remote remove origin1 X    git remote rm origin
+c) git remote erase origin1
+d) git remote kill origin1
+
+---------------------------------
+Sección 8: Fusiones y diferencias
+---------------------------------
+
+36. ¿Qué comando muestra las diferencias entre dos ramas?
+a) git compare rama1 rama2
+b) git diff rama1 rama2 X
+c) git difference rama1 rama2
+d) git changes rama1 rama2
+
+37. ¿Qué comando fusiona "rama1" con la rama actual?
+a) git join rama1
+b) git combine rama1
+c) git merge rama1 X 
+d) git fuse rama1
+
+38. ¿Qué comando muestra los cambios entre los dos últimos commits?
+a) git show X
+b) git last
+c) git changes
+d) git diff
+
+39. ¿Qué comando muestra diferencias entre commits específicos?
+a) git diff commit1 commit2 X 
+b) git compare commit1 commit2
+c) git changes commit1 commit2
+d) git history commit1 commit2
+
+40. ¿En qué rama debes estar para fusionar otra rama?
+a) En la rama que recibirá los cambios X 
+b) En la rama que se fusionará
+c) En cualquier rama
+d) En la rama master solamente
+
+---------------------------
+Sección 9: Reset y checkout
+---------------------------
+
+41. ¿Qué comando deshace commits sin modificar el área de trabajo?
+a) git reset --soft X
+b) git reset --hard
+c) git undo
+d) git revert
+
+42. ¿Qué comando deshace commits modificando el área de trabajo?
+a) git reset --soft
+b) git reset --hard X 
+c) git undo
+d) git revert
+
+43. ¿Qué comando recupera un archivo eliminado desde el último commit?
+a) git restore archivo
+b) git recover archivo
+c) git checkout HEAD -- archivo X
+d) git undo delete archivo
+
+44. ¿Qué comando cambia a un commit específico?
+a) git go commit
+b) git switch commit
+c) git checkout commit X
+d) git move commit
+
+45. ¿Qué comando vuelve al commit más reciente?
+a) git checkout master
+b) git checkout main
+c) git checkout HEAD X
+d) Cualquiera de las anteriores dependiendo del nombre de la rama 
+
+-------------------------------------
+Sección 10: Clonación y actualización
+-------------------------------------
+
+46. ¿Qué comando clona un repositorio remoto?
+a) git copy URL
+b) git clone URL X 
+c) git download URL
+d) git get URL
+
+47. ¿Cómo se clona solo una rama específica?
+a) git clone -b rama URL
+b) git clone --branch rama URL
+c) git clone --only rama URL
+d) a y b son correctas X
+
+48. ¿Qué comando actualiza el repositorio local con cambios remotos?
+a) git update
+b) git refresh
+c) git pull X 
+d) git sync
+
+49. ¿Qué secuencia de comandos garantiza que la rama local sea idéntica a la remota?
+a) git checkout main; git fetch; git reset --hard origin/main X
+b) git pull origin master
+c) git sync origin master
+d) git update origin master
+
+50. ¿Qué hace el comando "git fetch"?
+a) Descarga cambios pero no los fusiona X 
+b) Descarga y fusiona cambios
+c) Sube cambios al remoto
+d) Borra cambios locales
+
+
+
+---------------------------------------------------------------------
+git remote add origin https://github.com/DATASAGASTEGUI/PROBANDO2.git
+
+
+git checkout master
+git fetch
+git reset --hard origin/master 
+---------------------------------------------------------------------

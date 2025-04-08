@@ -1,0 +1,26 @@
+[{
+        "idPregunta": 8,
+        "textoPregunta": "¿Qué archivo contiene parámetros de inicialización en Oracle?",
+        "respuestaCorrecta": 1,
+        "opciones": ["init.ora", "conf.ini", "dbconfig.xml", "start.ctl"]
+    }, {
+        "idPregunta": 17,
+        "textoPregunta": "¿Cuál es el nombre del archivo de configuración de Oracle Listener?",
+        "respuestaCorrecta": 3,
+        "opciones": ["listener.conf", "tnsnames.ora", "listener.ora", "init.ora"]
+    }, {
+        "idPregunta": 19,
+        "textoPregunta": "¿Cuál es la función de ROWNUM en Oracle?",
+        "respuestaCorrecta": 3,
+        "opciones": ["Cuenta filas duplicadas", "Devuelve el ID del usuario", "Devuelve el número de fila", "Suma todas las filas"]
+    }, {
+        "idPregunta": 21,
+        "textoPregunta": "¿Qué significa DML?",
+        "respuestaCorrecta": 3,
+        "opciones": ["Data Management Language", "Data Migration Language", "Data Manipulation Language", "Database Management Layer"]
+    }, {
+        "idPregunta": 44,
+        "textoPregunta": "¿Cuál es el formato de fecha por defecto en Oracle?",
+        "respuestaCorrecta": 3,
+        "opciones": ["DD-MM-YYYY", "MM/DD/YYYY", "DD-MON-YY", "YYYY-MM-DD"]
+    }]
