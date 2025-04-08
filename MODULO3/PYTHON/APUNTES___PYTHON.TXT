@@ -1,0 +1,50 @@
+***************************
+***   INSTALAR PYTHON   ***
+***************************
+
+Lenguaje interpretado
+Open Source
+Salio al mercado 1991
+
+Aplicaciones de escritorio.
+Aplicaciones de consola.
+Data Ciencia
+
+Lenguaje sin tipos (tipo dinámico)
+
+Flexible
+
+DOWNLOAD PYTHON
+
+***********************
+***   TIPOS DATOS   ***
+***********************
+
+ENTERO              : int           2, 4
+REAL(PUNTO FLOTANTE): float         1.72 0.5
+CADENA:             : str           "Hola Mundo" ó 'Hola Mundo'
+LOGICO              : bool          True False
+
+- RUTA INSTALACION
+C:\Users\RYZEN\AppData\Local\Programs\Python\Python312\python.exe
+
+- CONSOLA DE LINEA DE COMANDOS
+
+- TIPO DINAMICO: Una variable asume el tipo de valor que se le asigna
+  x = "Hola Mundo"      str
+  x = 5                 int
+  x = 1.5               float
+  x = False             bool
+
+- FUNCIONES
+
+type
+round
+chr
+str
+int
+float
+  
+
+
+

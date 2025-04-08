@@ -1,0 +1,240 @@
+*****************************
+***   QUE ES UN TRIGGER   ***
+*****************************
+
+Un trigger (o disparador) en el contexto de las bases de datos es un tipo especial de procedimiento almacenado que se ejecuta automáticamente cuando ocurre un evento específico en una tabla o vista. Los triggers se utilizan principalmente para aplicar reglas comerciales complejas o para llevar a cabo acciones automatizadas en respuesta a cambios en los datos.
+
+Los triggers pueden activarse por diversos tipos de eventos, como inserción, actualización o eliminación de filas en una tabla. Cuando se produce el evento que activa el trigger, se ejecuta su código asociado.
+
+Aquí hay algunos puntos clave sobre los triggers:
+
+Evento desencadenante: Los triggers se activan por eventos específicos, como INSERT, UPDATE o DELETE en una tabla.
+
+Momento de activación: Los triggers pueden ser "antes" (BEFORE) o "después" (AFTER) del evento desencadenante. Los triggers "antes" se ejecutan antes de que se aplique el cambio en la tabla, mientras que los triggers "después" se ejecutan después de que se haya aplicado el cambio.
+
+Tabla o vista: Los triggers están asociados a una tabla o vista específica y se activan cuando ocurre un evento en esa tabla o vista.
+
+Acciones automatizadas: Los triggers se utilizan para realizar acciones automatizadas, como validar los datos antes de su inserción, auditar cambios, mantener la integridad referencial, actualizar otras tablas relacionadas, entre otros.
+
+Contexto del evento: Los triggers tienen acceso al contexto del evento que los activó, lo que les permite referirse a los datos antiguos (OLD) y nuevos (NEW) que están siendo afectados por el evento.
+
+En resumen, los triggers proporcionan una forma poderosa de automatizar acciones y aplicar reglas comerciales en una base de datos, permitiendo una gestión de datos más eficiente y segura.
+
+
+*******************
+***   APUNTES   ***
+*******************
+
+--------------------------------------------------------------------------------
+Supongamos que tenemos dos tablas: una  tabla  llamada  productos  que  almacena
+información  sobre los  productos  y  otra tabla llamada  registros que almacena
+registros de las actualizaciones realizadas en la tabla productos.
+
+Primero, crearemos  las tablas  y  luego definiremos un  trigger que se activará
+cada vez que se  actualice  un  registro  en la tabla productos y registrará los
+cambios en la tabla registros.
+
+Ahora, crearemos el trigger que registrará los  cambios  en  la  tabla  registro 
+cada vez que se actualice un registro en la tabla producto:
+--------------------------------------------------------------------------------
+
+**********************************
+***   CREAR LA BASE DE DATOS   ***
+**********************************
+
+-- ELIMINAR LA BASE DE DATOS SI EXISTE
+
+DROP DATABASE IF EXISTS DBTRIGGER;
+
+-- CREAR LA BASE DE DATOS SI NO EXISTE
+
+CREATE DATABASE IF NOT EXISTS DBTRIGGER;
+
+-- SELECCIONAR LA BASE DE DATOS PARA SU USO
+
+USE DBTRIGGER;
+
+-- CREAR LA TABLA PRODUCTO
+
+CREATE TABLE IF NOT EXISTS Producto (
+    id     INT            PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100),
+    precio DECIMAL(10, 2)
+);
+
+-- INSERTAR DATOS EN LA TABLA PRODUCTO
+
+INSERT INTO Producto (nombre, precio) VALUES
+('Producto A', 10.50),
+('Producto B', 20.75),
+('Producto C', 15.00);
+
+-- CREAR LA TABLA REGISTRO PARA ALMACENAR LOS REGISTROS DE ACTUALIZACION
+
+CREATE TABLE IF NOT EXISTS Registro (
+    id              INT            AUTO_INCREMENT PRIMARY KEY,
+    producto_id     INT,
+    nombre_anterior VARCHAR(100),
+    nombre_actual   VARCHAR(100),
+    precio_anterior DECIMAL(10, 2),
+    precio_actual   DECIMAL(10, 2),
+    fecha           TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CREAR EL TRIGGER
+
+DROP TRIGGER IF EXISTS registrar_cambios;
+
+DELIMITER //
+CREATE TRIGGER registrar_cambios
+AFTER UPDATE ON producto
+FOR EACH ROW
+BEGIN
+    INSERT INTO Registro (producto_id, nombre_anterior, nombre_actual, precio_anterior, precio_actual)
+    VALUES (OLD.id, OLD.nombre, NEW.nombre, OLD.precio, NEW.precio);
+END;
+//
+DELIMITER ;
+
+--------------------------------------------------------------------------------
+En este trigger:
+
+AFTER UPDATE ON productos especifica que el trigger se  activará  después de que
+se actualice un registro en la tabla productos.
+
+FOR EACH ROW indica que el trigger se ejecutará para cada fila actualizada.
+
+BEGIN y END delimitan el bloque de código que se  ejecutará  cuando se active el
+trigger.
+INSERT INTO registros registra los cambios en la tabla registros. OLD y NEW  son
+alias especiales que representan los valores antiguos (antes de la actualización)
+y  los valores nuevos (después de la actualización) de la fila, respectivamente.
+--------------------------------------------------------------------------------
+
+*****************************
+***   PROBAR EL TRIGGER   ***
+*****************************
+
+--------------------------------------------------------------------------------
+Una  vez  que  hayas  ejecutado  estos  comandos  SQL, puedes  probar el trigger
+actualizando un registro en la tabla productos. Por ejemplo:
+--------------------------------------------------------------------------------
+
+-- ACTUALIZAR EL PRECIO DEL PRODUCTO A
+
+UPDATE Producto SET precio = 12.00 WHERE id = 1;
+
+UPDATE Producto SET nombre = 'Producto AX' WHERE id = 1;
+
+--------------------------------------------------------------------------------
+Luego, puedes verificar los registros en la tabla registros para ver el registro
+de actualización:
+--------------------------------------------------------------------------------
+
+SELECT * FROM Registro;
+
+--------------------------------------------------------------------------------
+Esto debería mostrarte  el  registro  recién  creado  que indica el cambio en el
+precio del Producto A.
+--------------------------------------------------------------------------------
+
+**************************
+***   AÑADIR USUARIO   ***
+**************************
+
+Definición de la tabla registros con la columna adicional usuario para almacenar el nombre de usuario que realizó los cambios:
+Con esta definición de tabla modificada, ahora la tabla registros incluirá la columna usuario, que se utilizará para almacenar el nombre de usuario que realizó los cambios en la tabla productos.
+
+-- Crear la tabla 'registro_1' para almacenar los registros de actualización con el nombre de usuario
+
+CREATE TABLE registro_1 (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    producto_id INT,
+    nombre_anterior VARCHAR(100),
+    nombre_actual VARCHAR(100),
+    precio_anterior DECIMAL(10, 2),
+    precio_actual DECIMAL(10, 2),
+    usuario VARCHAR(100), -- Nueva columna para almacenar el nombre de usuario
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+Sí, puedes agregar el usuario que realizó los cambios en el trigger. MySQL proporciona la función CURRENT_USER() que devuelve el nombre de usuario y el host desde el cual se está ejecutando la consulta actual. Puedes utilizar esta función para registrar el usuario que realizó los cambios en la tabla.
+
+Aquí te muestro cómo puedes modificar el trigger registrar_cambios para incluir el usuario que realizó los cambios:
+
+En este trigger modificado, se ha agregado una nueva columna llamada usuario en la tabla registros para almacenar el nombre de usuario que realizó los cambios. Luego, dentro del trigger, se utiliza la función CURRENT_USER() para obtener el nombre de usuario actual y se inserta en la columna usuario junto con los demás datos del registro.
+
+Con esta modificación, cada vez que se actualice un registro en la tabla productos, se registrará también el nombre de usuario que realizó la actualización en la tabla registros.
+
+-- Eliminar el trigger existente (si es necesario)
+DROP TRIGGER IF EXISTS registrar_cambios_1;
+
+-- Crear el nuevo trigger
+DELIMITER //
+CREATE TRIGGER registrar_cambios_1
+AFTER UPDATE ON producto
+FOR EACH ROW
+BEGIN
+    INSERT INTO registro_1 (producto_id, nombre_anterior, nombre_actual, precio_anterior, precio_actual, usuario)
+    VALUES (OLD.id, OLD.nombre, NEW.nombre, OLD.precio, NEW.precio, CURRENT_USER());
+END;
+//
+DELIMITER ;
+
+Para lanzar el trigger que acabamos de crear, simplemente necesitas actualizar un registro en la tabla producto. 
+
+Supongamos que queremos actualizar el precio del producto con id = 1. Aquí tienes un ejemplo de cómo puedes hacerlo y lanzar el trigger:
+
+-- Actualizar el precio del producto con id = 1
+UPDATE producto SET precio = 15.00 WHERE id = 1;
+
+Al ejecutar esta instrucción UPDATE, se activará el trigger registrar_cambios y se insertará un nuevo registro en la tabla registros con los detalles de la actualización, incluyendo el nombre de usuario que realizó los cambios.
+
+Para verificar que el trigger funcionó correctamente y que se registró el cambio en la tabla registros, puedes ejecutar la siguiente consulta:
+
+-- Verificar los registros en la tabla 'registros'
+SELECT * FROM registro_1;
+
+Esta consulta mostrará todos los registros de actualización en la tabla registros, incluyendo el registro recién insertado que contiene el nombre de usuario que realizó la actualización.
+
+**********************************
+***   EVENTO INSERT Y DELETE   ***
+**********************************
+
+Aquí tienes cómo sería el trigger registrar_cambios para reaccionar a los eventos de INSERT, UPDATE y DELETE en la tabla producto:
+
+En MySQL, un trigger puede estar asociado a uno o varios eventos y puede actuar antes o después de estos eventos. Sin embargo, un solo trigger no puede estar asociado a diferentes tipos de eventos. Por lo tanto, no es posible tener un trigger que reaccione a eventos de INSERT, UPDATE y DELETE simultáneamente.
+
+Para manejar múltiples eventos, necesitarás crear un trigger para cada tipo de evento. Aquí tienes cómo podrías crear triggers separados para cada evento:
+
+(1) Para INSERT:
+
+CREATE TRIGGER registrar_insert
+AFTER INSERT ON producto
+FOR EACH ROW
+BEGIN
+    INSERT INTO registro_1 (producto_id, nombre_actual, precio_actual, usuario)
+    VALUES (NEW.id, NEW.nombre, NEW.precio, CURRENT_USER());
+END;
+
+(2) Para UPDATE:
+
+CREATE TRIGGER registrar_update
+AFTER UPDATE ON productos
+FOR EACH ROW
+BEGIN
+    INSERT INTO registros (producto_id, nombre_anterior, nombre_actual, precio_anterior, precio_actual, usuario)
+    VALUES (OLD.id, OLD.nombre, NEW.nombre, OLD.precio, NEW.precio, CURRENT_USER());
+END;
+
+(3) Para DELETE:
+
+CREATE TRIGGER registrar_delete
+AFTER DELETE ON productos
+FOR EACH ROW
+BEGIN
+    INSERT INTO registros (producto_id, nombre_anterior, precio_anterior, usuario)
+    VALUES (OLD.id, OLD.nombre, OLD.precio, CURRENT_USER());
+END;
+
+Cada uno de estos triggers se activará después del evento correspondiente (INSERT, UPDATE o DELETE) en la tabla productos y registrará los cambios en la tabla registros, incluyendo el nombre de usuario que realizó la acción.

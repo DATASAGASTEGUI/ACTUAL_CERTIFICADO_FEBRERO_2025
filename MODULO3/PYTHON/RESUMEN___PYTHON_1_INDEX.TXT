@@ -1,0 +1,107 @@
+*****************
+***   INDEX   ***
+*****************
+-------------------------------------------------------------------------------
+***   0001   ***   INTRODUCCION A PYTHON (2)
+***   0002   ***   INSTALACION DE PYTHON (3)
+***   0007   ***   HOLA MUNDO  									(PYTHON_0001)
+***   0005   ***   COMENTARIOS
+***   0006   ***   TIPOS DE DATOS 								(PYTHON_0002)
+***   0014   ***   OPERADORES ARITMETICOS                       (PYTHON_0022)
+***   0017   ***   OPERADORES DE COMPARACION
+***   0016   ***   OPERADOR ASIGNACION
+***   0018   ***   OPERADORES ESPECIALES
+***   0019   ***   ENTRADA POR TECLADO
+***   0008   ***   CALCULO 										(PYTHON_0003)
+***   0009   ***   IF...THEN...ELSE
+***   0011   ***   VALIDAR CON ISINSTANCE  						(PYTHON_0020)
+***   0010   ***   PRINT CON CONCATENAR
+***   0003   ***   WHILE  										(PYTHON_0005)
+***   0012   ***   FOR 											(PYTHON_0021)
+***   0013   ***   TABULAR UNA TABLA                            (PYTHON_0006)
+
+***   0004   ***   MODULO
+-------------------------------------------------------------------------------
+
+************************
+***   BIBLIOGRAFIA   ***
+************************
+
+PAGINA DEL PROFESOR
+https://www.globalmentoring.com.mx/
+
+TUTORIAL
+https://docs.python.org/3.12/tutorial/index.html
+
+DOCUMENTACION
+https://docs.python.org/3.12/index.html
+
+USANDO PYTHON SOBRE WINDOWS
+https://docs.python.org/3.12/using/windows.html
+
+LO NUEVO EN PYTHON 3.12
+https://docs.python.org/3.12/whatsnew/3.12.html
+
+********************************
+***   RUTAS DE INSTALACION   ***
+********************************
+
+DOWNLOAD PYCHARM COMMUNITY
+C:\Program Files\JetBrains\PyCharm Community Edition 2023.3.2
+
+INTERPRETE PYTHON
+C:\Users\RYZEN\AppData\Local\Programs\Python\Python312\python.exe
+
+****************************
+***   RUTAS PYTHON MIO   ***
+****************************
+
+C:\Users\RYZEN\Documents\NetBeansProjects\INICIOJAVA\PYTHON\15-09-2022\PYTHONPROJECTS\TIPOSDEDATOS\Libreria
+D:\Mi unidad\RESUMEN\RESUMEN___PYTHON\PYTHONPROJECTS\ExercisesProject0001\Libreria
+O:\LENGUAJE_ESTRUCTURADO\PROJECTPYTHON
+
+********************************
+***   VARIABLES DE ENTORNO   ***
+********************************
+
+--------------------------------------------------------------------------------
+- PYTHONPATH (PARA COLOCAR NUESTROS MODULOS A MODO DE LIBRERIA)
+
+* PYTHONPATH es el nombre de la  variable de  entorno  para colocar  rutas  para
+  nuestros modulos.
+* En esta variable  de  entorno  colocamos  los  modulos  que  queremos  acceder
+* Los módulos son archivo .py
+* Podemos colocar en dicha variable de entorno muchas rutas.
+--------------------------------------------------------------------------------
+- PATH (PARA COLOCAR LA RUTA DONDE ESTA EL INTERPRETE PYTHON QUE INSTALAMOS)
+
+* Editamos la variable de entorno path y agregamos esta ruta:
+
+C:\Users\RYZEN\AppData\Local\Programs\Python\Python312
+
+* Editamos  la  variable  de  entorno path y agregamos de esta manera también la
+  variable de entorno de nuestros modulos que haga uso nuestros proyectos python
+
+%PYTHONPATH%
+--------------------------------------------------------------------------------
+
+***************************************
+***   LINEAS DE COMANDO DE PYTHON   ***
+***************************************
+
+--------------------------------------------------------------------------------
+* Levantamos una consola cmd y en el prompt escribimos "python"
+
+O:\TRABAJANDO\PROJECTS___PYTHON>python
+
+* Si todo es correcto se muestra en la consola el siguiente prompt >>>  donde se
+  escriben los comandos directamente en la consola.
+  
+* Para  salir  de  la  consola  de  linea  de comandos de python y regresar a la
+  consola cmd escribimos >>>exit()
+--------------------------------------------------------------------------------
+  
+
+
+
+
