@@ -1,0 +1,68 @@
+===============================================================================
+- SELECCIONAR COLUMNAS
+
+SELECT * FROM MEDICO;
+SELECT CODIGOMEDICO, APELLIDOS FROM MEDICO;
+===============================================================================
+- RENOMBRAR COLUMNAS
+
+SELECT FIRST_NAME, LAST_NAME, SALARY AS "SALARIO EMPLEADO" FROM EMPLOYEES;
+===============================================================================
+- OPERADORES ARITMETICOS
+
+Suma			+
+Resta			-
+División		/
+Multiplicación		*
+Resto			%
+
+SELECT FIRST_NAME, SALARY, SALARY*12 AS "SALARIO ANUAL", 20*10 AS EJEMPLO FROM EMPLOYEES;
+SELECT 4+3 FROM EMPLOYEES
+SELECT 4+3, FIRST_NAME FROM EMPLOYEES;
+===============================================================================
+- CONCATENAR CADENAS
+
+SELECT 'NOMBRE:'||FIRST_NAME AS "NOMBRE EMPLEADO" FROM EMPLOYEES;
+
+SELECT 'NOMBRE:' || FIRST_NAME || ' ' || LAST_NAME AS "NOMBRE EMPLEADO" FROM EMPLOYEES;
+
+===============================================================================
+- TABLA DUAL
+
+Es una tabla de apoyo que viene con oracle, siempre devuelve una fila y es una tabla que no se puede tocar
+
+SELECT 4+3, 'ES EL RESULTADO' FROM DUAL;
+===============================================================================
+- ESTRUCTURA DE UNA TABLA
+
+DESC DUAL;
+===============================================================================
+- NULOS Y NULL
+
+NULL es el vacio valor que no existe
+Un espacio en blanco no es NULL ya que tiene un valor que es un espacio en blanco
+Si se realiza un calculo con un campo NULL el resultado siempre será NULL
+
+SELECT FIRST_NAME, SALARY, COMMISSION_PCT, SALARY*COMMISSION_PCT AS "SALARIO TOTAL" FROM EMPLOYEES;
+===============================================================================
+- DISTINCT
+
+SELECT FIRST_NAME, DEPARTMENT_ID FROM EMPLOYEES;
+
+SELECT DISTINCT DEPARTMENT_ID FROM EMPLOYEES;
+===============================================================================
+
+
+===============================================================================
+
+
+===============================================================================
+
+
+===============================================================================
+
+
+===============================================================================
+
+
+===============================================================================
