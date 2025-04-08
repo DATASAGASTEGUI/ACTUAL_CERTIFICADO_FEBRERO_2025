@@ -1,0 +1,135 @@
+****************
+***   0001   ***
+****************
+--------------------------------------------------------------------------------
+CREAR EL MODULO
+
+Un módulo en Python es simplemente un archivo .py que contiene funciones, clases 
+o variables que quieres reutilizar.
+
+Por ejemplo, si quieres crear un módulo llamado matematica.py, crea el archivo y 
+define funciones o clases dentro de él.
+--------------------------------------------------------------------------------
+GUARDAR EL MODULO
+
+Guarda el archivo matematica.py en una carpeta de tu proyecto o en un directorio 
+que puedas acceder fácilmente.
+
+CREAR LA VARIABLE DE ENTORNO PYTHONPATH
+
+Agregar el directorio donde tienes el módulo a la variable de entorno PYTHONPATH
+
+SET PYTHONPATH=.;C:\A_DESKTOP\APUNTES\PYTHON\MIS_MODULOS;%PYTHONPATH%
+--------------------------------------------------------------------------------
+USAR EL MODULO EN OTROS ARCHIVOS
+
+Para  usar  el  módulo  en  cualquier  otro archivo de Python, puedes importarlo 
+utilizando la declaración import.
+
+from MIS_MODULOS.matematica import Suma, sumar, iva
+--------------------------------------------------------------------------------
+****************
+***   0002   ***
+****************
+--------------------------------------------------------------------------------
+FORMAS DE IMPORTAR MODULOS O FUNCIONES DE UN MODULO
+
+En Python, existen varias formas de importar módulos o funciones de un módulo. 
+Aquí te explico las formas más comunes:
+--------------------------------------------------------------------------------
+1. Importar todo el módulo
+
+Cuando importas todo el módulo, accedes  a  sus funciones y clases utilizando el 
+nombre del módulo como prefijo.
+
+import math                 # Importa todo el módulo
+
+resultado = math.sqrt(16)   # Usando la función sqrt() del módulo math
+print(resultado)            # Salida: 4.0
+--------------------------------------------------------------------------------
+2. Importar solo funciones o clases específicas
+
+En lugar de importar todo el módulo, puedes importar solo las funciones o clases 
+que necesitas.
+
+from math import sqrt       # Importa solo la función sqrt
+
+resultado = sqrt(16)        # No necesitas usar el prefijo math.
+print(resultado)            # Salida: 4.0
+--------------------------------------------------------------------------------
+3. Importar con un alias (renombrar el módulo)
+
+Puedes renombrar el módulo para hacer que el código sea más corto o más claro.
+
+import math as m            # Renombra math como m
+
+resultado = m.sqrt(16)      # Usando el alias m en lugar de math
+print(resultado)            # Salida: 4.0
+
+Del mismo modo, puedes renombrar funciones específicas:
+
+from math import sqrt as raiz  # Renombra sqrt como raiz
+
+resultado = raiz(16)
+print(resultado)                # Salida: 4.0
+--------------------------------------------------------------------------------
+4. Importar todo el contenido del módulo con import *
+
+Puedes importar todas las funciones y clases de un módulo  sin  usar  el prefijo 
+del módulo. Esta práctica no es recomendada porque puede sobrescribir nombres  y 
+dificultar la lectura del código.
+
+from math import *
+
+resultado = sqrt(16)    # Puedes usar sqrt sin prefijo
+print(resultado)        # Salida: 4.0
+--------------------------------------------------------------------------------
+5. Importar módulos desde un paquete
+
+Si tienes una estructura de  directorios  en  forma  de paquete, puedes importar 
+módulos dentro de un paquete.
+
+from paquete.subpaquete import modulo  # Importa un módulo desde un subpaquete
+
+resultado = modulo.funcion()
+--------------------------------------------------------------------------------
+6. Importar dentro de funciones
+
+Aunque no es muy común, puedes realizar una importación  dentro de  una función. 
+Esto puede ser útil si solo necesitas una función o módulo en casos específicos, 
+lo que evita cargar el módulo al inicio del script.
+
+def mi_funcion():
+    import math         # Importación dentro de la función
+    return math.sqrt(16)
+
+print(mi_funcion())     # Salida: 4.0
+--------------------------------------------------------------------------------
+7. Cargar módulos de forma dinámica
+
+Puedes cargar módulos dinámicamente en tiempo de ejecución utilizando la función 
+importlib.
+
+import importlib
+
+math = importlib.import_module('math')  # Carga el módulo math dinámicamente
+resultado = math.sqrt(16)
+print(resultado)                        # Salida: 4.0
+--------------------------------------------------------------------------------
+RESUMEN DE LAS FORMAS
+
+import módulo — Importa todo el módulo.
+
+from módulo import función — Importa una función específica.
+
+import módulo as alias — Importa el módulo con un alias.
+
+from módulo import función as alias — Importa una función con un alias.
+
+from módulo import * — Importa todo el contenido sin prefijo (evitar).
+
+import módulo dentro_de_función — Importación dentro de una función (rara vez se
+                                  usa).
+Cada forma de importación tiene su uso dependiendo  del  tamaño  del módulo y de 
+tus necesidades en el código.
+--------------------------------------------------------------------------------

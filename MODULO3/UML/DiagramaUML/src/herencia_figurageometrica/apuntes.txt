@@ -1,0 +1,250 @@
+package implementacion;
+
+public abstract class FiguraGeometrica {
+
+    // VARIABLES DE INSTANCIA
+    private String nombre;
+
+    // CONSTRUCTORES
+    public FiguraGeometrica() {
+        this.nombre = "";
+    }
+
+    public FiguraGeometrica(String nombre) {
+        this.nombre = nombre;
+    }
+
+    // METODOS SET Y GET
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    // METODOS ABSTRACT
+    abstract double area();
+    abstract double perimetro();
+    
+    // MOSTRAR INFORMACION
+    @Override
+    public String toString() {
+        return "FiguraGeometrica{" + "nombre=" + nombre + '}';
+    }
+}
+
+package implementacion;
+
+public class Triangulo extends FiguraGeometrica {
+
+    // VARIABLES DE INSTANCIA
+    private double base;
+    private double altura;
+
+    // CONSTRUCTORES
+    public Triangulo() {
+        super("");
+        this.base = 0.0;
+        this.altura = 0.0;
+    }
+
+    public Triangulo(String nombre, double base, double altura) {
+        super(nombre);
+        this.base = base;
+        this.altura = altura;
+    }
+
+    // METODOS SET Y GET
+    public double getBase() {
+        return base;
+    }
+
+    public void setBase(double base) {
+        this.base = base;
+    }
+
+    public double getAltura() {
+        return altura;
+    }
+
+    public void setAltura(double altura) {
+        this.altura = altura;
+    }
+
+    // METODOS ABSTRACT
+    public double area() {
+        return this.base * this.altura / 2;
+    }
+
+    public double perimetro() {
+        return this.base + 2 * Math.sqrt(Math.pow(this.base / 2, 2) + Math.pow(this.altura, 2));
+    }
+
+    // MOSTRAR INFORMACION
+    @Override
+    public String toString() {
+        return super.toString() + "Triangulo{" + "base=" + base + ", altura=" + altura + '}';
+    }
+}
+
+package implementacion;
+
+public class Rectangulo extends FiguraGeometrica {
+
+    // VARIABLES DE INSTANCIA
+    private double ancho;
+    private double alto;
+
+    // CONSTRUCTORES
+    public Rectangulo() {
+        super("");
+        this.ancho = 0.0;
+        this.alto = 0.0;
+    }
+
+    public Rectangulo(String nombre, double ancho, double alto) {
+        super(nombre);
+        this.ancho = ancho;
+        this.alto = alto;
+    }
+
+    // METODOS SET Y GET
+    public double getAncho() {
+        return ancho;
+    }
+
+    public void setAncho(double ancho) {
+        this.ancho = ancho;
+    }
+
+    public double getAlto() {
+        return alto;
+    }
+
+    public void setAlto(double alto) {
+        this.alto = alto;
+    }
+
+    // METODOS ABSTRACT
+    @Override
+    double area() {
+        return this.alto * this.ancho;
+    }
+
+    @Override
+    double perimetro() {
+        return 2 * (this.alto + this.ancho);
+    }
+
+    // MOSTRAR INFORMACION
+    @Override
+    public String toString() {
+        return super.toString() + "Rectangulo{" + "ancho=" + ancho + ", alto=" + alto + '}';
+    }
+}
+
+package implementacion;
+
+public class Circulo extends FiguraGeometrica {
+
+    // VARIABLES DE INSTANCIA
+    private double radio;
+
+    // CONSTRUCTORES
+    public Circulo() {
+        super("");
+        this.radio = 0.0;
+    }
+
+    public Circulo(String nombre, double radio) {
+        super(nombre);
+        this.radio = radio;
+    }
+
+    // METODOS SET Y GET
+    public double getRadio() {
+        return radio;
+    }
+
+    public void setRadio(double radio) {
+        this.radio = radio;
+    }
+
+    // METODOS ABSTRACT
+    @Override
+    double area() {
+        return Math.PI * this.radio * this.radio;
+    }
+
+    @Override
+    double perimetro() {
+        return 2 * Math.PI * this.radio;
+    }
+
+    // MOSTRAR INFORMACION
+    @Override
+    public String toString() {
+        return super.toString() + "Circulo{" + "radio=" + radio + '}';
+    }
+}
+
+package implementacion;
+
+import java.util.List;
+
+public class GestionModelo {
+
+    // VARIABLES DE INSTANCIA
+    private List<FiguraGeometrica> lista;
+    
+    // CONSTRUCTORES
+    public GestionModelo() {
+        this.lista = null;
+    }
+
+    public GestionModelo(List<FiguraGeometrica> lista) {
+        this.lista = lista;
+    }
+    
+    // METODOS SET Y GET
+    public List<FiguraGeometrica> getLista() {
+        return lista;
+    }
+
+    public void setLista(List<FiguraGeometrica> lista) {
+        this.lista = lista;
+    }
+    
+    // METODOS CRUD
+    // READ
+    public void mostrarTodosFigurasGeometricas() {
+        for(FiguraGeometrica fg: this.lista) {
+               System.out.println(fg);
+        }
+    }
+}
+
+package implementacion;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Principal {
+
+    public static void main(String[] args) {
+        List<FiguraGeometrica> lista = new ArrayList<>();
+
+        lista.add(new Triangulo("T1", 2, 3));
+        lista.add(new Triangulo("T2", 8, 4));
+        lista.add(new Rectangulo("R1", 2, 3));
+        lista.add(new Circulo("C1", 2));
+        lista.add(new Circulo("C2", 4));
+
+        GestionModelo gm = new GestionModelo(lista);
+
+        gm.mostrarTodosFigurasGeometricas();
+    }
+}
+
+

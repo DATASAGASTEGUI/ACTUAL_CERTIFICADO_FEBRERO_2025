@@ -1,0 +1,1284 @@
+****************
+***   0001   ***
+****************
+--------------------------------------------------------------------------------
+import java.util.ArrayList;
+import java.util.List;
+
+public class Estudiante {
+    private String nombre;
+    private List<Inscripcion> inscripciones; // Relación con Inscripcion
+
+    public Estudiante(String nombre) {
+        this.nombre = nombre;
+        this.inscripciones = new ArrayList<>();
+    }
+
+    // Inscribe al estudiante en un curso con una fecha
+    public void inscribirEnCurso(Curso curso, String fecha) {
+        Inscripcion inscripcion = new Inscripcion(this, curso, fecha);
+        this.inscripciones.add(inscripcion);
+        curso.agregarInscripcion(inscripcion); // Bidireccionalidad
+    }
+
+    // Getter para obtener los cursos del estudiante
+    public List<Curso> getCursosInscritos() {
+        List<Curso> cursos = new ArrayList<>();
+        for (Inscripcion insc : inscripciones) {
+            cursos.add(inscrip.getCurso());
+        }
+        return cursos;
+    }
+
+    // Getters y setters
+    public String getNombre() {
+        return nombre;
+    }
+}
+--------------------------------------------------------------------------------
+import java.util.ArrayList;
+import java.util.List;
+
+public class Curso {
+    private String codigo;
+    private List<Inscripcion> inscripciones; // Relación con Inscripcion
+
+    public Curso(String codigo) {
+        this.codigo = codigo;
+        this.inscripciones = new ArrayList<>();
+    }
+
+    // Agrega una inscripción al curso
+    public void agregarInscripcion(Inscripcion inscripcion) {
+        this.inscripciones.add(inscripcion);
+    }
+
+    // Getter para obtener los estudiantes inscritos
+    public List<Estudiante> getEstudiantesInscritos() {
+        List<Estudiante> estudiantes = new ArrayList<>();
+        for (Inscripcion insc : inscripciones) {
+            estudiantes.add(inscrip.getEstudiante());
+        }
+        return estudiantes;
+    }
+
+    // Getters y setters
+    public String getCodigo() {
+        return codigo;
+    }
+}
+--------------------------------------------------------------------------------
+public class Inscripcion {
+    private Estudiante estudiante;
+    private Curso curso;
+    private String fechaInscripcion; // Atributo adicional
+
+    public Inscripcion(Estudiante estudiante, Curso curso, String fecha) {
+        this.estudiante = estudiante;
+        this.curso = curso;
+        this.fechaInscripcion = fecha;
+    }
+
+    // Getters
+    public Estudiante getEstudiante() {
+        return estudiante;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public String getFechaInscripcion() {
+        return fechaInscripcion;
+    }
+}
+--------------------------------------------------------------------------------
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        // Crear estudiantes
+        Estudiante juan = new Estudiante("Juan");
+        Estudiante maria = new Estudiante("María");
+        Estudiante carlos = new Estudiante("Carlos");
+
+        // Crear cursos
+        Curso matematicas = new Curso("MAT101");
+        Curso fisica = new Curso("FIS201");
+        Curso programacion = new Curso("PROG301");
+
+        // Inscripciones
+        juan.inscribirEnCurso(matematicas, "2023-10-01");
+        juan.inscribirEnCurso(programacion, "2023-10-02");
+        maria.inscribirEnCurso(fisica, "2023-10-01");
+        carlos.inscribirEnCurso(matematicas, "2023-10-03");
+        carlos.inscribirEnCurso(fisica, "2023-10-04");
+
+        // Mostrar cursos de Juan
+        System.out.println("Cursos de Juan:");
+        for (Curso curso : juan.getCursosInscritos()) {
+            System.out.println("- " + curso.getCodigo());
+        }
+
+        // Mostrar estudiantes en Matemáticas
+        System.out.println("\nEstudiantes en MAT101:");
+        for (Estudiante est : matematicas.getEstudiantesInscritos()) {
+            System.out.println("- " + est.getNombre());
+        }
+    }
+}
+--------------------------------------------------------------------------------
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        // Crear estudiantes
+        Estudiante juan = new Estudiante("Juan");
+        Estudiante maria = new Estudiante("María");
+        Estudiante carlos = new Estudiante("Carlos");
+
+        // Crear cursos
+        Curso matematicas = new Curso("MAT101");
+        Curso fisica = new Curso("FIS201");
+        Curso programacion = new Curso("PROG301");
+
+        // Inscripciones
+        juan.inscribirEnCurso(matematicas, "2023-10-01");
+        juan.inscribirEnCurso(programacion, "2023-10-02");
+        maria.inscribirEnCurso(fisica, "2023-10-01");
+        carlos.inscribirEnCurso(matematicas, "2023-10-03");
+        carlos.inscribirEnCurso(fisica, "2023-10-04");
+
+        // 1. Mostrar cursos de Juan (usa el ArrayList de Estudiante)
+        System.out.println("Cursos de Juan:");
+        for (Curso curso : juan.getCursosInscritos()) {
+            System.out.println("- " + curso.getCodigo());
+        }
+
+        // 2. Mostrar estudiantes en Matemáticas (usa el ArrayList de Curso)
+        System.out.println("\nEstudiantes en MAT101:");
+        for (Estudiante est : matematicas.getEstudiantesInscritos()) {
+            System.out.println("- " + est.getNombre());
+        }
+
+        // 3. MOSTRAR USO EXPLÍCITO DE LOS ARRAYLISTS DE INSCRIPCIONES
+        
+        // a) Obtener todas las inscripciones de un estudiante con fechas
+        System.out.println("\nInscripciones de Carlos con fechas:");
+        // Necesitaríamos agregar un getter para inscripciones en Estudiante
+        // (lo agregaré abajo como modificación necesaria)
+        for (Inscripcion insc : carlos.getInscripciones()) {
+            System.out.println("- Curso: " + insc.getCurso().getCodigo() + 
+                             ", Fecha: " + insc.getFechaInscripcion());
+        }
+
+        // b) Obtener todas las inscripciones de un curso con fechas
+        System.out.println("\nInscripciones en Física con fechas:");
+        // Necesitaríamos agregar un getter para inscripciones en Curso
+        for (Inscripcion insc : fisica.getInscripciones()) {
+            System.out.println("- Estudiante: " + insc.getEstudiante().getNombre() + 
+                             ", Fecha: " + insc.getFechaInscripcion());
+        }
+
+        // c) Buscar información específica en las inscripciones
+        System.out.println("\n¿Está Juan inscrito en Programación?");
+        boolean juanEnProgramacion = juan.getInscripciones().stream()
+            .anyMatch(insc -> insc.getCurso().getCodigo().equals("PROG301"));
+        System.out.println("Respuesta: " + juanEnProgramacion);
+    }
+}
+--------------------------------------------------------------------------------
+****************
+***   0002   ***
+****************
+class Estudiante:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.inscripciones = []  # Relación con Inscripcion
+
+    # Inscribe al estudiante en un curso con una fecha
+    def inscribir_en_curso(self, curso, fecha):
+        inscripcion = Inscripcion(self, curso, fecha)
+        self.inscripciones.append(inscripcion)
+        curso.agregar_inscripcion(inscripcion)  # Bidireccionalidad
+
+    # Getter para obtener los cursos del estudiante
+    def get_cursos_inscritos(self):
+        return [inscripcion.curso for inscripcion in self.inscripciones]
+
+    # Getters
+    @property
+    def nombre(self):
+        return self._nombre
+    
+    @nombre.setter
+    def nombre(self, value):
+        self._nombre = value
+
+
+class Curso:
+    def __init__(self, codigo):
+        self.codigo = codigo
+        self.inscripciones = []  # Relación con Inscripcion
+
+    # Agrega una inscripción al curso
+    def agregar_inscripcion(self, inscripcion):
+        self.inscripciones.append(inscripcion)
+
+    # Getter para obtener los estudiantes inscritos
+    def get_estudiantes_inscritos(self):
+        return [inscripcion.estudiante for inscripcion in self.inscripciones]
+
+    # Getters
+    @property
+    def codigo(self):
+        return self._codigo
+    
+    @codigo.setter
+    def codigo(self, value):
+        self._codigo = value
+
+
+class Inscripcion:
+    def __init__(self, estudiante, curso, fecha):
+        self.estudiante = estudiante
+        self.curso = curso
+        self.fecha_inscripcion = fecha  # Atributo adicional
+
+    # Getters como propiedades
+    @property
+    def estudiante(self):
+        return self._estudiante
+    
+    @property
+    def curso(self):
+        return self._curso
+    
+    @property
+    def fecha_inscripcion(self):
+        return self._fecha_inscripcion
+
+
+def main():
+    # Crear estudiantes
+    juan = Estudiante("Juan")
+    maria = Estudiante("María")
+    carlos = Estudiante("Carlos")
+
+    # Crear cursos
+    matematicas = Curso("MAT101")
+    fisica = Curso("FIS201")
+    programacion = Curso("PROG301")
+
+    # Inscripciones
+    juan.inscribir_en_curso(matematicas, "2023-10-01")
+    juan.inscribir_en_curso(programacion, "2023-10-02")
+    maria.inscribir_en_curso(fisica, "2023-10-01")
+    carlos.inscribir_en_curso(matematicas, "2023-10-03")
+    carlos.inscribir_en_curso(fisica, "2023-10-04")
+
+    # 1. Mostrar cursos de Juan (usa la lista de Estudiante)
+    print("Cursos de Juan:")
+    for curso in juan.get_cursos_inscritos():
+        print(f"- {curso.codigo}")
+
+    # 2. Mostrar estudiantes en Matemáticas (usa la lista de Curso)
+    print("\nEstudiantes en MAT101:")
+    for est in matematicas.get_estudiantes_inscritos():
+        print(f"- {est.nombre}")
+
+    # 3. MOSTRAR USO EXPLÍCITO DE LAS LISTAS DE INSCRIPCIONES
+    
+    # a) Obtener todas las inscripciones de un estudiante con fechas
+    print("\nInscripciones de Carlos con fechas:")
+    for insc in carlos.inscripciones:
+        print(f"- Curso: {insc.curso.codigo}, Fecha: {insc.fecha_inscripcion}")
+
+    # b) Obtener todas las inscripciones de un curso con fechas
+    print("\nInscripciones en Física con fechas:")
+    for insc in fisica.inscripciones:
+        print(f"- Estudiante: {insc.estudiante.nombre}, Fecha: {insc.fecha_inscripcion}")
+
+    # c) Buscar información específica en las inscripciones
+    print("\n¿Está Juan inscrito en Programación?")
+    juan_en_programacion = any(insc.curso.codigo == "PROG301" for insc in juan.inscripciones)
+    print(f"Respuesta: {juan_en_programacion}")
+
+
+if __name__ == "__main__":
+    main()
+	
+	
+****************
+***   0003   ***
+****************
+
+Cómo usarlo en NetBeans con PlantUML:
+Instala el plugin PlantUML en NetBeans (desde Tools > Plugins).
+
+Crea un archivo .puml (ej: herencia.puml).
+
+Pega el código UML y haz clic en Preview para ver el diagrama.
+
+(1) Herencia Simple (Clase base y derivada)
+
+@startuml
+class Vehiculo {
+  + marca: String
+  + acelerar(): void
+}
+
+class Coche extends Vehiculo {
+  + numPuertas: int
+  + abrirPuertas(): void
+}
+
+class Bicicleta extends Vehiculo {
+  + tipo: String
+  + pedalear(): void
+}
+@enduml
+
+Explicación:
+
+Coche y Bicicleta heredan de Vehiculo.
+
+Heredan los atributos (marca) y métodos (acelerar()).
+
+(2) Herencia con Interfaces
+
+@startuml
+interface Volador {
+  + volar(): void
+}
+
+class Pajaro implements Volador {
+  + cantar(): void
+}
+
+class Avion implements Volador {
+  + despegar(): void
+}
+@enduml
+
+Explicación:
+
+Pajaro y Avion implementan la interfaz Volador (herencia de tipo interfaz).
+
+(3) Herencia Multinivel
+
+@startuml
+class Animal {
+  + comer(): void
+}
+
+class Mamifero extends Animal {
+  + amamantar(): void
+}
+
+class Perro extends Mamifero {
+  + ladrar(): void
+}
+@enduml
+
+Explicación:
+
+Mamifero hereda de Animal.
+
+Perro hereda de Mamifero (y por tanto también de Animal).
+
+(4) Herencia Múltiple (Usando interfaces)
+
+@startuml
+interface Nadador {
+  + nadar(): void
+}
+
+interface Cazador {
+  + cazar(): void
+}
+
+class Tiburon implements Nadador, Cazador {
+  + atacar(): void
+}
+@enduml
+
+Explicación:
+
+Tiburon implementa múltiples interfaces (Nadador y Cazador).
+
+(5) Herencia con Clases Abstractas y Métodos Abstractos
+
+@startuml
+abstract class Figura {
+  {abstract} + calcularArea(): double
+  {abstract} + dibujar(): void
+}
+
+class Circulo extends Figura {
+  - radio: double
+  + calcularArea(): double
+  + dibujar(): void
+}
+
+class Rectangulo extends Figura {
+  - base: double
+  - altura: double
+  + calcularArea(): double
+  + dibujar(): void
+}
+@enduml
+
+Explicación:
+
+Figura es una clase abstracta con métodos abstractos (calcularArea(), dibujar()).
+
+Circulo y Rectangulo implementan los métodos abstractos.
+
+(6) Herencia con Sobreescritura de Métodos y Polimorfismo
+
+@startuml
+class Persona {
+  + nombre: String
+  + saludar(): void { "Hola, soy " + nombre }
+}
+
+class Estudiante extends Persona {
+  + matricula: String
+  + saludar(): void { "Soy estudiante, mi matrícula es " + matricula }
+}
+
+class Profesor extends Persona {
+  + departamento: String
+  + saludar(): void { "Soy profesor del departamento de " + departamento }
+}
+@enduml
+
+Explicación:
+
+Estudiante y Profesor sobreescriben el método saludar() de Persona.
+
+Ejemplo de polimorfismo: Dependiendo de la instancia, el método saludar() se comporta diferente.
+
+(7) Herencia Múltiple con Interfaces y Clases (Simulación)
+
+@startuml
+interface ICantante {
+  + cantar(): void
+}
+
+interface IBailarin {
+  + bailar(): void
+}
+
+class Artista {
+  + nombre: String
+}
+
+class PersonaTalentosa extends Artista implements ICantante, IBailarin {
+  + cantar(): void { "🎤 Cantando..." }
+  + bailar(): void { "💃 Bailando..." }
+}
+@enduml
+
+Explicación:
+
+PersonaTalentosa hereda de Artista e implementa dos interfaces (ICantante, IBailarin).
+
+En Java/C#, esto simularía herencia múltiple (que no está permitida directamente en estos lenguajes, pero se logra con interfaces).
+
+(8) Composición y Herencia (Relación "Tiene-Un" y "Es-Un")
+
+@startuml
+class Motor {
+  + encender(): void
+  + apagar(): void
+}
+
+class Coche {
+  - motor: Motor
+  + acelerar(): void
+}
+
+class CocheElectrico extends Coche {
+  - bateria: int
+  + cargar(): void
+}
+@enduml
+
+Explicación:
+
+Coche tiene un Motor (composición).
+
+CocheElectrico es un Coche (herencia) y añade una batería.
+
+(9)  Jerarquía Compleja con Interfaces y Clases Abstractas
+
+@startuml
+abstract class Dispositivo {
+  {abstract} + encender(): void
+  {abstract} + apagar(): void
+}
+
+interface IConectable {
+  + conectarWifi(): void
+}
+
+class Smartphone extends Dispositivo implements IConectable {
+  + encender(): void { "📱 Smartphone encendido" }
+  + apagar(): void { "Smartphone apagado" }
+  + conectarWifi(): void { "Conectando a WiFi..." }
+}
+
+class Laptop extends Dispositivo implements IConectable {
+  + encender(): void { "💻 Laptop iniciando..." }
+  + apagar(): void { "Laptop apagándose..." }
+  + conectarWifi(): void { "Buscando redes..." }
+}
+@enduml
+
+Explicación:
+
+Dispositivo es una clase abstracta con métodos abstractos.
+
+Smartphone y Laptop heredan de Dispositivo e implementan IConectable.
+
+(10) Patrón de Diseño: Strategy con Herencia
+
+@startuml
+interface IEstrategiaPago {
+  + pagar(monto: double): void
+}
+
+class PagoPayPal implements IEstrategiaPago {
+  + pagar(monto: double): void { "Pagando $" + monto + " via PayPal" }
+}
+
+class PagoTarjeta implements IEstrategiaPago {
+  + pagar(monto: double): void { "Pagando $" + monto + " con Tarjeta" }
+}
+
+class CarritoCompras {
+  - estrategia: IEstrategiaPago
+  + setEstrategia(estrategia: IEstrategiaPago)
+  + checkout(monto: double)
+}
+@enduml
+
+Explicación:
+
+Ejemplo del patrón Strategy, donde CarritoCompras usa una estrategia de pago (interfaz IEstrategiaPago).
+
+PagoPayPal y PagoTarjeta son estrategias concretas.
+
+(11) RELACION DE UNO A MUCHOS
+
+ndica que una instancia de una clase puede estar asociada con múltiples instancias de otra clase.
+
+Ejemplo:
+Departamento tiene muchos Empleados.
+
+Empleado pertenece a un solo Departamento.
+
+EJEMPLO
+
+@startuml
+
+class Departamento {
+  + id: int
+  + nombre: String
+}
+
+class Empleado {
+  + id: int
+  + nombre: String
+}
+
+Departamento "1" -- "*" Empleado : "tiene"
+
+@enduml
+
+"1" -- "*" significa:
+
+1 (Departamento) → Muchos (Empleado).
+
+Un departamento tiene 0 o más empleados (si fuera obligatorio, se usaría 1..*).
+
+(12) RELACION DE MUCHOS A MUCHOS
+
+Concepto clave:
+En programación orientada a objetos (POO), una relación muchos a muchos significa que:
+
+Un objeto de la Clase A puede estar asociado a varios objetos de la Clase B.
+
+Un objeto de la Clase B puede estar asociado a varios objetos de la Clase A.
+
+@startuml
+
+class Estudiante {
+  + nombre: String
+  + matricula: String
+}
+
+class Curso {
+  + codigo: String
+  + nombre: String
+}
+
+Estudiante " * " -- " * " Curso : "matriculado en"
+
+@enduml
+
+" * " -- " * ":
+
+Un Estudiante puede estar en muchos Cursos.
+
+Un Curso puede tener muchos Estudiantes.
+
+Clase Asociativa (Cuando la relación tiene atributos propios)
+Si la relación necesita almacenar datos adicionales (ej: fecha de inscripción, calificación), se usa una clase intermedia:
+
+@startuml
+
+class Estudiante {
+  + nombre: String
+}
+
+class Curso {
+  + nombre: String
+}
+
+class Matricula {
+  + fecha: Date
+  + activa: boolean
+}
+
+Estudiante "1" --> "*" Matricula
+Curso "1" --> "*" Matricula
+
+@enduml
+
+¿Por qué?
+
+En POO, no existe una forma directa de representar atributos en una relación N a M sin una clase intermedia.
+
+Matricula es un objeto que almacena los datos de la relación.
+
+
+
+
+@startuml
+
+class Estudiante {
+  + id: int
+  + nombre: String
+}
+
+class Curso {
+  + codigo: String
+  + nombre: String
+}
+
+class Inscripcion {
+  + fecha: Date
+  + activa: boolean
+}
+
+Estudiante "1" --> "*" Inscripcion
+Curso "1" --> "*" Inscripcion
+
+note top of Inscripcion 
+  Esta clase representa la relación N a M
+  entre Estudiante y Curso.
+end note
+
+@enduml
+
+(13) RELACION DE UNO A UNO
+
+Indica que una instancia de una clase está asociada exactamente con una instancia de otra clase.
+
+Ejemplo:
+Persona tiene una Dirección (y viceversa).
+
+@startuml
+
+class Persona {
+  + id: int
+  + nombre: String
+}
+
+class Direccion {
+  + calle: String
+  + ciudad: String
+}
+
+Persona "1" -- "1" Direccion : "vive en"
+
+@enduml
+
+"1" -- "1" define la cardinalidad uno a uno.
+
+: "vive en" es una etiqueta opcional para describir la relación.
+
+(14) Ejemplo Combinado (1:1 y 1:N en un mismo diagrama)
+
+@startuml
+
+class Persona {
+  + id: int
+  + nombre: String
+}
+
+class Pasaporte {
+  + numero: String
+  + pais: String
+}
+
+class Auto {
+  + patente: String
+  + modelo: String
+}
+
+Persona "1" -- "1" Pasaporte : "posee"
+Persona "1" -- "*" Auto : "es dueño de"
+
+@enduml
+
+
+4. Notas importantes
+Multiplicidad alternativa:
+
+0..1 → Opcional (0 o 1).
+
+1..* → Obligatorio (al menos 1).
+
+* → Muchos (0 o más).
+
+Flechas:
+
+--> indica navegabilidad (dirección de la relación).
+
+-- sin flecha es una asociación bidireccional.
+
+
+
+
+
+
+
+
+
+
+// Clase Estudiante
+public class Estudiante {
+    private List<Curso> cursos = new ArrayList<>();
+}
+
+// Clase Curso
+public class Curso {
+    private List<Estudiante> estudiantes = new ArrayList<>();
+}
+
+Diferencia clave con SQL:
+En bases de datos, usas una tabla intermedia (ej: matriculas).
+
+En POO/UML, usas una clase asociativa (como Matricula) si necesitas atributos adicionales. Si no, basta con la multiplicidad * -- *.
+
+
+
+************************************
+***   EJEMPLO: MUCHOS A MUCHOS   ***
+************************************
+
+1. ESTRUCTURA DE CLASES
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Date;
+
+// Clase Estudiante
+class Estudiante {
+    private String nombre;
+    private String matricula;
+    private List<Matricula> matriculas; // Relación con Matricula
+
+    public Estudiante(String nombre, String matricula) {
+        this.nombre = nombre;
+        this.matricula = matricula;
+        this.matriculas = new ArrayList<>();
+    }
+
+    // Método para matricularse en un curso
+    public void matricular(Curso curso, Date fecha) {
+        Matricula matricula = new Matricula(this, curso, fecha);
+        this.matriculas.add(matricula);
+        curso.agregarMatricula(matricula);
+    }
+
+    // Getters
+    public String getNombre() { return nombre; }
+    public List<Matricula> getMatriculas() { return matriculas; }
+}
+
+// Clase Curso
+class Curso {
+    private String codigo;
+    private String nombre;
+    private List<Matricula> matriculas; // Relación con Matricula
+
+    public Curso(String codigo, String nombre) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.matriculas = new ArrayList<>();
+    }
+
+    // Método para agregar matrícula
+    public void agregarMatricula(Matricula matricula) {
+        this.matriculas.add(matricula);
+    }
+
+    // Getters
+    public String getNombre() { return nombre; }
+}
+
+// Clase Matricula (asociativa)
+class Matricula {
+    private Estudiante estudiante;
+    private Curso curso;
+    private Date fecha;
+    private boolean activa;
+
+    public Matricula(Estudiante estudiante, Curso curso, Date fecha) {
+        this.estudiante = estudiante;
+        this.curso = curso;
+        this.fecha = fecha;
+        this.activa = true;
+    }
+
+    // Getters
+    public Estudiante getEstudiante() { return estudiante; }
+    public Curso getCurso() { return curso; }
+}
+
+2. PROGRAMA PRINCIPAL
+
+public class Main {
+    public static void main(String[] args) {
+        // Crear estudiantes
+        Estudiante estudiante1 = new Estudiante("Ana", "A001");
+        Estudiante estudiante2 = new Estudiante("Carlos", "C002");
+
+        // Crear cursos
+        Curso curso1 = new Curso("MAT-101", "Matemáticas");
+        Curso curso2 = new Curso("PROG-202", "Programación");
+
+        // Matricular estudiantes en cursos
+        estudiante1.matricular(curso1, new Date());
+        estudiante1.matricular(curso2, new Date());
+        estudiante2.matricular(curso1, new Date());
+
+        // Mostrar matriculados
+        System.out.println("--- Matrículas de " + estudiante1.getNombre() + " ---");
+        for (Matricula matricula : estudiante1.getMatriculas()) {
+            System.out.println("- Curso: " + matricula.getCurso().getNombre());
+        }
+    }
+}
+
+3. DIAGRMA UML
+
+@startuml
+
+class Estudiante {
+  - nombre: String
+  - matricula: String
+  - matriculas: List<Matricula>
+  + matricular(Curso, Date)
+}
+
+class Curso {
+  - codigo: String
+  - nombre: String
+  - matriculas: List<Matricula>
+}
+
+class Matricula {
+  - estudiante: Estudiante
+  - curso: Curso
+  - fecha: Date
+  - activa: boolean
+}
+
+Estudiante "1" --> "*" Matricula
+Curso "1" --> "*" Matricula
+
+@enduml
+
+Puntos Clave
+Clase asociativa (Matricula): Almacena los datos de la relación (fecha, estado).
+
+Colecciones (List): Cada Estudiante y Curso tiene una lista de matrículas.
+
+Método matricular: Encapsula la lógica para crear matrículas y actualizar ambas clases.
+
+
+*********************************
+***   EJEMPLO: UNO A MUCHOS   ***
+*********************************
+
+relación uno a muchos (1:N) entre las clases Departamento y Empleado, donde un departamento tiene muchos empleados, pero cada empleado pertenece a un solo departamento.
+
+1. DIAGRAMA UML
+
+@startuml
+
+class Departamento {
+  - id: String
+  - nombre: String
+  - empleados: List<Empleado>
+  + agregarEmpleado(Empleado)
+}
+
+class Empleado {
+  - id: String
+  - nombre: String
+  - departamento: Departamento
+}
+
+Departamento "1" --> "*" Empleado : "contiene"
+
+@enduml
+
+Notación "1" --> "*":
+
+1 (Departamento) → N (Empleado).
+
+Un Departamento tiene muchos Empleado.
+
+Un Empleado pertenece a un solo Departamento.
+
+2. IMPLEMENTACION EN JAVA
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Departamento {
+    private String id;
+    private String nombre;
+    private List<Empleado> empleados; // Relación 1 a N
+
+    public Departamento(String id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+        this.empleados = new ArrayList<>();
+    }
+
+    // Método para agregar empleados
+    public void agregarEmpleado(Empleado empleado) {
+        this.empleados.add(empleado);
+        empleado.setDepartamento(this); // Bidireccional
+    }
+
+    // Getters
+    public String getNombre() { return nombre; }
+    public List<Empleado> getEmpleados() { return empleados; }
+}
+
+public class Empleado {
+    private String id;
+    private String nombre;
+    private Departamento departamento; // Relación N a 1
+
+    public Empleado(String id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
+    // Setter bidireccional
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
+
+    // Getters
+    public String getNombre() { return nombre; }
+    public Departamento getDepartamento() { return departamento; }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Crear departamentos
+        Departamento ventas = new Departamento("D-001", "Ventas");
+        Departamento it = new Departamento("D-002", "Tecnología");
+
+        // Crear empleados
+        Empleado emp1 = new Empleado("E-101", "Ana");
+        Empleado emp2 = new Empleado("E-102", "Carlos");
+        Empleado emp3 = new Empleado("E-103", "Luisa");
+
+        // Asignar empleados a departamentos
+        ventas.agregarEmpleado(emp1);
+        ventas.agregarEmpleado(emp2);
+        it.agregarEmpleado(emp3);
+
+        // Mostrar empleados por departamento
+        System.out.println("--- Empleados de " + ventas.getNombre() + " ---");
+        for (Empleado emp : ventas.getEmpleados()) {
+            System.out.println("- " + emp.getNombre());
+        }
+    }
+}
+
+Claves del Ejemplo
+Bidireccionalidad:
+
+Cuando un Empleado se agrega a un Departamento, automáticamente se actualiza su referencia a departamento.
+
+Cardinalidad:
+
+1 (Departamento) → * (Empleado): Un departamento tiene muchos empleados.
+
+N (Empleado) → 1 (Departamento): Cada empleado pertenece a un solo departamento.
+
+Uso de List:
+
+El departamento mantiene una lista de empleados (List<Empleado>).
+
+******************************
+***   EJEMPLO: UNO A UNO   ***
+******************************
+
+Relación Uno a Uno (1:1) en UML y Java
+Ejemplo:
+
+Persona tiene una Dirección (y viceversa).
+
+1. UML
+
+@startuml
+
+class Persona {
+  - id: String
+  - nombre: String
+  - direccion: Direccion
+  + setDireccion(Direccion)
+}
+
+class Direccion {
+  - calle: String
+  - ciudad: String
+  - persona: Persona
+  + setPersona(Persona)
+}
+
+Persona "1" -- "1" Direccion : "vive en"
+
+@enduml
+
+"1" -- "1": Indica la relación bidireccional uno a uno.
+
+Atributos de enlace:
+
+Persona tiene un atributo direccion (tipo Direccion).
+
+Direccion tiene un atributo persona (tipo Persona).
+
+2. IMPLEMENTACION JAVA
+
+public class Persona {
+    private String id;
+    private String nombre;
+    private Direccion direccion;  // Relación 1:1
+
+    public Persona(String id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
+    // Método para asignar dirección (bidireccional)
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
+        direccion.setPersona(this);  // Actualiza la referencia inversa
+    }
+
+    // Getters
+    public String getNombre() { return nombre; }
+    public Direccion getDireccion() { return direccion; }
+}
+
+public class Direccion {
+    private String calle;
+    private String ciudad;
+    private Persona persona;  // Relación 1:1
+
+    public Direccion(String calle, String ciudad) {
+        this.calle = calle;
+        this.ciudad = ciudad;
+    }
+
+    // Método para asignar persona (bidireccional)
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+
+    // Getters
+    public String getCalle() { return calle; }
+    public Persona getPersona() { return persona; }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Crear objetos
+        Persona persona1 = new Persona("P-001", "Ana");
+        Direccion direccion1 = new Direccion("Calle 123", "Ciudad de México");
+
+        // Establecer relación 1:1 (bidireccional)
+        persona1.setDireccion(direccion1);
+
+        // Verificar la relación
+        System.out.println("--- Datos de la Persona ---");
+        System.out.println("Nombre: " + persona1.getNombre());
+        System.out.println("Dirección: " + persona1.getDireccion().getCalle());
+
+        System.out.println("\n--- Datos de la Dirección ---");
+        System.out.println("Calle: " + direccion1.getCalle());
+        System.out.println("Persona asociada: " + direccion1.getPersona().getNombre());
+    }
+}
+
+Claves del Ejemplo
+Bidireccionalidad:
+
+Cuando una Persona se asigna a una Direccion, la Direccion también actualiza su referencia a la Persona (y viceversa).
+
+Cardinalidad 1:1:
+
+Una Persona tiene exactamente una Direccion.
+
+Una Direccion pertenece a exactamente una Persona.
+
+Atributos de enlace:
+
+Cada clase contiene un atributo del tipo de la otra clase.
+
+
+
+
+
+
+*****************
+***   CLASE   ***
+*****************
+(1) VERSION COMPLETA
+@startuml
+
+class Alumno {
+  -idAlumno: int
+  -nombre: String
+  -estatura: double
+  -edad: int
+  --
+  +Alumno(idAlumno: int, nombre: String, estatura: double, edad: int)
+  +getIdAlumno(): int
+  +getNombre(): String
+  +getEstatura(): double
+  +getEdad(): int
+  +setIdAlumno(idAlumno: int): void
+  +setNombre(nombre: String): void
+  +setEstatura(estatura: double): void
+  +setEdad(edad: int): void
+  
+  +esAdulto(): boolean
+}
+
+note top of Alumno
+  Representa un estudiante con sus
+  datos básicos y métodos de validación.
+end note
+@enduml
+
+(2) VERSION SIMPLIFICADA
+
+@startuml
+class Alumno {
+  -idAlumno: int
+  -nombre: String
+  -estatura: double
+  -edad: int
+  --
+  +esAdulto(): boolean
+}
+
+note top of Alumno
+  Representa un estudiante con sus
+  datos básicos y métodos de validación.
+end note
+@enduml
+
+********************
+***   HERENCIA   ***
+********************
+
+@startuml
+
+abstract class FiguraGeometrica {
+  -nombre: String
+  --
+  FiguraGeometrica(nombre: String)
+  +getNombre(): String
+  +setNombre(nombre: String): void
+  --
+  {abstract} +area(): double
+  {abstract} +perimetro(): double
+
+}
+
+class Triangulo {
+  -base: double
+  -altura: double
+  --
+  +area(): double
+  +perimetro(): double
+}
+
+class Rectangulo {
+  -ancho: double
+  -alto: double
+  --
+  +area(): double
+  +perimetro(): double
+}
+
+class Circulo {
+  -radio: double
+  --
+  +area(): double
+  +perimetro(): double
+}
+
+FiguraGeometrica <|-- Triangulo
+FiguraGeometrica <|-- Rectangulo
+FiguraGeometrica <|-- Circulo
+@enduml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

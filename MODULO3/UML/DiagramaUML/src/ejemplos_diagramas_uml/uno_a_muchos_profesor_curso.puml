@@ -1,0 +1,21 @@
+@startuml
+class Profesor {
+    - nombre: String
+    - cursos: List<Curso>
+    + agregarCurso(c: Curso)
+    + getNombre(): String
+    + getCursos(): List<Curso>
+}
+
+class Curso {
+    - nombreCurso: String
+    - profesor: Profesor
+    + setProfesor(p: Profesor)
+    + getNombreCurso(): String
+    + getProfesor(): Profesor
+}
+
+Profesor "1" --> "0..*" Curso : imparte
+Curso --> Profesor : pertenece a
+@enduml
+
