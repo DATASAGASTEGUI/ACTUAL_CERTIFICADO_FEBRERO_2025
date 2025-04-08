@@ -1,0 +1,65 @@
+show dbs
+cls
+use
+db
+db.nombre_coleccion.insertOne({})
+
+db.tipoCafe.find()
+
+db.tipoCafe.insertMany([
+{
+    nombre: 'María',
+    bebida: 'Café Expreso',
+    cantidad: 3,
+    stock: 77,
+    disponible: true
+},
+{
+    nombre: 'Carlos',
+    bebida: 'Café Expreso',
+    cantidad: 5,
+    stock: 72,
+    disponible: true
+}
+])
+
+db.tipoCafe.updateOne({nombre: "Carla"},{$set:{nombre: "Carolina"}})
+db.tipoCafe.deleteOne({_id:ObjectId('681cc612bfa1030c81e86a1d')})
+
+CRUD = CREATE READ UPDATE DELETE
+
+READ   = SELECT = find()
+CREATE = INSERT = insertOne, insertMany
+UPDATE = UPDATE = updateOne, deleteMany
+DELETE = DELETE = deleteOne, deleteMany
+
+
+bdtienda
+
+db.cliente.insertMany([
+{
+    nombre: 'María',
+    bebida: 'Café Expreso',
+    cantidad: 3,
+    stock: 77,
+    disponible: true
+},
+{
+    nombre: 'Carlos',
+    bebida: 'Café Expreso',
+    cantidad: 5,
+    stock: 72,
+    disponible: true
+}
+])
+
+db.cliente.find({"nombre": "Carlos"})
+
+IMPORTAR UNA BASE DE DATOS MONGODB DESDE UN SCRIPT
+mongoimport product.json -d mitienda -c producto --jsonArray --drop
+
+
+
+
+
+
